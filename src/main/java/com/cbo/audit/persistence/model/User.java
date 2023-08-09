@@ -1,4 +1,9 @@
 package com.cbo.audit.persistence.model;
 
-public class User {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ams_user")
+public class User extends BaseEntity{
 }

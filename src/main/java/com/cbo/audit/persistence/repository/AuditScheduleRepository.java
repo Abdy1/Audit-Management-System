@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface AuditScheduleRepository extends JpaRepository<AuditSchedule, Long> {
 
-
-    @Query(" SELECT AS FROM AuditSchedule AS " +
-            "WHERE AS.annualPlan.id = :planId")
+    @Query(" SELECT AUDIT FROM AuditSchedule AUDIT JOIN FETCH AUDIT.annualPlan WHERE AUDIT.annualPlan.id = :planId ")
     List<AuditSchedule> findAuditScheduleByAnnualPlanId(@Param("planId") Long planId);
 }

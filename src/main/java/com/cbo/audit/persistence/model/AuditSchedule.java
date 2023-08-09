@@ -8,7 +8,8 @@ import javax.persistence.*;
 import java.util.List;
 
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "ams_audit_schedule")
 public class AuditSchedule extends BaseEntity{

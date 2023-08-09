@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "ams_audit_program")
-public class AuditProgram {
+public class AuditProgram extends BaseEntity{
 
     @Column
     private String status;

@@ -7,6 +7,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ams_objective")
 public class Objective extends BaseEntity{
+    // for discussion
+    private String descripton;
 
     @ManyToOne
     private AuditProgram auditProgram;

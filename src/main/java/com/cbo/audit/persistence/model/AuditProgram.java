@@ -11,6 +11,10 @@ public class AuditProgram extends BaseEntity{
     @Column
     private String status;
 
+    //for discussion
+    @Column
+    private String previousStatus;
+
     @OneToMany
     private List<Objective> objectives;
 

@@ -1,7 +1,9 @@
 package com.cbo.audit.persistence.repository;
 
 import com.cbo.audit.persistence.model.AuditEngagement;
-import com.cbo.audit.persistence.model.AuditUniverse;
+
+import com.cbo.audit.persistence.model.AuditSchedule;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,12 +11,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface AuditEngagementRepository extends JpaRepository<AuditEngagement, Long> {
-//    @Query(" SELECT AE FROM AuditEngagement AE  "
-//            + " WHERE AE.status = :status")
-//    List<AuditEngagement> findAuditEngagementByStatus( @Param("status") String status);
-//
-//    @Query(" SELECT AE FROM AuditEngagement AE  "
-//            + " WHERE AE.status = :status " +
-//            " AND AE.name = :name ")
-//    List<AuditUniverse> findAuditEngagementByName( @Param("status") String status, @Param("name") String name);
+
+
+
+    @Query(" SELECT AE FROM AuditEngagement AE JOIN FETCH AE.auditSchedule WHERE AE.auditSchedule.id = :scheduleId ")
+    List<AuditEngagement> findAuditEngagementByAuditScheduleId(@Param("scheduleId") Long scheduleId);
+
 }

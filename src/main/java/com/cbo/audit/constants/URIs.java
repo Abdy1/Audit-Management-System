@@ -45,17 +45,21 @@ public final class URIs {
     public static final String AUDIT_ENGAGEMENT_BY_ID = AUDIT_ENGAGEMENT + FIND_BY_ID;
     public static final String AUDIT_ENGAGEMENT_UPDATE = AUDIT_ENGAGEMENT + UPDATE;
 
+    public static final String AUDIT_SCHEDULE = APPLICATION_CONTEXT + "/auditSchedule/";
+    public static final String AUDIT_SCHEDULE_REGISTER = AUDIT_SCHEDULE + REGISTER;
+    public static final String AUDIT_SCHEDULE_LIST_ALL = AUDIT_SCHEDULE + LIST_ALL;
+    public static final String AUDIT_SCHEDULE_BY_ID = AUDIT_SCHEDULE + FIND_BY_ID;
+    public static final String AUDIT_SCHEDULE_UPDATE = AUDIT_SCHEDULE + UPDATE;
+
 
     public static final String AUDIT_RISK= APPLICATION_CONTEXT + "/risk/";
     public static final String RISK_ITEM_LIST_ALL = AUDIT_RISK + "listRiskItem";
     public static final String RISK_SCORE_BY_ANNUAL_ID = AUDIT_RISK + "riskScoreByAnn";
     public static final String GET_RISK_LEVEL = AUDIT_RISK + "riskLevel";
-
-
     public static final String AUDIT_OBJECT = APPLICATION_CONTEXT + "/auditObject/";
     public static final String AUDIT_OBJECT_REGISTER = AUDIT_OBJECT + REGISTER;
     public static final String AUDIT_OBJECT_LIST_ALL = AUDIT_OBJECT + LIST_ALL;
-    public static final String AUDIT_OBJECT_BY_ID = AUDIT_OBJECT + FIND_BY_ID;
+    public static final String AUDIT_OBJECT_BY_ID = AUDIT_OBJECT + "findById";
     public static final String AUDIT_OBJECT_UPDATE = AUDIT_OBJECT + UPDATE;
     public static final String AUDIT_OBJECT_BY_AU = AUDIT_OBJECT + "byAU";
 

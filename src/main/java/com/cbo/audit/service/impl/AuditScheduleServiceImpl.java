@@ -6,7 +6,6 @@ import com.cbo.audit.mapper.AuditScheduleMapper;
 import com.cbo.audit.mapper.TeamMemberMapper;
 import com.cbo.audit.persistence.model.*;
 import com.cbo.audit.persistence.repository.AuditScheduleRepository;
-import com.cbo.audit.persistence.repository.RiskLevelRepository;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
 import com.cbo.audit.service.AnnualPlanService;
 import com.cbo.audit.service.AuditScheduleService;
@@ -48,7 +47,6 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             resultWrapper.setMessage("Annual Plan cannot be null.");
             return resultWrapper;
         }
-
         if (auditScheduleDTO.getStartOn() == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit schedule start time cannot be null.");
@@ -145,10 +143,6 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         if (!oldAuditSchedule.isPresent()) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit schedule must not be null.");
-            return resultWrapper;
-        } else if (auditScheduleDTO.getAnnualPlan() == null) {
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Annual Plan cannot be null.");
             return resultWrapper;
         } else if (auditScheduleDTO.getStartOn() == null) {
             resultWrapper.setStatus(false);

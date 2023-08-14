@@ -2,6 +2,7 @@ package com.cbo.audit.controller;
 
 import com.cbo.audit.constants.URIs;
 import com.cbo.audit.dto.AuditObjectDTO;
+import com.cbo.audit.dto.AuditUniverseDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.service.AuditObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,10 @@ public class AuditObjectController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @GetMapping(value = URIs.AUDIT_OBJECT_BY_ID,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<AuditObjectDTO>> getAuditObjectById(@PathVariable(name = "id") Long id){
+    @PostMapping(value = URIs.AUDIT_OBJECT_BY_ID, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditObjectDTO>> getAuditObjectById(@RequestBody AuditObjectDTO auditObjectDTO){
 
-        ResultWrapper<AuditObjectDTO> resultWrapper=auditObjectService.getAuditObjectById(id);
+        ResultWrapper<AuditObjectDTO> resultWrapper=auditObjectService.getAuditObjectById(auditObjectDTO.getId());
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

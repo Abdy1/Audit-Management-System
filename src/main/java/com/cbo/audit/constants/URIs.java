@@ -14,6 +14,7 @@ public final class URIs {
     public static final String AUDIT_UNIVERSE_UPDATE = AUDIT_UNIVERSE + UPDATE;
 
 
+
     public static final String ANNUAL_PLAN = APPLICATION_CONTEXT + "/annualPlan/";
     public static final String ANNUAL_PLAN_REGISTER = ANNUAL_PLAN + REGISTER;
     public static final String ANNUAL_PLAN_LIST_ALL = ANNUAL_PLAN + LIST_ALL;
@@ -40,6 +41,19 @@ public final class URIs {
     public static final String AUDIT_ENGAGEMENT_LIST_ALL = AUDIT_ENGAGEMENT + LIST_ALL;
     public static final String AUDIT_ENGAGEMENT_BY_ID = AUDIT_ENGAGEMENT + FIND_BY_ID;
     public static final String AUDIT_ENGAGEMENT_UPDATE = AUDIT_ENGAGEMENT + UPDATE;
+
+
+
+    public static final String AUDIT_PROGRAM = APPLICATION_CONTEXT + "/auditProgram/";
+    public static final String AUDIT_PROGRAM_REGISTER = AUDIT_PROGRAM + REGISTER;
+
+    public static final String AUDIT_PROGRAM_LIST_ALL = AUDIT_PROGRAM + LIST_ALL;
+
+    public static final String AUDIT_PROGRAM_BY_ID = AUDIT_PROGRAM + "findById/{id}";
+    public static final String AUDIT_PROGRAM_UPDATE= AUDIT_PROGRAM + UPDATE;
+
+
+
 
     public static final String AUDIT_SCHEDULE = APPLICATION_CONTEXT + "/auditSchedule/";
     public static final String AUDIT_SCHEDULE_REGISTER = AUDIT_SCHEDULE + REGISTER;

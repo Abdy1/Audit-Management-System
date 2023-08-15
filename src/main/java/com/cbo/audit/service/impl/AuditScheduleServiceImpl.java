@@ -62,6 +62,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         AuditEngagement auditEngagement = new AuditEngagement();
         auditEngagement.setId(annualPlan.getId());
         auditSchedule.setId(annualPlan.getId());
+
         auditSchedule.setAuditEngagement(auditEngagement);
 
         AuditSchedule savedSchedule = auditScheduleRepository.save(auditSchedule);
@@ -74,6 +75,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         resultWrapper.setStatus(true);
         resultWrapper.setResult(AuditScheduleMapper.INSTANCE.toDTO(savedSchedule));
         resultWrapper.setMessage("Audit Schedule created successfully.");
+
         return resultWrapper;
     }
 
@@ -179,6 +181,8 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
                 TeamMember teamMember = TeamMemberMapper.INSTANCE.toEntity(teamMemberDTO);
                 teamMember.setAuditSchedule(auditSchedule);
+                List<TeamMember> teamMemberList = teamMemberRepository.findTeamExistByUserId(teamMember.getUser().getId());
+
                 teamMemberRepository.save(teamMember);
             }
         }

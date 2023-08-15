@@ -34,10 +34,10 @@ public class AuditableAreaController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @GetMapping(value = URIs.AUDITABLE_AREA_BY_ID,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<AuditableAreaDTO>> getAuditableAreaById(@PathVariable(name = "id") Long id){
+    @PostMapping(value = URIs.AUDITABLE_AREA_BY_ID, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditableAreaDTO>> getAuditableAreaById(@RequestBody AuditableAreaDTO auditableAreaDTO){
 
-        ResultWrapper<AuditableAreaDTO> resultWrapper=auditableAreaService.getAuditableAreaById(id);
+        ResultWrapper<AuditableAreaDTO> resultWrapper=auditableAreaService.getAuditableAreaById(auditableAreaDTO.getId());
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

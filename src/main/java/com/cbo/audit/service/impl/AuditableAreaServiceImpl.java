@@ -40,6 +40,7 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
             AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
             auditableArea.setCreatedTimestamp(LocalDateTime.now());
             auditableArea.setCreatedUser("TODO");
+
             AuditableArea savedUniverse = auditableAreaRepository.save(auditableArea);
             resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedUniverse));
             resultWrapper.setStatus(true);

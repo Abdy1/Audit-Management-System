@@ -96,7 +96,6 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         return resultWrapper;
     }
 
-
     @Override
     public ResultWrapper<AnnualPlanDTO> getAnnualPlanById(Long id) {
 
@@ -145,6 +144,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         ResultWrapper<AnnualPlanDTO> resultWrapper = new ResultWrapper<>(annualPlanDTO);
 
         AnnualPlan oldUniverse = annualPlanRepository.findById(annualPlanDTO.getId()).orElse(null);
+
 
         if (oldUniverse != null){
             if (annualPlanDTO.getName() == null){

@@ -33,7 +33,7 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
         ResultWrapper<ChecklistItemDTO> resultWrapper = new ResultWrapper<>();
 
         Optional<AuditObject> auditObject = auditObjectService.findAuditObjectById(checklistItemDTO.getAuditObjectDTO().getId());
-
+        //Optional<Auditab> auditObject = auditObjectService.findAuditObjectById(checklistItemDTO.getAuditObjectDTO().getId());
         if (!auditObject.isPresent()) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Checklist Item with the provided information is not available.");

@@ -17,7 +17,7 @@ public final class URIs {
     public static final String ANNUAL_PLAN = APPLICATION_CONTEXT + "/annualPlan/";
     public static final String ANNUAL_PLAN_REGISTER = ANNUAL_PLAN + REGISTER;
     public static final String ANNUAL_PLAN_LIST_ALL = ANNUAL_PLAN + LIST_ALL;
-    public static final String ANNUAL_PLAN_BY_ID = ANNUAL_PLAN + FIND_BY_ID;
+    public static final String ANNUAL_PLAN_BY_ID = ANNUAL_PLAN + "findById";
     public static final String ANNUAL_PLAN_UPDATE = ANNUAL_PLAN + UPDATE;
 
 
@@ -62,7 +62,7 @@ public final class URIs {
     public static final String AUDITABLE_AREA = APPLICATION_CONTEXT + "/auditableArea/";
     public static final String AUDITABLE_AREA_REGISTER = AUDITABLE_AREA + REGISTER;
     public static final String AUDITABLE_AREA_LIST_ALL = AUDITABLE_AREA + LIST_ALL;
-    public static final String AUDITABLE_AREA_BY_ID = AUDITABLE_AREA + FIND_BY_ID;
+    public static final String AUDITABLE_AREA_BY_ID = AUDITABLE_AREA + "findById";
     public static final String AUDITABLE_AREA_UPDATE = AUDITABLE_AREA + UPDATE;
 
     public static final String CHECKLIST_ITEM = APPLICATION_CONTEXT + "/checkListItem/";

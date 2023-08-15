@@ -10,9 +10,9 @@ import java.util.List;
 public interface AuditProgramService {
     ResultWrapper<AuditProgramDTO> registerAuditProgram(AuditProgramDTO auditProgramDTO);
 
-    ResultWrapper<List<AnnualPlanDTO>> getAllAnnualPlan();
+    ResultWrapper<List<AuditProgramDTO>> getAllAuditProgram();
 
-    ResultWrapper<AuditProgramDTO> getAuditProgram(Long id);
+    ResultWrapper<AuditProgramDTO> getAuditProgramById(Long id);
 
     AnnualPlan findAnnualPlanById(Long id);
 

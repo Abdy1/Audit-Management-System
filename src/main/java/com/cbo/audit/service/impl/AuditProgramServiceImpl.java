@@ -7,10 +7,7 @@ import com.cbo.audit.mapper.AnnualPlanMapper;
 import com.cbo.audit.mapper.AuditProgramMapper;
 import com.cbo.audit.mapper.RiskScoreMapper;
 import com.cbo.audit.persistence.model.*;
-import com.cbo.audit.persistence.repository.AnnualPlanRepository;
-import com.cbo.audit.persistence.repository.AuditProgramRepository;
-import com.cbo.audit.persistence.repository.RiskLevelRepository;
-import com.cbo.audit.persistence.repository.RiskScoreRepository;
+import com.cbo.audit.persistence.repository.*;
 import com.cbo.audit.service.AuditEngagementService;
 import com.cbo.audit.service.AuditProgramService;
 import com.cbo.audit.service.AuditUniverseService;
@@ -34,6 +31,8 @@ public class AuditProgramServiceImpl implements AuditProgramService {
 
     @Autowired
     private AuditProgramRepository auditProgramRepository;
+
+
 
     @Override
     public ResultWrapper<AuditProgramDTO> registerAuditProgram(AuditProgramDTO auditProgramDTO) {
@@ -82,13 +81,22 @@ public class AuditProgramServiceImpl implements AuditProgramService {
         return resultWrapper;
     }
 
-    @Override
-    public ResultWrapper<List<AnnualPlanDTO>> getAllAnnualPlan() {
-        return null;
-    }
 
     @Override
-    public ResultWrapper<AuditProgramDTO> getAuditProgram(Long id) {
+    public ResultWrapper<List<AuditProgramDTO>> getAllAuditProgram() {
+        ResultWrapper<List<AuditProgramDTO>> resultWrapper = new ResultWrapper<>();
+        List<AuditProgram> auditPrograms=auditProgramRepository.findAll();
+        if (!auditPrograms.isEmpty()){
+            List<AuditProgramDTO> auditProgramDTOS = AuditProgramMapper.INSTANCE.auditProgramsToAuditProgramDTOs(auditPrograms);
+            resultWrapper.setResult(auditProgramDTOS);
+            resultWrapper.setStatus(true);
+        }
+        return resultWrapper;
+    }
+
+
+    @Override
+    public ResultWrapper<AuditProgramDTO> getAuditProgramById(Long id) {
 
         ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>();
         AuditProgram auditProgram = auditProgramRepository.findById(id).orElse(null);

@@ -12,13 +12,13 @@ public interface AuditProgramService {
 
     ResultWrapper<List<AnnualPlanDTO>> getAllAnnualPlan();
 
-    ResultWrapper<AnnualPlanDTO> getAnnualPlanById(Long id);
+    ResultWrapper<AuditProgramDTO> getAuditProgram(Long id);
 
     AnnualPlan findAnnualPlanById(Long id);
 
     ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByYear(String year);
 
-    ResultWrapper<AnnualPlanDTO> updateAnnualPlan(AnnualPlanDTO auditUniverseDTO);
+    ResultWrapper<AuditProgramDTO> updateAuditProgram(AuditProgramDTO auditProgramDTO);
 
     ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByAuditUniverseId(Long id);
 }

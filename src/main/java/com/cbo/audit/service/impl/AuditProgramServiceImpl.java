@@ -40,9 +40,9 @@ public class AuditProgramServiceImpl implements AuditProgramService {
         ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>();
 
 
-        Optional<AuditEngagement> auditEngagementOpt = auditEngagementService.getAuditEngagementById(auditProgramDTO.getAuditEngagement().getId());
+        AuditEngagement auditEngagementOpt = auditEngagementService.findAuditEngagementById(auditProgramDTO.getAuditEngagement().getId());
 
-        if (!auditEngagementOpt.isPresent()) {
+        if (auditEngagementOpt == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Engagement with the provided information is not available.");
             return resultWrapper;
@@ -88,8 +88,16 @@ public class AuditProgramServiceImpl implements AuditProgramService {
     }
 
     @Override
-    public ResultWrapper<AnnualPlanDTO> getAnnualPlanById(Long id) {
-        return null;
+    public ResultWrapper<AuditProgramDTO> getAuditProgram(Long id) {
+
+        ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>();
+        AuditProgram auditProgram = auditProgramRepository.findById(id).orElse(null);
+        if (auditProgram != null){
+            AuditProgramDTO auditProgramDTO = AuditProgramMapper.INSTANCE.toDTO(auditProgram);
+            resultWrapper.setResult(auditProgramDTO);
+            resultWrapper.setStatus(true);
+        }
+        return resultWrapper;
     }
 
     @Override
@@ -103,8 +111,37 @@ public class AuditProgramServiceImpl implements AuditProgramService {
     }
 
     @Override
-    public ResultWrapper<AnnualPlanDTO> updateAnnualPlan(AnnualPlanDTO auditUniverseDTO) {
-        return null;
+    public ResultWrapper<AuditProgramDTO> updateAuditProgram(AuditProgramDTO auditProgramDTO) {
+        ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>(auditProgramDTO);
+
+        AuditProgram oldAuditProgramDTO = auditProgramRepository.findById(auditProgramDTO.getId()).orElse(null);
+
+        if (oldAuditProgramDTO != null){
+            if (auditProgramDTO.getStatus() == null){
+                resultWrapper.setStatus(false);
+                resultWrapper.setMessage("Audit Universe Status can not be empty.");
+            }else if(auditProgramDTO.getObjectives() == null){
+                resultWrapper.setStatus(false);
+                resultWrapper.setMessage("Audit Universe Objectives can not be empty.");
+            }else {
+
+                AuditProgram auditProgram = AuditProgramMapper.INSTANCE.toEntity(auditProgramDTO);
+
+                auditProgram.setCreatedTimestamp(oldAuditProgramDTO.getCreatedTimestamp());
+                auditProgram.setCreatedUser(oldAuditProgramDTO.getCreatedUser());
+                auditProgram.setAuditEngagement(oldAuditProgramDTO.getAuditEngagement());
+
+                AuditProgram savedAuditProgram = auditProgramRepository.save(auditProgram);
+                resultWrapper.setResult(AuditProgramMapper.INSTANCE.toDTO(savedAuditProgram));
+                resultWrapper.setStatus(true);
+                resultWrapper.setMessage("Audit Universe Updated Successfully.");
+            }
+        }else {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit Program  with the provided id is not available.");
+        }
+
+        return resultWrapper;
     }
 
     @Override

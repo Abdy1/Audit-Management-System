@@ -31,10 +31,10 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
         List<AuditableArea> auditableAreaName = auditableAreaRepository.findByName(auditableAreaDTO.getName());
         if (auditableAreaDTO.getName() == null){
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Universe name cannot be null.");
+            resultWrapper.setMessage("AuditableArea name cannot be null.");
         }else if(!auditableAreaName.isEmpty()){
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Universe duplicate name is not allowed.");
+            resultWrapper.setMessage("AuditableArea duplicate name is not allowed.");
         }else {
 
             AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
@@ -44,7 +44,7 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
             AuditableArea savedUniverse = auditableAreaRepository.save(auditableArea);
             resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedUniverse));
             resultWrapper.setStatus(true);
-            resultWrapper.setMessage("Audit Universe created successfully.");
+            resultWrapper.setMessage("AuditableArea created successfully.");
         }
 
         return resultWrapper;
@@ -79,7 +79,7 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
             resultWrapper.setStatus(true);
         }else{
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Universe with the provided id not found.");
+            resultWrapper.setMessage("AuditableArea with the provided id not found.");
         }
         return resultWrapper;
     }
@@ -88,27 +88,27 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
     public ResultWrapper<AuditableAreaDTO> updateAuditableArea(AuditableAreaDTO auditableAreaDTO) {
         ResultWrapper<AuditableAreaDTO> resultWrapper = new ResultWrapper<>(auditableAreaDTO);
 
-        AuditableArea oldUniverse = auditableAreaRepository.findById(auditableAreaDTO.getId()).orElse(null);
+        AuditableArea oldAuditableArea = auditableAreaRepository.findById(auditableAreaDTO.getId()).orElse(null);
 
-        if (oldUniverse != null){
+        if (oldAuditableArea != null){
             if (auditableAreaDTO.getName() == null){
                 resultWrapper.setStatus(false);
-                resultWrapper.setMessage("Audit Universe name cannot be null.");
+                resultWrapper.setMessage("AuditableArea name cannot be null.");
             }else{
 
                 AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
 
-                auditableArea.setCreatedTimestamp(oldUniverse.getCreatedTimestamp());
-                auditableArea.setCreatedUser(oldUniverse.getCreatedUser());
+                auditableArea.setCreatedTimestamp(oldAuditableArea.getCreatedTimestamp());
+                auditableArea.setCreatedUser(oldAuditableArea.getCreatedUser());
 
                 AuditableArea savedUniverse = auditableAreaRepository.save(auditableArea);
                 resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedUniverse));
                 resultWrapper.setStatus(true);
-                resultWrapper.setMessage("Audit Universe created successfully.");
+                resultWrapper.setMessage("AuditableArea updated successfully.");
             }
         }else {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Universe with the provided id is not available.");
+            resultWrapper.setMessage("AuditableArea with the provided id is not available.");
         }
 
         return resultWrapper;

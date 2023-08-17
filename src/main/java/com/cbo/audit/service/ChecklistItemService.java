@@ -21,5 +21,5 @@ public interface ChecklistItemService {
     ResultWrapper<List<ChecklistItemDTO>> getChecklistItemByAuditableAreaId(Long id);
 
 
-    ResultWrapper<List<ChecklistItemDTO>> getChecklistItemByAuditObjectId(Long id);
+/*    ResultWrapper<List<ChecklistItemDTO>> getChecklistItemByAuditObjectId(Long id);*/
 }

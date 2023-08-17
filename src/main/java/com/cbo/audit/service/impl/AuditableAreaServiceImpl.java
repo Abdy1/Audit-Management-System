@@ -3,8 +3,10 @@ package com.cbo.audit.service.impl;
 import com.cbo.audit.dto.AuditableAreaDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.mapper.AuditableAreaMapper;
+import com.cbo.audit.persistence.model.AuditObject;
 import com.cbo.audit.persistence.model.AuditableArea;
 import com.cbo.audit.persistence.repository.AuditableAreaRepository;
+import com.cbo.audit.service.AuditObjectService;
 import com.cbo.audit.service.AuditableAreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,29 +25,41 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
     @Autowired
     private AuditableAreaRepository auditableAreaRepository;
 
+    @Autowired
+    private AuditObjectService auditObjectService;
+
 
     @Override
     public ResultWrapper<AuditableAreaDTO> registerAuditableArea(AuditableAreaDTO auditableAreaDTO) {
         ResultWrapper<AuditableAreaDTO> resultWrapper = new ResultWrapper<>(auditableAreaDTO);
 
         List<AuditableArea> auditableAreaName = auditableAreaRepository.findByName(auditableAreaDTO.getName());
+
+        Optional<AuditObject> auditObject = auditObjectService.findAuditObjectById(auditableAreaDTO.getAuditObject().getId());
+
         if (auditableAreaDTO.getName() == null){
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("AuditableArea name cannot be null.");
         }else if(!auditableAreaName.isEmpty()){
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("AuditableArea duplicate name is not allowed.");
-        }else {
-
-            AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
-            auditableArea.setCreatedTimestamp(LocalDateTime.now());
-            auditableArea.setCreatedUser("TODO");
-
-            AuditableArea savedUniverse = auditableAreaRepository.save(auditableArea);
-            resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedUniverse));
-            resultWrapper.setStatus(true);
-            resultWrapper.setMessage("AuditableArea created successfully.");
+        }else if (!auditObject.isPresent()) {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit object cannot be null.");
         }
+        else {
+
+
+                AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
+                auditableArea.setCreatedTimestamp(LocalDateTime.now());
+                auditableArea.setCreatedUser("TODO");
+                auditableArea.setAuditObject(auditObject.get());
+
+                AuditableArea savedUniverse = auditableAreaRepository.save(auditableArea);
+                resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedUniverse));
+                resultWrapper.setStatus(true);
+                resultWrapper.setMessage("AuditableArea created successfully.");
+            }
 
         return resultWrapper;
     }
@@ -100,6 +114,7 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
 
                 auditableArea.setCreatedTimestamp(oldAuditableArea.getCreatedTimestamp());
                 auditableArea.setCreatedUser(oldAuditableArea.getCreatedUser());
+                auditableArea.setAuditObject(oldAuditableArea.getAuditObject());
 
                 AuditableArea savedUniverse = auditableAreaRepository.save(auditableArea);
                 resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedUniverse));

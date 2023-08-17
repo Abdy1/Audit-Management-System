@@ -40,6 +40,7 @@ public class AnnualPlanController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
+
     @PostMapping(value = URIs.ANNUAL_PLAN_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<AnnualPlanDTO>> updateAnnualPlan(@RequestBody AnnualPlanDTO annualPlanDTO){
 
@@ -47,4 +48,21 @@ public class AnnualPlanController {
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
+
+    @PostMapping(value = URIs.ANNUAL_PLAN_SCHEDULE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AnnualPlanDTO>> addAnnualPlanToSchedule(@RequestBody AnnualPlanDTO annualPlanDTO){
+
+        ResultWrapper<AnnualPlanDTO> resultWrapper=annualPlanService.addAnnualPlanToSchedule(annualPlanDTO);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @GetMapping(value = URIs.ANNUAL_PLAN_PLANED_LIST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AnnualPlanDTO>>> findPlanedAnnualPlans(){
+
+        ResultWrapper<List<AnnualPlanDTO>> resultWrapper=annualPlanService.getPlannedAnnualPlans();
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
 }

@@ -2,8 +2,8 @@ package com.cbo.audit.controller;
 
 import com.cbo.audit.constants.URIs;
 import com.cbo.audit.dto.AuditObjectDTO;
-import com.cbo.audit.dto.AuditUniverseDTO;
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.persistence.model.AuditType;
 import com.cbo.audit.service.AuditObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,6 +48,14 @@ public class AuditObjectController {
     public ResponseEntity<ResultWrapper<AuditObjectDTO>> updateAuditObject(@RequestBody AuditObjectDTO auditObjectDTO){
 
         ResultWrapper<AuditObjectDTO> resultWrapper=auditObjectService.updateAuditObject(auditObjectDTO);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @GetMapping(value = URIs.AUDIT_TYPE_LIST_ALL,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AuditType>>> listAuditType(){
+
+        ResultWrapper<List<AuditType>> resultWrapper=auditObjectService.getAllAuditType();
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

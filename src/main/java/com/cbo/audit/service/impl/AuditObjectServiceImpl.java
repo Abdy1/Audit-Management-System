@@ -4,10 +4,10 @@ import com.cbo.audit.dto.AuditObjectDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.mapper.AuditObjectMapper;
 import com.cbo.audit.persistence.model.AuditObject;
+import com.cbo.audit.persistence.model.AuditType;
 import com.cbo.audit.persistence.model.AuditUniverse;
 import com.cbo.audit.persistence.repository.AuditObjectRepository;
-import com.cbo.audit.persistence.repository.RiskLevelRepository;
-import com.cbo.audit.persistence.repository.RiskScoreRepository;
+import com.cbo.audit.persistence.repository.AuditTypeRepository;
 import com.cbo.audit.service.AuditObjectService;
 import com.cbo.audit.service.AuditUniverseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +28,9 @@ public class AuditObjectServiceImpl implements AuditObjectService {
 
     @Autowired
     private AuditUniverseService auditObjectService;
+
+    @Autowired
+    private AuditTypeRepository auditTypeRepository;
 
     @Override
     public ResultWrapper<AuditObjectDTO> registerAuditObject(AuditObjectDTO auditObjectDTO) {
@@ -102,6 +105,18 @@ public class AuditObjectServiceImpl implements AuditObjectService {
         if (auditObjects != null){
             List<AuditObjectDTO> auditObjectDTOS = AuditObjectMapper.INSTANCE.auditObjectsToAuditObjectDTOs(auditObjects);
             resultWrapper.setResult(auditObjectDTOS);
+            resultWrapper.setStatus(true);
+        }
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<List<AuditType>> getAllAuditType() {
+
+        ResultWrapper<List<AuditType>> resultWrapper = new ResultWrapper<>();
+        List<AuditType> auditObjects = auditTypeRepository.findAll();
+        if (auditObjects != null){
+            resultWrapper.setResult(auditObjects);
             resultWrapper.setStatus(true);
         }
         return resultWrapper;

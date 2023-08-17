@@ -11,6 +11,7 @@ import com.cbo.audit.persistence.model.AuditUniverse;
 import com.cbo.audit.persistence.model.RiskLevel;
 import com.cbo.audit.persistence.model.RiskScore;
 import com.cbo.audit.persistence.repository.AnnualPlanRepository;
+import com.cbo.audit.persistence.repository.AuditScheduleRepository;
 import com.cbo.audit.persistence.repository.RiskLevelRepository;
 import com.cbo.audit.persistence.repository.RiskScoreRepository;
 import com.cbo.audit.service.AnnualPlanService;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.Format;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +41,9 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
     @Autowired
     private RiskLevelRepository riskLevelRepository;
+
+    @Autowired
+    private AuditScheduleRepository auditScheduleRepository;
 
     @Override
     public ResultWrapper<AnnualPlanDTO> registerAnnualPlan(AnnualPlanDTO annualPlanDTO) {
@@ -123,6 +128,44 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
             List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);
             resultWrapper.setResult(annualPlanDTOS);
             resultWrapper.setStatus(true);
+        }
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<AnnualPlanDTO> addAnnualPlanToSchedule(AnnualPlanDTO annualPlanDTO) {
+        ResultWrapper<AnnualPlanDTO> resultWrapper = new ResultWrapper<>();
+        if(annualPlanDTO.getId() != null){
+            AnnualPlan annualPlan = findAnnualPlanById(annualPlanDTO.getId());
+            if(annualPlan != null){
+                annualPlan.setStatus(AnnualPlanStatus.Planned.name());
+                annualPlanRepository.save(annualPlan);
+                resultWrapper.setMessage("Success fully added to planned annual plan");
+                resultWrapper.setStatus(true);
+            }else {
+                resultWrapper.setMessage(String.format("Annual Plan with id %s is not found", annualPlanDTO.getId()));
+                resultWrapper.setStatus(true);
+            }
+        }else {
+            resultWrapper.setMessage("Bad request");
+            resultWrapper.setStatus(true);
+        }
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<List<AnnualPlanDTO>> getPlannedAnnualPlans() {
+
+        LocalDateTime.now().getYear();
+        ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
+        List<AnnualPlan> annualPlans=annualPlanRepository.findAnnualPlanByStatus(AnnualPlanStatus.Planned.name(), LocalDateTime.now().getYear());
+        if (!annualPlans.isEmpty()){
+            List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);
+            resultWrapper.setResult(annualPlanDTOS);
+            resultWrapper.setStatus(true);
+        }else{
+            resultWrapper.setMessage(String.format("No annual plans found for this year, %s", LocalDateTime.now().getYear()));
+            resultWrapper.setStatus(false);
         }
         return resultWrapper;
     }

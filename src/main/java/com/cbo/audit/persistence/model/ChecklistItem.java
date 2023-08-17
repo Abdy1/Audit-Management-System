@@ -14,6 +14,9 @@ public class ChecklistItem extends BaseEntity{
     @Column(name = "name")
     private String name;
 
+    @Column(name = "DESCRIPTION")
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "auditable_area_id")
     private AuditableArea auditableArea;

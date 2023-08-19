@@ -20,6 +20,10 @@ public final class URIs {
     public static final String ANNUAL_PLAN_LIST_ALL = ANNUAL_PLAN + LIST_ALL;
     public static final String ANNUAL_PLAN_BY_ID = ANNUAL_PLAN + "findById";
     public static final String ANNUAL_PLAN_UPDATE = ANNUAL_PLAN + UPDATE;
+    public static final String ANNUAL_PLAN_SCHEDULE = ANNUAL_PLAN + "addToSchedule";
+    public static final String ANNUAL_PLAN_PLANED_LIST = ANNUAL_PLAN + "planedList";
+    public static final String ANNUAL_PLAN_AUTO_GENERATE = ANNUAL_PLAN + "autoGenerate";
+
 
 
     public static final String AUDIT_TASK = APPLICATION_CONTEXT + "/auditTask/";
@@ -27,13 +31,6 @@ public final class URIs {
     public static final String AUDIT_TASK_LIST_ALL = AUDIT_TASK + LIST_ALL;
     public static final String AUDIT_TASK_BY_ID = AUDIT_TASK + FIND_BY_ID;
     public static final String AUDIT_TASK_UPDATE = AUDIT_TASK + UPDATE;
-
-
-    public static final String RESOURCE = APPLICATION_CONTEXT + "/resource/";
-    public static final String RESOURCE_REGISTER = RESOURCE + REGISTER;
-    public static final String RESOURCE_LIST_ALL = RESOURCE + LIST_ALL;
-    public static final String RESOURCE_BY_ID = RESOURCE + FIND_BY_ID;
-    public static final String RESOURCE_UPDATE = RESOURCE + UPDATE;
 
 
     public static final String AUDIT_ENGAGEMENT = APPLICATION_CONTEXT + "/auditEngagement/";
@@ -60,6 +57,7 @@ public final class URIs {
     public static final String AUDIT_SCHEDULE_LIST_ALL = AUDIT_SCHEDULE + LIST_ALL;
     public static final String AUDIT_SCHEDULE_BY_ID = AUDIT_SCHEDULE + FIND_BY_ID;
     public static final String AUDIT_SCHEDULE_UPDATE = AUDIT_SCHEDULE + UPDATE;
+    public static final String ADD_AUDIT_SCHEDULE_TO_ENGAGEMENT = AUDIT_SCHEDULE + "addToEngagement";
 
 
     public static final String AUDIT_RISK= APPLICATION_CONTEXT + "/risk/";
@@ -72,6 +70,18 @@ public final class URIs {
     public static final String AUDIT_OBJECT_BY_ID = AUDIT_OBJECT + "findById";
     public static final String AUDIT_OBJECT_UPDATE = AUDIT_OBJECT + UPDATE;
     public static final String AUDIT_OBJECT_BY_AU = AUDIT_OBJECT + "byAU";
+
+    public static final String TEAM_MEMBER = APPLICATION_CONTEXT + "/teamMember/";
+    public static final String TEAM_MEMBER_REGISTER = TEAM_MEMBER + REGISTER;
+    public static final String TEAM_MEMBER_LIST_BY_SCHEDULE = TEAM_MEMBER + "bySchedule";
+    public static final String TEAM_MEMBER_BY_ID = TEAM_MEMBER + "findById";
+    public static final String TEAM_MEMBER_UPDATE = TEAM_MEMBER + UPDATE;
+
+    public static final String RESOURCE = APPLICATION_CONTEXT + "/resource/";
+    public static final String RESOURCE_REGISTER = RESOURCE + REGISTER;
+    public static final String RESOURCE_LIST_BY_SCHEDULE = RESOURCE + "bySchedule";
+    public static final String RESOURCE_BY_ID = RESOURCE + "findById";
+    public static final String RESOURCE_UPDATE = RESOURCE + UPDATE;
 
     public static final String AUDITABLE_AREA = APPLICATION_CONTEXT + "/auditableArea/";
     public static final String AUDITABLE_AREA_REGISTER = AUDITABLE_AREA + REGISTER;

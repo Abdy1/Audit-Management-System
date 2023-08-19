@@ -66,6 +66,13 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
     }
 
     @Override
+    public List<AuditUniverse> getAllActiveAuditUniverse() {
+        List<AuditUniverse> auditUniverses=auditUniverseRepository.findAuditUniverseByState(AuditUniverseStatus.Active.name());
+
+        return auditUniverses;
+    }
+
+    @Override
     public Optional<AuditUniverse> findAuditUniverseById(Long id) {
 
         return auditUniverseRepository.findById(id);

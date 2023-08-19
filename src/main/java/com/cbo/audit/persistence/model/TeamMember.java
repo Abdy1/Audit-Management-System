@@ -1,14 +1,12 @@
 package com.cbo.audit.persistence.model;
 
 
+import com.cbo.audit.enums.TeamType;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -16,7 +14,11 @@ import javax.persistence.Table;
 @Table(name = "ams_team_member")
 public class TeamMember extends BaseEntity{
 
+    @Column(name = "STATUS")
     private String status;
+
+    @Column(name = " TEAM_TYPE")
+    private TeamType teamType;
 
     @ManyToOne
     @JoinColumn(name = "auditSchedule")

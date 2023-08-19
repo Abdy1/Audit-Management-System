@@ -16,10 +16,12 @@ public interface AuditUniverseMapper {
 
     AuditUniverseMapper INSTANCE = Mappers.getMapper(AuditUniverseMapper.class);
 
+    @Mapping(source = "type", target = "auditType")
     AuditUniverseDTO toDTO(AuditUniverse auditUniverse);
 
     void copyToDTO(AuditUniverse auditUniverse, @MappingTarget AuditUniverseDTO auditUniverseDTO);
 
+    @Mapping(source = "auditType", target = "type")
     AuditUniverse toEntity(AuditUniverseDTO auditUniverseDTO);
 
     default List<AuditUniverseDTO> auditUniversesToAuditUniverseDTOs(List<AuditUniverse> auditUniverses) {

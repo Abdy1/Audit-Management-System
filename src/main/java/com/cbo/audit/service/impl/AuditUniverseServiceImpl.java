@@ -35,9 +35,9 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
         }else if(!auditUniverseName.isEmpty()){
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Universe duplicate name is not allowed.");
-        }else if(auditUniverseDTO.getType() == null){
+        }else if(auditUniverseDTO.getAuditType() == null){
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Universe type cannot be null.");
+            resultWrapper.setMessage("Audit Universe audit type cannot be null.");
         }else {
 
             AuditUniverse auditUniverse = AuditUniverseMapper.INSTANCE.toEntity(auditUniverseDTO);
@@ -97,9 +97,9 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
         if (auditUniverseDTO.getName() == null){
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Universe name cannot be null.");
-        }else if(auditUniverseDTO.getType() == null){
+        }else if(auditUniverseDTO.getAuditType() == null){
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Universe type cannot be null.");
+            resultWrapper.setMessage("Audit Universe audit type cannot be null.");
         }else {
 
             AuditUniverse auditUniverse = AuditUniverseMapper.INSTANCE.toEntity(auditUniverseDTO);
@@ -111,7 +111,7 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
             AuditUniverse savedUniverse = auditUniverseRepository.save(auditUniverse);
             resultWrapper.setResult(AuditUniverseMapper.INSTANCE.toDTO(savedUniverse));
             resultWrapper.setStatus(true);
-            resultWrapper.setMessage("Audit Universe created successfully.");
+            resultWrapper.setMessage("Audit Universe updated successfully.");
         }
         }else {
             resultWrapper.setStatus(false);

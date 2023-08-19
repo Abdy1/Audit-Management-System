@@ -65,7 +65,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
         if (annualPlanDTO.getYear() == null) {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Annual Plan risk year cannot be null.");
+            resultWrapper.setMessage("Annual Plan year cannot be null.");
             return resultWrapper;
         }
 
@@ -109,6 +109,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         if (annualPlan != null){
             AnnualPlanDTO annualPlanDTO = AnnualPlanMapper.INSTANCE.toDTO(annualPlan);
             resultWrapper.setResult(annualPlanDTO);
+
             resultWrapper.setStatus(true);
         }
         return resultWrapper;
@@ -138,7 +139,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         if(annualPlanDTO.getId() != null){
             AnnualPlan annualPlan = findAnnualPlanById(annualPlanDTO.getId());
             if(annualPlan != null){
-                annualPlan.setStatus(AnnualPlanStatus.Planned.name());
+                annualPlan.setStatus(AnnualPlanStatus.Approved.name());
                 annualPlanRepository.save(annualPlan);
                 resultWrapper.setMessage("Success fully added to planned annual plan");
                 resultWrapper.setStatus(true);
@@ -158,7 +159,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
         LocalDateTime.now().getYear();
         ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
-        List<AnnualPlan> annualPlans=annualPlanRepository.findAnnualPlanByStatus(AnnualPlanStatus.Planned.name(), LocalDateTime.now().getYear());
+        List<AnnualPlan> annualPlans=annualPlanRepository.findAnnualPlanByStatus(AnnualPlanStatus.Approved.name(), LocalDateTime.now().getYear());
         if (!annualPlans.isEmpty()){
             List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);
             resultWrapper.setResult(annualPlanDTOS);

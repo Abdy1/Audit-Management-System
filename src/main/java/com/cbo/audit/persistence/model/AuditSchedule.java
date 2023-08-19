@@ -23,6 +23,9 @@ public class AuditSchedule extends BaseEntity{
     @Column(name = "STATUS")
     private String status;
 
+    @Column(name = "QUARTER")
+    private String quarter;
+
     @OneToOne(mappedBy = "auditSchedule", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private AuditEngagement auditEngagement;
 

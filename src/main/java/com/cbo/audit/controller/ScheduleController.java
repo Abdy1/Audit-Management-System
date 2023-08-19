@@ -1,6 +1,7 @@
 package com.cbo.audit.controller;
 
 import com.cbo.audit.constants.URIs;
+import com.cbo.audit.dto.AuditEngagementDTO;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.dto.TeamMemberDTO;
@@ -17,6 +18,7 @@ import java.util.List;
 public class ScheduleController {
     @Autowired
     AuditScheduleService auditScheduleService;
+
     @PostMapping(value = URIs.AUDIT_SCHEDULE_REGISTER, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<AuditScheduleDTO>> auditScheduleRegister(@RequestBody AuditScheduleDTO auditScheduleDTO){
 
@@ -48,4 +50,13 @@ public class ScheduleController {
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
+
+    @PostMapping(value = URIs.ADD_AUDIT_SCHEDULE_TO_ENGAGEMENT, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditEngagementDTO>> addToEngagement(@RequestBody AuditScheduleDTO auditScheduleDTO){
+
+        ResultWrapper<AuditEngagementDTO> resultWrapper=auditScheduleService.addToEngagement(auditScheduleDTO);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
 }

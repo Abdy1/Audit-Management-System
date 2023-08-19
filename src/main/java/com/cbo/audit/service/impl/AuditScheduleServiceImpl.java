@@ -3,9 +3,15 @@ package com.cbo.audit.service.impl;
 import com.cbo.audit.dto.*;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.enums.AnnualPlanStatus;
+<<<<<<< HEAD
+=======
+import com.cbo.audit.enums.AuditEngagementStatus;
+import com.cbo.audit.mapper.AuditEngagementMapper;
+>>>>>>> 9e70c2a663e0b9b573744f1ecc71c048b0289c92
 import com.cbo.audit.mapper.AuditScheduleMapper;
 import com.cbo.audit.mapper.TeamMemberMapper;
 import com.cbo.audit.persistence.model.*;
+import com.cbo.audit.persistence.repository.AuditEngagementRepository;
 import com.cbo.audit.persistence.repository.AuditScheduleRepository;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
 import com.cbo.audit.service.AnnualPlanService;
@@ -29,6 +35,12 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
     @Autowired
     private TeamMemberRepository teamMemberRepository;
 
+<<<<<<< HEAD
+=======
+    @Autowired
+    private AuditEngagementRepository auditEngagementRepository;
+
+>>>>>>> 9e70c2a663e0b9b573744f1ecc71c048b0289c92
     @Override
     public ResultWrapper<AuditScheduleDTO> registerAuditSchedule(AuditScheduleDTO auditScheduleDTO) {
 
@@ -112,6 +124,33 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             resultWrapper.setResult(auditScheduleDTOS);
             resultWrapper.setStatus(true);
         }
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<AuditEngagementDTO> addToEngagement(AuditScheduleDTO auditScheduleDTO) {
+        ResultWrapper<AuditEngagementDTO> resultWrapper = new ResultWrapper<>();
+
+        Optional<AuditSchedule> oldAuditSchedule = auditScheduleRepository.findById(auditScheduleDTO.getId());
+
+
+        if (!oldAuditSchedule.isPresent()) {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit schedule must not be null.");
+            return resultWrapper;
+        }
+
+
+        AuditEngagement auditEngagement = new AuditEngagement();
+        auditEngagement.setAuditSchedule(oldAuditSchedule.get());
+        auditEngagement.setStatus(AuditEngagementStatus.Scheduled.name());
+        auditEngagement.setCreatedTimestamp(LocalDateTime.now());
+        auditEngagement.setCreatedUser("TODO");
+        AuditEngagement savedEngagement = auditEngagementRepository.save(auditEngagement);
+
+        resultWrapper.setStatus(true);
+        resultWrapper.setResult(AuditEngagementMapper.INSTANCE.toDTO(savedEngagement));
+        resultWrapper.setMessage("Audit Engagement created successfully.");
         return resultWrapper;
     }
 

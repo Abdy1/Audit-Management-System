@@ -22,10 +22,7 @@ public final class URIs {
     public static final String ANNUAL_PLAN_UPDATE = ANNUAL_PLAN + UPDATE;
     public static final String ANNUAL_PLAN_SCHEDULE = ANNUAL_PLAN + "addToSchedule";
     public static final String ANNUAL_PLAN_PLANED_LIST = ANNUAL_PLAN + "planedList";
-<<<<<<< HEAD
-=======
     public static final String ANNUAL_PLAN_AUTO_GENERATE = ANNUAL_PLAN + "autoGenerate";
->>>>>>> 9e70c2a663e0b9b573744f1ecc71c048b0289c92
 
 
 
@@ -74,26 +71,21 @@ public final class URIs {
     public static final String AUDIT_OBJECT_UPDATE = AUDIT_OBJECT + UPDATE;
     public static final String AUDIT_OBJECT_BY_AU = AUDIT_OBJECT + "byAU";
 
-<<<<<<< HEAD
     public static final String AUDIT_TYPE_LIST_ALL = APPLICATION_CONTEXT + "/auditType/listAll";
 
-=======
->>>>>>> 9e70c2a663e0b9b573744f1ecc71c048b0289c92
     public static final String TEAM_MEMBER = APPLICATION_CONTEXT + "/teamMember/";
     public static final String TEAM_MEMBER_REGISTER = TEAM_MEMBER + REGISTER;
     public static final String TEAM_MEMBER_LIST_BY_SCHEDULE = TEAM_MEMBER + "bySchedule";
     public static final String TEAM_MEMBER_BY_ID = TEAM_MEMBER + "findById";
     public static final String TEAM_MEMBER_UPDATE = TEAM_MEMBER + UPDATE;
 
-<<<<<<< HEAD
-=======
+
     public static final String RESOURCE = APPLICATION_CONTEXT + "/resource/";
     public static final String RESOURCE_REGISTER = RESOURCE + REGISTER;
     public static final String RESOURCE_LIST_BY_SCHEDULE = RESOURCE + "bySchedule";
     public static final String RESOURCE_BY_ID = RESOURCE + "findById";
     public static final String RESOURCE_UPDATE = RESOURCE + UPDATE;
 
->>>>>>> 9e70c2a663e0b9b573744f1ecc71c048b0289c92
     public static final String AUDITABLE_AREA = APPLICATION_CONTEXT + "/auditableArea/";
     public static final String AUDITABLE_AREA_REGISTER = AUDITABLE_AREA + REGISTER;
     public static final String AUDITABLE_AREA_LIST_ALL = AUDITABLE_AREA + LIST_ALL;

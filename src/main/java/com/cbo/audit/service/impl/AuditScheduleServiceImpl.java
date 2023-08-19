@@ -3,11 +3,8 @@ package com.cbo.audit.service.impl;
 import com.cbo.audit.dto.*;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.enums.AnnualPlanStatus;
-<<<<<<< HEAD
-=======
 import com.cbo.audit.enums.AuditEngagementStatus;
 import com.cbo.audit.mapper.AuditEngagementMapper;
->>>>>>> 9e70c2a663e0b9b573744f1ecc71c048b0289c92
 import com.cbo.audit.mapper.AuditScheduleMapper;
 import com.cbo.audit.mapper.TeamMemberMapper;
 import com.cbo.audit.persistence.model.*;
@@ -35,12 +32,9 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
     @Autowired
     private TeamMemberRepository teamMemberRepository;
 
-<<<<<<< HEAD
-=======
     @Autowired
     private AuditEngagementRepository auditEngagementRepository;
 
->>>>>>> 9e70c2a663e0b9b573744f1ecc71c048b0289c92
     @Override
     public ResultWrapper<AuditScheduleDTO> registerAuditSchedule(AuditScheduleDTO auditScheduleDTO) {
 

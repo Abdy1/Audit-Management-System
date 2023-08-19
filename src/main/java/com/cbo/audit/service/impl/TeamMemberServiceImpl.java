@@ -9,23 +9,18 @@ import com.cbo.audit.persistence.repository.UserRepository;
 import com.cbo.audit.service.AuditScheduleService;
 import com.cbo.audit.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
+
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-=======
 
->>>>>>> 9e70c2a663e0b9b573744f1ecc71c048b0289c92
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-<<<<<<< HEAD
 
 @Service("teamMemberService")
 @Transactional
-=======
->>>>>>> 9e70c2a663e0b9b573744f1ecc71c048b0289c92
 public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Autowired

@@ -140,11 +140,8 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         if(annualPlanDTO.getId() != null){
             AnnualPlan annualPlan = findAnnualPlanById(annualPlanDTO.getId());
             if(annualPlan != null){
-<<<<<<< HEAD
+
                 annualPlan.setStatus(AnnualPlanStatus.Approved.name());
-=======
-                annualPlan.setStatus(AnnualPlanStatus.Planned.name());
->>>>>>> 9e70c2a663e0b9b573744f1ecc71c048b0289c92
                 annualPlanRepository.save(annualPlan);
                 resultWrapper.setMessage("Success fully added to planned annual plan");
                 resultWrapper.setStatus(true);
@@ -164,11 +161,9 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
         LocalDateTime.now().getYear();
         ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
-<<<<<<< HEAD
+
         List<AnnualPlan> annualPlans=annualPlanRepository.findAnnualPlanByStatus(AnnualPlanStatus.Approved.name(), LocalDateTime.now().getYear());
-=======
-        List<AnnualPlan> annualPlans=annualPlanRepository.findAnnualPlanByStatus(AnnualPlanStatus.Planned.name(), LocalDateTime.now().getYear());
->>>>>>> 9e70c2a663e0b9b573744f1ecc71c048b0289c92
+
         if (!annualPlans.isEmpty()){
             List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);
             resultWrapper.setResult(annualPlanDTOS);

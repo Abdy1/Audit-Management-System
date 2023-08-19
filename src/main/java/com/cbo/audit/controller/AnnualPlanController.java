@@ -3,6 +3,7 @@ package com.cbo.audit.controller;
 import com.cbo.audit.constants.URIs;
 import com.cbo.audit.dto.AnnualPlanDTO;
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.service.AnnualPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -68,8 +69,6 @@ public class AnnualPlanController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-<<<<<<< HEAD
-=======
 
     @PostMapping(value = URIs.ANNUAL_PLAN_AUTO_GENERATE,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<List<AnnualPlanDTO>>> autoGenerateAnnualPlans(@RequestBody AnnualPlanDTO annualPlanDTO){
@@ -79,5 +78,5 @@ public class AnnualPlanController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
->>>>>>> 9e70c2a663e0b9b573744f1ecc71c048b0289c92
+
 }

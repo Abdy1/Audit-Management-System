@@ -9,9 +9,8 @@ import javax.persistence.*;
 @Table
 public class AuditEngagement extends BaseEntity{
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "SCHEDULE_ID")
-    private AuditSchedule auditSchedule;
+    @Column(name = "SCHEDULE_ID")
+    private Long auditScheduleId;
 
     @Column(name = "STATUS")
     private String status;

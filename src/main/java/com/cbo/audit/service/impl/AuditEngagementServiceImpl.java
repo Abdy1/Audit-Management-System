@@ -41,7 +41,7 @@ public class AuditEngagementServiceImpl implements AuditEngagementService {
     public ResultWrapper<AuditEngagementDTO> registerAuditEngagement(AuditEngagementDTO auditEngagementDTO) {
         ResultWrapper<AuditEngagementDTO> resultWrapper = new ResultWrapper<>();
 
-        AuditSchedule auditSchedule = auditScheduleService.findAuditScheduleById(auditEngagementDTO.getAuditSchedule().getId());
+        AuditSchedule auditSchedule = auditScheduleService.findAuditScheduleById(auditEngagementDTO.getAuditScheduleId());
 
         if (auditSchedule == null) {
             resultWrapper.setStatus(false);
@@ -51,7 +51,7 @@ public class AuditEngagementServiceImpl implements AuditEngagementService {
 
         AuditEngagement auditEngagement = AuditEngagementMapper.INSTANCE.toEntity(auditEngagementDTO);
         auditEngagement.setCreatedTimestamp(LocalDateTime.now());
-        auditEngagement.setAuditSchedule(auditSchedule);
+        auditEngagement.setAuditScheduleId(auditSchedule.getId());
         auditEngagement.setCreatedUser("TODO");
         auditEngagement.setStatus("Engaged");
 
@@ -122,7 +122,7 @@ public class AuditEngagementServiceImpl implements AuditEngagementService {
         AuditEngagement auditEngagement = AuditEngagementMapper.INSTANCE.toEntity(auditEngagementDTO);
         auditEngagement.setCreatedUser(oldAuditEngagement.get().getCreatedUser());
         auditEngagement.setCreatedTimestamp(oldAuditEngagement.get().getCreatedTimestamp());
-        auditEngagement.setAuditSchedule(oldAuditEngagement.get().getAuditSchedule());
+        auditEngagement.setAuditScheduleId(oldAuditEngagement.get().getAuditScheduleId());
 
         AuditEngagement savedSchedule = auditEngagementRepository.save(auditEngagement);
 

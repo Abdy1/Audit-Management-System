@@ -136,7 +136,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
 
         AuditEngagement auditEngagement = new AuditEngagement();
-        auditEngagement.setAuditSchedule(oldAuditSchedule.get());
+        auditEngagement.setAuditScheduleId(oldAuditSchedule.get().getId());
         auditEngagement.setStatus(AuditEngagementStatus.Scheduled.name());
         auditEngagement.setCreatedTimestamp(LocalDateTime.now());
         auditEngagement.setCreatedUser("TODO");

@@ -200,7 +200,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
                 resultWrapper.setMessage("Annual Plan name cannot be null.");
             }else if(annualPlanDTO.getYear() == null){
                 resultWrapper.setStatus(false);
-                resultWrapper.setMessage("Annual Plan type cannot be null.");
+                resultWrapper.setMessage("Annual Plan year cannot be null.");
             }else {
 
                 AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO);

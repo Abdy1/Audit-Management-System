@@ -9,7 +9,7 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AuditEngagementDTO extends BaseDTO{
 
-    private AuditScheduleDTO auditSchedule;
+    private Long auditScheduleId;
 
     private String status;
 }

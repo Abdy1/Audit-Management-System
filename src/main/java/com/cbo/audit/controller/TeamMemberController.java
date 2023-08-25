@@ -4,6 +4,7 @@ import com.cbo.audit.constants.URIs;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.dto.TeamMemberDTO;
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.dto.UserDTO;
 import com.cbo.audit.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,6 +50,14 @@ public class TeamMemberController{
     public ResponseEntity<ResultWrapper<TeamMemberDTO>> updateTeamMember(@RequestBody TeamMemberDTO teamMemberDTO){
 
         ResultWrapper<TeamMemberDTO> resultWrapper=teamMemberService.updateTeamMember(teamMemberDTO);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @PostMapping(value = URIs.TEAM_MEMBER_LIST_BY_USERID, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AuditScheduleDTO>>> getAllScheduleByUserId(@RequestBody UserDTO userDTO){
+
+        ResultWrapper<List<AuditScheduleDTO>> resultWrapper=teamMemberService.getAllScheduleByUserId(userDTO.getId());
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

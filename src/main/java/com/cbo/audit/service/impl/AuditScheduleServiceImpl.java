@@ -134,10 +134,9 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             return resultWrapper;
         }
 
-
         AuditEngagement auditEngagement = new AuditEngagement();
         auditEngagement.setAuditScheduleId(oldAuditSchedule.get().getId());
-        auditEngagement.setStatus(AuditEngagementStatus.Scheduled.name());
+        auditEngagement.setStatus(AuditEngagementStatus.Scheduled);
         auditEngagement.setCreatedTimestamp(LocalDateTime.now());
         auditEngagement.setCreatedUser("TODO");
         AuditEngagement savedEngagement = auditEngagementRepository.save(auditEngagement);
@@ -147,7 +146,6 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         resultWrapper.setMessage("Audit Engagement created successfully.");
         return resultWrapper;
     }
-
 /*    @Override
     public ResultWrapper<List<AuditScheduleDTO>> getAuditScheduleByYear(String year) {
         ResultWrapper<List<AuditScheduleDTO>> resultWrapper = new ResultWrapper<>();

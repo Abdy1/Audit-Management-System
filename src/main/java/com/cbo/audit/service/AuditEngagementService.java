@@ -16,7 +16,7 @@ public interface AuditEngagementService {
 
     AuditEngagement findAuditEngagementById(Long id);
 
-    /*    ResultWrapper<List<AuditEngagementDTO>> getAuditEngagementByYear(String year);*/
+    ResultWrapper<List<AuditEngagementDTO>> getAllCompletedAuditEngagement();
 
     ResultWrapper<AuditEngagementDTO> updateAuditEngagement(AuditEngagementDTO auditEngagementDTO);
 

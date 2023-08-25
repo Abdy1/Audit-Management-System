@@ -2,6 +2,7 @@ package com.cbo.audit.service.impl;
 
 import com.cbo.audit.dto.*;
 import com.cbo.audit.enums.TeamMemberStatus;
+import com.cbo.audit.mapper.AuditScheduleMapper;
 import com.cbo.audit.mapper.TeamMemberMapper;
 import com.cbo.audit.persistence.model.*;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
@@ -10,13 +11,13 @@ import com.cbo.audit.service.AuditScheduleService;
 import com.cbo.audit.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service("teamMemberService")
@@ -31,6 +32,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Autowired
     private UserRepository userRepository;
+
 
     @Override
     public ResultWrapper<TeamMemberDTO> registerTeamMemberToSchedule(TeamMemberDTO teamMemberDTO) {
@@ -54,7 +56,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             resultWrapper.setMessage("User have an active schedule or task.");
             return resultWrapper;
         }
-
 
         TeamMember teamMember = TeamMemberMapper.INSTANCE.toEntity(teamMemberDTO);
         teamMember.setCreatedTimestamp(LocalDateTime.now());
@@ -141,6 +142,27 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             return
         }*/
         return null;
+    }
+
+    @Override
+    public ResultWrapper<List<AuditScheduleDTO>> getAllScheduleByUserId(Long userId) {
+        ResultWrapper<List<AuditScheduleDTO>> resultWrapper = new ResultWrapper<>();
+
+        List<TeamMember> teamList = teamMemberRepository.findTeamMemberByUserId(userId);
+        Set<Long> scheduleIds = new HashSet<>();
+
+        if (!teamList.isEmpty()){
+            for (TeamMember teamMember: teamList) {
+                scheduleIds.add(teamMember.getAuditSchedule().getId());
+            }
+        }
+        List<AuditSchedule> auditSchedules = new ArrayList<>();
+        for (Long scheduleId: scheduleIds) {
+            auditSchedules.add(auditScheduleService.findAuditScheduleById(scheduleId));
+        }
+        resultWrapper.setResult(AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules));
+
+        return resultWrapper;
     }
 
     public boolean isTeamMemberFree(Long userId){

@@ -1,5 +1,6 @@
 package com.cbo.audit.dto;
 
+import com.cbo.audit.enums.AuditEngagementStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,5 +12,5 @@ public class AuditEngagementDTO extends BaseDTO{
 
     private Long auditScheduleId;
 
-    private String status;
+    private AuditEngagementStatus status;
 }

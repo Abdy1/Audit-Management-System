@@ -17,4 +17,7 @@ public interface AuditEngagementRepository extends JpaRepository<AuditEngagement
     @Query(" SELECT AE FROM AuditEngagement AE WHERE AE.auditScheduleId = :scheduleId ")
     List<AuditEngagement> findAuditEngagementByAuditScheduleId(@Param("scheduleId") Long scheduleId);
 
+    @Query(" SELECT AE FROM AuditEngagement AE WHERE AE.status = :status ")
+    List<AuditEngagement> findAuditEngagementByStatus(@Param("status") String status);
+
 }

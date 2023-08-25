@@ -36,6 +36,7 @@ public final class URIs {
     public static final String AUDIT_ENGAGEMENT = APPLICATION_CONTEXT + "/auditEngagement/";
     public static final String AUDIT_ENGAGEMENT_REGISTER = AUDIT_ENGAGEMENT + REGISTER;
     public static final String AUDIT_ENGAGEMENT_LIST_ALL = AUDIT_ENGAGEMENT + LIST_ALL;
+    public static final String AUDIT_ENGAGEMENT_COMPLETED_LIST_ALL = AUDIT_ENGAGEMENT + "completed";
     public static final String AUDIT_ENGAGEMENT_BY_ID = AUDIT_ENGAGEMENT + FIND_BY_ID;
     public static final String AUDIT_ENGAGEMENT_UPDATE = AUDIT_ENGAGEMENT + UPDATE;
 
@@ -60,6 +61,7 @@ public final class URIs {
     public static final String ADD_AUDIT_SCHEDULE_TO_ENGAGEMENT = AUDIT_SCHEDULE + "addToEngagement";
 
 
+
     public static final String AUDIT_RISK= APPLICATION_CONTEXT + "/risk/";
     public static final String RISK_ITEM_LIST_ALL = AUDIT_RISK + "listRiskItem";
     public static final String RISK_SCORE_BY_ANNUAL_ID = AUDIT_RISK + "riskScoreByAnn";
@@ -76,6 +78,7 @@ public final class URIs {
     public static final String TEAM_MEMBER = APPLICATION_CONTEXT + "/teamMember/";
     public static final String TEAM_MEMBER_REGISTER = TEAM_MEMBER + REGISTER;
     public static final String TEAM_MEMBER_LIST_BY_SCHEDULE = TEAM_MEMBER + "bySchedule";
+    public static final String TEAM_MEMBER_LIST_BY_USERID = TEAM_MEMBER + "byUserId";
     public static final String TEAM_MEMBER_BY_ID = TEAM_MEMBER + "findById";
     public static final String TEAM_MEMBER_UPDATE = TEAM_MEMBER + UPDATE;
 

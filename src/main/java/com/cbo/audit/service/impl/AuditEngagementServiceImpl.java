@@ -3,6 +3,7 @@ package com.cbo.audit.service.impl;
 import com.cbo.audit.dto.AuditEngagementDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.dto.TeamMemberDTO;
+import com.cbo.audit.enums.AuditEngagementStatus;
 import com.cbo.audit.mapper.AuditEngagementMapper;
 import com.cbo.audit.mapper.TeamMemberMapper;
 import com.cbo.audit.persistence.model.*;
@@ -53,7 +54,7 @@ public class AuditEngagementServiceImpl implements AuditEngagementService {
         auditEngagement.setCreatedTimestamp(LocalDateTime.now());
         auditEngagement.setAuditScheduleId(auditSchedule.getId());
         auditEngagement.setCreatedUser("TODO");
-        auditEngagement.setStatus("Engaged");
+        auditEngagement.setStatus(AuditEngagementStatus.InProgress);
 
 
         resultWrapper.setStatus(true);
@@ -78,7 +79,6 @@ public class AuditEngagementServiceImpl implements AuditEngagementService {
     @Override
     public ResultWrapper<AuditEngagementDTO> getAuditEngagementById(Long id) {
 
-
         ResultWrapper<AuditEngagementDTO> resultWrapper = new ResultWrapper<>();
         AuditEngagement auditEngagement = auditEngagementRepository.findById(id).orElse(null);
         if (auditEngagement != null){
@@ -92,6 +92,18 @@ public class AuditEngagementServiceImpl implements AuditEngagementService {
     @Override
     public AuditEngagement findAuditEngagementById(Long id) {
         return auditEngagementRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public ResultWrapper<List<AuditEngagementDTO>> getAllCompletedAuditEngagement() {
+        ResultWrapper<List<AuditEngagementDTO>> resultWrapper = new ResultWrapper<>();
+        List<AuditEngagement> auditEngagements=auditEngagementRepository.findAuditEngagementByStatus(AuditEngagementStatus.Completed.name());
+        if (!auditEngagements.isEmpty()){
+            List<AuditEngagementDTO> auditEngagementDTOS = AuditEngagementMapper.INSTANCE.auditEngagementsToAuditEngagementDTOs(auditEngagements);
+            resultWrapper.setResult(auditEngagementDTOS);
+            resultWrapper.setStatus(true);
+        }
+        return resultWrapper;
     }
 
     @Override

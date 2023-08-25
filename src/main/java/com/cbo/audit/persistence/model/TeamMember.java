@@ -1,6 +1,7 @@
 package com.cbo.audit.persistence.model;
 
 
+import com.cbo.audit.enums.TeamMemberStatus;
 import com.cbo.audit.enums.TeamType;
 import lombok.Data;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import javax.persistence.*;
 public class TeamMember extends BaseEntity{
 
     @Column(name = "STATUS")
-    private String status;
+    private TeamMemberStatus status;
 
     @Column(name = " TEAM_TYPE")
     private TeamType teamType;

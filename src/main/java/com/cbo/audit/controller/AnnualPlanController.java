@@ -2,6 +2,7 @@ package com.cbo.audit.controller;
 
 import com.cbo.audit.constants.URIs;
 import com.cbo.audit.dto.AnnualPlanDTO;
+import com.cbo.audit.dto.AutoGenerateAnnualPlanDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.service.AnnualPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,13 @@ public class AnnualPlanController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
+    @PostMapping(value = URIs.ANNUAL_PLAN_BY_YEAR,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AnnualPlanDTO>>> getAnnualPlanByYear(@RequestBody AnnualPlanDTO annualPlanDTO){
+
+        ResultWrapper<List<AnnualPlanDTO>> resultWrapper=annualPlanService.getAnnualPlanByYear(annualPlanDTO.getYear());
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
 
     @PostMapping(value = URIs.ANNUAL_PLAN_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<AnnualPlanDTO>> updateAnnualPlan(@RequestBody AnnualPlanDTO annualPlanDTO){
@@ -71,9 +79,9 @@ public class AnnualPlanController {
 
 
     @PostMapping(value = URIs.ANNUAL_PLAN_AUTO_GENERATE,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<AnnualPlanDTO>>> autoGenerateAnnualPlans(@RequestBody AnnualPlanDTO annualPlanDTO){
+    public ResponseEntity<ResultWrapper<List<AnnualPlanDTO>>> autoGenerateAnnualPlans(@RequestBody AutoGenerateAnnualPlanDTO generatePlans){
 
-        ResultWrapper<List<AnnualPlanDTO>> resultWrapper = annualPlanService.autoGenerateAnnualPlans(annualPlanDTO.getYear());
+        ResultWrapper<List<AnnualPlanDTO>> resultWrapper = annualPlanService.autoGenerateAnnualPlans(generatePlans.getBudgetYear());
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

@@ -6,17 +6,12 @@ import com.cbo.audit.dto.RiskScoreDTO;
 import com.cbo.audit.enums.AnnualPlanStatus;
 import com.cbo.audit.mapper.AnnualPlanMapper;
 import com.cbo.audit.mapper.RiskScoreMapper;
-import com.cbo.audit.persistence.model.AnnualPlan;
-import com.cbo.audit.persistence.model.AuditUniverse;
-import com.cbo.audit.persistence.model.RiskLevel;
-import com.cbo.audit.persistence.model.RiskScore;
-import com.cbo.audit.persistence.repository.AnnualPlanRepository;
-import com.cbo.audit.persistence.repository.AuditScheduleRepository;
-import com.cbo.audit.persistence.repository.RiskLevelRepository;
-import com.cbo.audit.persistence.repository.RiskScoreRepository;
+import com.cbo.audit.persistence.model.*;
+import com.cbo.audit.persistence.repository.*;
 import com.cbo.audit.service.AnnualPlanService;
 import com.cbo.audit.service.AuditUniverseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -42,6 +37,9 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
     @Autowired
     private RiskLevelRepository riskLevelRepository;
+
+    @Autowired
+    private BudgetYearRepository budgetYearRepository;
 
     @Autowired
     private AuditScheduleRepository auditScheduleRepository;
@@ -92,8 +90,10 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
     @Override
     public ResultWrapper<List<AnnualPlanDTO>> getAllAnnualPlan() {
+        String year = budgetYearRepository.findAll(Sort.by(" year","ASC")).stream().findFirst().get().getYear();
+
         ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
-        List<AnnualPlan> annualPlans=annualPlanRepository.findAll();
+        List<AnnualPlan> annualPlans=annualPlanRepository.findAnnualPlanByYear(year);
         if (!annualPlans.isEmpty()){
             List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);
             resultWrapper.setResult(annualPlanDTOS);
@@ -101,6 +101,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         }
         return resultWrapper;
     }
+
 
     @Override
     public ResultWrapper<AnnualPlanDTO> getAnnualPlanById(Long id) {
@@ -281,6 +282,11 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
             annualPlanRepository.save(annualPlan);
             annualPlanDTOS.add(AnnualPlanMapper.INSTANCE.toDTO(annualPlan));
         }
+
+        BudgetYear budgetYear = new BudgetYear();
+        budgetYear.setYear(year);
+        budgetYearRepository.save(budgetYear);
+
         resultWrapper.setStatus(true);
         resultWrapper.setMessage("Annual Plan generated successfully.");
         resultWrapper.setResult(annualPlanDTOS);

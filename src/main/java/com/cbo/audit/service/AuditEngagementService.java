@@ -12,6 +12,8 @@ public interface AuditEngagementService {
 
     ResultWrapper<List<AuditEngagementDTO>> getAllAuditEngagement();
 
+    ResultWrapper<List<AuditEngagementDTO>> getAllAuditEngagementByYear(String year);
+
     ResultWrapper<AuditEngagementDTO> getAuditEngagementById(Long id);
 
     AuditEngagement findAuditEngagementById(Long id);
@@ -21,5 +23,6 @@ public interface AuditEngagementService {
     ResultWrapper<AuditEngagementDTO> updateAuditEngagement(AuditEngagementDTO auditEngagementDTO);
 
     ResultWrapper<List<AuditEngagementDTO>> getAuditEngagementByAuditSchedule(Long id);
+
 
 }

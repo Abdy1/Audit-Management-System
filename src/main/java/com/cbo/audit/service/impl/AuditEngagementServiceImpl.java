@@ -9,12 +9,14 @@ import com.cbo.audit.mapper.TeamMemberMapper;
 import com.cbo.audit.persistence.model.*;
 import com.cbo.audit.persistence.model.AuditEngagement;
 import com.cbo.audit.persistence.repository.AuditEngagementRepository;
+import com.cbo.audit.persistence.repository.BudgetYearRepository;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
 import com.cbo.audit.service.AnnualPlanService;
 import com.cbo.audit.service.AuditEngagementService;
 import com.cbo.audit.service.AuditEngagementService;
 import com.cbo.audit.service.AuditScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -37,6 +39,9 @@ public class AuditEngagementServiceImpl implements AuditEngagementService {
     @Autowired
     private TeamMemberRepository teamMemberRepository;
 
+    @Autowired
+    private BudgetYearRepository budgetYearRepository;
+
 
     @Override
     public ResultWrapper<AuditEngagementDTO> registerAuditEngagement(AuditEngagementDTO auditEngagementDTO) {
@@ -56,7 +61,6 @@ public class AuditEngagementServiceImpl implements AuditEngagementService {
         auditEngagement.setCreatedUser("TODO");
         auditEngagement.setStatus(AuditEngagementStatus.InProgress);
 
-
         resultWrapper.setStatus(true);
         resultWrapper.setResult(AuditEngagementMapper.INSTANCE.toDTO(auditEngagement));
         resultWrapper.setMessage("Audit Engagement created successfully.");
@@ -65,8 +69,24 @@ public class AuditEngagementServiceImpl implements AuditEngagementService {
 
     @Override
     public ResultWrapper<List<AuditEngagementDTO>> getAllAuditEngagement() {
+        String year = budgetYearRepository.findAll(Sort.by("year","ASC")).stream().findFirst().get().getYear();
+
         ResultWrapper<List<AuditEngagementDTO>> resultWrapper = new ResultWrapper<>();
-        List<AuditEngagement> auditEngagements=auditEngagementRepository.findAll();
+        List<AuditEngagement> auditEngagements=auditEngagementRepository.findEngagementByYear(year);
+        if (!auditEngagements.isEmpty()){
+            List<AuditEngagementDTO> auditEngagementDTOS = AuditEngagementMapper.INSTANCE.auditEngagementsToAuditEngagementDTOs(auditEngagements);
+            resultWrapper.setResult(auditEngagementDTOS);
+            resultWrapper.setStatus(true);
+        }
+        return resultWrapper;
+    }
+
+
+    @Override
+    public ResultWrapper<List<AuditEngagementDTO>> getAllAuditEngagementByYear(String year) {
+
+        ResultWrapper<List<AuditEngagementDTO>> resultWrapper = new ResultWrapper<>();
+        List<AuditEngagement> auditEngagements=auditEngagementRepository.findEngagementByYear(year);
         if (!auditEngagements.isEmpty()){
             List<AuditEngagementDTO> auditEngagementDTOS = AuditEngagementMapper.INSTANCE.auditEngagementsToAuditEngagementDTOs(auditEngagements);
             resultWrapper.setResult(auditEngagementDTOS);
@@ -124,7 +144,6 @@ public class AuditEngagementServiceImpl implements AuditEngagementService {
         ResultWrapper<AuditEngagementDTO> resultWrapper = new ResultWrapper<>();
 
         Optional<AuditEngagement> oldAuditEngagement = auditEngagementRepository.findById(auditEngagementDTO.getId());
-
 
         if (!oldAuditEngagement.isPresent()) {
             resultWrapper.setStatus(false);

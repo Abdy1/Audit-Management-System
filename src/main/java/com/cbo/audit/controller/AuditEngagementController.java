@@ -50,6 +50,14 @@ public class AuditEngagementController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
+    @GetMapping(value = URIs.AUDIT_ENGAGEMENT_BY_YEAR,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AuditEngagementDTO>>> getAuditEngagementById(@PathVariable(name = "id") String year){
+
+        ResultWrapper<List<AuditEngagementDTO>> resultWrapper=auditEngagementService.getAllAuditEngagementByYear(year);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
     @PostMapping(value = URIs.AUDIT_ENGAGEMENT_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<AuditEngagementDTO>> updateAuditEngagement(@RequestBody AuditEngagementDTO auditEngagementDTO){
 

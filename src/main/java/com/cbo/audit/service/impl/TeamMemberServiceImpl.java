@@ -125,7 +125,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             resultWrapper.setMessage("Invalid team member id");
         }
         TeamMember updatedTeam = oldTeamMember.get();
-        updatedTeam.setStatus(teamMemberDTO.getTeamMemberStatus().name());
+        updatedTeam.setStatus(teamMemberDTO.getTeamMemberStatus());
         updatedTeam.setModifiedTimestamp(LocalDateTime.now());
         updatedTeam.setModifiedUser("TODO");
         TeamMember saveMember = teamMemberRepository.save(updatedTeam);
@@ -153,7 +153,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
         if (!teamList.isEmpty()){
             for (TeamMember teamMember: teamList) {
-                scheduleIds.add(teamMember.getAuditSchedule().getId());
+                if (!teamMember.getStatus().equals(TeamMemberStatus.Completed)){
+                    scheduleIds.add(teamMember.getAuditSchedule().getId());
+                }
             }
         }
         List<AuditSchedule> auditSchedules = new ArrayList<>();
@@ -166,7 +168,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     }
 
     public boolean isTeamMemberFree(Long userId){
-        List<TeamMember> activeSchedule = teamMemberRepository.findTeamMemberByUserIdAndState(userId, TeamMemberStatus.Active.name());
+        List<TeamMember> activeSchedule = teamMemberRepository.findTeamMemberByUserIdAndState(userId, TeamMemberStatus.InProgress.name());
 
         if (!activeSchedule.isEmpty()){
             return false;

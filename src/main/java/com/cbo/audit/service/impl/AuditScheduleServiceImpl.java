@@ -10,10 +10,12 @@ import com.cbo.audit.mapper.TeamMemberMapper;
 import com.cbo.audit.persistence.model.*;
 import com.cbo.audit.persistence.repository.AuditEngagementRepository;
 import com.cbo.audit.persistence.repository.AuditScheduleRepository;
+import com.cbo.audit.persistence.repository.BudgetYearRepository;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
 import com.cbo.audit.service.AnnualPlanService;
 import com.cbo.audit.service.AuditScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -34,6 +36,9 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
     @Autowired
     private AuditEngagementRepository auditEngagementRepository;
+
+    @Autowired
+    private BudgetYearRepository budgetYearRepository;
 
     @Override
     public ResultWrapper<AuditScheduleDTO> registerAuditSchedule(AuditScheduleDTO auditScheduleDTO) {
@@ -65,10 +70,11 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
         AuditEngagement auditEngagement = new AuditEngagement();
         auditEngagement.setId(annualPlan.getId());
+        auditEngagement.setYear(annualPlan.getYear());
         auditSchedule.setId(annualPlan.getId());
 
         auditSchedule.setAuditEngagement(auditEngagement);
-
+        auditSchedule.setYear(annualPlan.getYear());
         AuditSchedule savedSchedule = auditScheduleRepository.save(auditSchedule);
 
         resultWrapper.setStatus(true);
@@ -80,8 +86,24 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
     @Override
     public ResultWrapper<List<AuditScheduleDTO>> getAllAuditSchedule() {
+        String year = budgetYearRepository.findAll(Sort.by(" year","ASC")).stream().findFirst().get().getYear();
+
         ResultWrapper<List<AuditScheduleDTO>> resultWrapper = new ResultWrapper<>();
-        List<AuditSchedule> auditSchedules=auditScheduleRepository.findAll();
+        List<AuditSchedule> auditSchedules=auditScheduleRepository.findScheduleByYear(year);
+        if (!auditSchedules.isEmpty()){
+            List<AuditScheduleDTO> auditScheduleDTOS = AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules);
+            resultWrapper.setResult(auditScheduleDTOS);
+            resultWrapper.setStatus(true);
+        }
+        return resultWrapper;
+    }
+
+
+    @Override
+    public ResultWrapper<List<AuditScheduleDTO>> getAllAuditScheduleByYear(String year) {
+
+        ResultWrapper<List<AuditScheduleDTO>> resultWrapper = new ResultWrapper<>();
+        List<AuditSchedule> auditSchedules=auditScheduleRepository.findScheduleByYear(year);
         if (!auditSchedules.isEmpty()){
             List<AuditScheduleDTO> auditScheduleDTOS = AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules);
             resultWrapper.setResult(auditScheduleDTOS);
@@ -146,17 +168,6 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         resultWrapper.setMessage("Audit Engagement created successfully.");
         return resultWrapper;
     }
-/*    @Override
-    public ResultWrapper<List<AuditScheduleDTO>> getAuditScheduleByYear(String year) {
-        ResultWrapper<List<AuditScheduleDTO>> resultWrapper = new ResultWrapper<>();
-        List<AuditSchedule> auditSchedules=auditScheduleRepository.findAuditScheduleByYear(year);
-        if (!auditSchedules.isEmpty()){
-            List<AuditScheduleDTO> auditScheduleDTOS = AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules);
-            resultWrapper.setResult(auditScheduleDTOS);
-            resultWrapper.setStatus(true);
-        }
-        return resultWrapper;
-    }*/
 
     @Override
     public ResultWrapper<AuditScheduleDTO> updateAuditSchedule(AuditScheduleDTO auditScheduleDTO) {

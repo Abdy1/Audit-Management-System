@@ -1,5 +1,6 @@
 package com.cbo.audit.persistence.repository;
 
+import com.cbo.audit.persistence.model.AnnualPlan;
 import com.cbo.audit.persistence.model.AuditEngagement;
 
 import com.cbo.audit.persistence.model.AuditSchedule;
@@ -19,5 +20,8 @@ public interface AuditEngagementRepository extends JpaRepository<AuditEngagement
 
     @Query(" SELECT AE FROM AuditEngagement AE WHERE AE.status = :status ")
     List<AuditEngagement> findAuditEngagementByStatus(@Param("status") String status);
+
+    @Query(" SELECT AE FROM AuditEngagement AE WHERE AE.year = :year")
+    List<AuditEngagement> findEngagementByYear(@Param("year") String year);
 
 }

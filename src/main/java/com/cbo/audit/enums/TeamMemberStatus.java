@@ -6,8 +6,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum TeamMemberStatus {
-    Active("Active"),
-    InActive("InActive");
+    Waiting("Waiting"),
+    InProgress("InProgress"),
+    Completed("Completed");
 
     private String type;
 

@@ -7,6 +7,8 @@ public final class URIs {
     private static final String FIND_BY_ID = "findById/{id}";
     private static final String UPDATE = "update";
 
+    public static final String BUDGET_YEAR = APPLICATION_CONTEXT + "/year/change";
+
     public static final String AUDIT_UNIVERSE = APPLICATION_CONTEXT + "/auditUniverse/";
     public static final String AUDIT_UNIVERSE_REGISTER = AUDIT_UNIVERSE + REGISTER;
     public static final String AUDIT_UNIVERSE_LIST_ALL = AUDIT_UNIVERSE + LIST_ALL;
@@ -19,6 +21,7 @@ public final class URIs {
     public static final String ANNUAL_PLAN_REGISTER = ANNUAL_PLAN + REGISTER;
     public static final String ANNUAL_PLAN_LIST_ALL = ANNUAL_PLAN + LIST_ALL;
     public static final String ANNUAL_PLAN_BY_ID = ANNUAL_PLAN + "findById";
+    public static final String ANNUAL_PLAN_BY_YEAR = ANNUAL_PLAN + "findByYear";
     public static final String ANNUAL_PLAN_UPDATE = ANNUAL_PLAN + UPDATE;
     public static final String ANNUAL_PLAN_SCHEDULE = ANNUAL_PLAN + "addToSchedule";
     public static final String ANNUAL_PLAN_PLANED_LIST = ANNUAL_PLAN + "planedList";
@@ -38,6 +41,7 @@ public final class URIs {
     public static final String AUDIT_ENGAGEMENT_LIST_ALL = AUDIT_ENGAGEMENT + LIST_ALL;
     public static final String AUDIT_ENGAGEMENT_COMPLETED_LIST_ALL = AUDIT_ENGAGEMENT + "completed";
     public static final String AUDIT_ENGAGEMENT_BY_ID = AUDIT_ENGAGEMENT + FIND_BY_ID;
+    public static final String AUDIT_ENGAGEMENT_BY_YEAR = AUDIT_ENGAGEMENT + "findByYear";
     public static final String AUDIT_ENGAGEMENT_UPDATE = AUDIT_ENGAGEMENT + UPDATE;
 
 
@@ -57,6 +61,9 @@ public final class URIs {
     public static final String AUDIT_SCHEDULE_REGISTER = AUDIT_SCHEDULE + REGISTER;
     public static final String AUDIT_SCHEDULE_LIST_ALL = AUDIT_SCHEDULE + LIST_ALL;
     public static final String AUDIT_SCHEDULE_BY_ID = AUDIT_SCHEDULE + FIND_BY_ID;
+
+    public static final String AUDIT_SCHEDULE_BY_YEAR = AUDIT_SCHEDULE + "findByYear";
+
     public static final String AUDIT_SCHEDULE_UPDATE = AUDIT_SCHEDULE + UPDATE;
     public static final String ADD_AUDIT_SCHEDULE_TO_ENGAGEMENT = AUDIT_SCHEDULE + "addToEngagement";
 

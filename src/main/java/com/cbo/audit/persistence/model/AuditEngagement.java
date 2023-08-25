@@ -13,8 +13,10 @@ public class AuditEngagement extends BaseEntity{
     @Column(name = "SCHEDULE_ID")
     private Long auditScheduleId;
 
-
     @Column(name = "STATUS")
     private AuditEngagementStatus status;
+
+    @Column(name = " YEAR")
+    private String year;
 
 }

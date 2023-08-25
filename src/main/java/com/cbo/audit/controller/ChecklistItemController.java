@@ -50,6 +50,7 @@ public class ChecklistItemController {
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
+
     @GetMapping(value = URIs.CHECKLIST_ITEM_BY_ID,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<ChecklistItemDTO>> getChecklistItemById(@PathVariable(name = "id") Long id){
 

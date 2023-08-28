@@ -1,5 +1,6 @@
 package com.cbo.audit.dto;
 
+import com.cbo.audit.persistence.model.AuditObject;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,4 +15,6 @@ public class AuditableAreaDTO extends BaseDTO{
     private String name;
 
     private String description;
+
+    private AuditObjectDTO auditObject;
 }

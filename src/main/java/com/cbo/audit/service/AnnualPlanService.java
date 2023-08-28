@@ -21,4 +21,11 @@ public interface AnnualPlanService {
     ResultWrapper<AnnualPlanDTO> updateAnnualPlan(AnnualPlanDTO auditUniverseDTO);
 
     ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByAuditUniverseId(Long id);
+
+    ResultWrapper<AnnualPlanDTO> addAnnualPlanToSchedule(AnnualPlanDTO annualPlanDTO);
+
+    ResultWrapper<List<AnnualPlanDTO>> getPlannedAnnualPlans();
+
+    ResultWrapper<List<AnnualPlanDTO>> autoGenerateAnnualPlans(String year);
+
 }

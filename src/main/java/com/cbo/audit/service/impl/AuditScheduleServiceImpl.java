@@ -2,14 +2,20 @@ package com.cbo.audit.service.impl;
 
 import com.cbo.audit.dto.*;
 import com.cbo.audit.dto.AuditScheduleDTO;
+import com.cbo.audit.enums.AnnualPlanStatus;
+import com.cbo.audit.enums.AuditEngagementStatus;
+import com.cbo.audit.mapper.AuditEngagementMapper;
 import com.cbo.audit.mapper.AuditScheduleMapper;
 import com.cbo.audit.mapper.TeamMemberMapper;
 import com.cbo.audit.persistence.model.*;
+import com.cbo.audit.persistence.repository.AuditEngagementRepository;
 import com.cbo.audit.persistence.repository.AuditScheduleRepository;
+import com.cbo.audit.persistence.repository.BudgetYearRepository;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
 import com.cbo.audit.service.AnnualPlanService;
 import com.cbo.audit.service.AuditScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,31 +26,34 @@ import java.util.Optional;
 @Service("auditScheduleService")
 @Transactional
 public class AuditScheduleServiceImpl implements AuditScheduleService {
+
     @Autowired
     private AuditScheduleRepository auditScheduleRepository;
-
     @Autowired
     private AnnualPlanService annualPlanService;
-
     @Autowired
     private TeamMemberRepository teamMemberRepository;
 
+    @Autowired
+    private AuditEngagementRepository auditEngagementRepository;
+
+    @Autowired
+    private BudgetYearRepository budgetYearRepository;
 
     @Override
     public ResultWrapper<AuditScheduleDTO> registerAuditSchedule(AuditScheduleDTO auditScheduleDTO) {
+
         ResultWrapper<AuditScheduleDTO> resultWrapper = new ResultWrapper<>();
 
         AnnualPlan annualPlan = annualPlanService.findAnnualPlanById(auditScheduleDTO.getAnnualPlan().getId());
 
-        if (annualPlan == null) {
+        if (annualPlan == null){
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Annual Plan with the provided information is not available.");
             return resultWrapper;
-        }
-
-        if (auditScheduleDTO.getAnnualPlan() == null) {
+        } else if (!annualPlan.getStatus().equals(AnnualPlanStatus.Approved.name())) {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Annual Plan cannot be null.");
+            resultWrapper.setMessage("Annual Plan must be approved before scheduled.");
             return resultWrapper;
         }
         if (auditScheduleDTO.getStartOn() == null) {
@@ -61,16 +70,12 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
         AuditEngagement auditEngagement = new AuditEngagement();
         auditEngagement.setId(annualPlan.getId());
+        auditEngagement.setYear(annualPlan.getYear());
         auditSchedule.setId(annualPlan.getId());
 
         auditSchedule.setAuditEngagement(auditEngagement);
-
+        auditSchedule.setYear(annualPlan.getYear());
         AuditSchedule savedSchedule = auditScheduleRepository.save(auditSchedule);
-
-        List<TeamMemberDTO> teamMembers = auditScheduleDTO.getTeamMembers();
-        if (!teamMembers.isEmpty()) {
-            saveTeamMembers(teamMembers, savedSchedule);
-        }
 
         resultWrapper.setStatus(true);
         resultWrapper.setResult(AuditScheduleMapper.INSTANCE.toDTO(savedSchedule));
@@ -81,8 +86,10 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
     @Override
     public ResultWrapper<List<AuditScheduleDTO>> getAllAuditSchedule() {
+        String year = budgetYearRepository.findAll(Sort.by(" year","ASC")).stream().findFirst().get().getYear();
+
         ResultWrapper<List<AuditScheduleDTO>> resultWrapper = new ResultWrapper<>();
-        List<AuditSchedule> auditSchedules=auditScheduleRepository.findAll();
+        List<AuditSchedule> auditSchedules=auditScheduleRepository.findScheduleByYear(year);
         if (!auditSchedules.isEmpty()){
             List<AuditScheduleDTO> auditScheduleDTOS = AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules);
             resultWrapper.setResult(auditScheduleDTOS);
@@ -91,6 +98,19 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         return resultWrapper;
     }
 
+
+    @Override
+    public ResultWrapper<List<AuditScheduleDTO>> getAllAuditScheduleByYear(String year) {
+
+        ResultWrapper<List<AuditScheduleDTO>> resultWrapper = new ResultWrapper<>();
+        List<AuditSchedule> auditSchedules=auditScheduleRepository.findScheduleByYear(year);
+        if (!auditSchedules.isEmpty()){
+            List<AuditScheduleDTO> auditScheduleDTOS = AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules);
+            resultWrapper.setResult(auditScheduleDTOS);
+            resultWrapper.setStatus(true);
+        }
+        return resultWrapper;
+    }
 
     @Override
     public ResultWrapper<AuditScheduleDTO> getAuditScheduleById(Long id) {
@@ -123,17 +143,31 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         return resultWrapper;
     }
 
-/*    @Override
-    public ResultWrapper<List<AuditScheduleDTO>> getAuditScheduleByYear(String year) {
-        ResultWrapper<List<AuditScheduleDTO>> resultWrapper = new ResultWrapper<>();
-        List<AuditSchedule> auditSchedules=auditScheduleRepository.findAuditScheduleByYear(year);
-        if (!auditSchedules.isEmpty()){
-            List<AuditScheduleDTO> auditScheduleDTOS = AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules);
-            resultWrapper.setResult(auditScheduleDTOS);
-            resultWrapper.setStatus(true);
+    @Override
+    public ResultWrapper<AuditEngagementDTO> addToEngagement(AuditScheduleDTO auditScheduleDTO) {
+        ResultWrapper<AuditEngagementDTO> resultWrapper = new ResultWrapper<>();
+
+        Optional<AuditSchedule> oldAuditSchedule = auditScheduleRepository.findById(auditScheduleDTO.getId());
+
+
+        if (!oldAuditSchedule.isPresent()) {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit schedule must not be null.");
+            return resultWrapper;
         }
+
+        AuditEngagement auditEngagement = new AuditEngagement();
+        auditEngagement.setAuditScheduleId(oldAuditSchedule.get().getId());
+        auditEngagement.setStatus(AuditEngagementStatus.Scheduled);
+        auditEngagement.setCreatedTimestamp(LocalDateTime.now());
+        auditEngagement.setCreatedUser("TODO");
+        AuditEngagement savedEngagement = auditEngagementRepository.save(auditEngagement);
+
+        resultWrapper.setStatus(true);
+        resultWrapper.setResult(AuditEngagementMapper.INSTANCE.toDTO(savedEngagement));
+        resultWrapper.setMessage("Audit Engagement created successfully.");
         return resultWrapper;
-    }*/
+    }
 
     @Override
     public ResultWrapper<AuditScheduleDTO> updateAuditSchedule(AuditScheduleDTO auditScheduleDTO) {
@@ -161,31 +195,12 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
         AuditSchedule savedSchedule = auditScheduleRepository.save(auditSchedule);
 
-        //todo
-        List<TeamMemberDTO> teamMembers = auditScheduleDTO.getTeamMembers();
-        if (!teamMembers.isEmpty()) {
-            saveTeamMembers(teamMembers, savedSchedule);
-        }
-
         resultWrapper.setStatus(true);
         resultWrapper.setResult(AuditScheduleMapper.INSTANCE.toDTO(savedSchedule));
         resultWrapper.setMessage("Audit Schedule updated successfully.");
         return resultWrapper;
     }
 
-    public void saveTeamMembers(List<TeamMemberDTO> teamMemberDTOS, AuditSchedule auditSchedule){
 
-        if(!teamMemberDTOS.isEmpty()){
-
-            for (TeamMemberDTO teamMemberDTO: teamMemberDTOS) {
-
-                TeamMember teamMember = TeamMemberMapper.INSTANCE.toEntity(teamMemberDTO);
-                teamMember.setAuditSchedule(auditSchedule);
-                List<TeamMember> teamMemberList = teamMemberRepository.findTeamExistByUserId(teamMember.getUser().getId());
-
-                teamMemberRepository.save(teamMember);
-            }
-        }
-    }
 
 }

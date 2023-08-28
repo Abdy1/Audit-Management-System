@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 public class ChecklistItemDTO extends BaseDTO{
     private String name;
 
-    private AuditObjectDTO auditObjectDTO;
+    private String description;
 
     private AuditableAreaDTO auditableArea;
 }

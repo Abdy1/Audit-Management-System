@@ -20,7 +20,9 @@ public class AuditScheduleDTO extends BaseDTO{
 
     private String status;
 
-    private AuditEngagementDTO auditEngagement;
+    private String quarter;
+
+    private Long auditEngagementId;
 
     private List<TeamMemberDTO> teamMembers;
 

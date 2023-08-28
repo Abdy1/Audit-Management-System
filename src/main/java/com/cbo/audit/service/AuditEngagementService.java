@@ -12,14 +12,17 @@ public interface AuditEngagementService {
 
     ResultWrapper<List<AuditEngagementDTO>> getAllAuditEngagement();
 
+    ResultWrapper<List<AuditEngagementDTO>> getAllAuditEngagementByYear(String year);
+
     ResultWrapper<AuditEngagementDTO> getAuditEngagementById(Long id);
 
     AuditEngagement findAuditEngagementById(Long id);
 
-    /*    ResultWrapper<List<AuditEngagementDTO>> getAuditEngagementByYear(String year);*/
+    ResultWrapper<List<AuditEngagementDTO>> getAllCompletedAuditEngagement();
 
     ResultWrapper<AuditEngagementDTO> updateAuditEngagement(AuditEngagementDTO auditEngagementDTO);
 
     ResultWrapper<List<AuditEngagementDTO>> getAuditEngagementByAuditSchedule(Long id);
+
 
 }

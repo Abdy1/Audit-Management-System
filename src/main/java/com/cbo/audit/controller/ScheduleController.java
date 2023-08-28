@@ -1,8 +1,10 @@
 package com.cbo.audit.controller;
 
 import com.cbo.audit.constants.URIs;
+import com.cbo.audit.dto.AuditEngagementDTO;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.dto.TeamMemberDTO;
 import com.cbo.audit.service.AuditScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import java.util.List;
 public class ScheduleController {
     @Autowired
     AuditScheduleService auditScheduleService;
+
     @PostMapping(value = URIs.AUDIT_SCHEDULE_REGISTER, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<AuditScheduleDTO>> auditScheduleRegister(@RequestBody AuditScheduleDTO auditScheduleDTO){
 
@@ -40,6 +43,13 @@ public class ScheduleController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
+    @GetMapping(value = URIs.AUDIT_SCHEDULE_BY_YEAR,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AuditScheduleDTO>>> getAllAuditScheduleByYear(@PathVariable(name = "year") String year){
+
+        ResultWrapper<List<AuditScheduleDTO>> resultWrapper=auditScheduleService.getAllAuditScheduleByYear(year);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
     @PostMapping(value = URIs.AUDIT_SCHEDULE_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<AuditScheduleDTO>> updateAuditSchedule(@RequestBody AuditScheduleDTO auditScheduleDTO){
 
@@ -47,4 +57,13 @@ public class ScheduleController {
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
+
+    @PostMapping(value = URIs.ADD_AUDIT_SCHEDULE_TO_ENGAGEMENT, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditEngagementDTO>> addToEngagement(@RequestBody AuditScheduleDTO auditScheduleDTO){
+
+        ResultWrapper<AuditEngagementDTO> resultWrapper=auditScheduleService.addToEngagement(auditScheduleDTO);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
 }

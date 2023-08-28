@@ -9,6 +9,12 @@ import java.util.List;
 
 public interface TeamMemberRepository extends JpaRepository<TeamMember, Long> {
 
+    @Query("SELECT TM FROM TeamMember TM WHERE TM.user.id = :userId AND TM.status = :status")
+    List<TeamMember> findTeamMemberByUserIdAndState(@Param("userId") Long userId, @Param("status") String status);
+
+    @Query("SELECT TM FROM TeamMember TM WHERE TM.auditSchedule.id = :scheduleId")
+    List<TeamMember> findAllTeamsOfSchedule(@Param("scheduleId") Long scheduleId);
+
     @Query("SELECT TM FROM TeamMember TM WHERE TM.user.id = :userId")
-    List<TeamMember> findTeamExistByUserId(@Param("userId") Long userId);
+    List<TeamMember> findTeamMemberByUserId(@Param("userId") Long userId);
 }

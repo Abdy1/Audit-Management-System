@@ -1,5 +1,6 @@
 package com.cbo.audit.persistence.model;
 
+import com.cbo.audit.enums.AuditEngagementStatus;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,11 +10,13 @@ import javax.persistence.*;
 @Table
 public class AuditEngagement extends BaseEntity{
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "SCHEDULE_ID")
-    private AuditSchedule auditSchedule;
+    @Column(name = "SCHEDULE_ID")
+    private Long auditScheduleId;
 
     @Column(name = "STATUS")
-    private String status;
+    private AuditEngagementStatus status;
+
+    @Column(name = " YEAR")
+    private String year;
 
 }

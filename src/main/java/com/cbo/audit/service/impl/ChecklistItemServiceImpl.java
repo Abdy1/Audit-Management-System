@@ -1,12 +1,15 @@
 package com.cbo.audit.service.impl;
 
+import com.cbo.audit.dto.AuditableAreaDTO;
 import com.cbo.audit.dto.ChecklistItemDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.mapper.ChecklistItemMapper;
 import com.cbo.audit.persistence.model.AuditObject;
+import com.cbo.audit.persistence.model.AuditableArea;
 import com.cbo.audit.persistence.model.ChecklistItem;
 import com.cbo.audit.persistence.repository.ChecklistItemRepository;
 import com.cbo.audit.service.AuditObjectService;
+import com.cbo.audit.service.AuditableAreaService;
 import com.cbo.audit.service.ChecklistItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,18 +28,18 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
     @Autowired
     private ChecklistItemRepository checklistItemRepository;
 
+
     @Autowired
-    private AuditObjectService auditObjectService;
+    private AuditableAreaService auditableAreaService;
 
     @Override
     public ResultWrapper<ChecklistItemDTO> registerChecklistItem(ChecklistItemDTO checklistItemDTO) {
         ResultWrapper<ChecklistItemDTO> resultWrapper = new ResultWrapper<>();
 
-        Optional<AuditObject> auditObject = auditObjectService.findAuditObjectById(checklistItemDTO.getAuditObjectDTO().getId());
-        //Optional<Auditab> auditObject = auditObjectService.findAuditObjectById(checklistItemDTO.getAuditObjectDTO().getId());
-        if (!auditObject.isPresent()) {
+        Optional<AuditableArea> auditableArea = auditableAreaService.findAuditableAreaById(checklistItemDTO.getAuditableArea().getId());
+        if (!auditableArea.isPresent()) {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Checklist Item with the provided information is not available.");
+            resultWrapper.setMessage("Auditable area with the provided information is not available.");
             return resultWrapper;
         }
 
@@ -49,7 +52,7 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
         ChecklistItem checklistItem = ChecklistItemMapper.INSTANCE.toEntity(checklistItemDTO);
         checklistItem.setCreatedTimestamp(LocalDateTime.now());
         checklistItem.setCreatedUser("TODO");
-        checklistItem.setAuditObject(auditObject.get());
+        checklistItem.setAuditableArea(auditableArea.get());
         ChecklistItem savedPlan = checklistItemRepository.save(checklistItem);
 
         resultWrapper.setStatus(true);
@@ -102,7 +105,7 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
         return resultWrapper;
     }
 
-    @Override
+/*    @Override
     public ResultWrapper<List<ChecklistItemDTO>> getChecklistItemByAuditObjectId(Long id) {
 
         ResultWrapper<List<ChecklistItemDTO>> resultWrapper = new ResultWrapper<>();
@@ -113,16 +116,16 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
             resultWrapper.setStatus(true);
         }
         return resultWrapper;
-    }
+    }*/
 
 
     @Override
     public ResultWrapper<ChecklistItemDTO> updateChecklistItem(ChecklistItemDTO checklistItemDTO) {
         ResultWrapper<ChecklistItemDTO> resultWrapper = new ResultWrapper<>(checklistItemDTO);
 
-        ChecklistItem oldUniverse = checklistItemRepository.findById(checklistItemDTO.getId()).orElse(null);
+        ChecklistItem oldChecklist = checklistItemRepository.findById(checklistItemDTO.getId()).orElse(null);
 
-        if (oldUniverse != null){
+        if (oldChecklist != null){
             if (checklistItemDTO.getName() == null){
                 resultWrapper.setStatus(false);
                 resultWrapper.setMessage("Audit Object name cannot be null.");
@@ -130,9 +133,9 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
 
                 ChecklistItem checklistItem = ChecklistItemMapper.INSTANCE.toEntity(checklistItemDTO);
 
-                checklistItem.setCreatedTimestamp(oldUniverse.getCreatedTimestamp());
-                checklistItem.setCreatedUser(oldUniverse.getCreatedUser());
-                checklistItem.setAuditObject(oldUniverse.getAuditObject());
+                checklistItem.setCreatedTimestamp(oldChecklist.getCreatedTimestamp());
+                checklistItem.setCreatedUser(oldChecklist.getCreatedUser());
+                checklistItem.setAuditableArea(oldChecklist.getAuditableArea());
 
                 ChecklistItem savedUniverse = checklistItemRepository.save(checklistItem);
                 resultWrapper.setResult(ChecklistItemMapper.INSTANCE.toDTO(savedUniverse));
@@ -141,7 +144,7 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
             }
         }else {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Plan with the provided id is not available.");
+            resultWrapper.setMessage("CheckList with the provided id is not available.");
         }
 
         return resultWrapper;

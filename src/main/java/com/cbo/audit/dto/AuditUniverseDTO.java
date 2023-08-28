@@ -16,7 +16,7 @@ public class AuditUniverseDTO extends BaseDTO{
 
     private String description;
 
-    private String type;
+    private String auditType;
 
     private String status;
 }

@@ -1,5 +1,6 @@
 package com.cbo.audit.service;
 
+import com.cbo.audit.dto.AnnualPlanDTO;
 import com.cbo.audit.dto.AuditProgramMainActivityDTO;
 
 import com.cbo.audit.dto.AuditProgramWBSDTO;
@@ -12,4 +13,5 @@ public interface AuditProgramMainActivityService {
 
     ResultWrapper<List<AuditProgramMainActivityDTO>> getAllMainActivityByAuditProgramId(Long auditProgram_id);
     ResultWrapper<AuditProgramMainActivityDTO> registerAuditProgramMainActivity(AuditProgramMainActivityDTO auditProgramMainActivityDTO);
+    ResultWrapper<AuditProgramMainActivityDTO> updateAuditProgramMainActivity(AuditProgramMainActivityDTO auditProgramMainActivityDTO);
 }

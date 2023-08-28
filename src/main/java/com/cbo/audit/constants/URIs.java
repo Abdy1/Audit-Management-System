@@ -55,7 +55,16 @@ public final class URIs {
     public static final String AUDIT_PROGRAM_UPDATE= AUDIT_PROGRAM + UPDATE;
 
 
+    public static final String AUDIT_PROGRAM_WBS = AUDIT_PROGRAM + "wbs/";
+    public static final String AUDIT_PROGRAM_Main_ACTIVITY = AUDIT_PROGRAM + "mainActivities/";
+    public static final String AUDIT_PROGRAM_OBJECTIVE = AUDIT_PROGRAM + "objectives/";
 
+    public static final String List_WBS_BY_AUDIT_PROGRAM_ID = AUDIT_PROGRAM_WBS +FIND_BY_ID;
+    public static final String LIST_OBJECTIVES_BY_AUDIT_PROGRAM_ID = AUDIT_PROGRAM_OBJECTIVE + FIND_BY_ID;
+    public static final String LIST_Main_Activities_BY_AUDIT_PROGRAM_ID = AUDIT_PROGRAM_Main_ACTIVITY + FIND_BY_ID;
+    public static final String AUDIT_PROGRAM_WBS_REGISTER = AUDIT_PROGRAM_Main_ACTIVITY + REGISTER;
+    public static final String AUDIT_PROGRAM_MAIN_ACTIVITY_REGISTER = AUDIT_PROGRAM_WBS + REGISTER;
+    public static final String AUDIT_PROGRAM_OBJECTIVE_REGISTER = AUDIT_PROGRAM_WBS + REGISTER;
 
     public static final String AUDIT_SCHEDULE = APPLICATION_CONTEXT + "/auditSchedule/";
     public static final String AUDIT_SCHEDULE_REGISTER = AUDIT_SCHEDULE + REGISTER;
@@ -109,7 +118,5 @@ public final class URIs {
     public static final String CHECKLIST_ITEM_UPDATE = CHECKLIST_ITEM + UPDATE;
     public static final String CHECKLIST_ITEM_BY_AOBJ = CHECKLIST_ITEM + "byAObj";
     public static final String CHECKLIST_ITEM_BY_AAR = CHECKLIST_ITEM + "byAArea";
-    public static final String LIST_Main_Activities_BY_AUDIT_PROGRAM_ID= "some";
-    public static final String LIST_OBJECTIVES_BY_AUDIT_PROGRAM_ID = "con";
-    public static final String List_WBS_BY_AUDIT_PROGRAM_ID = "ccc";
+
 }

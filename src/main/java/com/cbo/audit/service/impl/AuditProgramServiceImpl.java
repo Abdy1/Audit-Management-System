@@ -157,5 +157,10 @@ public class AuditProgramServiceImpl implements AuditProgramService {
         return null;
     }
 
+    @Override
+    public Optional<AuditProgram> findAuditProgramById(Long id) {
+        return auditProgramRepository.findById(id);
+    }
+
 
 }

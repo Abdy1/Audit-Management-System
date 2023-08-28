@@ -1,10 +1,9 @@
 package com.cbo.audit.service.impl;
 
 import com.cbo.audit.dto.*;
-import com.cbo.audit.enums.AnnualPlanStatus;
-import com.cbo.audit.mapper.AnnualPlanMapper;
+
 import com.cbo.audit.mapper.WBSMapper;
-import com.cbo.audit.persistence.model.AnnualPlan;
+
 import com.cbo.audit.persistence.model.AuditProgram;
 import com.cbo.audit.persistence.model.WBS;
 import com.cbo.audit.persistence.repository.AuditProgramWBSRepository;
@@ -43,7 +42,7 @@ public class WBSServiceImpl implements WBSService {
             ResultWrapper<AuditProgramWBSDTO> resultWrapper = new ResultWrapper<>();
 
            // Optional<AuditUniverse> auditUniverseOpt = annualPlanService.findAuditUniverseById(annualPlanDTO.getAuditUniverse().getId());
-        Optional<AuditProgram> auditProgramOpt = null;//auditProgramService.findAuditProgramBy(auditProgramWBSDTO.getAuditProgram().getId());
+        Optional<AuditProgram> auditProgramOpt =auditProgramService.findAuditProgramById(auditProgramWBSDTO.getAuditProgram().getId());
 
         //add attributes to be checked if they are present in the audit program
 
@@ -59,7 +58,21 @@ public class WBSServiceImpl implements WBSService {
                 return resultWrapper;
             }
 
-
+        if (auditProgramWBSDTO.getStartOn() == null) {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit WBS Starting Date  cannot be null.");
+            return resultWrapper;
+        }
+        if (auditProgramWBSDTO.getEndOn() == null) {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit WBS Ending Date  cannot be null.");
+            return resultWrapper;
+        }
+        if (auditProgramWBSDTO.getEndOn() == null) {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit WBS Ending Date  cannot be null.");
+            return resultWrapper;
+        }
 
             //AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO;
 
@@ -77,7 +90,50 @@ public class WBSServiceImpl implements WBSService {
             resultWrapper.setMessage("Audit Program WBS created successfully.");
             return resultWrapper;
         }
+
+    @Override
+    public ResultWrapper<AuditProgramWBSDTO> updateAuditProgramWBS(AuditProgramWBSDTO auditProgramWBSDTO) {
+        ResultWrapper<AuditProgramWBSDTO> resultWrapper=new ResultWrapper<>(auditProgramWBSDTO);
+        WBS oldWBS=auditProgramWBSRepository.findById(auditProgramWBSDTO.getId()).orElse(null);
+        if(oldWBS !=null){
+            if (auditProgramWBSDTO.getStartOn() == null) {
+                resultWrapper.setStatus(false);
+                resultWrapper.setMessage("Audit WBS Starting Date  cannot be null.");
+
+            }
+
+           else if (auditProgramWBSDTO.getEndOn() == null) {
+                resultWrapper.setStatus(false);
+                resultWrapper.setMessage("Audit WBS Ending Date  cannot be null.");
+
+            }
+           else if (auditProgramWBSDTO.getName() == null) {
+                resultWrapper.setStatus(false);
+                resultWrapper.setMessage("Audit WBS name cannot be null.");
+
+            }
+            else {
+
+                WBS wbs = WBSMapper.INSTANCE.toEntity(auditProgramWBSDTO);
+
+                wbs.setCreatedTimestamp(oldWBS.getCreatedTimestamp());
+                wbs.setCreatedUser(oldWBS.getCreatedUser());
+                wbs.setAuditProgram(oldWBS.getAuditProgram());
+
+                WBS savedWBS = auditProgramWBSRepository.save(wbs);
+                resultWrapper.setResult(WBSMapper.INSTANCE.toDTO(savedWBS));
+                resultWrapper.setStatus(true);
+                resultWrapper.setMessage("Audit Program WBS updated successfully.");
+            }
+        }
+        else {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit Program WBS with the provided id is not available.");
+        }
+return resultWrapper;
+
     }
+}
 
 
 

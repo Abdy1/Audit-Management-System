@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 public class AuditProgramObjective extends BaseEntity{
     @Column(name="Audit_Objective")
-    private String Description;
+    private String description;
     @ManyToOne
     @JoinColumn(name = "Audit_Program")
     private AuditProgram auditProgram;

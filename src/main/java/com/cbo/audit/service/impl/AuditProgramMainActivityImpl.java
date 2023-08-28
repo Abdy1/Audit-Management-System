@@ -1,15 +1,19 @@
 package com.cbo.audit.service.impl;
 
+import com.cbo.audit.dto.AnnualPlanDTO;
 import com.cbo.audit.dto.AuditProgramMainActivityDTO;
 import com.cbo.audit.dto.AuditProgramWBSDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.enums.AnnualPlanStatus;
+import com.cbo.audit.mapper.AnnualPlanMapper;
 import com.cbo.audit.mapper.AuditProgramMainActivityMapper;
 import com.cbo.audit.mapper.WBSMapper;
+import com.cbo.audit.persistence.model.AnnualPlan;
 import com.cbo.audit.persistence.model.AuditProgram;
 import com.cbo.audit.persistence.model.AuditProgramMainActivity;
 import com.cbo.audit.persistence.model.WBS;
 import com.cbo.audit.persistence.repository.AuditProgramMainActivityRepository;
+import com.cbo.audit.persistence.repository.AuditProgramRepository;
 import com.cbo.audit.service.AuditProgramMainActivityService;
 import com.cbo.audit.service.AuditProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,8 @@ public class AuditProgramMainActivityImpl implements AuditProgramMainActivitySer
 
     @Autowired
     private AuditProgramMainActivityRepository auditProgramMainActivityRepository;
+    @Autowired
+    private AuditProgramRepository auditProgramRepository;
 @Autowired
 AuditProgramService auditProgramService;
     public ResultWrapper<List<AuditProgramMainActivityDTO>> getAllMainActivityByAuditProgramId(Long auditProgram_id) {
@@ -84,5 +90,52 @@ AuditProgramService auditProgramService;
         resultWrapper.setMessage("Audit Program WBS created successfully.");
         return resultWrapper;
     }
+
+    @Override
+    public ResultWrapper<AuditProgramMainActivityDTO> updateAuditProgramMainActivity(AuditProgramMainActivityDTO auditProgramMainActivityDTO) {
+     ResultWrapper<AuditProgramMainActivityDTO> resultWrapper=new ResultWrapper<>(auditProgramMainActivityDTO);
+     AuditProgramMainActivity oldAuditProgramMainActivity=auditProgramMainActivityRepository.findById(auditProgramMainActivityDTO.getId()).orElse(null);
+
+     if(oldAuditProgramMainActivity != null){
+         if(auditProgramMainActivityDTO.getName()==null){
+             resultWrapper.setStatus(false);
+             resultWrapper.setMessage("Audit Program Main Activity Can not be Empty!");
+
+
+         }
+        else if (auditProgramMainActivityDTO.getStartOn() == null) {
+             resultWrapper.setStatus(false);
+             resultWrapper.setMessage("Audit WBS Starting Date  cannot be null.");
+
+         }
+
+         else if (auditProgramMainActivityDTO.getEndOn() == null) {
+             resultWrapper.setStatus(false);
+             resultWrapper.setMessage("Audit WBS Ending Date  cannot be null.");
+
+         }
+         else {
+
+             AuditProgramMainActivity auditProgramMainActivity = AuditProgramMainActivityMapper.INSTANCE.toEntity(auditProgramMainActivityDTO);
+
+             auditProgramMainActivity.setCreatedTimestamp(oldAuditProgramMainActivity.getCreatedTimestamp());
+             auditProgramMainActivity.setCreatedUser(oldAuditProgramMainActivity.getCreatedUser());
+             auditProgramMainActivity.setAuditProgram(oldAuditProgramMainActivity.getAuditProgram());
+
+             AuditProgramMainActivity savedAuditProgramMainActivity = auditProgramMainActivityRepository.save(auditProgramMainActivity);
+             resultWrapper.setResult(AuditProgramMainActivityMapper.INSTANCE.toDTO(savedAuditProgramMainActivity));
+             resultWrapper.setStatus(true);
+             resultWrapper.setMessage("Audit Program Main Activity updated successfully.");
+         }
+     }
+     else {
+         resultWrapper.setStatus(false);
+         resultWrapper.setMessage("Audit Program Main Activity with the provided id is not available.");
+     }
+
+
+     return resultWrapper;
+    }
+
 
 }

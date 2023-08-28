@@ -109,4 +109,7 @@ public final class URIs {
     public static final String CHECKLIST_ITEM_UPDATE = CHECKLIST_ITEM + UPDATE;
     public static final String CHECKLIST_ITEM_BY_AOBJ = CHECKLIST_ITEM + "byAObj";
     public static final String CHECKLIST_ITEM_BY_AAR = CHECKLIST_ITEM + "byAArea";
+    public static final String LIST_Main_Activities_BY_AUDIT_PROGRAM_ID= "some";
+    public static final String LIST_OBJECTIVES_BY_AUDIT_PROGRAM_ID = "con";
+    public static final String List_WBS_BY_AUDIT_PROGRAM_ID = "ccc";
 }

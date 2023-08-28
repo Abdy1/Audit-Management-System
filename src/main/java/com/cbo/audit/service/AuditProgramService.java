@@ -21,4 +21,5 @@ public interface AuditProgramService {
     ResultWrapper<AuditProgramDTO> updateAuditProgram(AuditProgramDTO auditProgramDTO);
 
     ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByAuditUniverseId(Long id);
+
 }

@@ -43,7 +43,7 @@ public class WBSServiceImpl implements WBSService {
             ResultWrapper<AuditProgramWBSDTO> resultWrapper = new ResultWrapper<>();
 
            // Optional<AuditUniverse> auditUniverseOpt = annualPlanService.findAuditUniverseById(annualPlanDTO.getAuditUniverse().getId());
-        Optional<AuditProgram> auditProgramOpt = auditProgramService.findAuditProgramBy(auditProgramWBSDTO.getAuditProgram().getId());
+        Optional<AuditProgram> auditProgramOpt = null;//auditProgramService.findAuditProgramBy(auditProgramWBSDTO.getAuditProgram().getId());
 
         //add attributes to be checked if they are present in the audit program
 
@@ -67,7 +67,7 @@ public class WBSServiceImpl implements WBSService {
             wbs.setCreatedTimestamp(LocalDateTime.now());
 
             wbs.setCreatedUser("TODO");
-            wbs.setStatus(AnnualPlanStatus.Planned.getType());
+            //wbs.setStatus(AnnualPlanStatus.Planned.getType());
 
             WBS savedWBS = auditProgramWBSRepository.save(wbs);
 

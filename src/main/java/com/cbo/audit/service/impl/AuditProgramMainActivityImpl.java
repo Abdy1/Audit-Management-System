@@ -50,7 +50,7 @@ AuditProgramService auditProgramService;
         ResultWrapper<AuditProgramMainActivityDTO> resultWrapper = new ResultWrapper<>();
 
         // Optional<AuditUniverse> auditUniverseOpt = annualPlanService.findAuditUniverseById(annualPlanDTO.getAuditUniverse().getId());
-        Optional<AuditProgram> auditProgramOpt = auditProgramService.findAuditProgramBy(auditProgramMainActivityDTO.getAuditProgram().getId());
+        Optional<AuditProgram> auditProgramOpt = null;//auditProgramService.findAuditProgramBy(auditProgramMainActivityDTO.getAuditProgram().getId());
 
         //add attributes to be checked if they are present in the audit program
 

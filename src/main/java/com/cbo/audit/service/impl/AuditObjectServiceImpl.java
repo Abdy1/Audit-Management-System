@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +58,7 @@ public class AuditObjectServiceImpl implements AuditObjectService {
         AuditObject auditObject = AuditObjectMapper.INSTANCE.toEntity(auditObjectDTO);
         auditObject.setCreatedTimestamp(LocalDateTime.now());
         auditObject.setCreatedUser("TODO");
-        auditObject.setAuditUniverse(auditUniverseOpt.get());
+        //auditObject.setAuditUniverse(auditUniverseOpt.get());
         AuditObject savedPlan = auditObjectRepository.save(auditObject);
 
         resultWrapper.setStatus(true);
@@ -101,7 +102,7 @@ public class AuditObjectServiceImpl implements AuditObjectService {
     public ResultWrapper<List<AuditObjectDTO>> getAuditObjectByAuditUniverseId(Long id) {
 
         ResultWrapper<List<AuditObjectDTO>> resultWrapper = new ResultWrapper<>();
-        List<AuditObject> auditObjects = auditObjectRepository.findAuditObjectByAuditUniverseId(id);
+        List<AuditObject> auditObjects = new ArrayList<>();//auditObjectRepository.findAuditObjectByAuditUniverseId(id);
         if (auditObjects != null){
             List<AuditObjectDTO> auditObjectDTOS = AuditObjectMapper.INSTANCE.auditObjectsToAuditObjectDTOs(auditObjects);
             resultWrapper.setResult(auditObjectDTOS);
@@ -142,7 +143,7 @@ public class AuditObjectServiceImpl implements AuditObjectService {
 
                 auditObject.setCreatedTimestamp(oldUniverse.getCreatedTimestamp());
                 auditObject.setCreatedUser(oldUniverse.getCreatedUser());
-                auditObject.setAuditUniverse(oldUniverse.getAuditUniverse());
+                //auditObject.setAuditUniverse(oldUniverse.getAuditUniverse());
 
                 AuditObject savedUniverse = auditObjectRepository.save(auditObject);
                 resultWrapper.setResult(AuditObjectMapper.INSTANCE.toDTO(savedUniverse));

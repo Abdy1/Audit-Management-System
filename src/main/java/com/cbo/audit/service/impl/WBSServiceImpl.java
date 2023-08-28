@@ -41,9 +41,7 @@ public class WBSServiceImpl implements WBSService {
     public ResultWrapper<AuditProgramWBSDTO> registerAuditProgramWBS(AuditProgramWBSDTO auditProgramWBSDTO) {
             ResultWrapper<AuditProgramWBSDTO> resultWrapper = new ResultWrapper<>();
 
-           // Optional<AuditUniverse> auditUniverseOpt = annualPlanService.findAuditUniverseById(annualPlanDTO.getAuditUniverse().getId());
         Optional<AuditProgram> auditProgramOpt =auditProgramService.findAuditProgramById(auditProgramWBSDTO.getAuditProgram().getId());
-
         //add attributes to be checked if they are present in the audit program
 
             if (!auditProgramOpt.isPresent()) {

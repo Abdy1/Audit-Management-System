@@ -11,10 +11,8 @@ import com.cbo.audit.persistence.model.AuditEngagement;
 import com.cbo.audit.persistence.repository.AuditEngagementRepository;
 import com.cbo.audit.persistence.repository.BudgetYearRepository;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
-import com.cbo.audit.service.AnnualPlanService;
+import com.cbo.audit.service.*;
 import com.cbo.audit.service.AuditEngagementService;
-import com.cbo.audit.service.AuditEngagementService;
-import com.cbo.audit.service.AuditScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -37,7 +35,7 @@ public class AuditEngagementServiceImpl implements AuditEngagementService {
     private AuditScheduleService auditScheduleService;
 
     @Autowired
-    private TeamMemberRepository teamMemberRepository;
+    private TeamMemberService teamMemberService;
 
     @Autowired
     private BudgetYearRepository budgetYearRepository;
@@ -147,13 +145,18 @@ public class AuditEngagementServiceImpl implements AuditEngagementService {
 
         if (!oldAuditEngagement.isPresent()) {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit schedule must not be null.");
+            resultWrapper.setMessage("Audit engagement id must be valid.");
             return resultWrapper;
         }
         AuditEngagement auditEngagement = AuditEngagementMapper.INSTANCE.toEntity(auditEngagementDTO);
         auditEngagement.setCreatedUser(oldAuditEngagement.get().getCreatedUser());
         auditEngagement.setCreatedTimestamp(oldAuditEngagement.get().getCreatedTimestamp());
         auditEngagement.setAuditScheduleId(oldAuditEngagement.get().getAuditScheduleId());
+
+        //if the status is completed then update all team status as well
+        if(auditEngagement.getStatus().equals(AuditEngagementStatus.Completed)){
+            teamMemberService.updateAllTeamsStatus(oldAuditEngagement.get().getAuditScheduleId());
+        }
 
         AuditEngagement savedSchedule = auditEngagementRepository.save(auditEngagement);
 

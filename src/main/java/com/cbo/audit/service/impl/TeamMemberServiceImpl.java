@@ -11,7 +11,6 @@ import com.cbo.audit.service.AuditScheduleService;
 import com.cbo.audit.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -165,6 +164,17 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         resultWrapper.setResult(AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules));
 
         return resultWrapper;
+    }
+
+    @Override
+    public List<TeamMember> updateAllTeamsStatus(Long scheduleId) {
+        List<TeamMember> teams = teamMemberRepository.findAllTeamsOfSchedule(scheduleId);
+
+        for (TeamMember teamMember: teams) {
+            teamMember.setStatus(TeamMemberStatus.Completed);
+            teamMemberRepository.save(teamMember);
+        }
+        return teams;
     }
 
     public boolean isTeamMemberFree(Long userId){

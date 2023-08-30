@@ -43,7 +43,8 @@ public class WBSServiceImpl implements WBSService {
 
         Optional<AuditProgram> auditProgramOpt =auditProgramService.findAuditProgramById(auditProgramWBSDTO.getAuditProgram().getId());
         //add attributes to be checked if they are present in the audit program
-
+        System.out.println("---------------------------------------------------"+auditProgramWBSDTO.getAuditProgram().getId());
+        System.out.println(auditProgramWBSDTO.toString());
             if (!auditProgramOpt.isPresent()) {
                 resultWrapper.setStatus(false);
                 resultWrapper.setMessage("Audit Program with the provided information is not available.");
@@ -66,11 +67,8 @@ public class WBSServiceImpl implements WBSService {
             resultWrapper.setMessage("Audit WBS Ending Date  cannot be null.");
             return resultWrapper;
         }
-        if (auditProgramWBSDTO.getEndOn() == null) {
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit WBS Ending Date  cannot be null.");
-            return resultWrapper;
-        }
+
+
 
             //AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO;
 

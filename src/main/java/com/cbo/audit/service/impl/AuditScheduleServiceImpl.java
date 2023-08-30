@@ -73,7 +73,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         auditEngagement.setYear(annualPlan.getYear());
         auditSchedule.setId(annualPlan.getId());
 
-        auditSchedule.setAuditEngagement(auditEngagement);
+        auditSchedule.setAuditEngagementId(auditEngagement.getId());
         auditSchedule.setYear(annualPlan.getYear());
         AuditSchedule savedSchedule = auditScheduleRepository.save(auditSchedule);
 
@@ -189,7 +189,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         AuditSchedule auditSchedule = AuditScheduleMapper.INSTANCE.toEntity(auditScheduleDTO);
         auditSchedule.setCreatedUser(oldAuditSchedule.get().getCreatedUser());
         auditSchedule.setCreatedTimestamp(oldAuditSchedule.get().getCreatedTimestamp());
-        auditSchedule.setAuditEngagement(oldAuditSchedule.get().getAuditEngagement());
+        auditSchedule.setAuditEngagementId(oldAuditSchedule.get().getAuditEngagementId());
         auditSchedule.setAnnualPlan(oldAuditSchedule.get().getAnnualPlan());
 
 

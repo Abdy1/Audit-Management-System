@@ -62,9 +62,9 @@ public final class URIs {
     public static final String List_WBS_BY_AUDIT_PROGRAM_ID = AUDIT_PROGRAM_WBS +FIND_BY_ID;
     public static final String LIST_OBJECTIVES_BY_AUDIT_PROGRAM_ID = AUDIT_PROGRAM_OBJECTIVE + FIND_BY_ID;
     public static final String LIST_Main_Activities_BY_AUDIT_PROGRAM_ID = AUDIT_PROGRAM_Main_ACTIVITY + FIND_BY_ID;
-    public static final String AUDIT_PROGRAM_WBS_REGISTER = AUDIT_PROGRAM_Main_ACTIVITY + REGISTER;
-    public static final String AUDIT_PROGRAM_MAIN_ACTIVITY_REGISTER = AUDIT_PROGRAM_WBS + REGISTER;
-    public static final String AUDIT_PROGRAM_OBJECTIVE_REGISTER = AUDIT_PROGRAM_WBS + REGISTER;
+    public static final String AUDIT_PROGRAM_WBS_REGISTER = AUDIT_PROGRAM_WBS + REGISTER;
+    public static final String AUDIT_PROGRAM_MAIN_ACTIVITY_REGISTER = AUDIT_PROGRAM_Main_ACTIVITY + REGISTER;
+    public static final String AUDIT_PROGRAM_OBJECTIVE_REGISTER = AUDIT_PROGRAM_OBJECTIVE + REGISTER;
 
     public static final String AUDIT_SCHEDULE = APPLICATION_CONTEXT + "/auditSchedule/";
     public static final String AUDIT_SCHEDULE_REGISTER = AUDIT_SCHEDULE + REGISTER;

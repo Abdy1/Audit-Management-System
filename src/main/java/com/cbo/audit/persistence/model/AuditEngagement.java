@@ -7,12 +7,13 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table
+@Table(name="ams_audit_engagement")
 public class AuditEngagement extends BaseEntity{
 
     @Column(name = "SCHEDULE_ID")
     private Long auditScheduleId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
     private AuditEngagementStatus status;
 

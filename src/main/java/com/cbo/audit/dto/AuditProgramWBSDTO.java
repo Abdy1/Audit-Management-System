@@ -21,7 +21,7 @@ public class AuditProgramWBSDTO extends BaseDTO{
     private String description;
 
 
-    private AuditProgram auditProgram;
+    private AuditProgramDTO auditProgram;
 
 
     private String status;
@@ -34,4 +34,7 @@ public class AuditProgramWBSDTO extends BaseDTO{
 
 
     private int numberOfDays;
+
+
+
 }

@@ -20,7 +20,7 @@ public interface AuditObjectService {
 
     ResultWrapper<AuditObjectDTO> updateAuditObject(AuditObjectDTO auditObjectDTO);
 
-    ResultWrapper<List<AuditObjectDTO>> getAuditObjectByAuditUniverseId(Long id);
-
     ResultWrapper<List<AuditType>> getAllAuditType();
+
+    ResultWrapper<List<AuditObjectDTO>> getAuditObjectByAuditType(String auditType);
 }

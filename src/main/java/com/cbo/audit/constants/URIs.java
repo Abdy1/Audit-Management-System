@@ -89,12 +89,13 @@ public final class URIs {
     public static final String RISK_ITEM_LIST_ALL = AUDIT_RISK + "listRiskItem";
     public static final String RISK_SCORE_BY_ANNUAL_ID = AUDIT_RISK + "riskScoreByAnn";
     public static final String GET_RISK_LEVEL = AUDIT_RISK + "riskLevel";
+
     public static final String AUDIT_OBJECT = APPLICATION_CONTEXT + "/auditObject/";
     public static final String AUDIT_OBJECT_REGISTER = AUDIT_OBJECT + REGISTER;
     public static final String AUDIT_OBJECT_LIST_ALL = AUDIT_OBJECT + LIST_ALL;
     public static final String AUDIT_OBJECT_BY_ID = AUDIT_OBJECT + "findById";
     public static final String AUDIT_OBJECT_UPDATE = AUDIT_OBJECT + UPDATE;
-    public static final String AUDIT_OBJECT_BY_AU = AUDIT_OBJECT + "byAU";
+    public static final String AUDIT_OBJECT_BY_AUDIT_TYPE = AUDIT_OBJECT + "byAuditType";
 
     public static final String AUDIT_TYPE_LIST_ALL = APPLICATION_CONTEXT + "/auditType/listAll";
 
@@ -116,6 +117,7 @@ public final class URIs {
     public static final String AUDITABLE_AREA_REGISTER = AUDITABLE_AREA + REGISTER;
     public static final String AUDITABLE_AREA_LIST_ALL = AUDITABLE_AREA + LIST_ALL;
     public static final String AUDITABLE_AREA_BY_ID = AUDITABLE_AREA + "findById";
+    public static final String AUDITABLE_AREA_BY_OBJECT_ID = AUDITABLE_AREA + "findByObj";
     public static final String AUDITABLE_AREA_UPDATE = AUDITABLE_AREA + UPDATE;
 
     public static final String CHECKLIST_ITEM = APPLICATION_CONTEXT + "/checkListItem/";
@@ -123,7 +125,8 @@ public final class URIs {
     public static final String CHECKLIST_ITEM_LIST_ALL = CHECKLIST_ITEM + LIST_ALL;
     public static final String CHECKLIST_ITEM_BY_ID = CHECKLIST_ITEM + FIND_BY_ID;
     public static final String CHECKLIST_ITEM_UPDATE = CHECKLIST_ITEM + UPDATE;
-    public static final String CHECKLIST_ITEM_BY_AOBJ = CHECKLIST_ITEM + "byAObj";
+    public static final String CHECK_LIST_BY_OBJECT_ID = CHECKLIST_ITEM + "findByObj";
+
     public static final String CHECKLIST_ITEM_BY_AAR = CHECKLIST_ITEM + "byAArea";
 
 }

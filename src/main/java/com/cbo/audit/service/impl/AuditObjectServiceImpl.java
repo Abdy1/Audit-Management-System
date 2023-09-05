@@ -28,22 +28,11 @@ public class AuditObjectServiceImpl implements AuditObjectService {
     private AuditObjectRepository auditObjectRepository;
 
     @Autowired
-    private AuditUniverseService auditObjectService;
-
-    @Autowired
     private AuditTypeRepository auditTypeRepository;
 
     @Override
     public ResultWrapper<AuditObjectDTO> registerAuditObject(AuditObjectDTO auditObjectDTO) {
         ResultWrapper<AuditObjectDTO> resultWrapper = new ResultWrapper<>();
-
-        Optional<AuditUniverse> auditUniverseOpt = auditObjectService.findAuditUniverseById(auditObjectDTO.getAuditUniverses().stream().findFirst().get().getId());
-
-        if (!auditUniverseOpt.isPresent()) {
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Universe with the provided information is not available.");
-            return resultWrapper;
-        }
 
         if (auditObjectDTO.getName() == null) {
             resultWrapper.setStatus(false);
@@ -54,11 +43,9 @@ public class AuditObjectServiceImpl implements AuditObjectService {
             resultWrapper.setMessage("Audit Object type cannot be null.");
         }
 
-
         AuditObject auditObject = AuditObjectMapper.INSTANCE.toEntity(auditObjectDTO);
         auditObject.setCreatedTimestamp(LocalDateTime.now());
         auditObject.setCreatedUser("TODO");
-        //auditObject.setAuditUniverse(auditUniverseOpt.get());
         AuditObject savedPlan = auditObjectRepository.save(auditObject);
 
         resultWrapper.setStatus(true);
@@ -98,26 +85,27 @@ public class AuditObjectServiceImpl implements AuditObjectService {
         return auditObjectRepository.findById(id);
     }
 
-    @Override
-    public ResultWrapper<List<AuditObjectDTO>> getAuditObjectByAuditUniverseId(Long id) {
-
-        ResultWrapper<List<AuditObjectDTO>> resultWrapper = new ResultWrapper<>();
-        List<AuditObject> auditObjects = new ArrayList<>();//auditObjectRepository.findAuditObjectByAuditUniverseId(id);
-        if (auditObjects != null){
-            List<AuditObjectDTO> auditObjectDTOS = AuditObjectMapper.INSTANCE.auditObjectsToAuditObjectDTOs(auditObjects);
-            resultWrapper.setResult(auditObjectDTOS);
-            resultWrapper.setStatus(true);
-        }
-        return resultWrapper;
-    }
 
     @Override
     public ResultWrapper<List<AuditType>> getAllAuditType() {
 
         ResultWrapper<List<AuditType>> resultWrapper = new ResultWrapper<>();
         List<AuditType> auditObjects = auditTypeRepository.findAll();
-        if (auditObjects != null){
+        if (!auditObjects.isEmpty()){
             resultWrapper.setResult(auditObjects);
+            resultWrapper.setStatus(true);
+        }
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<List<AuditObjectDTO>> getAuditObjectByAuditType(String auditType) {
+
+        ResultWrapper<List<AuditObjectDTO>> resultWrapper = new ResultWrapper<>();
+        List<AuditObject> auditObjects=auditObjectRepository.findAuditObjectsByAuditType(auditType);
+        if (!auditObjects.isEmpty()){
+            List<AuditObjectDTO> auditObjectDTOS = AuditObjectMapper.INSTANCE.auditObjectsToAuditObjectDTOs(auditObjects);
+            resultWrapper.setResult(auditObjectDTOS);
             resultWrapper.setStatus(true);
         }
         return resultWrapper;
@@ -143,7 +131,6 @@ public class AuditObjectServiceImpl implements AuditObjectService {
 
                 auditObject.setCreatedTimestamp(oldUniverse.getCreatedTimestamp());
                 auditObject.setCreatedUser(oldUniverse.getCreatedUser());
-                //auditObject.setAuditUniverse(oldUniverse.getAuditUniverse());
 
                 AuditObject savedUniverse = auditObjectRepository.save(auditObject);
                 resultWrapper.setResult(AuditObjectMapper.INSTANCE.toDTO(savedUniverse));
@@ -152,7 +139,7 @@ public class AuditObjectServiceImpl implements AuditObjectService {
             }
         }else {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Plan with the provided id is not available.");
+            resultWrapper.setMessage("Audit object with the provided id is not available.");
         }
 
         return resultWrapper;

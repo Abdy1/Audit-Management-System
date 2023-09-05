@@ -23,4 +23,8 @@ public class AuditUniverse  extends BaseEntity{
 
     @Column(name = "STATUS")
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "AUDIT_OBJECT_ID")
+    private AuditObject auditObject;
 }

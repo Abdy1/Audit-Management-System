@@ -1,8 +1,11 @@
 package com.cbo.audit.service.impl;
 
+import com.cbo.audit.dto.AuditObjectDTO;
 import com.cbo.audit.dto.AuditableAreaDTO;
+import com.cbo.audit.dto.ChecklistItemDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.mapper.AuditableAreaMapper;
+import com.cbo.audit.mapper.ChecklistItemMapper;
 import com.cbo.audit.persistence.model.AuditObject;
 import com.cbo.audit.persistence.model.AuditableArea;
 import com.cbo.audit.persistence.repository.AuditableAreaRepository;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +72,32 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
     public ResultWrapper<List<AuditableAreaDTO>> getAllAuditableArea() {
         ResultWrapper<List<AuditableAreaDTO>> resultWrapper = new ResultWrapper<>();
         List<AuditableArea> auditableAreas=auditableAreaRepository.findAll();
+        if (!auditableAreas.isEmpty()){
+            List<AuditableAreaDTO> auditableAreaDTOS = AuditableAreaMapper.INSTANCE.auditableAreasToAuditableAreaDTOs(auditableAreas);
+            resultWrapper.setResult(auditableAreaDTOS);
+            resultWrapper.setStatus(true);
+        }
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<List<ChecklistItemDTO>> getCheckListsByAuditObjectId(Long auditObjectId) {
+        ResultWrapper<List<ChecklistItemDTO>> resultWrapper = new ResultWrapper<>();
+        List<ChecklistItemDTO> checklistItemDTOS = new ArrayList<>();
+        List<AuditableArea> auditableAreas=auditableAreaRepository.findAuditableAreasByAuditObjectId(auditObjectId);
+        for (AuditableArea auditableArea: auditableAreas) {
+            checklistItemDTOS.addAll(ChecklistItemMapper.INSTANCE.checklistItemsToChecklistItemDTOs(auditableArea.getChecklistItems()));
+        }
+        resultWrapper.setResult(checklistItemDTOS);
+        resultWrapper.setStatus(true);
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<List<AuditableAreaDTO>> getAuditableAreasByAuditObjectId(Long auditObjectId) {
+
+        ResultWrapper<List<AuditableAreaDTO>> resultWrapper = new ResultWrapper<>();
+        List<AuditableArea> auditableAreas=auditableAreaRepository.findAuditableAreasByAuditObjectId(auditObjectId);
         if (!auditableAreas.isEmpty()){
             List<AuditableAreaDTO> auditableAreaDTOS = AuditableAreaMapper.INSTANCE.auditableAreasToAuditableAreaDTOs(auditableAreas);
             resultWrapper.setResult(auditableAreaDTOS);

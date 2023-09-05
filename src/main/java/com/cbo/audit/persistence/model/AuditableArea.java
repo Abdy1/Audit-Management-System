@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Getter
@@ -21,5 +22,8 @@ public class AuditableArea extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "AUDIT_OBJECT_ID")
     private AuditObject auditObject;
+
+    @OneToMany(mappedBy = "auditableArea", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<ChecklistItem>  checklistItems;
 
 }

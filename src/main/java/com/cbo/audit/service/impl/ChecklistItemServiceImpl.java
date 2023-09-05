@@ -28,7 +28,6 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
     @Autowired
     private ChecklistItemRepository checklistItemRepository;
 
-
     @Autowired
     private AuditableAreaService auditableAreaService;
 

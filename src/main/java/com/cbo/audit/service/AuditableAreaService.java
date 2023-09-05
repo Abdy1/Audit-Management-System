@@ -1,6 +1,8 @@
 package com.cbo.audit.service;
 
+import com.cbo.audit.dto.AuditObjectDTO;
 import com.cbo.audit.dto.AuditableAreaDTO;
+import com.cbo.audit.dto.ChecklistItemDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.persistence.model.AuditableArea;
 
@@ -12,6 +14,10 @@ public interface AuditableAreaService {
     ResultWrapper<AuditableAreaDTO> registerAuditableArea(AuditableAreaDTO auditableAreaDTO);
 
     ResultWrapper<List<AuditableAreaDTO>> getAllAuditableArea();
+
+    ResultWrapper<List<AuditableAreaDTO>> getAuditableAreasByAuditObjectId(Long auditObjectId);
+
+    ResultWrapper<List<ChecklistItemDTO>> getCheckListsByAuditObjectId(Long auditObjectId);
 
     ResultWrapper<AuditableAreaDTO> getAuditableAreaById(Long id);
 

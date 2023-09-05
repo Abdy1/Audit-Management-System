@@ -23,10 +23,4 @@ public class AuditObject extends BaseEntity{
     private String auditType;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "ams_audit_object_universe",
-            joinColumns = @JoinColumn(name = "audit_object_id"),
-            inverseJoinColumns = @JoinColumn(name = "audit_universe_id"))
-    private Set<AuditUniverse> auditUniverses = new HashSet<>();
-
 }

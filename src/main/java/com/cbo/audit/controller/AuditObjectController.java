@@ -44,6 +44,13 @@ public class AuditObjectController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
+    @GetMapping(value = URIs.AUDIT_OBJECT_BY_AUDIT_TYPE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AuditObjectDTO>>> listAllAuditObject(@RequestParam("auditType") String auditType){
+
+        ResultWrapper<List<AuditObjectDTO>> resultWrapper=auditObjectService.getAuditObjectByAuditType(auditType);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
     @PostMapping(value = URIs.AUDIT_OBJECT_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<AuditObjectDTO>> updateAuditObject(@RequestBody AuditObjectDTO auditObjectDTO){
 

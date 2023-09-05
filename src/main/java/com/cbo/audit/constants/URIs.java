@@ -17,6 +17,7 @@ public final class URIs {
 
 
 
+
     public static final String ANNUAL_PLAN = APPLICATION_CONTEXT + "/annualPlan/";
     public static final String ANNUAL_PLAN_REGISTER = ANNUAL_PLAN + REGISTER;
     public static final String ANNUAL_PLAN_LIST_ALL = ANNUAL_PLAN + LIST_ALL;
@@ -51,20 +52,26 @@ public final class URIs {
 
     public static final String AUDIT_PROGRAM_LIST_ALL = AUDIT_PROGRAM + LIST_ALL;
 
-    public static final String AUDIT_PROGRAM_BY_ID = AUDIT_PROGRAM + "findById/{id}";
+    public static final String AUDIT_PROGRAM_BY_ID = AUDIT_PROGRAM +FIND_BY_ID;
     public static final String AUDIT_PROGRAM_UPDATE= AUDIT_PROGRAM + UPDATE;
 
 
+
     public static final String AUDIT_PROGRAM_WBS = AUDIT_PROGRAM + "wbs/";
-    public static final String AUDIT_PROGRAM_Main_ACTIVITY = AUDIT_PROGRAM + "mainActivities/";
-    public static final String AUDIT_PROGRAM_OBJECTIVE = AUDIT_PROGRAM + "objectives/";
+    public static final String AUDIT_PROGRAM_MAIN_ACTIVITY = AUDIT_PROGRAM + "mainActivity/";
+    public static final String AUDIT_PROGRAM_OBJECTIVE = AUDIT_PROGRAM + "objective/";
 
     public static final String List_WBS_BY_AUDIT_PROGRAM_ID = AUDIT_PROGRAM_WBS +FIND_BY_ID;
     public static final String LIST_OBJECTIVES_BY_AUDIT_PROGRAM_ID = AUDIT_PROGRAM_OBJECTIVE + FIND_BY_ID;
-    public static final String LIST_Main_Activities_BY_AUDIT_PROGRAM_ID = AUDIT_PROGRAM_Main_ACTIVITY + FIND_BY_ID;
+    public static final String LIST_MAIN_ACTIVITIES_BY_AUDIT_PROGRAM_ID = AUDIT_PROGRAM_MAIN_ACTIVITY + FIND_BY_ID;
     public static final String AUDIT_PROGRAM_WBS_REGISTER = AUDIT_PROGRAM_WBS + REGISTER;
-    public static final String AUDIT_PROGRAM_MAIN_ACTIVITY_REGISTER = AUDIT_PROGRAM_Main_ACTIVITY + REGISTER;
+
+    public static final String AUDIT_PROGRAM_MAIN_ACTIVITY_REGISTER = AUDIT_PROGRAM_MAIN_ACTIVITY + REGISTER;
     public static final String AUDIT_PROGRAM_OBJECTIVE_REGISTER = AUDIT_PROGRAM_OBJECTIVE + REGISTER;
+
+    public static final String AUDIT_PROGRAM_WBS_UPDATE= AUDIT_PROGRAM_WBS + UPDATE;
+    public static final String AUDIT_PROGRAM_OBJECTIVE_UPDATE= AUDIT_PROGRAM_OBJECTIVE + UPDATE;
+    public static final String AUDIT_PROGRAM_MAIN_ACTIVITY_UPDATE= AUDIT_PROGRAM_MAIN_ACTIVITY + UPDATE;
 
     public static final String AUDIT_SCHEDULE = APPLICATION_CONTEXT + "/auditSchedule/";
     public static final String AUDIT_SCHEDULE_REGISTER = AUDIT_SCHEDULE + REGISTER;

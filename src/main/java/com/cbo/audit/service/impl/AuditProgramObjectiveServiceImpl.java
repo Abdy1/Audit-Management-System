@@ -70,7 +70,10 @@ public class AuditProgramObjectiveServiceImpl implements AuditProgramObjectiveSe
         AuditProgramObjective auditProgramObjective = AuditProgramObjectiveMapper.INSTANCE.toEntity(auditProgramObjectiveDTO);
         auditProgramObjective.setCreatedTimestamp(LocalDateTime.now());
 
+
         auditProgramObjective.setCreatedUser("TODO");
+        auditProgramObjective.setModifiedUser("TODO");
+        auditProgramObjective.setAuditProgram(auditProgramOpt.get());
         //wbs.setStatus(AnnualPlanStatus.Planned.getType());
 
         AuditProgramObjective savedAuditProgramObjective = auditProgramObjectiveRepository.save(auditProgramObjective);

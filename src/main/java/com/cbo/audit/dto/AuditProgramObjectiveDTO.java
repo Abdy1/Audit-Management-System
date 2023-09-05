@@ -15,6 +15,6 @@ public class AuditProgramObjectiveDTO extends BaseDTO{
 
     private String description;
 
-    private AuditProgram auditProgram;
+    private AuditProgramDTO auditProgram;
 
 }

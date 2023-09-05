@@ -10,13 +10,13 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AuditProgramMainActivityDTO extends BaseDTO{
 
-    private String Name;
+    private String name;
 
     private String startOn;
 
     private String endOn;
 
-    private String Days;
+    private String days;
 
-    private AuditProgram auditProgram;
+    private AuditProgramDTO auditProgram;
 }

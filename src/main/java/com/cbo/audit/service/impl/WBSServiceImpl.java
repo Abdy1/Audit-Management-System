@@ -71,18 +71,23 @@ public class WBSServiceImpl implements WBSService {
 
 
             //AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO;
+        WBS wBS = WBSMapper.INSTANCE.toEntity(auditProgramWBSDTO);
 
-                    WBS wbs = WBSMapper.INSTANCE.toEntity(auditProgramWBSDTO);
-            wbs.setCreatedTimestamp(LocalDateTime.now());
 
-            wbs.setCreatedUser("TODO");
+
             //wbs.setStatus(AnnualPlanStatus.Planned.getType());
 
-            WBS savedWBS = auditProgramWBSRepository.save(wbs);
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+auditProgramWBSDTO.getNumberOfDays());
+        System.out.println(wBS.getNumberOfDays());
+        System.out.println(wBS);
+        System.out.println(auditProgramWBSDTO);
 
+        wBS.setAuditProgram(auditProgramOpt.get());
+        WBS savedWBS = auditProgramWBSRepository.save(wBS);
 
             resultWrapper.setStatus(true);
             resultWrapper.setResult(WBSMapper.INSTANCE.toDTO(savedWBS));
+        System.out.println(savedWBS.getEndOn()+"7777777777777777777777777777777777");
             resultWrapper.setMessage("Audit Program WBS created successfully.");
             return resultWrapper;
         }

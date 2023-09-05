@@ -26,6 +26,7 @@ public class AuditProgramWBSController {
     WBSService wbsService;
     @GetMapping(value = URIs.List_WBS_BY_AUDIT_PROGRAM_ID,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<List<AuditProgramWBSDTO>>> listAllAuditProgramWBS(@PathVariable(name = "id") Long id){
+        System.out.println("==================================="+wbsService.getAllWBSByAuditProgramId(id));
         ResultWrapper<List<AuditProgramWBSDTO>> resultWrapper=wbsService.getAllWBSByAuditProgramId(id);
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
 
@@ -38,6 +39,11 @@ public class AuditProgramWBSController {
         ResultWrapper<AuditProgramWBSDTO> resultWrapper=wbsService.registerAuditProgramWBS(auditProgramWBSDTO);
  return new ResponseEntity<>(resultWrapper,HttpStatus.CREATED);
     }
+    @PostMapping(value = URIs.AUDIT_PROGRAM_WBS_UPDATE,produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditProgramWBSDTO>> auditProgramWBSUpdate(@RequestBody AuditProgramWBSDTO auditProgramWBSDTO){
 
+        ResultWrapper<AuditProgramWBSDTO> resultWrapper=wbsService.updateAuditProgramWBS(auditProgramWBSDTO);
+        return new ResponseEntity<>(resultWrapper,HttpStatus.CREATED);
+    }
 
 }

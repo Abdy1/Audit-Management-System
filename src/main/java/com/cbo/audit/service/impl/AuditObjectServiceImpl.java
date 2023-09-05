@@ -37,7 +37,7 @@ public class AuditObjectServiceImpl implements AuditObjectService {
     public ResultWrapper<AuditObjectDTO> registerAuditObject(AuditObjectDTO auditObjectDTO) {
         ResultWrapper<AuditObjectDTO> resultWrapper = new ResultWrapper<>();
 
-        Optional<AuditUniverse> auditUniverseOpt = auditObjectService.findAuditUniverseById(auditObjectDTO.getAuditUniverse().getId());
+        Optional<AuditUniverse> auditUniverseOpt = auditObjectService.findAuditUniverseById(auditObjectDTO.getAuditUniverses().stream().findFirst().get().getId());
 
         if (!auditUniverseOpt.isPresent()) {
             resultWrapper.setStatus(false);

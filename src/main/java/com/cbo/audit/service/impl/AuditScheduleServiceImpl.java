@@ -86,7 +86,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
     @Override
     public ResultWrapper<List<AuditScheduleDTO>> getAllAuditSchedule() {
-        String year = budgetYearRepository.findAll(Sort.by(" year","ASC")).stream().findFirst().get().getYear();
+        String year = budgetYearRepository.findAll(Sort.by(Sort.Direction.DESC, "year")).stream().findFirst().get().getYear();
 
         ResultWrapper<List<AuditScheduleDTO>> resultWrapper = new ResultWrapper<>();
         List<AuditSchedule> auditSchedules=auditScheduleRepository.findScheduleByYear(year);

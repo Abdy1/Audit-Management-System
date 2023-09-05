@@ -20,7 +20,6 @@ public class AnnualPlanController {
     private AnnualPlanService annualPlanService;
 
 
-
     @PostMapping(value = URIs.ANNUAL_PLAN_REGISTER, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<AnnualPlanDTO>> annualPlanRegister(@RequestBody AnnualPlanDTO annualPlanDTO){
 

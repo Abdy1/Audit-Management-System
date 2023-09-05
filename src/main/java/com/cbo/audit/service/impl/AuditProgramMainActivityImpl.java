@@ -26,8 +26,7 @@ import java.util.Optional;
 
 @Service("auditProgramMainActivityService")
 @Transactional
-public class AuditProgramMainActivityImpl implements AuditProgramMainActivityService
-{
+public class AuditProgramMainActivityImpl implements AuditProgramMainActivityService {
 
 
     @Autowired

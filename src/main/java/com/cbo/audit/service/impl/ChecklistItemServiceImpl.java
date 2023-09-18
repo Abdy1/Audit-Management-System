@@ -104,20 +104,6 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
         return resultWrapper;
     }
 
-/*    @Override
-    public ResultWrapper<List<ChecklistItemDTO>> getChecklistItemByAuditObjectId(Long id) {
-
-        ResultWrapper<List<ChecklistItemDTO>> resultWrapper = new ResultWrapper<>();
-        List<ChecklistItem> checklistItems = checklistItemRepository.findChecklistItemByAuditObjectId(id);
-        if (checklistItems != null){
-            List<ChecklistItemDTO> checklistItemDTOS = ChecklistItemMapper.INSTANCE.checklistItemsToChecklistItemDTOs(checklistItems);
-            resultWrapper.setResult(checklistItemDTOS);
-            resultWrapper.setStatus(true);
-        }
-        return resultWrapper;
-    }*/
-
-
     @Override
     public ResultWrapper<ChecklistItemDTO> updateChecklistItem(ChecklistItemDTO checklistItemDTO) {
         ResultWrapper<ChecklistItemDTO> resultWrapper = new ResultWrapper<>(checklistItemDTO);

@@ -15,8 +15,6 @@ public abstract class BaseDTO implements Serializable {
     private static final long serialVersionUID = 1922960209727830410L;
 
     protected Long id;
-    protected String encryptedId;
-    protected String encryptedAssociationId;
 
     private String createdUser;
 

@@ -17,4 +17,9 @@ public class RiskItem extends BaseEntity{
     @Column(name = "NAME")
     private String name;
 
+    @Column(name = "OBJECTIVE_LINK")
+    private int strategicObjectiveLink;
+
+    @Column(name = "RISK_TYPE")
+    private String riskType;
 }

@@ -30,8 +30,8 @@ public class AuditProgram extends BaseEntity{
     private String OverAllTime;
 
     @ManyToOne
-    @JoinColumn(name = "AUDIT_ENGAGEMENT_ID")
-    private AuditEngagement auditEngagement;
+    @JoinColumn(name = "AUDIT_SCHEDULE_ID")
+    private AuditSchedule auditSchedule;
 
 
 

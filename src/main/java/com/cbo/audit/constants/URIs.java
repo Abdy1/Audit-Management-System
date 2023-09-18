@@ -14,6 +14,7 @@ public final class URIs {
     public static final String AUDIT_UNIVERSE_LIST_ALL = AUDIT_UNIVERSE + LIST_ALL;
     public static final String AUDIT_UNIVERSE_BY_ID = AUDIT_UNIVERSE + "findById";
     public static final String AUDIT_UNIVERSE_UPDATE = AUDIT_UNIVERSE + UPDATE;
+    public static final String AUDIT_UNIVERSE_APPROVE = AUDIT_UNIVERSE + "approve";
 
 
 
@@ -35,16 +36,6 @@ public final class URIs {
     public static final String AUDIT_TASK_LIST_ALL = AUDIT_TASK + LIST_ALL;
     public static final String AUDIT_TASK_BY_ID = AUDIT_TASK + FIND_BY_ID;
     public static final String AUDIT_TASK_UPDATE = AUDIT_TASK + UPDATE;
-
-
-    public static final String AUDIT_ENGAGEMENT = APPLICATION_CONTEXT + "/auditEngagement/";
-    public static final String AUDIT_ENGAGEMENT_REGISTER = AUDIT_ENGAGEMENT + REGISTER;
-    public static final String AUDIT_ENGAGEMENT_LIST_ALL = AUDIT_ENGAGEMENT + LIST_ALL;
-    public static final String AUDIT_ENGAGEMENT_COMPLETED_LIST_ALL = AUDIT_ENGAGEMENT + "completed";
-    public static final String AUDIT_ENGAGEMENT_BY_ID = AUDIT_ENGAGEMENT + FIND_BY_ID;
-    public static final String AUDIT_ENGAGEMENT_BY_YEAR = AUDIT_ENGAGEMENT + "findByYear";
-    public static final String AUDIT_ENGAGEMENT_UPDATE = AUDIT_ENGAGEMENT + UPDATE;
-
 
 
     public static final String AUDIT_PROGRAM = APPLICATION_CONTEXT + "/auditProgram/";
@@ -126,7 +117,6 @@ public final class URIs {
     public static final String CHECKLIST_ITEM_BY_ID = CHECKLIST_ITEM + FIND_BY_ID;
     public static final String CHECKLIST_ITEM_UPDATE = CHECKLIST_ITEM + UPDATE;
     public static final String CHECK_LIST_BY_OBJECT_ID = CHECKLIST_ITEM + "findByObj";
-
     public static final String CHECKLIST_ITEM_BY_AAR = CHECKLIST_ITEM + "byAArea";
 
 }

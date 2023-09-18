@@ -8,8 +8,14 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum AnnualPlanStatus {
 
-    Planned("Planned"), Approved("Approved"), Cancelled("Cancelled");
-
+    Pending("Pending"),
+    Scheduled("Scheduled"),
+    Engagement("Engagement"),
+    Reported("Reported"),
+    FollowUp("FollowUp"),
+    Closed("Closed"),
+    Archived("Archived"),
+    Cancelled("Cancelled");
     private String type;
 
     public static AnnualPlanStatus decode(String type) {

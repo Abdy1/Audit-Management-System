@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -24,7 +25,19 @@ public class AuditSchedule extends BaseEntity{
     private String status;
 
     @Column(name = "QUARTER")
-    private String quarter;
+    private int quarter;
+
+    @Column(name = "AUDITEES_ORGAN_ID")
+    private String auditeesOrganID;
+
+    @Column(name = "DATE_COMPLETED")
+    private LocalDate dateCompleted;
+
+    @Column(name = "TOTAL_COST")
+    private double totalCost;
+
+    @Column(name = "INVOLVES_TRAVEL")
+    private boolean involvesTravel;
 
     @Column(name = "YEAR")
     private String year;

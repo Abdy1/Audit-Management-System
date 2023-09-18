@@ -26,7 +26,6 @@ public class CboAmsApplication {
                         .allowedHeaders("*")
                         .maxAge(86400);
             }
-
         };
     }
 

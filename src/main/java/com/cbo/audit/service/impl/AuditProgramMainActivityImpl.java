@@ -33,20 +33,20 @@ public class AuditProgramMainActivityImpl implements AuditProgramMainActivitySer
     private AuditProgramMainActivityRepository auditProgramMainActivityRepository;
     @Autowired
     private AuditProgramRepository auditProgramRepository;
-@Autowired
-AuditProgramService auditProgramService;
-    public ResultWrapper<List<AuditProgramMainActivityDTO>> getAllMainActivityByAuditProgramId(Long auditProgram_id) {
-        ResultWrapper<List<AuditProgramMainActivityDTO>> resultWrapper= new ResultWrapper<>();
+    @Autowired
+    AuditProgramService auditProgramService;
+        public ResultWrapper<List<AuditProgramMainActivityDTO>> getAllMainActivityByAuditProgramId(Long auditProgram_id) {
+            ResultWrapper<List<AuditProgramMainActivityDTO>> resultWrapper= new ResultWrapper<>();
 
-        List<AuditProgramMainActivity> auditProgramMainActivities  = auditProgramMainActivityRepository.findAllMainActivityByAuditProgramId(auditProgram_id);
-        if (auditProgramMainActivities != null){
-            List<AuditProgramMainActivityDTO> auditProgramMainActivityDTOS = AuditProgramMainActivityMapper.INSTANCE.auditProgramMainActivityToAuditProgramMainActivityDTOs(auditProgramMainActivities);
-            resultWrapper.setResult(auditProgramMainActivityDTOS);
-            resultWrapper.setStatus(true);
+            List<AuditProgramMainActivity> auditProgramMainActivities  = auditProgramMainActivityRepository.findAllMainActivityByAuditProgramId(auditProgram_id);
+            if (auditProgramMainActivities != null){
+                List<AuditProgramMainActivityDTO> auditProgramMainActivityDTOS = AuditProgramMainActivityMapper.INSTANCE.auditProgramMainActivityToAuditProgramMainActivityDTOs(auditProgramMainActivities);
+                resultWrapper.setResult(auditProgramMainActivityDTOS);
+                resultWrapper.setStatus(true);
+            }
+
+            return resultWrapper;
         }
-
-        return resultWrapper;
-    }
 
 
 
@@ -72,17 +72,11 @@ AuditProgramService auditProgramService;
         }
 
 
-
-        //AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO;
-
         AuditProgramMainActivity auditProgramMainActivity = AuditProgramMainActivityMapper.INSTANCE.toEntity(auditProgramMainActivityDTO);
         auditProgramMainActivity.setCreatedTimestamp(LocalDateTime.now());
 
         auditProgramMainActivity.setCreatedUser("TODO");
-
-
         AuditProgramMainActivity savedMainActivity = auditProgramMainActivityRepository.save(auditProgramMainActivity);
-
 
         resultWrapper.setStatus(true);
         resultWrapper.setResult(AuditProgramMainActivityMapper.INSTANCE.toDTO(savedMainActivity));

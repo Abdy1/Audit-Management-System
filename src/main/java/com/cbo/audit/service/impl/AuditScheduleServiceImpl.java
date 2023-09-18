@@ -3,12 +3,9 @@ package com.cbo.audit.service.impl;
 import com.cbo.audit.dto.*;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.enums.AnnualPlanStatus;
-import com.cbo.audit.enums.AuditEngagementStatus;
-import com.cbo.audit.mapper.AuditEngagementMapper;
+import com.cbo.audit.enums.AuditScheduleStatus;
 import com.cbo.audit.mapper.AuditScheduleMapper;
-import com.cbo.audit.mapper.TeamMemberMapper;
 import com.cbo.audit.persistence.model.*;
-import com.cbo.audit.persistence.repository.AuditEngagementRepository;
 import com.cbo.audit.persistence.repository.AuditScheduleRepository;
 import com.cbo.audit.persistence.repository.BudgetYearRepository;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
@@ -35,9 +32,6 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
     private TeamMemberRepository teamMemberRepository;
 
     @Autowired
-    private AuditEngagementRepository auditEngagementRepository;
-
-    @Autowired
     private BudgetYearRepository budgetYearRepository;
 
     @Override
@@ -51,37 +45,30 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Annual Plan with the provided information is not available.");
             return resultWrapper;
-        } else if (!annualPlan.getStatus().equals(AnnualPlanStatus.Approved.name())) {
+        } else if (!annualPlan.getStatus().equals(AnnualPlanStatus.Pending.name())) {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Annual Plan must be approved before scheduled.");
+            resultWrapper.setMessage("Annual Plan must be in pending status before scheduled.");
             return resultWrapper;
-        }
-        if (auditScheduleDTO.getStartOn() == null) {
+        } else if (auditScheduleDTO.getStartOn() == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit schedule start time cannot be null.");
             return resultWrapper;
+        }else{
+            AuditSchedule auditSchedule = AuditScheduleMapper.INSTANCE.toEntity(auditScheduleDTO);
+            auditSchedule.setCreatedTimestamp(LocalDateTime.now());
+            auditSchedule.setAnnualPlan(annualPlan);
+            auditSchedule.setCreatedUser("TODO");
+            auditSchedule.setStatus(AuditScheduleStatus.Scheduled.name());
+
+            auditSchedule.setYear(annualPlan.getYear());
+            AuditSchedule savedSchedule = auditScheduleRepository.save(auditSchedule);
+
+            resultWrapper.setStatus(true);
+            resultWrapper.setResult(AuditScheduleMapper.INSTANCE.toDTO(savedSchedule));
+            resultWrapper.setMessage("Audit Schedule created successfully.");
+
+            return resultWrapper;
         }
-
-        AuditSchedule auditSchedule = AuditScheduleMapper.INSTANCE.toEntity(auditScheduleDTO);
-        auditSchedule.setCreatedTimestamp(LocalDateTime.now());
-        auditSchedule.setAnnualPlan(annualPlan);
-        auditSchedule.setCreatedUser("TODO");
-        auditSchedule.setStatus(null);
-
-        AuditEngagement auditEngagement = new AuditEngagement();
-        auditEngagement.setId(annualPlan.getId());
-        auditEngagement.setYear(annualPlan.getYear());
-        auditSchedule.setId(annualPlan.getId());
-
-        auditSchedule.setAuditEngagementId(auditEngagement.getId());
-        auditSchedule.setYear(annualPlan.getYear());
-        AuditSchedule savedSchedule = auditScheduleRepository.save(auditSchedule);
-
-        resultWrapper.setStatus(true);
-        resultWrapper.setResult(AuditScheduleMapper.INSTANCE.toDTO(savedSchedule));
-        resultWrapper.setMessage("Audit Schedule created successfully.");
-
-        return resultWrapper;
     }
 
     @Override
@@ -140,32 +127,6 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             resultWrapper.setResult(auditScheduleDTOS);
             resultWrapper.setStatus(true);
         }
-        return resultWrapper;
-    }
-
-    @Override
-    public ResultWrapper<AuditEngagementDTO> addToEngagement(AuditScheduleDTO auditScheduleDTO) {
-        ResultWrapper<AuditEngagementDTO> resultWrapper = new ResultWrapper<>();
-
-        Optional<AuditSchedule> oldAuditSchedule = auditScheduleRepository.findById(auditScheduleDTO.getId());
-
-
-        if (!oldAuditSchedule.isPresent()) {
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit schedule must not be null.");
-            return resultWrapper;
-        }
-
-        AuditEngagement auditEngagement = new AuditEngagement();
-        auditEngagement.setAuditScheduleId(oldAuditSchedule.get().getId());
-        auditEngagement.setStatus(AuditEngagementStatus.Scheduled);
-        auditEngagement.setCreatedTimestamp(LocalDateTime.now());
-        auditEngagement.setCreatedUser("TODO");
-        AuditEngagement savedEngagement = auditEngagementRepository.save(auditEngagement);
-
-        resultWrapper.setStatus(true);
-        resultWrapper.setResult(AuditEngagementMapper.INSTANCE.toDTO(savedEngagement));
-        resultWrapper.setMessage("Audit Engagement created successfully.");
         return resultWrapper;
     }
 

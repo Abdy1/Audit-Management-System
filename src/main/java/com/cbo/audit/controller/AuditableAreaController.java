@@ -1,6 +1,7 @@
 package com.cbo.audit.controller;
 
 import com.cbo.audit.constants.URIs;
+import com.cbo.audit.dto.AuditObjectDTO;
 import com.cbo.audit.dto.AuditableAreaDTO;
 import com.cbo.audit.dto.ChecklistItemDTO;
 import com.cbo.audit.dto.ResultWrapper;
@@ -35,10 +36,10 @@ public class AuditableAreaController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @GetMapping(value = URIs.AUDITABLE_AREA_BY_OBJECT_ID,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<AuditableAreaDTO>>> getAuditableAreasByAuditObjectId(@RequestParam("objectId") Long objectId){
+    @PostMapping(value = URIs.AUDITABLE_AREA_BY_OBJECT_ID, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AuditableAreaDTO>>> getAuditableAreasByAuditObjectId(@RequestBody AuditObjectDTO auditObjectDTO){
 
-        ResultWrapper<List<AuditableAreaDTO>> resultWrapper=auditableAreaService.getAuditableAreasByAuditObjectId(objectId);
+        ResultWrapper<List<AuditableAreaDTO>> resultWrapper=auditableAreaService.getAuditableAreasByAuditObjectId(auditObjectDTO.getId());
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

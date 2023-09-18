@@ -26,6 +26,10 @@ public class RiskScore extends BaseEntity{
     @Column(name = "IMPACT")
     private int impact;
 
+    @Column(name = "PERCENTAGE")
+    private double percentage;
+    @Column(name = "IS_AWAITED")
+    private boolean isWaited;
     @Column(name = "TOTAL")
     private int total;
 }

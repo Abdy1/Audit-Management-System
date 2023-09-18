@@ -59,8 +59,8 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
                 auditableArea.setCreatedUser("TODO");
                 auditableArea.setAuditObject(auditObject.get());
 
-                AuditableArea savedUniverse = auditableAreaRepository.save(auditableArea);
-                resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedUniverse));
+                AuditableArea savedAuditableArea = auditableAreaRepository.save(auditableArea);
+                resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedAuditableArea));
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("AuditableArea created successfully.");
             }
@@ -146,8 +146,8 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
                 auditableArea.setCreatedUser(oldAuditableArea.getCreatedUser());
                 auditableArea.setAuditObject(oldAuditableArea.getAuditObject());
 
-                AuditableArea savedUniverse = auditableAreaRepository.save(auditableArea);
-                resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedUniverse));
+                AuditableArea savedAuditableArea = auditableAreaRepository.save(auditableArea);
+                resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedAuditableArea));
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("AuditableArea updated successfully.");
             }

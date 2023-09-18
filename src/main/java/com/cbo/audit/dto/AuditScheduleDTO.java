@@ -1,13 +1,10 @@
 package com.cbo.audit.dto;
 
-import com.cbo.audit.persistence.model.AnnualPlan;
-import com.cbo.audit.persistence.model.AuditEngagement;
-import com.cbo.audit.persistence.model.TeamMember;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -20,7 +17,15 @@ public class AuditScheduleDTO extends BaseDTO{
 
     private String status;
 
-    private String quarter;
+    private int quarter;
+
+    private String auditeesOrganID;
+
+    private LocalDate dateCompleted;
+
+    private double totalCost;
+
+    private boolean involvesTravel;
 
     private Long auditEngagementId;
 

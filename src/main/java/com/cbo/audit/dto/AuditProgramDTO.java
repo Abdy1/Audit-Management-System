@@ -1,13 +1,10 @@
 package com.cbo.audit.dto;
 
-import com.cbo.audit.persistence.model.AuditEngagement;
+import com.cbo.audit.persistence.model.AuditSchedule;
 import com.cbo.audit.persistence.model.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
-import java.util.List;
 
 
 @Getter
@@ -30,7 +27,7 @@ public class AuditProgramDTO extends BaseEntity {
 
     private String OverAllTime;
 
-    private AuditEngagementDTO auditEngagement;
+    private AuditSchedule auditSchedule;
 
 
 }

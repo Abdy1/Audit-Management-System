@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -18,4 +20,8 @@ public class RiskScoreDTO {
     private int impact;
 
     private int total;
+
+    private double percentage;
+
+    private boolean isWaited;
 }

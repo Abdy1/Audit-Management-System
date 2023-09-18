@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum AuditUniverseStatus {
-    Active("Active"), InActive("InActive");
+    PendingApproval("Pending Approval"), Approved("Approved"), InActive("InActive");
 
     private String type;
 

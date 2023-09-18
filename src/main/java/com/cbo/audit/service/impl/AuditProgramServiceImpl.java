@@ -1,15 +1,12 @@
 package com.cbo.audit.service.impl;
 
 import com.cbo.audit.dto.*;
-import com.cbo.audit.enums.AnnualPlanStatus;
 import com.cbo.audit.enums.AuditProgramStatus;
-import com.cbo.audit.mapper.AnnualPlanMapper;
 import com.cbo.audit.mapper.AuditProgramMapper;
-import com.cbo.audit.mapper.RiskScoreMapper;
 import com.cbo.audit.persistence.model.*;
 import com.cbo.audit.persistence.repository.*;
-import com.cbo.audit.service.AuditEngagementService;
 import com.cbo.audit.service.AuditProgramService;
+import com.cbo.audit.service.AuditScheduleService;
 import com.cbo.audit.service.AuditUniverseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +24,7 @@ public class AuditProgramServiceImpl implements AuditProgramService {
     private AuditUniverseService annualPlanService;
 
     @Autowired
-    private AuditEngagementService auditEngagementService;
-
+    private AuditScheduleService auditScheduleService;
     @Autowired
     private AuditProgramRepository auditProgramRepository;
 
@@ -39,11 +35,11 @@ public class AuditProgramServiceImpl implements AuditProgramService {
         ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>();
 
 
-        AuditEngagement auditEngagementOpt = auditEngagementService.findAuditEngagementById(auditProgramDTO.getAuditEngagement().getId());
+        AuditSchedule auditSchedule = auditScheduleService.findAuditScheduleById(auditProgramDTO.getAuditSchedule().getId());
 
-        if (auditEngagementOpt == null) {
+        if (auditSchedule == null) {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Engagement with the provided information is not available.");
+            resultWrapper.setMessage("Audit Schedule with the provided information is not available.");
             return resultWrapper;
         }
 
@@ -137,7 +133,7 @@ public class AuditProgramServiceImpl implements AuditProgramService {
 
                 auditProgram.setCreatedTimestamp(oldAuditProgramDTO.getCreatedTimestamp());
                 auditProgram.setCreatedUser(oldAuditProgramDTO.getCreatedUser());
-                auditProgram.setAuditEngagement(oldAuditProgramDTO.getAuditEngagement());
+                auditProgram.setAuditSchedule(oldAuditProgramDTO.getAuditSchedule());
 
                 AuditProgram savedAuditProgram = auditProgramRepository.save(auditProgram);
                 resultWrapper.setResult(AuditProgramMapper.INSTANCE.toDTO(savedAuditProgram));

@@ -49,4 +49,13 @@ public class AuditUniverseController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
+    @PostMapping(value = URIs.AUDIT_UNIVERSE_APPROVE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditUniverseDTO>> approveAuditUniverse(@RequestBody AuditUniverseDTO auditUniverseDTO){
+
+        ResultWrapper<AuditUniverseDTO> resultWrapper=auditUniverseService.approveAuditUniverse(auditUniverseDTO);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+
 }

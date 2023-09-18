@@ -4,6 +4,7 @@ import com.cbo.audit.dto.AnnualPlanDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.dto.RiskScoreDTO;
 import com.cbo.audit.enums.AnnualPlanStatus;
+import com.cbo.audit.enums.AuditUniverseStatus;
 import com.cbo.audit.mapper.AnnualPlanMapper;
 import com.cbo.audit.mapper.RiskScoreMapper;
 import com.cbo.audit.persistence.model.AnnualPlan;
@@ -78,7 +79,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO);
         annualPlan.setCreatedTimestamp(LocalDateTime.now());
         annualPlan.setCreatedUser("TODO");
-        annualPlan.setStatus(AnnualPlanStatus.Planned.getType());
+        annualPlan.setStatus(AnnualPlanStatus.Pending.getType());
 
         AnnualPlan savedPlan = annualPlanRepository.save(annualPlan);
 
@@ -149,7 +150,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
             AnnualPlan annualPlan = findAnnualPlanById(annualPlanDTO.getId());
             if (annualPlan != null) {
 
-                annualPlan.setStatus(AnnualPlanStatus.Approved.name());
+                annualPlan.setStatus(AnnualPlanStatus.Scheduled.name());
                 annualPlanRepository.save(annualPlan);
                 resultWrapper.setMessage("Success fully added to planned annual plan");
                 resultWrapper.setStatus(true);
@@ -170,7 +171,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         LocalDateTime.now().getYear();
         ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
 
-        List<AnnualPlan> annualPlans = annualPlanRepository.findAnnualPlanByStatus(AnnualPlanStatus.Approved.name(), LocalDateTime.now().getYear());
+        List<AnnualPlan> annualPlans = annualPlanRepository.findAnnualPlanByStatus(AnnualPlanStatus.Scheduled.name(), LocalDateTime.now().getYear());
 
         if (!annualPlans.isEmpty()) {
             List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);
@@ -197,12 +198,10 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
     @Override
     public ResultWrapper<AnnualPlanDTO> updateAnnualPlan(AnnualPlanDTO annualPlanDTO) {
-        ResultWrapper<AnnualPlanDTO> resultWrapper = new ResultWrapper<>(annualPlanDTO);
+        ResultWrapper<AnnualPlanDTO> resultWrapper = new ResultWrapper<>();
 
-        AnnualPlan oldUniverse = annualPlanRepository.findById(annualPlanDTO.getId()).orElse(null);
-
-
-        if (oldUniverse != null) {
+        AnnualPlan oldAnnualPlan = annualPlanRepository.findById(annualPlanDTO.getId()).orElse(null);
+        if (oldAnnualPlan != null) {
             if (annualPlanDTO.getName() == null) {
                 resultWrapper.setStatus(false);
                 resultWrapper.setMessage("Annual Plan name cannot be null.");
@@ -212,21 +211,30 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
             } else {
 
                 AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO);
+                annualPlan.setCreatedTimestamp(LocalDateTime.now());
+                annualPlan.setCreatedUser("TODO");
+                annualPlan.setStatus(AnnualPlanStatus.Pending.getType());
+                annualPlan.setCreatedTimestamp(oldAnnualPlan.getCreatedTimestamp());
+                annualPlan.setCreatedUser(oldAnnualPlan.getCreatedUser());
+                annualPlan.setAuditUniverse(oldAnnualPlan.getAuditUniverse());
+                AnnualPlan savedPlan = annualPlanRepository.save(annualPlan);
 
-                annualPlan.setCreatedTimestamp(oldUniverse.getCreatedTimestamp());
-                annualPlan.setCreatedUser(oldUniverse.getCreatedUser());
-                annualPlan.setAuditUniverse(oldUniverse.getAuditUniverse());
-
-                AnnualPlan savedUniverse = annualPlanRepository.save(annualPlan);
-                resultWrapper.setResult(AnnualPlanMapper.INSTANCE.toDTO(savedUniverse));
+                List<RiskScoreDTO> riskScores = annualPlanDTO.getRiskScores();
+                if (!riskScores.isEmpty()) {
+                    int riskScoreVal = saveRiskScore(riskScores, savedPlan.getId());
+                    savedPlan.setRiskScore(riskScoreVal);
+                    savedPlan.setRiskLevel(getRiskLevel(riskScoreVal));
+                    annualPlanRepository.save(savedPlan);
+                }
+                resultWrapper.setResult(AnnualPlanMapper.INSTANCE.toDTO(savedPlan));
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("Annual Plan updated successfully.");
             }
-        } else {
+            }
+        else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Plan with the provided id is not available.");
         }
-
         return resultWrapper;
     }
 
@@ -267,7 +275,17 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
         ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
         List<AnnualPlanDTO> annualPlanDTOS = new ArrayList<>();
+        BudgetYear budgetYear = new BudgetYear();
+        budgetYear.setYear(year);
+        Optional<BudgetYear> budgetYear1= budgetYearRepository.findByYear(year);
+        if (budgetYear1.isPresent()){
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("This budget year already applied.");
+            return resultWrapper;
+        }else {
+            budgetYearRepository.save(budgetYear);
 
+        }
         List<AuditUniverse> auditUniverses = auditUniverseService.getAllActiveAuditUniverse();
 
         if (year == null) {
@@ -277,22 +295,20 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         }
         for (AuditUniverse auditUniverse : auditUniverses) {
 
-            AnnualPlan annualPlan = new AnnualPlan();
+            if (auditUniverse.getStatus().equals(AuditUniverseStatus.Approved.name())){
 
-            annualPlan.setAuditUniverse(auditUniverse);
-            annualPlan.setYear(year);
-            annualPlan.setStatus(AnnualPlanStatus.Planned.name());
-            annualPlan.setCreatedTimestamp(LocalDateTime.now());
-            annualPlan.setName(auditUniverse.getName());
-            annualPlan.setCreatedUser("TODO");
-            annualPlanRepository.save(annualPlan);
-            annualPlanDTOS.add(AnnualPlanMapper.INSTANCE.toDTO(annualPlan));
+                AnnualPlan annualPlan = new AnnualPlan();
+                annualPlan.setAuditUniverse(auditUniverse);
+                annualPlan.setYear(year);
+                annualPlan.setStatus(AnnualPlanStatus.Pending.name());
+                annualPlan.setCreatedTimestamp(LocalDateTime.now());
+                annualPlan.setName(auditUniverse.getName());
+                annualPlan.setCreatedUser("TODO");
+                annualPlanRepository.save(annualPlan);
+                annualPlanDTOS.add(AnnualPlanMapper.INSTANCE.toDTO(annualPlan));
+
+            }
         }
-
-        BudgetYear budgetYear = new BudgetYear();
-        budgetYear.setYear(year);
-        budgetYearRepository.save(budgetYear);
-
         resultWrapper.setStatus(true);
         resultWrapper.setMessage("Annual Plan generated successfully.");
         resultWrapper.setResult(annualPlanDTOS);

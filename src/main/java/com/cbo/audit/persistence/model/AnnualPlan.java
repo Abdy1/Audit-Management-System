@@ -30,6 +30,9 @@ public class AnnualPlan extends BaseEntity{
     @Column(name="STATUS")
     private String status;
 
+    @Column(name = "RECTIFICATION_STATUS")
+    private double rectificationStatus;
+
     @ManyToOne
     @JoinColumn(name="AUDIT_UNIVERSE_ID")
     private AuditUniverse auditUniverse;

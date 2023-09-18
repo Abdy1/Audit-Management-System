@@ -53,7 +53,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         } else if (!isTeamMemberFree(user.get().getId())) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("User have an active schedule or task.");
-            return resultWrapper;
         }
 
         TeamMember teamMember = TeamMemberMapper.INSTANCE.toEntity(teamMemberDTO);

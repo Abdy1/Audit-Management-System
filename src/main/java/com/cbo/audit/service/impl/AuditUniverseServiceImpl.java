@@ -33,7 +33,7 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
     public ResultWrapper<AuditUniverseDTO> registerAuditUniverse(AuditUniverseDTO auditUniverseDTO) {
         ResultWrapper<AuditUniverseDTO> resultWrapper = new ResultWrapper<>(auditUniverseDTO);
 
-        List<AuditUniverse> auditUniverseName=auditUniverseRepository.findAuditUniverseByStateAndName(AuditUniverseStatus.Active.name(), auditUniverseDTO.getName());
+        List<AuditUniverse> auditUniverseName=auditUniverseRepository.findAuditUniverseByStateAndName(AuditUniverseStatus.Approved.name(), auditUniverseDTO.getName());
         if (auditUniverseDTO.getName() == null){
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Universe name cannot be null.");
@@ -43,17 +43,17 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
         }else if(auditUniverseDTO.getAuditType() == null){
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Universe audit type cannot be null.");
-        }else if(auditUniverseDTO.getAuditObjectDTO() == null){
+        }else if(auditUniverseDTO.getAuditObject() == null){
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Object cannot be null.");
         }else {
 
-            Optional<AuditObject> auditObject = auditObjectService.findAuditObjectById(auditUniverseDTO.getAuditObjectDTO().getId());
+            Optional<AuditObject> auditObject = auditObjectService.findAuditObjectById(auditUniverseDTO.getAuditObject().getId());
 
             AuditUniverse auditUniverse = AuditUniverseMapper.INSTANCE.toEntity(auditUniverseDTO);
             auditUniverse.setCreatedTimestamp(LocalDateTime.now());
             auditUniverse.setCreatedUser("TODO");
-            auditUniverse.setStatus(AuditUniverseStatus.Active.getType());
+            auditUniverse.setStatus(AuditUniverseStatus.PendingApproval.getType());
             auditUniverse.setAuditObject(auditObject.get());
             AuditUniverse savedUniverse = auditUniverseRepository.save(auditUniverse);
             resultWrapper.setResult(AuditUniverseMapper.INSTANCE.toDTO(savedUniverse));
@@ -78,7 +78,7 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
 
     @Override
     public List<AuditUniverse> getAllActiveAuditUniverse() {
-        List<AuditUniverse> auditUniverses=auditUniverseRepository.findAuditUniverseByState(AuditUniverseStatus.Active.name());
+        List<AuditUniverse> auditUniverses=auditUniverseRepository.findAuditUniverseByState(AuditUniverseStatus.Approved.name());
 
         return auditUniverses;
     }
@@ -120,12 +120,13 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
             resultWrapper.setMessage("Audit Universe audit type cannot be null.");
         }else {
 
+            Optional<AuditObject> auditObject = auditObjectService.findAuditObjectById(auditUniverseDTO.getAuditObject().getId());
             AuditUniverse auditUniverse = AuditUniverseMapper.INSTANCE.toEntity(auditUniverseDTO);
 
 
             auditUniverse.setCreatedTimestamp(oldUniverse.getCreatedTimestamp());
             auditUniverse.setCreatedUser(oldUniverse.getCreatedUser());
-
+            auditUniverse.setAuditObject(auditObject.get());
             AuditUniverse savedUniverse = auditUniverseRepository.save(auditUniverse);
             resultWrapper.setResult(AuditUniverseMapper.INSTANCE.toDTO(savedUniverse));
             resultWrapper.setStatus(true);
@@ -136,6 +137,25 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
             resultWrapper.setMessage("Audit Universe with the provided id is not available.");
         }
 
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<AuditUniverseDTO> approveAuditUniverse(AuditUniverseDTO auditUniverseDTO) {
+        ResultWrapper<AuditUniverseDTO> resultWrapper = new ResultWrapper<>(auditUniverseDTO);
+
+        AuditUniverse oldUniverse = auditUniverseRepository.findById(auditUniverseDTO.getId()).orElse(null);
+        if (oldUniverse != null){
+            oldUniverse.setStatus(AuditUniverseStatus.Approved.name());
+            oldUniverse.setApprovedAt(LocalDateTime.now());
+            auditUniverseDTO = AuditUniverseMapper.INSTANCE.toDTO(auditUniverseRepository.save(oldUniverse));
+            resultWrapper.setResult(auditUniverseDTO);
+            resultWrapper.setStatus(true);
+            resultWrapper.setMessage("Audit Universe approved successfully.");
+        }else {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit Universe with the provided id is not available.");
+        }
         return resultWrapper;
     }
 }

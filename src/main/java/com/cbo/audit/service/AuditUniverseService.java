@@ -19,6 +19,8 @@ public interface AuditUniverseService {
 
     ResultWrapper<AuditUniverseDTO> updateAuditUniverse(AuditUniverseDTO auditUniverseDTO);
 
+    ResultWrapper<AuditUniverseDTO> approveAuditUniverse(AuditUniverseDTO auditUniverseDTO);
+
     List<AuditUniverse> getAllActiveAuditUniverse();
 
 }

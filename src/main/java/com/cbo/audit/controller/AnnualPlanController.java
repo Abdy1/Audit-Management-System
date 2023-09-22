@@ -76,7 +76,6 @@ public class AnnualPlanController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-
     @PostMapping(value = URIs.ANNUAL_PLAN_AUTO_GENERATE,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<List<AnnualPlanDTO>>> autoGenerateAnnualPlans(@RequestBody AutoGenerateAnnualPlanDTO generatePlans){
 
@@ -84,6 +83,4 @@ public class AnnualPlanController {
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
-
-
 }

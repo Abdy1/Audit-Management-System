@@ -38,7 +38,7 @@ public class AnnualPlan extends BaseEntity{
     @JoinColumn(name="AUDIT_UNIVERSE_ID")
     private AuditUniverse auditUniverse;
 
-    @OneToMany(mappedBy = "annualPlan", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<RiskScore> riskScores;
+/*    @OneToMany(mappedBy = "annualPlan", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<RiskScore> riskScores;*/
 
 }

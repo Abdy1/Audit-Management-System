@@ -18,7 +18,7 @@ public class RiskScore extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "ANNUAL_PLAN_ID")
-    private AnnualPlan annualPlanId;
+    private AnnualPlan annualPlan;
 
     @Column(name = "LIKELY_HOOD")
     private int likelyHood;

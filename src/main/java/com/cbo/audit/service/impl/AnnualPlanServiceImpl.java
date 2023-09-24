@@ -6,17 +6,10 @@ import com.cbo.audit.dto.RiskScoreDTO;
 import com.cbo.audit.enums.AnnualPlanStatus;
 import com.cbo.audit.enums.AuditUniverseStatus;
 import com.cbo.audit.mapper.AnnualPlanMapper;
+import com.cbo.audit.mapper.RiskItemMapper;
 import com.cbo.audit.mapper.RiskScoreMapper;
-import com.cbo.audit.persistence.model.AnnualPlan;
-import com.cbo.audit.persistence.model.AuditUniverse;
-import com.cbo.audit.persistence.model.BudgetYear;
-import com.cbo.audit.persistence.model.RiskLevel;
-import com.cbo.audit.persistence.model.RiskScore;
-import com.cbo.audit.persistence.repository.AnnualPlanRepository;
-import com.cbo.audit.persistence.repository.AuditScheduleRepository;
-import com.cbo.audit.persistence.repository.BudgetYearRepository;
-import com.cbo.audit.persistence.repository.RiskLevelRepository;
-import com.cbo.audit.persistence.repository.RiskScoreRepository;
+import com.cbo.audit.persistence.model.*;
+import com.cbo.audit.persistence.repository.*;
 import com.cbo.audit.service.AnnualPlanService;
 import com.cbo.audit.service.AuditUniverseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +45,9 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     @Autowired
     private AuditScheduleRepository auditScheduleRepository;
 
+    @Autowired
+    private RiskItemRepository riskItemRepository;
+
     @Override
     public ResultWrapper<AnnualPlanDTO> registerAnnualPlan(AnnualPlanDTO annualPlanDTO) {
         ResultWrapper<AnnualPlanDTO> resultWrapper = new ResultWrapper<>();
@@ -85,7 +81,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
         List<RiskScoreDTO> riskScores = annualPlanDTO.getRiskScores();
         if (!riskScores.isEmpty()) {
-            int riskScoreVal = saveRiskScore(riskScores, savedPlan.getId());
+            int riskScoreVal = saveRiskScore(riskScores, savedPlan);
             savedPlan.setRiskScore(riskScoreVal);
             savedPlan.setRiskLevel(getRiskLevel(riskScoreVal));
             annualPlanRepository.save(savedPlan);
@@ -221,7 +217,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
                 List<RiskScoreDTO> riskScores = annualPlanDTO.getRiskScores();
                 if (!riskScores.isEmpty()) {
-                    int riskScoreVal = saveRiskScore(riskScores, savedPlan.getId());
+                    int riskScoreVal = saveRiskScore(riskScores, savedPlan);
                     savedPlan.setRiskScore(riskScoreVal);
                     savedPlan.setRiskLevel(getRiskLevel(riskScoreVal));
                     annualPlanRepository.save(savedPlan);
@@ -236,37 +232,6 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
             resultWrapper.setMessage("Audit Plan with the provided id is not available.");
         }
         return resultWrapper;
-    }
-
-
-    public int saveRiskScore(List<RiskScoreDTO> riskScoreDTOS, Long annualPlanId) {
-        int totalScore = 0;
-        if (!riskScoreDTOS.isEmpty()) {
-
-            for (RiskScoreDTO riskScoreDTO : riskScoreDTOS) {
-                //riskScoreDTO.setAnnualPlan(annualPlanId);
-                int score = riskScoreDTO.getImpact() * riskScoreDTO.getFrequency();
-                totalScore += score;
-                riskScoreDTO.setTotal(score);
-
-                RiskScore riskScore = RiskScoreMapper.INSTANCE.toEntity(riskScoreDTO);
-
-                riskScoreRepository.save(riskScore);
-            }
-        }
-
-        return totalScore;
-    }
-
-    public String getRiskLevel(int riskScore) {
-        List<RiskLevel> riskLevels = riskLevelRepository.findAll();
-        if (riskScore >= riskLevels.get(0).getHigh()) {
-            return "H";
-        } else if (riskScore >= riskLevels.get(0).getMedium()) {
-            return "M";
-        } else {
-            return "L";
-        }
     }
 
     @Override
@@ -304,8 +269,12 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
                 annualPlan.setCreatedTimestamp(LocalDateTime.now());
                 annualPlan.setName(auditUniverse.getName());
                 annualPlan.setCreatedUser("TODO");
-                annualPlanRepository.save(annualPlan);
-                annualPlanDTOS.add(AnnualPlanMapper.INSTANCE.toDTO(annualPlan));
+                AnnualPlan savedAnnualPlan = annualPlanRepository.save(annualPlan);
+                int score = saveRiskScore(getRiskScoresOfAuditType(auditUniverse.getType()), savedAnnualPlan);
+                savedAnnualPlan.setRiskScore(score);
+                savedAnnualPlan.setRiskLevel(getRiskLevel(score));
+                annualPlanRepository.save(savedAnnualPlan);
+                annualPlanDTOS.add(AnnualPlanMapper.INSTANCE.toDTO(savedAnnualPlan));
 
             }
         }
@@ -315,4 +284,50 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
         return resultWrapper;
     }
+
+    private List<RiskScoreDTO> getRiskScoresOfAuditType(String auditType){
+        List<RiskItem> riskItems = riskItemRepository.findByRiskType(auditType);
+        List<RiskScoreDTO> riskScores= new ArrayList<>();
+        riskItems.stream().forEach(riskItem -> {
+            RiskScoreDTO riskScoreDTO = new RiskScoreDTO();
+            riskScoreDTO.setRiskItem(RiskItemMapper.INSTANCE.toDTO(riskItem));
+            riskScoreDTO.setFrequency(2);
+            riskScoreDTO.setImpact(2);
+            riskScores.add(riskScoreDTO);
+        });
+
+        return riskScores;
+    }
+
+
+
+    public int saveRiskScore(List<RiskScoreDTO> riskScoreDTOS, AnnualPlan annualPlan) {
+        int totalScore = 0;
+        if (!riskScoreDTOS.isEmpty()) {
+
+            for (RiskScoreDTO riskScoreDTO : riskScoreDTOS) {
+                int score = riskScoreDTO.getImpact() * riskScoreDTO.getFrequency();
+                totalScore += score;
+                riskScoreDTO.setTotal(score);
+                RiskScore riskScore = RiskScoreMapper.INSTANCE.toEntity(riskScoreDTO);
+                riskScore.setAnnualPlan(annualPlan);
+                riskScoreRepository.save(riskScore);
+            }
+        }
+
+        return totalScore;
+    }
+
+    public String getRiskLevel(int riskScore) {
+        List<RiskLevel> riskLevels = riskLevelRepository.findAll();
+        if (riskScore >= riskLevels.get(0).getHigh()) {
+            return "H";
+        } else if (riskScore >= riskLevels.get(0).getMedium()) {
+            return "M";
+        } else {
+            return "L";
+        }
+    }
+
+
 }

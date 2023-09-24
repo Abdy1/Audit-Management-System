@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Getter
@@ -36,5 +37,8 @@ public class AnnualPlan extends BaseEntity{
     @ManyToOne
     @JoinColumn(name="AUDIT_UNIVERSE_ID")
     private AuditUniverse auditUniverse;
+
+    @OneToMany(mappedBy = "annualPlan", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<RiskScore> riskScores;
 
 }

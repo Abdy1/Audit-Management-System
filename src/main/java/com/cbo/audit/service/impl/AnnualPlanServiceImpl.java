@@ -98,13 +98,15 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
         ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
         List<AnnualPlan> annualPlans = annualPlanRepository.findAnnualPlanByYear(year);
+        List<AnnualPlanDTO> annualPlansWithScore = new ArrayList<>();
         if (!annualPlans.isEmpty()) {
             List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);
-            annualPlanDTOS.stream().map(annualPlanDTO -> {
+            annualPlanDTOS.stream().forEach(annualPlanDTO -> {
+
                 annualPlanDTO.setRiskScores(RiskScoreMapper.INSTANCE.riskScoresToRiskScoreDTOs(riskScoreRepository.findRiskScoreByAnnualPlanId(annualPlanDTO.getId())));
-            return annualPlanDTO;
+                annualPlansWithScore.add(annualPlanDTO);
             });
-            resultWrapper.setResult(annualPlanDTOS);
+            resultWrapper.setResult(annualPlansWithScore);
             resultWrapper.setStatus(true);
         }
         return resultWrapper;

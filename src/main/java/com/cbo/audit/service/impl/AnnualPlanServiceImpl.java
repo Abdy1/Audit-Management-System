@@ -297,7 +297,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         riskItems.stream().forEach(riskItem -> {
             RiskScoreDTO riskScoreDTO = new RiskScoreDTO();
             riskScoreDTO.setRiskItem(RiskItemMapper.INSTANCE.toDTO(riskItem));
-            riskScoreDTO.setFrequency(2);
+            riskScoreDTO.setLikelihood(2);
             riskScoreDTO.setImpact(2);
             riskScores.add(riskScoreDTO);
         });
@@ -312,7 +312,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         if (!riskScoreDTOS.isEmpty()) {
 
             for (RiskScoreDTO riskScoreDTO : riskScoreDTOS) {
-                int score = riskScoreDTO.getImpact() * riskScoreDTO.getFrequency();
+                int score = riskScoreDTO.getImpact() * riskScoreDTO.getLikelihood();
                 totalScore += score;
                 riskScoreDTO.setTotal(score);
                 RiskScore riskScore = RiskScoreMapper.INSTANCE.toEntity(riskScoreDTO);

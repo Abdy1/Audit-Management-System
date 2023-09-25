@@ -15,7 +15,7 @@ public class RiskScoreDTO {
 
     private AnnualPlanDTO annualPlan;
 
-    private int frequency;
+    private int likelihood;
 
     private int impact;
 

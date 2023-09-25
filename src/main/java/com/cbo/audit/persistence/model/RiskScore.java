@@ -21,7 +21,7 @@ public class RiskScore extends BaseEntity{
     private AnnualPlan annualPlan;
 
     @Column(name = "LIKELY_HOOD")
-    private int likelyHood;
+    private int likelihood;
 
     @Column(name = "IMPACT")
     private int impact;

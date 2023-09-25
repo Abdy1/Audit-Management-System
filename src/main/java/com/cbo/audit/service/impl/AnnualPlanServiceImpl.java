@@ -305,8 +305,6 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         return riskScores;
     }
 
-
-
     public int saveRiskScore(List<RiskScoreDTO> riskScoreDTOS, AnnualPlan annualPlan) {
         int totalScore = 0;
         if (!riskScoreDTOS.isEmpty()) {

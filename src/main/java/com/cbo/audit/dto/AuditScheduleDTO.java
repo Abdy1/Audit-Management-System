@@ -27,8 +27,6 @@ public class AuditScheduleDTO extends BaseDTO{
 
     private boolean involvesTravel;
 
-    private Long auditEngagementId;
-
     private List<TeamMemberDTO> teamMembers;
 
     private AnnualPlanDTO annualPlan;

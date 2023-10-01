@@ -43,9 +43,6 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     private BudgetYearRepository budgetYearRepository;
 
     @Autowired
-    private AuditScheduleRepository auditScheduleRepository;
-
-    @Autowired
     private RiskItemRepository riskItemRepository;
 
     @Override
@@ -332,6 +329,4 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
             return "L";
         }
     }
-
-
 }

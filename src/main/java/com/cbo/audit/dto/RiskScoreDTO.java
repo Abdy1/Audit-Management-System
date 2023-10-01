@@ -9,7 +9,7 @@ import javax.persistence.Column;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RiskScoreDTO {
+public class RiskScoreDTO extends BaseDTO{
 
     private RiskItemDTO riskItem;
 

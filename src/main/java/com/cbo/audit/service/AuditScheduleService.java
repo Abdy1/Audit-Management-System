@@ -19,6 +19,8 @@ public interface AuditScheduleService {
 
     ResultWrapper<List<AuditScheduleDTO>> getAllAuditScheduleByYear(String year);
 
+    ResultWrapper<List<AuditScheduleDTO>> getAllAuditScheduleByQuarter(int quarter);
+
     ResultWrapper<AuditScheduleDTO> updateAuditSchedule(AuditScheduleDTO auditUniverseDTO);
 
     ResultWrapper<List<AuditScheduleDTO>> getAuditScheduleByAnnualPlanId(Long id);

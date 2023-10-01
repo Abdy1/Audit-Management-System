@@ -16,4 +16,8 @@ public interface AuditScheduleRepository extends JpaRepository<AuditSchedule, Lo
 
     @Query(" SELECT AUDIT FROM AuditSchedule AUDIT WHERE AUDIT.year = :year")
     List<AuditSchedule> findScheduleByYear(@Param("year") String year);
+
+    @Query(" SELECT AUDIT FROM AuditSchedule AUDIT WHERE AUDIT.year = :year" +
+            " AND AUDIT.quarter = :quarter")
+    List<AuditSchedule> findScheduleByYearAndQuarter(@Param("year") String year, @Param("quarter") int quarter);
 }

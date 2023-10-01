@@ -69,7 +69,9 @@ public final class URIs {
     public static final String AUDIT_SCHEDULE_LIST_ALL = AUDIT_SCHEDULE + LIST_ALL;
     public static final String AUDIT_SCHEDULE_BY_ID = AUDIT_SCHEDULE + FIND_BY_ID;
 
-    public static final String AUDIT_SCHEDULE_BY_YEAR = AUDIT_SCHEDULE + "findByYear";
+    public static final String AUDIT_SCHEDULE_BY_YEAR = AUDIT_SCHEDULE + "findByYear/{year}";
+
+    public static final String AUDIT_SCHEDULE_BY_YEAR_AND_QUARTER = AUDIT_SCHEDULE + "findByQuarter/{quarter}";
 
     public static final String AUDIT_SCHEDULE_UPDATE = AUDIT_SCHEDULE + UPDATE;
     public static final String ADD_AUDIT_SCHEDULE_TO_ENGAGEMENT = AUDIT_SCHEDULE + "addToEngagement";

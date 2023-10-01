@@ -106,6 +106,20 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
     }
 
     @Override
+    public ResultWrapper<List<AuditScheduleDTO>> getAllAuditScheduleByQuarter(int quarter) {
+        String year = budgetYearRepository.findAll(Sort.by(Sort.Direction.DESC, "year")).stream().findFirst().get().getYear();
+
+        ResultWrapper<List<AuditScheduleDTO>> resultWrapper = new ResultWrapper<>();
+        List<AuditSchedule> auditSchedules=auditScheduleRepository.findScheduleByYearAndQuarter(year, quarter);
+        if (!auditSchedules.isEmpty()){
+            List<AuditScheduleDTO> auditScheduleDTOS = AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules);
+            resultWrapper.setResult(auditScheduleDTOS);
+            resultWrapper.setStatus(true);
+        }
+        return resultWrapper;
+    }
+
+    @Override
     public ResultWrapper<AuditScheduleDTO> getAuditScheduleById(Long id) {
 
         ResultWrapper<AuditScheduleDTO> resultWrapper = new ResultWrapper<>();

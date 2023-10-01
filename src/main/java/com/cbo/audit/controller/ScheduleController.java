@@ -48,6 +48,14 @@ public class ScheduleController {
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
+
+    @GetMapping(value = URIs.AUDIT_SCHEDULE_BY_YEAR_AND_QUARTER,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AuditScheduleDTO>>> getAllAuditScheduleByQuarter(@PathVariable(name = "quarter") int quarter){
+
+        ResultWrapper<List<AuditScheduleDTO>> resultWrapper=auditScheduleService.getAllAuditScheduleByQuarter(quarter);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
     @PostMapping(value = URIs.AUDIT_SCHEDULE_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<AuditScheduleDTO>> updateAuditSchedule(@RequestBody AuditScheduleDTO auditScheduleDTO){
 

@@ -2,9 +2,12 @@ package com.cbo.audit.controller;
 
 import com.cbo.audit.constants.URIs;
 import com.cbo.audit.dto.AnnualPlanDTO;
+import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.dto.AutoGenerateAnnualPlanDTO;
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.persistence.model.AuditSchedule;
 import com.cbo.audit.service.AnnualPlanService;
+import com.cbo.audit.service.AuditScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +21,9 @@ public class AnnualPlanController {
 
     @Autowired
     private AnnualPlanService annualPlanService;
+
+    @Autowired
+    private AuditScheduleService auditScheduleService;
 
 
     @PostMapping(value = URIs.ANNUAL_PLAN_REGISTER, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,9 +67,9 @@ public class AnnualPlanController {
     }
 
     @PostMapping(value = URIs.ANNUAL_PLAN_SCHEDULE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<AnnualPlanDTO>> addAnnualPlanToSchedule(@RequestBody AnnualPlanDTO annualPlanDTO){
+    public ResponseEntity<ResultWrapper<AuditScheduleDTO>> addAnnualPlanToSchedule(@RequestBody AuditScheduleDTO auditScheduleDTO){
 
-        ResultWrapper<AnnualPlanDTO> resultWrapper=annualPlanService.addAnnualPlanToSchedule(annualPlanDTO);
+        ResultWrapper<AuditScheduleDTO> resultWrapper=auditScheduleService.registerAuditSchedule(auditScheduleDTO);
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

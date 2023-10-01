@@ -6,6 +6,7 @@ import com.cbo.audit.enums.AnnualPlanStatus;
 import com.cbo.audit.enums.AuditScheduleStatus;
 import com.cbo.audit.mapper.AuditScheduleMapper;
 import com.cbo.audit.persistence.model.*;
+import com.cbo.audit.persistence.repository.AnnualPlanRepository;
 import com.cbo.audit.persistence.repository.AuditScheduleRepository;
 import com.cbo.audit.persistence.repository.BudgetYearRepository;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
@@ -28,6 +29,9 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
     private AuditScheduleRepository auditScheduleRepository;
     @Autowired
     private AnnualPlanService annualPlanService;
+
+    @Autowired
+    private AnnualPlanRepository annualPlanRepository;
     @Autowired
     private TeamMemberRepository teamMemberRepository;
 
@@ -61,6 +65,8 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             auditSchedule.setStatus(AuditScheduleStatus.Scheduled.name());
 
             auditSchedule.setYear(annualPlan.getYear());
+            annualPlan.setStatus(AnnualPlanStatus.Scheduled.name());
+            annualPlanRepository.save(annualPlan);
             AuditSchedule savedSchedule = auditScheduleRepository.save(auditSchedule);
 
             resultWrapper.setStatus(true);

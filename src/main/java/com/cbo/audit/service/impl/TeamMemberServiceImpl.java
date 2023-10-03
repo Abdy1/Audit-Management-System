@@ -4,6 +4,7 @@ import com.cbo.audit.dto.*;
 import com.cbo.audit.enums.TeamMemberStatus;
 import com.cbo.audit.mapper.AuditScheduleMapper;
 import com.cbo.audit.mapper.TeamMemberMapper;
+import com.cbo.audit.mapper.UserMapper;
 import com.cbo.audit.persistence.model.*;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
 import com.cbo.audit.persistence.repository.UserRepository;
@@ -162,6 +163,14 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         }
         resultWrapper.setResult(AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules));
 
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<List<UserDTO>> getAllUsers() {
+        ResultWrapper<List<UserDTO>> resultWrapper= new ResultWrapper<>();
+        resultWrapper.setResult(UserMapper.INSTANCE.usersToUserDTOs(userRepository.findAll()));
+        resultWrapper.setStatus(true);
         return resultWrapper;
     }
 

@@ -61,4 +61,12 @@ public class TeamMemberController{
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
+
+    @GetMapping(value = URIs.USER_LIST_BALL, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<UserDTO>>> getAllUsers(){
+
+        ResultWrapper<List<UserDTO>> resultWrapper=teamMemberService.getAllUsers();
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
 }

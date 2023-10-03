@@ -3,6 +3,7 @@ package com.cbo.audit.service;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.dto.TeamMemberDTO;
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.dto.UserDTO;
 import com.cbo.audit.persistence.model.TeamMember;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public interface TeamMemberService {
     ResultWrapper<List<TeamMemberDTO>> getTeamMemberByUserIdAndStatus(Long id);
 
     ResultWrapper<List<AuditScheduleDTO>> getAllScheduleByUserId(Long userId);
+
+    ResultWrapper<List<UserDTO>> getAllUsers();
 
     List<TeamMember> updateAllTeamsStatus(Long scheduleId);
 }

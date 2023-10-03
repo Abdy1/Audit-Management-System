@@ -98,7 +98,7 @@ public final class URIs {
     public static final String TEAM_MEMBER_LIST_BY_USERID = TEAM_MEMBER + "byUserId";
     public static final String TEAM_MEMBER_BY_ID = TEAM_MEMBER + "findById";
     public static final String TEAM_MEMBER_UPDATE = TEAM_MEMBER + UPDATE;
-
+    public static final String USER_LIST_BALL= APPLICATION_CONTEXT + "/users";
 
     public static final String RESOURCE = APPLICATION_CONTEXT + "/resource/";
     public static final String RESOURCE_REGISTER = RESOURCE + REGISTER;

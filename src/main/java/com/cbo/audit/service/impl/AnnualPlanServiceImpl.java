@@ -291,7 +291,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     private List<RiskScoreDTO> getRiskScoresOfAuditType(String auditType){
         List<RiskItem> riskItems = riskItemRepository.findByRiskType(auditType);
         List<RiskScoreDTO> riskScores= new ArrayList<>();
-        riskItems.stream().forEach(riskItem -> {
+        riskItems.forEach(riskItem -> {
             RiskScoreDTO riskScoreDTO = new RiskScoreDTO();
             riskScoreDTO.setRiskItem(RiskItemMapper.INSTANCE.toDTO(riskItem));
             riskScoreDTO.setLikelihood(2);

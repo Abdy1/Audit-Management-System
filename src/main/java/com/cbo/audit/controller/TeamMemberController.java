@@ -1,10 +1,7 @@
 package com.cbo.audit.controller;
 
 import com.cbo.audit.constants.URIs;
-import com.cbo.audit.dto.AuditScheduleDTO;
-import com.cbo.audit.dto.TeamMemberDTO;
-import com.cbo.audit.dto.ResultWrapper;
-import com.cbo.audit.dto.UserDTO;
+import com.cbo.audit.dto.*;
 import com.cbo.audit.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,9 +60,9 @@ public class TeamMemberController{
     }
 
     @GetMapping(value = URIs.USER_LIST_BALL, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<UserDTO>>> getAllUsers(){
+    public ResponseEntity<ResultWrapper<List<EmployeeDTO>>> getAllUsers(){
 
-        ResultWrapper<List<UserDTO>> resultWrapper=teamMemberService.getAllUsers();
+        ResultWrapper<List<EmployeeDTO>> resultWrapper=teamMemberService.getAllUsers();
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

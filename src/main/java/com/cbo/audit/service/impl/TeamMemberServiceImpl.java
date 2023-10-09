@@ -172,9 +172,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     }
 
     @Override
-    public ResultWrapper<List<EmployeeDTO>> getAllUsers() {
-        ResultWrapper<List<EmployeeDTO>> resultWrapper= new ResultWrapper<>();
-        resultWrapper.setResult(EmployeeMapper.INSTANCE.usersToEmployeeDTOs(employeeRepository.findAll()));
+    public ResultWrapper<List<UserDTO>> getAllUsers() {
+        ResultWrapper<List<UserDTO>> resultWrapper= new ResultWrapper<>();
+        resultWrapper.setResult(UserMapper.INSTANCE.usersToUserDTOs(userRepository.findAll()));
         resultWrapper.setStatus(true);
         return resultWrapper;
     }

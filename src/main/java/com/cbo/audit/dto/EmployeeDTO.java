@@ -22,5 +22,4 @@ public class EmployeeDTO extends BaseDTO{
     private String employeeImage;
     private String signatureImage;
     private Boolean active;
-    private User user;
 }

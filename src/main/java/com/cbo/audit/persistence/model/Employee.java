@@ -13,10 +13,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "employees")
 public class Employee {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,
             generator = "employee_sequence")
     private Long id;
+
     private Long employeeId;
     private String fullName;
     private String jobTitle;
@@ -28,8 +30,8 @@ public class Employee {
     private String employeeImage;
     private String signatureImage;
     private Boolean active;
+
     @OneToOne(mappedBy = "employee")
-    @JsonIgnore
     private User user;
 }
 

@@ -212,7 +212,6 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
                 AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO);
                 annualPlan.setCreatedTimestamp(LocalDateTime.now());
                 annualPlan.setCreatedUser("TODO");
-                annualPlan.setStatus(AnnualPlanStatus.Pending.getType());
                 annualPlan.setCreatedTimestamp(oldAnnualPlan.getCreatedTimestamp());
                 annualPlan.setCreatedUser(oldAnnualPlan.getCreatedUser());
                 annualPlan.setAuditUniverse(oldAnnualPlan.getAuditUniverse());

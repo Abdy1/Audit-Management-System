@@ -15,9 +15,11 @@ import javax.persistence.*;
 @Table(name = "ams_team_member")
 public class TeamMember extends BaseEntity{
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
     private TeamMemberStatus status;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = " TEAM_TYPE")
     private TeamType teamType;
 

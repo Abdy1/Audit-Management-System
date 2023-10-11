@@ -3,6 +3,7 @@ package com.cbo.audit.mapper;
 import com.cbo.audit.dto.TeamMemberDTO;
 import com.cbo.audit.persistence.model.TeamMember;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
@@ -14,10 +15,12 @@ public interface TeamMemberMapper {
 
     TeamMemberMapper INSTANCE = Mappers.getMapper(TeamMemberMapper.class);
 
+    @Mapping(source = "status", target = "teamMemberStatus")
     TeamMemberDTO toDTO(TeamMember teamMember);
 
     void copyToDTO(TeamMember teamMember, @MappingTarget TeamMemberDTO teamMemberDTO);
 
+    @Mapping(source = "teamMemberStatus", target = "status")
     TeamMember toEntity(TeamMemberDTO teamMemberDTO);
 
     default List<TeamMemberDTO> teamMembersToTeamMemberDTOs(List<TeamMember> teamMembers) {

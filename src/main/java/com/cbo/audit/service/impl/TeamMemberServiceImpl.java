@@ -56,9 +56,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("User with the provided information is not available.");
             return resultWrapper;
-        } else if (!isTeamMemberFree(user.get().getId())) {
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("User have an active schedule or task.");
         }
 
         TeamMember teamMember = TeamMemberMapper.INSTANCE.toEntity(teamMemberDTO);

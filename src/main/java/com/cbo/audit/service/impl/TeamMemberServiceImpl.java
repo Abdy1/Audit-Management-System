@@ -43,7 +43,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     public ResultWrapper<TeamMemberDTO> registerTeamMemberToSchedule(TeamMemberDTO teamMemberDTO) {
         ResultWrapper<TeamMemberDTO> resultWrapper = new ResultWrapper<>();
 
-        AuditSchedule auditSchedule = auditScheduleService.findAuditScheduleById(teamMemberDTO.getAuditSchedule().getId());
+        AuditSchedule auditSchedule = auditScheduleService.findAuditScheduleById(teamMemberDTO.getAuditScheduleId());
 
         Optional<User> user = userRepository.findById(teamMemberDTO.getUser().getId());
         if (auditSchedule == null) {

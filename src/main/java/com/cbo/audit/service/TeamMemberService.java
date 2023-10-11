@@ -11,7 +11,7 @@ public interface TeamMemberService {
     ResultWrapper<TeamMemberDTO> registerTeamMemberToSchedule(TeamMemberDTO auditObjectDTO);
 
     ResultWrapper<List<TeamMemberDTO>> getAllTeamMemberOfSchedule(AuditScheduleDTO auditScheduleDTO);
-
+    List<TeamMemberDTO> getAllTeamMemberOfScheduleSys(AuditScheduleDTO auditScheduleDTO);
     ResultWrapper<TeamMemberDTO> getTeamMemberById(Long id);
 
     ResultWrapper<TeamMemberDTO> getTeamMemberByUserIdAndSchedule(Long id);

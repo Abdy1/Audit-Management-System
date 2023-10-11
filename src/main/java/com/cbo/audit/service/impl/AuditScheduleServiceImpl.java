@@ -5,6 +5,7 @@ import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.enums.AnnualPlanStatus;
 import com.cbo.audit.enums.AuditScheduleStatus;
 import com.cbo.audit.mapper.AuditScheduleMapper;
+import com.cbo.audit.mapper.TeamMemberMapper;
 import com.cbo.audit.persistence.model.*;
 import com.cbo.audit.persistence.repository.AnnualPlanRepository;
 import com.cbo.audit.persistence.repository.AuditScheduleRepository;
@@ -12,6 +13,7 @@ import com.cbo.audit.persistence.repository.BudgetYearRepository;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
 import com.cbo.audit.service.AnnualPlanService;
 import com.cbo.audit.service.AuditScheduleService;
+import com.cbo.audit.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -85,6 +87,10 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         List<AuditSchedule> auditSchedules=auditScheduleRepository.findScheduleByYear(year);
         if (!auditSchedules.isEmpty()){
             List<AuditScheduleDTO> auditScheduleDTOS = AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules);
+            auditScheduleDTOS.stream().map(auditScheduleDTO -> {
+                auditScheduleDTO.setTeamMembers(TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId())));
+                return auditScheduleDTO;
+            });
             resultWrapper.setResult(auditScheduleDTOS);
             resultWrapper.setStatus(true);
         }

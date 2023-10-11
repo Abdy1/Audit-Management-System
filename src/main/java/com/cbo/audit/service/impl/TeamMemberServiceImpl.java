@@ -94,6 +94,13 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     }
 
     @Override
+    public List<TeamMemberDTO> getAllTeamMemberOfScheduleSys(AuditScheduleDTO auditScheduleDTO) {
+        List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
+
+        return TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
+    }
+
+    @Override
     public ResultWrapper<TeamMemberDTO> getTeamMemberById(Long id) {
         ResultWrapper<TeamMemberDTO> resultWrapper = new ResultWrapper<>();
         Optional<TeamMember> teamMember = teamMemberRepository.findById(id);

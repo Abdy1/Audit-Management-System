@@ -172,6 +172,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         auditSchedule.setCreatedTimestamp(oldAuditSchedule.get().getCreatedTimestamp());
         auditSchedule.setAuditEngagementId(oldAuditSchedule.get().getAuditEngagementId());
         auditSchedule.setAnnualPlan(oldAuditSchedule.get().getAnnualPlan());
+        auditSchedule.setYear(oldAuditSchedule.get().getAnnualPlan().getYear());
 
 
         AuditSchedule savedSchedule = auditScheduleRepository.save(auditSchedule);

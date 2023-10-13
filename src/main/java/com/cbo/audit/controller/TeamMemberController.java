@@ -51,6 +51,14 @@ public class TeamMemberController{
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
+    @PostMapping(value = URIs.TEAM_MEMBER_REMOVE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<TeamMemberDTO>> removeTeamMember(@RequestBody TeamMemberDTO teamMemberDTO){
+
+        ResultWrapper<TeamMemberDTO> resultWrapper=teamMemberService.removeTeamMember(teamMemberDTO);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
     @PostMapping(value = URIs.TEAM_MEMBER_LIST_BY_USERID, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<List<AuditScheduleDTO>>> getAllScheduleByUserId(@RequestBody UserDTO userDTO){
 

@@ -42,10 +42,6 @@ public class AuditSchedule extends BaseEntity{
     @Column(name = "YEAR")
     private String year;
 
-/*    @OneToOne(mappedBy = "auditSchedule", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})*/
-    @Column(name = "audit_engagement_id")
-    private Long auditEngagementId;
-
     @OneToMany(mappedBy = "auditSchedule", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<TeamMember> teamMembers;
 

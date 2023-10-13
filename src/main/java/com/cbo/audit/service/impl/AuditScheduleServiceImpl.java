@@ -5,11 +5,13 @@ import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.enums.AnnualPlanStatus;
 import com.cbo.audit.enums.AuditScheduleStatus;
 import com.cbo.audit.mapper.AuditScheduleMapper;
+import com.cbo.audit.mapper.EngagementMapper;
 import com.cbo.audit.mapper.TeamMemberMapper;
 import com.cbo.audit.persistence.model.*;
 import com.cbo.audit.persistence.repository.AnnualPlanRepository;
 import com.cbo.audit.persistence.repository.AuditScheduleRepository;
 import com.cbo.audit.persistence.repository.BudgetYearRepository;
+import com.cbo.audit.persistence.repository.EngagementInfoRepository;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
 import com.cbo.audit.service.AnnualPlanService;
 import com.cbo.audit.service.AuditScheduleService;
@@ -32,10 +34,14 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
     @Autowired
     private AnnualPlanService annualPlanService;
 
+
     @Autowired
     private AnnualPlanRepository annualPlanRepository;
     @Autowired
     private TeamMemberRepository teamMemberRepository;
+
+    @Autowired
+    private EngagementInfoRepository engagementInfoRepository;
 
     @Autowired
     private BudgetYearRepository budgetYearRepository;
@@ -176,7 +182,6 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         AuditSchedule auditSchedule = AuditScheduleMapper.INSTANCE.toEntity(auditScheduleDTO);
         auditSchedule.setCreatedUser(oldAuditSchedule.get().getCreatedUser());
         auditSchedule.setCreatedTimestamp(oldAuditSchedule.get().getCreatedTimestamp());
-        auditSchedule.setAuditEngagementId(oldAuditSchedule.get().getAuditEngagementId());
         auditSchedule.setAnnualPlan(oldAuditSchedule.get().getAnnualPlan());
         auditSchedule.setYear(oldAuditSchedule.get().getAnnualPlan().getYear());
 
@@ -189,6 +194,46 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         return resultWrapper;
     }
 
+    @Override
+    public ResultWrapper<EngagementDTO> addAuditScheduleToEngagement(EngagementDTO engagementDTO) {
+
+        ResultWrapper<EngagementDTO> resultWrapper = new ResultWrapper<>();
+
+        Optional<AuditSchedule> oldAuditSchedule = auditScheduleRepository.findById(engagementDTO.getAuditSchedule().getId());
+
+
+        if (!oldAuditSchedule.isPresent()) {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit schedule must not be null.");
+            return resultWrapper;
+        }
+        AuditSchedule auditSchedule = oldAuditSchedule.get();
+        auditSchedule.setStatus(AuditScheduleStatus.Engagement.name());
+        auditScheduleRepository.save(auditSchedule);
+        AnnualPlan annualPlan = auditSchedule.getAnnualPlan();
+        annualPlan.setStatus(AnnualPlanStatus.Engagement.name());
+        annualPlanRepository.save(annualPlan);
+        engagementInfoRepository.save(EngagementMapper.INSTANCE.toEntity(engagementDTO));
+        resultWrapper.setStatus(true);
+        resultWrapper.setMessage("Audit Schedule added to engagement successfully.");
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<EngagementDTO> getAuditEngagementBySchedule(AuditScheduleDTO auditScheduleDTO) {
+        ResultWrapper<EngagementDTO> resultWrapper= new ResultWrapper<>();
+
+        EngagementInfo engagementInfo = engagementInfoRepository.findAuditEngagementBySchedule(auditScheduleDTO.getId());
+        if (engagementInfo != null){
+            engagementInfo.setAuditSchedule(null);
+            resultWrapper.setResult(EngagementMapper.INSTANCE.toDTO(engagementInfo));
+            resultWrapper.setStatus(true);
+        }else {
+            resultWrapper.setStatus(true);
+            resultWrapper.setMessage("Not found");
+        }
+        return resultWrapper;
+    }
 
 
 }

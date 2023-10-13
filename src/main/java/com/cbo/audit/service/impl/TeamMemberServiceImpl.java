@@ -123,6 +123,22 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     }
 
     @Override
+    public ResultWrapper<TeamMemberDTO> removeTeamMember(TeamMemberDTO teamMemberDTO) {
+        ResultWrapper<TeamMemberDTO> resultWrapper = new ResultWrapper<>();
+        Optional<TeamMember> teamMember = teamMemberRepository.findById(teamMemberDTO.getId());
+        if (teamMember.isPresent()){
+            teamMemberRepository.delete(teamMember.get());
+            resultWrapper.setStatus(true);
+            resultWrapper.setMessage("Deleted successfully");
+        }else {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Incorrect team Id");
+        }
+
+        return resultWrapper;
+    }
+
+    @Override
     public ResultWrapper<TeamMemberDTO> updateTeamMember(TeamMemberDTO teamMemberDTO) {
         ResultWrapper<TeamMemberDTO> resultWrapper = new ResultWrapper<>();
 

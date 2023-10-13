@@ -18,6 +18,8 @@ public interface TeamMemberService {
 
     Optional<TeamMember> findTeamMemberById(Long id);
 
+    ResultWrapper<TeamMemberDTO> removeTeamMember(TeamMemberDTO teamMemberDTO);
+
     ResultWrapper<TeamMemberDTO> updateTeamMember(TeamMemberDTO auditObjectDTO);
 
     ResultWrapper<List<TeamMemberDTO>> getTeamMemberByUserIdAndStatus(Long id);

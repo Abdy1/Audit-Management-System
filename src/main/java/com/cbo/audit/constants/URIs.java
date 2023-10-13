@@ -75,6 +75,7 @@ public final class URIs {
 
     public static final String AUDIT_SCHEDULE_UPDATE = AUDIT_SCHEDULE + UPDATE;
     public static final String ADD_AUDIT_SCHEDULE_TO_ENGAGEMENT = AUDIT_SCHEDULE + "addToEngagement";
+    public static final String GET_AUDIT_ENGAGEMENT_BY_SCHEDULE = AUDIT_SCHEDULE + "getEngagementBySchedule";
 
 
 
@@ -99,6 +100,7 @@ public final class URIs {
     public static final String TEAM_MEMBER_BY_ID = TEAM_MEMBER + "findById";
     public static final String TEAM_MEMBER_UPDATE = TEAM_MEMBER + UPDATE;
     public static final String USER_LIST_BALL= APPLICATION_CONTEXT + "/users";
+    public static final String TEAM_MEMBER_REMOVE = TEAM_MEMBER + "remove";
 
     public static final String RESOURCE = APPLICATION_CONTEXT + "/resource/";
     public static final String RESOURCE_REGISTER = RESOURCE + REGISTER;

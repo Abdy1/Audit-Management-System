@@ -1,6 +1,7 @@
 package com.cbo.audit.service;
 
 import com.cbo.audit.dto.AuditScheduleDTO;
+import com.cbo.audit.dto.EngagementDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.persistence.model.AuditSchedule;
 
@@ -22,6 +23,10 @@ public interface AuditScheduleService {
     ResultWrapper<List<AuditScheduleDTO>> getAllAuditScheduleByQuarter(int quarter);
 
     ResultWrapper<AuditScheduleDTO> updateAuditSchedule(AuditScheduleDTO auditUniverseDTO);
+
+    ResultWrapper<EngagementDTO> addAuditScheduleToEngagement(EngagementDTO engagementDTO);
+
+    ResultWrapper<EngagementDTO> getAuditEngagementBySchedule(AuditScheduleDTO auditScheduleDTO);
 
     ResultWrapper<List<AuditScheduleDTO>> getAuditScheduleByAnnualPlanId(Long id);
 }

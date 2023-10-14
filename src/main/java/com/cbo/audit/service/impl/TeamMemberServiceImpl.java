@@ -2,6 +2,7 @@ package com.cbo.audit.service.impl;
 
 import com.cbo.audit.dto.*;
 import com.cbo.audit.enums.TeamMemberStatus;
+import com.cbo.audit.enums.TeamType;
 import com.cbo.audit.mapper.AuditScheduleMapper;
 import com.cbo.audit.mapper.EmployeeMapper;
 import com.cbo.audit.mapper.TeamMemberMapper;
@@ -54,7 +55,20 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
         if (!user.isPresent()) {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("User with the provided information is not available.");
+            resultWrapper.setMessage("User with the provided information is not present.");
+            return resultWrapper;
+        }
+        TeamMember existAlready = teamMemberRepository.findTeamMemberByUserIdAndSchedule(user.get().getId(), auditSchedule.getId());
+        if (existAlready != null){
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Assigned already.");
+            return resultWrapper;
+        }
+
+        TeamMember teamMemberLeader = teamMemberRepository.findTeamLeaderOfSchedule(auditSchedule.getId(), TeamType.Leader);
+        if (teamMemberLeader == null && teamMemberDTO.getTeamType().equals(TeamType.Leader)) {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Leader duplication is not allowed.");
             return resultWrapper;
         }
 
@@ -194,6 +208,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     @Override
     public ResultWrapper<List<UserDTO>> getAllUsers() {
         ResultWrapper<List<UserDTO>> resultWrapper= new ResultWrapper<>();
+        System.out.println(userRepository.findAll().size());
         resultWrapper.setResult(UserMapper.INSTANCE.usersToUserDTOs(userRepository.findAll()));
         resultWrapper.setStatus(true);
         return resultWrapper;

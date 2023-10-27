@@ -67,4 +67,12 @@ public class AuditableAreaController {
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
+
+    @PostMapping(value = URIs.AUDITABLE_AREA_DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditableAreaDTO>> deleteAuditableArea(@RequestBody AuditableAreaDTO auditableAreaDTO){
+
+        ResultWrapper<AuditableAreaDTO> resultWrapper=auditableAreaService.deleteAuditableArea(auditableAreaDTO);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
 }

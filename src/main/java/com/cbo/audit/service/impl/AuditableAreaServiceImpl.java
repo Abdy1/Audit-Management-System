@@ -33,40 +33,38 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
     private AuditObjectService auditObjectService;
 
 
-    @Override
-    public ResultWrapper<AuditableAreaDTO> registerAuditableArea(AuditableAreaDTO auditableAreaDTO) {
-        ResultWrapper<AuditableAreaDTO> resultWrapper = new ResultWrapper<>(auditableAreaDTO);
+@Override
+public ResultWrapper<AuditableAreaDTO> registerAuditableArea(AuditableAreaDTO auditableAreaDTO) {
+    ResultWrapper<AuditableAreaDTO> resultWrapper = new ResultWrapper<>(auditableAreaDTO);
 
-        List<AuditableArea> auditableAreaName = auditableAreaRepository.findByName(auditableAreaDTO.getName());
+    List<AuditableArea> auditableAreaName = auditableAreaRepository.findByName(auditableAreaDTO.getName());
 
-        Optional<AuditObject> auditObject = auditObjectService.findAuditObjectById(auditableAreaDTO.getAuditObject().getId());
+    Optional<AuditObject> auditObject = auditObjectService.findAuditObjectById(auditableAreaDTO.getAuditObject().getId());
 
-        if (auditableAreaDTO.getName() == null){
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("AuditableArea name cannot be null.");
-        }else if(!auditableAreaName.isEmpty()){
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("AuditableArea duplicate name is not allowed.");
-        }else if (!auditObject.isPresent()) {
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit object cannot be null.");
-        }
-        else {
-
-
-                AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
-                auditableArea.setCreatedTimestamp(LocalDateTime.now());
-                auditableArea.setCreatedUser("TODO");
-                auditableArea.setAuditObject(auditObject.get());
-
-                AuditableArea savedAuditableArea = auditableAreaRepository.save(auditableArea);
-                resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedAuditableArea));
-                resultWrapper.setStatus(true);
-                resultWrapper.setMessage("AuditableArea created successfully.");
-            }
-
-        return resultWrapper;
+    if (auditableAreaDTO.getName() == null){
+        resultWrapper.setStatus(false);
+        resultWrapper.setMessage("Auditable Area name cannot be null.");
+    }else if(!auditableAreaName.isEmpty()){
+        resultWrapper.setStatus(false);
+        resultWrapper.setMessage("Auditable Area duplicate name is not allowed.");
+    }else if (!auditObject.isPresent()){
+        resultWrapper.setStatus(false);
+        resultWrapper.setMessage("Audit object cannot be null.");
     }
+    else {
+        AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
+        auditableArea.setCreatedTimestamp(LocalDateTime.now());
+        auditableArea.setCreatedUser("TODO");
+        auditableArea.setAuditObject(auditObject.get());
+
+        AuditableArea savedAuditableArea = auditableAreaRepository.save(auditableArea);
+        resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedAuditableArea));
+        resultWrapper.setStatus(true);
+        resultWrapper.setMessage("AuditableArea created successfully.");
+    }
+
+    return resultWrapper;
+}
 
     @Override
     public ResultWrapper<List<AuditableAreaDTO>> getAllAuditableArea() {
@@ -123,7 +121,7 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
             resultWrapper.setStatus(true);
         }else{
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("AuditableArea with the provided id not found.");
+            resultWrapper.setMessage("Auditable Area with the provided id not found.");
         }
         return resultWrapper;
     }
@@ -141,7 +139,6 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
             }else{
 
                 AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
-
                 auditableArea.setCreatedTimestamp(oldAuditableArea.getCreatedTimestamp());
                 auditableArea.setCreatedUser(oldAuditableArea.getCreatedUser());
                 auditableArea.setAuditObject(oldAuditableArea.getAuditObject());
@@ -149,11 +146,29 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
                 AuditableArea savedAuditableArea = auditableAreaRepository.save(auditableArea);
                 resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedAuditableArea));
                 resultWrapper.setStatus(true);
-                resultWrapper.setMessage("AuditableArea updated successfully.");
+                resultWrapper.setMessage("Auditable Area updated successfully.");
             }
         }else {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("AuditableArea with the provided id is not available.");
+            resultWrapper.setMessage("Auditable Area with the provided id is not available.");
+        }
+
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<AuditableAreaDTO> deleteAuditableArea(AuditableAreaDTO auditableAreaDTO) {
+        ResultWrapper<AuditableAreaDTO> resultWrapper = new ResultWrapper<>(auditableAreaDTO);
+
+        AuditableArea oldAuditableArea = auditableAreaRepository.findById(auditableAreaDTO.getId()).orElse(null);
+
+        if (oldAuditableArea != null){
+                auditableAreaRepository.delete(oldAuditableArea);
+                resultWrapper.setStatus(true);
+                resultWrapper.setMessage("Auditable Area deleted successfully.");
+        }else {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Auditable Area with the provided id is not found.");
         }
 
         return resultWrapper;

@@ -19,14 +19,6 @@ public class RiskController{
     @Autowired
     private RiskService riskService;
 
-    @GetMapping(value = URIs.RISK_ITEM_LIST_ALL,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<RiskItemDTO>>> getAllRiskItems(){
-
-        ResultWrapper<List<RiskItemDTO>> resultWrapper=riskService.getAllRiskItems();
-
-        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
-    }
-
     @GetMapping(value = URIs.GET_RISK_LEVEL,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<RiskLevel>> getRiskLevelValues(){
 

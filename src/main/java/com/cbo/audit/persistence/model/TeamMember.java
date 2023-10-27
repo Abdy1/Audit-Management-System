@@ -21,7 +21,7 @@ public class TeamMember extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     @Column(name = " TEAM_TYPE")
-    private TeamType teamType;
+    private TeamType teamRole;
 
     @Column(name = "AUDIT_STATUS")
     private String auditStatus;
@@ -34,6 +34,6 @@ public class TeamMember extends BaseEntity{
     private AuditSchedule auditSchedule;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @JoinColumn(name = "AUDIT_STAFF_ID")
+    private AuditStaff auditStaff;
 }

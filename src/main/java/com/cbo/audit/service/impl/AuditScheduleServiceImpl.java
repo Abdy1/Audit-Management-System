@@ -111,6 +111,10 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         List<AuditSchedule> auditSchedules=auditScheduleRepository.findScheduleByYear(year);
         if (!auditSchedules.isEmpty()){
             List<AuditScheduleDTO> auditScheduleDTOS = AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules);
+            auditScheduleDTOS.stream().map(auditScheduleDTO -> {
+                auditScheduleDTO.setTeamMembers(TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId())));
+                return auditScheduleDTO;
+            });
             resultWrapper.setResult(auditScheduleDTOS);
             resultWrapper.setStatus(true);
         }
@@ -125,6 +129,10 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         List<AuditSchedule> auditSchedules=auditScheduleRepository.findScheduleByYearAndQuarter(year, quarter);
         if (!auditSchedules.isEmpty()){
             List<AuditScheduleDTO> auditScheduleDTOS = AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules);
+            auditScheduleDTOS.stream().map(auditScheduleDTO -> {
+                auditScheduleDTO.setTeamMembers(TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId())));
+                return auditScheduleDTO;
+            });
             resultWrapper.setResult(auditScheduleDTOS);
             resultWrapper.setStatus(true);
         }
@@ -138,6 +146,8 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         AuditSchedule auditSchedule = auditScheduleRepository.findById(id).orElse(null);
         if (auditSchedule != null){
             AuditScheduleDTO auditScheduleDTO = AuditScheduleMapper.INSTANCE.toDTO(auditSchedule);
+            auditScheduleDTO.setTeamMembers(TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId())));
+
             resultWrapper.setResult(auditScheduleDTO);
             resultWrapper.setStatus(true);
         }

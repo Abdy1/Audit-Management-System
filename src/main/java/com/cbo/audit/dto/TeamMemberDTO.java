@@ -16,16 +16,13 @@ import javax.persistence.Column;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamMemberDTO extends BaseDTO{
 
-    private String status;
-
+    private TeamMemberStatus status;
 
     private Long auditScheduleId;
 
-    private UserDTO user;
+    private AuditStaffDTO auditStaffDTO;
 
-    private TeamMemberStatus teamMemberStatus;
-
-    private TeamType teamType;
+    private TeamType teamRole;
 
     private String auditStatus;
 

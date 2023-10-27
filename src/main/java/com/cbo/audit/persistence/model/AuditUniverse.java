@@ -17,9 +17,6 @@ public class AuditUniverse  extends BaseEntity{
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "DESCRIPTION")
-    private String description;
-
     @Column(name = "TYPE")
     private String type;
 

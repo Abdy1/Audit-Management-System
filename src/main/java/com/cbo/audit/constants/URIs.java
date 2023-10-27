@@ -80,7 +80,6 @@ public final class URIs {
 
 
     public static final String AUDIT_RISK= APPLICATION_CONTEXT + "/risk/";
-    public static final String RISK_ITEM_LIST_ALL = AUDIT_RISK + "listRiskItem";
     public static final String RISK_SCORE_BY_ANNUAL_ID = AUDIT_RISK + "riskScoreByAnn";
     public static final String GET_RISK_LEVEL = AUDIT_RISK + "riskLevel";
 
@@ -91,12 +90,10 @@ public final class URIs {
     public static final String AUDIT_OBJECT_UPDATE = AUDIT_OBJECT + UPDATE;
     public static final String AUDIT_OBJECT_BY_AUDIT_TYPE = AUDIT_OBJECT + "byAuditType";
 
-    public static final String AUDIT_TYPE_LIST_ALL = APPLICATION_CONTEXT + "/auditType/listAll";
-
     public static final String TEAM_MEMBER = APPLICATION_CONTEXT + "/teamMember/";
     public static final String TEAM_MEMBER_REGISTER = TEAM_MEMBER + REGISTER;
     public static final String TEAM_MEMBER_LIST_BY_SCHEDULE = TEAM_MEMBER + "bySchedule";
-    public static final String TEAM_MEMBER_LIST_BY_USERID = TEAM_MEMBER + "byUserId";
+    public static final String TEAM_MEMBER_LIST_BY_STAFF_ID = TEAM_MEMBER + "byStaffId";
     public static final String TEAM_MEMBER_BY_ID = TEAM_MEMBER + "findById";
     public static final String TEAM_MEMBER_UPDATE = TEAM_MEMBER + UPDATE;
     public static final String USER_LIST_BALL= APPLICATION_CONTEXT + "/users";
@@ -114,13 +111,41 @@ public final class URIs {
     public static final String AUDITABLE_AREA_BY_ID = AUDITABLE_AREA + "findById";
     public static final String AUDITABLE_AREA_BY_OBJECT_ID = AUDITABLE_AREA + "findByObj";
     public static final String AUDITABLE_AREA_UPDATE = AUDITABLE_AREA + UPDATE;
+    public static final String AUDITABLE_AREA_DELETE = AUDITABLE_AREA + "delete";
 
     public static final String CHECKLIST_ITEM = APPLICATION_CONTEXT + "/checkListItem/";
     public static final String CHECKLIST_ITEM_REGISTER = CHECKLIST_ITEM + REGISTER;
     public static final String CHECKLIST_ITEM_LIST_ALL = CHECKLIST_ITEM + LIST_ALL;
     public static final String CHECKLIST_ITEM_BY_ID = CHECKLIST_ITEM + FIND_BY_ID;
     public static final String CHECKLIST_ITEM_UPDATE = CHECKLIST_ITEM + UPDATE;
+    public static final String CHECKLIST_ITEM_DELETE= CHECKLIST_ITEM + "delete";
     public static final String CHECK_LIST_BY_OBJECT_ID = CHECKLIST_ITEM + "findByObj";
     public static final String CHECKLIST_ITEM_BY_AAR = CHECKLIST_ITEM + "byAArea";
+
+    public static final String AUDIT_TYPE = APPLICATION_CONTEXT + "/auditType/";
+    public static final String AUDIT_TYPE_REGISTER = AUDIT_TYPE + REGISTER;
+    public static final String AUDIT_TYPE_LIST_ALL = AUDIT_TYPE + LIST_ALL;
+    public static final String AUDIT_TYPE_BY_ID = AUDIT_TYPE + FIND_BY_ID;
+    public static final String AUDIT_TYPE_UPDATE = AUDIT_TYPE + UPDATE;
+    public static final String AUDIT_TYPE_DELETE = AUDIT_TYPE + "delete";
+
+    public static final String RISK_ITEM = APPLICATION_CONTEXT + "/riskItem/";
+    public static final String RISK_ITEM_REGISTER = RISK_ITEM + REGISTER;
+    public static final String RISK_ITEM_LIST_ALL = RISK_ITEM + LIST_ALL;
+    public static final String RISK_ITEM_BY_ID = RISK_ITEM + FIND_BY_ID;
+    public static final String RISK_ITEM_UPDATE = RISK_ITEM + UPDATE;
+    public static final String RISK_ITEM_DELETE = RISK_ITEM + "delete";
+
+
+    public static final String AUDIT_STAFF = APPLICATION_CONTEXT + "/auditStaff/";
+    public static final String AUDIT_STAFF_REGISTER = AUDIT_STAFF + REGISTER;
+    public static final String AUDIT_STAFF_BY_ID = AUDIT_STAFF + "findById";
+    public static final String AUDIT_STAFF_UPDATE = AUDIT_STAFF + UPDATE;
+    public static final String AUDIT_STAFF_LIST_ALL = AUDIT_STAFF + "listAll";
+    public static final String AUDIT_STAFF_LIST_ACTIVE= AUDIT_STAFF + "listActive";
+
+    public static final String AUDIT_STAFF_LBY_AUDIT_TYPE= AUDIT_STAFF + "byAuditType";
+
+    public static final String AUDIT_STAFF_REMOVE = AUDIT_STAFF + "remove";
 
 }

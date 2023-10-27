@@ -30,7 +30,6 @@ public class AnnualPlanDTO extends BaseDTO{
 
     private double rectificationStatus;
 
-
     private AuditUniverseDTO auditUniverse;
 
     private List<RiskScoreDTO> riskScores;

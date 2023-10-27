@@ -105,6 +105,25 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
     }
 
     @Override
+    public ResultWrapper<ChecklistItemDTO> deleteChecklistItem(ChecklistItemDTO checklistItemDTO) {
+        ResultWrapper<ChecklistItemDTO> resultWrapper = new ResultWrapper<>(checklistItemDTO);
+
+        ChecklistItem oldChecklist = checklistItemRepository.findById(checklistItemDTO.getId()).orElse(null);
+
+        if (oldChecklist != null){
+
+                checklistItemRepository.save(oldChecklist);
+                resultWrapper.setStatus(true);
+                resultWrapper.setMessage("Checklist Item deleted successfully.");
+        }else {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("CheckList with the provided id is not available.");
+        }
+
+        return resultWrapper;
+    }
+
+    @Override
     public ResultWrapper<ChecklistItemDTO> updateChecklistItem(ChecklistItemDTO checklistItemDTO) {
         ResultWrapper<ChecklistItemDTO> resultWrapper = new ResultWrapper<>(checklistItemDTO);
 

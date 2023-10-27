@@ -59,18 +59,10 @@ public class TeamMemberController{
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @PostMapping(value = URIs.TEAM_MEMBER_LIST_BY_USERID, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<AuditScheduleDTO>>> getAllScheduleByUserId(@RequestBody UserDTO userDTO){
+    @PostMapping(value = URIs.TEAM_MEMBER_LIST_BY_STAFF_ID, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AuditScheduleDTO>>> getAllScheduleByAuditStaffId(@RequestBody AuditStaffDTO auditStaffDTO){
 
-        ResultWrapper<List<AuditScheduleDTO>> resultWrapper=teamMemberService.getAllScheduleByUserId(userDTO.getId());
-
-        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
-    }
-
-    @GetMapping(value = URIs.USER_LIST_BALL, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<UserDTO>>> getAllUsers(){
-
-        ResultWrapper<List<UserDTO>> resultWrapper=teamMemberService.getAllUsers();
+        ResultWrapper<List<AuditScheduleDTO>> resultWrapper=teamMemberService.getAllScheduleByAuditStaffId(auditStaffDTO.getId());
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

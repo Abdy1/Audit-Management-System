@@ -14,7 +14,7 @@ public interface TeamMemberService {
     List<TeamMemberDTO> getAllTeamMemberOfScheduleSys(AuditScheduleDTO auditScheduleDTO);
     ResultWrapper<TeamMemberDTO> getTeamMemberById(Long id);
 
-    ResultWrapper<TeamMemberDTO> getTeamMemberByUserIdAndSchedule(Long id);
+    ResultWrapper<TeamMemberDTO> getTeamMemberByAuditStaffIdAndSchedule(Long id);
 
     Optional<TeamMember> findTeamMemberById(Long id);
 
@@ -22,11 +22,9 @@ public interface TeamMemberService {
 
     ResultWrapper<TeamMemberDTO> updateTeamMember(TeamMemberDTO auditObjectDTO);
 
-    ResultWrapper<List<TeamMemberDTO>> getTeamMemberByUserIdAndStatus(Long id);
+    ResultWrapper<List<TeamMemberDTO>> getTeamMemberByAuditStaffIdAndStatus(Long id);
 
-    ResultWrapper<List<AuditScheduleDTO>> getAllScheduleByUserId(Long userId);
-
-    ResultWrapper<List<UserDTO>> getAllUsers();
+    ResultWrapper<List<AuditScheduleDTO>> getAllScheduleByAuditStaffId(Long userId);
 
     List<TeamMember> updateAllTeamsStatus(Long scheduleId);
 }

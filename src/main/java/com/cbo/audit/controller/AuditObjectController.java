@@ -59,11 +59,4 @@ public class AuditObjectController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @GetMapping(value = URIs.AUDIT_TYPE_LIST_ALL,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<AuditType>>> listAuditType(){
-
-        ResultWrapper<List<AuditType>> resultWrapper=auditObjectService.getAllAuditType();
-
-        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
-    }
 }

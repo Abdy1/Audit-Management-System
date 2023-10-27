@@ -71,5 +71,13 @@ public class ChecklistItemController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
+    @PostMapping(value = URIs.CHECKLIST_ITEM_DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<ChecklistItemDTO>> deleteChecklistItem(@RequestBody ChecklistItemDTO checklistItemDTO){
+
+        ResultWrapper<ChecklistItemDTO> resultWrapper=checklistItemService.deleteChecklistItem(checklistItemDTO);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
 
 }

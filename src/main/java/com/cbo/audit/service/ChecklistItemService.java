@@ -20,6 +20,8 @@ public interface ChecklistItemService {
 
     ResultWrapper<List<ChecklistItemDTO>> getChecklistItemByAuditableAreaId(Long id);
 
+    ResultWrapper<ChecklistItemDTO> deleteChecklistItem(ChecklistItemDTO checklistItemDTO);
+
 
 /*    ResultWrapper<List<ChecklistItemDTO>> getChecklistItemByAuditObjectId(Long id);*/
 }

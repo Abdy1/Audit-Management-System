@@ -25,4 +25,6 @@ public interface AuditableAreaService {
 
     ResultWrapper<AuditableAreaDTO> updateAuditableArea(AuditableAreaDTO auditableAreaDTO);
 
+    ResultWrapper<AuditableAreaDTO> deleteAuditableArea(AuditableAreaDTO auditableAreaDTO);
+
 }

@@ -67,9 +67,9 @@ public class AnnualPlanController {
     }
 
     @PostMapping(value = URIs.ANNUAL_PLAN_SCHEDULE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<AuditScheduleDTO>> addAnnualPlanToSchedule(@RequestBody AuditScheduleDTO auditScheduleDTO){
+    public ResponseEntity<ResultWrapper<AnnualPlanDTO>> addAnnualPlanToSchedule(@RequestBody AnnualPlanDTO annualPlanDTO){
 
-        ResultWrapper<AuditScheduleDTO> resultWrapper=auditScheduleService.registerAuditSchedule(auditScheduleDTO);
+        ResultWrapper<AnnualPlanDTO> resultWrapper=annualPlanService.addAnnualPlanToSchedule(annualPlanDTO);
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

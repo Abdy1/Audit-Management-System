@@ -13,7 +13,7 @@ public interface TeamMemberRepository extends JpaRepository<TeamMember, Long> {
     @Query("SELECT TM FROM TeamMember TM WHERE TM.auditStaff.id = :userId AND TM.status = :status")
     List<TeamMember> findTeamMemberByAuditStaffIdAndState(@Param("userId") Long userId, @Param("status") String status);
 
-    @Query("SELECT TM FROM TeamMember TM WHERE TM.auditSchedule.id = :scheduleId")
+    @Query("SELECT TM FROM TeamMember TM JOIN FETCH TM.auditStaff WHERE TM.auditSchedule.id = :scheduleId")
     List<TeamMember> findAllTeamsOfSchedule(@Param("scheduleId") Long scheduleId);
 
     @Query("SELECT TM FROM TeamMember TM WHERE TM.auditStaff.id = :userId AND TM.auditSchedule.id = :scheduleId")

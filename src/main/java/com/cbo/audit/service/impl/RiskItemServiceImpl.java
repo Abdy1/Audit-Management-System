@@ -29,6 +29,7 @@ public class RiskItemServiceImpl implements RiskItemService {
         RiskItem riskItem = RiskItemMapper.INSTANCE.toEntity(riskItemDTO);
         riskItem.setCreatedTimestamp(LocalDateTime.now());
         riskItem.setCreatedUser("TODO");
+
         RiskItem savedPlan = riskItemRepository.save(riskItem);
 
         resultWrapper.setStatus(true);
@@ -105,7 +106,7 @@ public class RiskItemServiceImpl implements RiskItemService {
         RiskItem oldChecklist = riskItemRepository.findById(riskItemDTO.getId()).orElse(null);
 
         if (oldChecklist != null){
-            riskItemRepository.save(oldChecklist);
+            riskItemRepository.delete(oldChecklist);
             resultWrapper.setStatus(true);
             resultWrapper.setMessage("Risk Item deleted successfully.");
         }else {

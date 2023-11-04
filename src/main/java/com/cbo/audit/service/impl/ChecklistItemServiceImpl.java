@@ -112,7 +112,7 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
 
         if (oldChecklist != null){
 
-                checklistItemRepository.save(oldChecklist);
+                checklistItemRepository.delete(oldChecklist);
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("Checklist Item deleted successfully.");
         }else {

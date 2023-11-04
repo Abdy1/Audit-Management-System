@@ -4,7 +4,9 @@ import com.cbo.audit.dto.*;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.enums.AnnualPlanStatus;
 import com.cbo.audit.enums.AuditScheduleStatus;
+import com.cbo.audit.enums.TeamMemberStatus;
 import com.cbo.audit.mapper.AuditScheduleMapper;
+import com.cbo.audit.mapper.AuditStaffMapper;
 import com.cbo.audit.mapper.EngagementMapper;
 import com.cbo.audit.mapper.TeamMemberMapper;
 import com.cbo.audit.persistence.model.*;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,11 +96,14 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         List<AuditSchedule> auditSchedules=auditScheduleRepository.findScheduleByYear(year);
         if (!auditSchedules.isEmpty()){
             List<AuditScheduleDTO> auditScheduleDTOS = AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules);
-            auditScheduleDTOS.stream().map(auditScheduleDTO -> {
-                auditScheduleDTO.setTeamMembers(TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId())));
-                return auditScheduleDTO;
-            });
-            resultWrapper.setResult(auditScheduleDTOS);
+            List<AuditScheduleDTO> modifiedSchedules = new ArrayList<>();
+            for (AuditScheduleDTO auditScheduleDTO : auditScheduleDTOS) {
+                List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
+                List<TeamMemberDTO> teamMemberDTOS = TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
+                auditScheduleDTO.setTeamMembers(teamMemberDTOS);
+                modifiedSchedules.add(auditScheduleDTO);
+            }
+            resultWrapper.setResult(modifiedSchedules);
             resultWrapper.setStatus(true);
         }
         return resultWrapper;
@@ -189,13 +195,32 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             return resultWrapper;
         }
 
+        List<TeamMember> savedTeams = new ArrayList<>();
+        // remove team
+        List<TeamMember> teams = teamMemberRepository.findAllTeamsOfSchedule(oldAuditSchedule.get().getId());
+
+        for (TeamMember team: teams) {
+            teamMemberRepository.delete(team);
+        }
+        //add team
+        for (TeamMemberDTO teamMemberDTO: auditScheduleDTO.getTeamMembers()) {
+            TeamMember teamMember = TeamMemberMapper.INSTANCE.toEntity(teamMemberDTO);
+            teamMember.setCreatedTimestamp(LocalDateTime.now());
+            teamMember.setCreatedUser("TODO");
+            teamMember.setStatus(TeamMemberStatus.Waiting);
+            teamMember.setAuditStatus(oldAuditSchedule.get().getStatus());
+            teamMember.setAuditSchedule(oldAuditSchedule.get());
+            teamMember.setAuditStaff(AuditStaffMapper.INSTANCE.toEntity(teamMemberDTO.getAuditStaffDTO()));
+
+            TeamMember savedMember = teamMemberRepository.save(teamMember);
+            savedTeams.add(savedMember);
+        }
         AuditSchedule auditSchedule = AuditScheduleMapper.INSTANCE.toEntity(auditScheduleDTO);
         auditSchedule.setCreatedUser(oldAuditSchedule.get().getCreatedUser());
         auditSchedule.setCreatedTimestamp(oldAuditSchedule.get().getCreatedTimestamp());
         auditSchedule.setAnnualPlan(oldAuditSchedule.get().getAnnualPlan());
         auditSchedule.setYear(oldAuditSchedule.get().getAnnualPlan().getYear());
-
-
+        auditSchedule.setTeamMembers(savedTeams);
         AuditSchedule savedSchedule = auditScheduleRepository.save(auditSchedule);
 
         resultWrapper.setStatus(true);

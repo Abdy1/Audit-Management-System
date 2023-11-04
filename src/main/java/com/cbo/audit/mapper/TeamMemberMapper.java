@@ -15,10 +15,12 @@ public interface TeamMemberMapper {
 
     TeamMemberMapper INSTANCE = Mappers.getMapper(TeamMemberMapper.class);
 
+    @Mapping(source = "auditStaff", target = "auditStaffDTO")
     TeamMemberDTO toDTO(TeamMember teamMember);
 
     void copyToDTO(TeamMember teamMember, @MappingTarget TeamMemberDTO teamMemberDTO);
 
+    @Mapping(source = "auditStaffDTO", target = "auditStaff")
     TeamMember toEntity(TeamMemberDTO teamMemberDTO);
 
     default List<TeamMemberDTO> teamMembersToTeamMemberDTOs(List<TeamMember> teamMembers) {

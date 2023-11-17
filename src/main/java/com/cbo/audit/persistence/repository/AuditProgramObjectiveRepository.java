@@ -1,6 +1,5 @@
 package com.cbo.audit.persistence.repository;
 
-import com.cbo.audit.persistence.model.AuditProgramMainActivity;
 import com.cbo.audit.persistence.model.AuditProgramObjective;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

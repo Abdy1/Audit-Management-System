@@ -27,7 +27,7 @@ public class AuditProgramDTO extends BaseEntity {
 
     private String OverAllTime;
 
-    private AuditSchedule auditSchedule;
+    private AuditScheduleDTO auditSchedule;
 
 
 }

@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum AuditScheduleStatus {
     Scheduled("Scheduled"),
-    Engagement("Engagement"),
+    Engagement("Engaged"),
     Closed("Closed"),
     Cancelled("Cancelled");
     private String type;

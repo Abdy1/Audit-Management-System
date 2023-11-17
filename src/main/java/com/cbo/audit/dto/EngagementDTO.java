@@ -12,7 +12,7 @@ public class EngagementDTO {
 
     private String message;
 
-    private AuditSchedule auditSchedule;
+    private AuditScheduleDTO auditSchedule;
 
     private String refNum;
 

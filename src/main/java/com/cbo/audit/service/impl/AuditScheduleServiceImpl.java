@@ -117,10 +117,17 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         List<AuditSchedule> auditSchedules=auditScheduleRepository.findScheduleByYear(year);
         if (!auditSchedules.isEmpty()){
             List<AuditScheduleDTO> auditScheduleDTOS = AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules);
-            auditScheduleDTOS.stream().map(auditScheduleDTO -> {
+/*            auditScheduleDTOS.stream().map(auditScheduleDTO -> {
                 auditScheduleDTO.setTeamMembers(TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId())));
                 return auditScheduleDTO;
-            });
+            });*/
+            List<AuditScheduleDTO> modifiedSchedules = new ArrayList<>();
+            for (AuditScheduleDTO auditScheduleDTO : auditScheduleDTOS) {
+                List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
+                List<TeamMemberDTO> teamMemberDTOS = TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
+                auditScheduleDTO.setTeamMembers(teamMemberDTOS);
+                modifiedSchedules.add(auditScheduleDTO);
+            }
             resultWrapper.setResult(auditScheduleDTOS);
             resultWrapper.setStatus(true);
         }
@@ -135,11 +142,18 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         List<AuditSchedule> auditSchedules=auditScheduleRepository.findScheduleByYearAndQuarter(year, quarter);
         if (!auditSchedules.isEmpty()){
             List<AuditScheduleDTO> auditScheduleDTOS = AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules);
-            auditScheduleDTOS.stream().map(auditScheduleDTO -> {
+/*            auditScheduleDTOS.stream().map(auditScheduleDTO -> {
                 auditScheduleDTO.setTeamMembers(TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId())));
                 return auditScheduleDTO;
-            });
-            resultWrapper.setResult(auditScheduleDTOS);
+            });*/
+            List<AuditScheduleDTO> modifiedSchedules = new ArrayList<>();
+            for (AuditScheduleDTO auditScheduleDTO : auditScheduleDTOS) {
+                List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
+                List<TeamMemberDTO> teamMemberDTOS = TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
+                auditScheduleDTO.setTeamMembers(teamMemberDTOS);
+                modifiedSchedules.add(auditScheduleDTO);
+            }
+            resultWrapper.setResult(modifiedSchedules);
             resultWrapper.setStatus(true);
         }
         return resultWrapper;
@@ -152,8 +166,9 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         AuditSchedule auditSchedule = auditScheduleRepository.findById(id).orElse(null);
         if (auditSchedule != null){
             AuditScheduleDTO auditScheduleDTO = AuditScheduleMapper.INSTANCE.toDTO(auditSchedule);
-            auditScheduleDTO.setTeamMembers(TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId())));
-
+            List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
+            List<TeamMemberDTO> teamMemberDTOS = TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
+            auditScheduleDTO.setTeamMembers(teamMemberDTOS);
             resultWrapper.setResult(auditScheduleDTO);
             resultWrapper.setStatus(true);
         }
@@ -248,7 +263,10 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         AnnualPlan annualPlan = auditSchedule.getAnnualPlan();
         annualPlan.setStatus(AnnualPlanStatus.Engagement.name());
         annualPlanRepository.save(annualPlan);
-        engagementInfoRepository.save(EngagementMapper.INSTANCE.toEntity(engagementDTO));
+        EngagementInfo saved= engagementInfoRepository.save(EngagementMapper.INSTANCE.toEntity(engagementDTO));
+        saved.setRefNum("EL-"+saved.getId());
+        engagementInfoRepository.save(saved);
+
         resultWrapper.setStatus(true);
         resultWrapper.setMessage("Audit Schedule added to engagement successfully.");
         return resultWrapper;
@@ -261,7 +279,11 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         EngagementInfo engagementInfo = engagementInfoRepository.findAuditEngagementBySchedule(auditScheduleDTO.getId());
         if (engagementInfo != null){
             engagementInfo.setAuditSchedule(null);
-            resultWrapper.setResult(EngagementMapper.INSTANCE.toDTO(engagementInfo));
+            EngagementDTO engagementDTO = EngagementMapper.INSTANCE.toDTO(engagementInfo);
+            //AuditScheduleDTO auditScheduleDTOs = AuditScheduleMapper.INSTANCE.toDTO(auditSchedule);
+            engagementDTO.setAuditSchedule(auditScheduleDTO);
+            resultWrapper.setResult(engagementDTO);
+
             resultWrapper.setStatus(true);
         }else {
             resultWrapper.setStatus(true);
@@ -270,5 +292,69 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         return resultWrapper;
     }
 
+    @Override
+    public ResultWrapper<List<EngagementDTO>> getAuditEngagements() {
+        String year = budgetYearRepository.findAll(Sort.by(Sort.Direction.DESC, "year")).stream().findFirst().get().getYear();
+
+        ResultWrapper<List<EngagementDTO>> resultWrapper = new ResultWrapper<>();
+        List<EngagementInfo> engagementInfos=engagementInfoRepository.findEngagementByYear(year);
+        if (!engagementInfos.isEmpty()){
+            List<EngagementDTO> engagementDTOS = EngagementMapper.INSTANCE.engagementInfosToEngagementDTOs(engagementInfos);
+            resultWrapper.setResult(engagementDTOS);
+            resultWrapper.setStatus(true);
+        }{
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Engagement not found.");
+        }
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<List<EngagementDTO>> getAllAuditEngagementByYear(String year) {
+
+        ResultWrapper<List<EngagementDTO>> resultWrapper = new ResultWrapper<>();
+        List<EngagementInfo> engagementInfos=engagementInfoRepository.findEngagementByYear(year);
+        if (!engagementInfos.isEmpty()){
+            List<EngagementDTO> engagementDTOS = EngagementMapper.INSTANCE.engagementInfosToEngagementDTOs(engagementInfos);
+            resultWrapper.setResult(engagementDTOS);
+            resultWrapper.setStatus(true);
+        }{
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Engagement not found.");
+        }
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<List<EngagementDTO>> getAllAuditEngagementByQuarter(int quarter) {
+        String year = budgetYearRepository.findAll(Sort.by(Sort.Direction.DESC, "year")).stream().findFirst().get().getYear();
+        ResultWrapper<List<EngagementDTO>> resultWrapper = new ResultWrapper<>();
+        List<EngagementInfo> engagementInfos=engagementInfoRepository.findEngagementByYearAndQuarter(year, quarter);
+        if (!engagementInfos.isEmpty()){
+            List<EngagementDTO> engagementDTOS = EngagementMapper.INSTANCE.engagementInfosToEngagementDTOs(engagementInfos);
+            resultWrapper.setResult(engagementDTOS);
+            resultWrapper.setStatus(true);
+        }{
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Engagement not found.");
+        }
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<List<EngagementDTO>> getAllAuditEngagementByStatus(String status) {
+        String year = budgetYearRepository.findAll(Sort.by(Sort.Direction.DESC, "year")).stream().findFirst().get().getYear();
+        ResultWrapper<List<EngagementDTO>> resultWrapper = new ResultWrapper<>();
+        List<EngagementInfo> engagementInfos=engagementInfoRepository.findEngagementByYearAndStatus(year, status);
+        if (!engagementInfos.isEmpty()){
+            List<EngagementDTO> engagementDTOS = EngagementMapper.INSTANCE.engagementInfosToEngagementDTOs(engagementInfos);
+            resultWrapper.setResult(engagementDTOS);
+            resultWrapper.setStatus(true);
+        }{
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Engagement not found.");
+        }
+        return resultWrapper;
+    }
 
 }

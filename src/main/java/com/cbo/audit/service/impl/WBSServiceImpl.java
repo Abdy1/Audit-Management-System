@@ -43,7 +43,6 @@ public class WBSServiceImpl implements WBSService {
 
         Optional<AuditProgram> auditProgramOpt =auditProgramService.findAuditProgramById(auditProgramWBSDTO.getAuditProgram().getId());
         //add attributes to be checked if they are present in the audit program
-        System.out.println("---------------------------------------------------"+auditProgramWBSDTO.getAuditProgram().getId());
         System.out.println(auditProgramWBSDTO.toString());
             if (!auditProgramOpt.isPresent()) {
                 resultWrapper.setStatus(false);
@@ -57,37 +56,32 @@ public class WBSServiceImpl implements WBSService {
                 return resultWrapper;
             }
 
-        if (auditProgramWBSDTO.getStartOn() == null) {
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit WBS Starting Date  cannot be null.");
-            return resultWrapper;
-        }
-        if (auditProgramWBSDTO.getEndOn() == null) {
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit WBS Ending Date  cannot be null.");
-            return resultWrapper;
-        }
 
 
 
             //AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO;
         WBS wBS = WBSMapper.INSTANCE.toEntity(auditProgramWBSDTO);
+        wBS.setCreatedTimestamp(LocalDateTime.now());
+        wBS.setModifiedTimestamp(LocalDateTime.now());
+        wBS.setEndOn(null);
+        wBS.setStartOn(null);
 
+
+
+        wBS.setCreatedUser("TODO");
+        wBS.setModifiedUser("TODO");
 
 
             //wbs.setStatus(AnnualPlanStatus.Planned.getType());
 
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+auditProgramWBSDTO.getNumberOfDays());
-        System.out.println(wBS.getNumberOfDays());
-        System.out.println(wBS);
-        System.out.println(auditProgramWBSDTO);
+
 
         wBS.setAuditProgram(auditProgramOpt.get());
         WBS savedWBS = auditProgramWBSRepository.save(wBS);
 
             resultWrapper.setStatus(true);
             resultWrapper.setResult(WBSMapper.INSTANCE.toDTO(savedWBS));
-        System.out.println(savedWBS.getEndOn()+"7777777777777777777777777777777777");
+
             resultWrapper.setMessage("Audit Program WBS created successfully.");
             return resultWrapper;
         }

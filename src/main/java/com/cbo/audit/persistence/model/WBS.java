@@ -1,5 +1,6 @@
 package com.cbo.audit.persistence.model;
 
+import com.cbo.audit.dto.AuditProgramDTO;
 import lombok.Getter;
 import lombok.Setter;
 

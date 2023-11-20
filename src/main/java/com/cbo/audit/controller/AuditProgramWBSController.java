@@ -26,7 +26,6 @@ public class AuditProgramWBSController {
     WBSService wbsService;
     @GetMapping(value = URIs.List_WBS_BY_AUDIT_PROGRAM_ID,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<List<AuditProgramWBSDTO>>> listAllAuditProgramWBS(@PathVariable(name = "id") Long id){
-        System.out.println("==================================="+wbsService.getAllWBSByAuditProgramId(id));
         ResultWrapper<List<AuditProgramWBSDTO>> resultWrapper=wbsService.getAllWBSByAuditProgramId(id);
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
 

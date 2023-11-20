@@ -10,8 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AuditProgramDTO extends BaseEntity {
-
+public class AuditProgramDTO extends BaseDTO {
+private String name;
 
     private String status;
 

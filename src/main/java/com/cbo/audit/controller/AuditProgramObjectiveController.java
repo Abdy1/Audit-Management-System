@@ -29,6 +29,10 @@ public class AuditProgramObjectiveController {
 
 
     }
+
+
+
+
     @PostMapping(value=URIs.AUDIT_PROGRAM_OBJECTIVE_REGISTER,produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<AuditProgramObjectiveDTO>> auditProgramObjectiveRegister(@RequestBody AuditProgramObjectiveDTO auditProgramObjectiveDTO){
         ResultWrapper<AuditProgramObjectiveDTO> resultWrapper=auditProgramObjectiveService.registerAuditProgramObjective(auditProgramObjectiveDTO);

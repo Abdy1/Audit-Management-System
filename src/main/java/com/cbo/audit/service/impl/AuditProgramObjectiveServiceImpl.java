@@ -1,7 +1,9 @@
 package com.cbo.audit.service.impl;
 
+import com.cbo.audit.dto.AuditProgramDTO;
 import com.cbo.audit.dto.AuditProgramObjectiveDTO;
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.mapper.AuditProgramMapper;
 import com.cbo.audit.mapper.AuditProgramObjectiveMapper;
 import com.cbo.audit.persistence.model.AuditProgram;
 import com.cbo.audit.persistence.model.AuditProgramObjective;
@@ -60,7 +62,7 @@ public class AuditProgramObjectiveServiceImpl implements AuditProgramObjectiveSe
 
 
         //AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO;
-
+        System.out.println(auditProgramObjectiveDTO.getAuditProgram().getId());
         AuditProgramObjective auditProgramObjective = AuditProgramObjectiveMapper.INSTANCE.toEntity(auditProgramObjectiveDTO);
         auditProgramObjective.setCreatedTimestamp(LocalDateTime.now());
 

@@ -12,6 +12,8 @@ import java.util.List;
 @Setter
 @Getter
 public class AuditProgram extends BaseEntity{
+    @Column
+    private String name;
 
     @Column
     private String status;
@@ -21,7 +23,7 @@ public class AuditProgram extends BaseEntity{
     private String previousStatus;
 
     @Column
-    private String  objectives;
+    private String   objectives;
 
     @Column
     private String scopeDescription;

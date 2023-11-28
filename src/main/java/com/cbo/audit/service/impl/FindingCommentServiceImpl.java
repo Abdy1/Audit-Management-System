@@ -3,6 +3,7 @@ package com.cbo.audit.service.impl;
 import com.cbo.audit.dto.FindingCommentDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.mapper.FindingCommentMapper;
+import com.cbo.audit.mapper.FindingMapper;
 import com.cbo.audit.persistence.model.Finding;
 import com.cbo.audit.persistence.model.FindingComment;
 import com.cbo.audit.persistence.repository.FindingCommentRepository;
@@ -47,15 +48,20 @@ public class FindingCommentServiceImpl implements FindingCommentService {
     }
 
     @Override
-    public ResultWrapper<List<FindingCommentDTO>> listAllFindingCommentByFindingId(Long findingId) {
+    public ResultWrapper<List<FindingCommentDTO>> listAllFindingCommentByFindingId(Long finding_id) {
         ResultWrapper<List<FindingCommentDTO>> resultWrapper=new ResultWrapper<>();
-        List<FindingComment> findingComments=findingCommentRepository.findFindingCommentByFindingId(findingId);
+        List<FindingComment> findingComments=findingCommentRepository.findFindingCommentByFindingId(finding_id);
         if(findingComments.isEmpty()){
             resultWrapper.setResult(null);
             resultWrapper.setMessage("There is no Finding exist");
             resultWrapper.setStatus(false);
             return resultWrapper;
         }
+        List<FindingCommentDTO> findingCommentDTOS= FindingCommentMapper.INSTANCE.FindingToFindingDTOs(findingComments);
+        resultWrapper.setStatus(true);
+        resultWrapper.setMessage("success");
+        resultWrapper.setResult(findingCommentDTOS);
+
         return  resultWrapper;
     }
 
@@ -65,7 +71,7 @@ public class FindingCommentServiceImpl implements FindingCommentService {
         ResultWrapper<FindingCommentDTO> resultWrapper=new ResultWrapper<>();
        if(findingOpt.isPresent()){
            resultWrapper.setStatus(false);
-           resultWrapper.setMessage("The comment does not have Finding related with");
+           resultWrapper.setMessage("The comment does not have Finding related with it");
            resultWrapper.setResult(null);
            return resultWrapper;
        }

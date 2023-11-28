@@ -5,25 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85e49414-7673-45de-9849-af20fd3a1fe3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/controller/AuditProgramFindingController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/controller/FindingCommentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/dto/AmendedFindingDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/dto/FindingCommentDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/dto/FindingDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/mapper/AmendedFindingMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/mapper/FindingCommentMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/mapper/FindingMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/persistence/model/AmendedFinding.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/persistence/model/Finding.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/persistence/model/FindingComment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/persistence/repository/AmendedFindingRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/persistence/repository/FindingCommentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/persistence/repository/FindingRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/AuditProgramFindingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/FindingCommentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/impl/AuditProgramFindingServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/impl/FindingCommentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/constants/URIs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/constants/URIs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/controller/FindingCommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/controller/FindingCommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/persistence/repository/FindingCommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/persistence/repository/FindingCommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/impl/FindingCommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/impl/FindingCommentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cbo/audit/constants/URIs.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cbo/audit/constants/URIs.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cbo/audit/controller/FindingCommentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cbo/audit/controller/FindingCommentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cbo/audit/persistence/repository/FindingCommentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cbo/audit/persistence/repository/FindingCommentRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cbo/audit/service/FindingCommentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cbo/audit/service/FindingCommentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cbo/audit/service/impl/FindingCommentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cbo/audit/service/impl/FindingCommentServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

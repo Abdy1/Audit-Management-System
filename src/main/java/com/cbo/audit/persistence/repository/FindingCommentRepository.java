@@ -9,8 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
 @Repository
 public interface FindingCommentRepository extends JpaRepository<FindingComment,Long> {
-    @Query(" SELECT AN FROM FindingComment AN WHERE AN.Finding.id= :finding_id")
-    List<FindingComment> findFindingCommentByFindingId(@Param("finding_id") Long finding_id);
+
+    List<FindingComment> findFindingCommentByFindingId(Long finding_id);
 }

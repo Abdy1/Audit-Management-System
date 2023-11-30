@@ -27,7 +27,7 @@ private String name;
 
     private String OverAllTime;
 
-    private AuditScheduleDTO auditSchedule;
+    private EngagementDTO engagementDTO;
 
 
 }

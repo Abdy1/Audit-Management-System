@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-11-27T15:46:35+0300",
+    date = "2023-11-30T09:57:20+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
 )
 @Component
@@ -33,6 +33,11 @@ public class EngagementMapperImpl implements EngagementMapper {
 
         EngagementDTO engagementDTO = new EngagementDTO();
 
+        engagementDTO.setId( user.getId() );
+        engagementDTO.setCreatedUser( user.getCreatedUser() );
+        engagementDTO.setModifiedUser( user.getModifiedUser() );
+        engagementDTO.setCreatedTimestamp( user.getCreatedTimestamp() );
+        engagementDTO.setModifiedTimestamp( user.getModifiedTimestamp() );
         engagementDTO.setMessage( user.getMessage() );
         engagementDTO.setAuditSchedule( auditScheduleToAuditScheduleDTO( user.getAuditSchedule() ) );
         engagementDTO.setRefNum( user.getRefNum() );
@@ -47,6 +52,11 @@ public class EngagementMapperImpl implements EngagementMapper {
             return;
         }
 
+        userDTO.setId( user.getId() );
+        userDTO.setCreatedUser( user.getCreatedUser() );
+        userDTO.setModifiedUser( user.getModifiedUser() );
+        userDTO.setCreatedTimestamp( user.getCreatedTimestamp() );
+        userDTO.setModifiedTimestamp( user.getModifiedTimestamp() );
         userDTO.setMessage( user.getMessage() );
         if ( user.getAuditSchedule() != null ) {
             if ( userDTO.getAuditSchedule() == null ) {
@@ -69,6 +79,11 @@ public class EngagementMapperImpl implements EngagementMapper {
 
         EngagementInfo engagementInfo = new EngagementInfo();
 
+        engagementInfo.setId( userDTO.getId() );
+        engagementInfo.setCreatedUser( userDTO.getCreatedUser() );
+        engagementInfo.setModifiedUser( userDTO.getModifiedUser() );
+        engagementInfo.setCreatedTimestamp( userDTO.getCreatedTimestamp() );
+        engagementInfo.setModifiedTimestamp( userDTO.getModifiedTimestamp() );
         engagementInfo.setMessage( userDTO.getMessage() );
         engagementInfo.setAuditSchedule( auditScheduleDTOToAuditSchedule( userDTO.getAuditSchedule() ) );
         engagementInfo.setRefNum( userDTO.getRefNum() );

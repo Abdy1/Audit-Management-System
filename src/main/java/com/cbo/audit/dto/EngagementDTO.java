@@ -8,7 +8,7 @@ import javax.persistence.Column;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EngagementDTO {
+public class EngagementDTO extends BaseDTO{
 
     private String message;
 

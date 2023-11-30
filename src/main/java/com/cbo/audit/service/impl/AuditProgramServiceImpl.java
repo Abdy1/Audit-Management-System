@@ -3,6 +3,7 @@ package com.cbo.audit.service.impl;
 import com.cbo.audit.dto.*;
 import com.cbo.audit.enums.AuditProgramStatus;
 import com.cbo.audit.mapper.AuditProgramMapper;
+import com.cbo.audit.mapper.EngagementMapper;
 import com.cbo.audit.persistence.model.*;
 import com.cbo.audit.persistence.repository.*;
 import com.cbo.audit.service.AuditProgramService;
@@ -27,19 +28,22 @@ public class AuditProgramServiceImpl implements AuditProgramService {
     private AuditScheduleService auditScheduleService;
     @Autowired
     private AuditProgramRepository auditProgramRepository;
+    @Autowired
+    EngagementInfoRepository engagementInfoRepository;
 
 
 
     @Override
     public ResultWrapper<AuditProgramDTO> registerAuditProgram(AuditProgramDTO auditProgramDTO) {
         ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>();
+        Optional<EngagementInfo> engagementInfoOpt=engagementInfoRepository.findById(auditProgramDTO.getEngagementDTO().getId());
 
 
-        AuditSchedule auditSchedule = auditScheduleService.findAuditScheduleById(auditProgramDTO.getAuditSchedule().getId());
 
-        if (auditSchedule == null) {
+
+        if (!engagementInfoOpt.isPresent()) {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Schedule with the provided information is not available.");
+            resultWrapper.setMessage("Audit Engagement with the provided information is not available.");
             return resultWrapper;
         }
 
@@ -59,6 +63,7 @@ public class AuditProgramServiceImpl implements AuditProgramService {
 
 
         AuditProgram auditProgram = AuditProgramMapper.INSTANCE.toEntity(auditProgramDTO);
+        auditProgram.setEngagementInfo(EngagementMapper.INSTANCE.toEntity(auditProgramDTO.getEngagementDTO()));
 
 
         auditProgram.setCreatedTimestamp(LocalDateTime.now());
@@ -73,6 +78,7 @@ public class AuditProgramServiceImpl implements AuditProgramService {
         auditProgramRepository.save(savedProgram);
         resultWrapper.setStatus(true);
         resultWrapper.setResult(AuditProgramMapper.INSTANCE.toDTO(savedProgram));
+        resultWrapper.getResult().setEngagementDTO(auditProgramDTO.getEngagementDTO());
         resultWrapper.setMessage("Audit  Program  created successfully.");
         return resultWrapper;
     }
@@ -133,7 +139,7 @@ public class AuditProgramServiceImpl implements AuditProgramService {
 
                 auditProgram.setCreatedTimestamp(oldAuditProgramDTO.getCreatedTimestamp());
                 auditProgram.setCreatedUser(oldAuditProgramDTO.getCreatedUser());
-                auditProgram.setAuditSchedule(oldAuditProgramDTO.getAuditSchedule());
+                auditProgram.setEngagementInfo(oldAuditProgramDTO.getEngagementInfo());
 
                 AuditProgram savedAuditProgram = auditProgramRepository.save(auditProgram);
                 resultWrapper.setResult(AuditProgramMapper.INSTANCE.toDTO(savedAuditProgram));

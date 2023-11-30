@@ -61,6 +61,7 @@ com\cbo\audit\mapper\FindingMapper.class
 com\cbo\audit\persistence\model\RiskLevel.class
 com\cbo\audit\service\AuditProgramObjectiveService.class
 com\cbo\audit\controller\ResourceController.class
+com\cbo\audit\mapper\FindingCommentMapperImpl.class
 com\cbo\audit\service\AuditUniverseService.class
 com\cbo\audit\persistence\model\Employee.class
 com\cbo\audit\mapper\AuditObjectMapperImpl.class

@@ -12,6 +12,6 @@ import java.util.List;
 
 @Repository
 public interface FindingCommentRepository extends JpaRepository<FindingComment,Long> {
-
+    @Query(" SELECT AN FROM FindingComment AN WHERE AN.finding.id= :finding_id")
     List<FindingComment> findFindingCommentByFindingId(Long finding_id);
 }

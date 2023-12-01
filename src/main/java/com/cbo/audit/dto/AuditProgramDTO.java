@@ -20,6 +20,7 @@ private String name;
 
 
     private String objectives;
+    private String previousDescription;
 
 
     private String scopeDescription;
@@ -27,7 +28,7 @@ private String name;
 
     private String OverAllTime;
 
-    private EngagementDTO engagementDTO;
+    private EngagementDTO engagementInfo;
 
 
 }

@@ -36,7 +36,7 @@ public class AuditProgramServiceImpl implements AuditProgramService {
     @Override
     public ResultWrapper<AuditProgramDTO> registerAuditProgram(AuditProgramDTO auditProgramDTO) {
         ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>();
-        Optional<EngagementInfo> engagementInfoOpt=engagementInfoRepository.findById(auditProgramDTO.getEngagementDTO().getId());
+        Optional<EngagementInfo> engagementInfoOpt=engagementInfoRepository.findById(auditProgramDTO.getEngagementInfo().getId());
 
 
 
@@ -63,7 +63,7 @@ public class AuditProgramServiceImpl implements AuditProgramService {
 
 
         AuditProgram auditProgram = AuditProgramMapper.INSTANCE.toEntity(auditProgramDTO);
-        auditProgram.setEngagementInfo(EngagementMapper.INSTANCE.toEntity(auditProgramDTO.getEngagementDTO()));
+        auditProgram.setEngagementInfo(EngagementMapper.INSTANCE.toEntity(auditProgramDTO.getEngagementInfo()));
 
 
         auditProgram.setCreatedTimestamp(LocalDateTime.now());
@@ -78,7 +78,7 @@ public class AuditProgramServiceImpl implements AuditProgramService {
         auditProgramRepository.save(savedProgram);
         resultWrapper.setStatus(true);
         resultWrapper.setResult(AuditProgramMapper.INSTANCE.toDTO(savedProgram));
-        resultWrapper.getResult().setEngagementDTO(auditProgramDTO.getEngagementDTO());
+        resultWrapper.getResult().setEngagementInfo(auditProgramDTO.getEngagementInfo());
         resultWrapper.setMessage("Audit  Program  created successfully.");
         return resultWrapper;
     }
@@ -88,10 +88,15 @@ public class AuditProgramServiceImpl implements AuditProgramService {
     public ResultWrapper<List<AuditProgramDTO>> getAllAuditProgram() {
         ResultWrapper<List<AuditProgramDTO>> resultWrapper = new ResultWrapper<>();
         List<AuditProgram> auditPrograms=auditProgramRepository.findAll();
+
         if (!auditPrograms.isEmpty()){
+
+
             List<AuditProgramDTO> auditProgramDTOS = AuditProgramMapper.INSTANCE.auditProgramsToAuditProgramDTOs(auditPrograms);
             resultWrapper.setResult(auditProgramDTOS);
+
             resultWrapper.setStatus(true);
+
         }
         return resultWrapper;
     }
@@ -102,23 +107,19 @@ public class AuditProgramServiceImpl implements AuditProgramService {
 
         ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>();
         AuditProgram auditProgram = auditProgramRepository.findById(id).orElse(null);
+
         if (auditProgram != null){
             AuditProgramDTO auditProgramDTO = AuditProgramMapper.INSTANCE.toDTO(auditProgram);
+
             resultWrapper.setResult(auditProgramDTO);
             resultWrapper.setStatus(true);
+
+            return resultWrapper;
         }
+
         return resultWrapper;
     }
 
-    @Override
-    public AnnualPlan findAnnualPlanById(Long id) {
-        return null;
-    }
-
-    @Override
-    public ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByYear(String year) {
-        return null;
-    }
 
     @Override
     public ResultWrapper<AuditProgramDTO> updateAuditProgram(AuditProgramDTO auditProgramDTO) {
@@ -139,12 +140,11 @@ public class AuditProgramServiceImpl implements AuditProgramService {
 
                 auditProgram.setCreatedTimestamp(oldAuditProgramDTO.getCreatedTimestamp());
                 auditProgram.setCreatedUser(oldAuditProgramDTO.getCreatedUser());
-                auditProgram.setEngagementInfo(oldAuditProgramDTO.getEngagementInfo());
 
                 AuditProgram savedAuditProgram = auditProgramRepository.save(auditProgram);
                 resultWrapper.setResult(AuditProgramMapper.INSTANCE.toDTO(savedAuditProgram));
                 resultWrapper.setStatus(true);
-                resultWrapper.setMessage("Audit Universe Updated Successfully.");
+                resultWrapper.setMessage("Updated Successfully.");
             }
         }else {
             resultWrapper.setStatus(false);
@@ -155,13 +155,8 @@ public class AuditProgramServiceImpl implements AuditProgramService {
     }
 
     @Override
-    public ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByAuditUniverseId(Long id) {
-        return null;
-    }
-
-    @Override
     public Optional<AuditProgram> findAuditProgramById(Long id) {
-        return auditProgramRepository.findById(id);
+        return Optional.empty();
     }
 
 

@@ -16,13 +16,8 @@ public interface AuditProgramService {
 
     ResultWrapper<AuditProgramDTO> getAuditProgramById(Long id);
 
-    AnnualPlan findAnnualPlanById(Long id);
-
-    ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByYear(String year);
-
     ResultWrapper<AuditProgramDTO> updateAuditProgram(AuditProgramDTO auditProgramDTO);
 
-    ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByAuditUniverseId(Long id);
 
     Optional<AuditProgram> findAuditProgramById(Long id);
 }

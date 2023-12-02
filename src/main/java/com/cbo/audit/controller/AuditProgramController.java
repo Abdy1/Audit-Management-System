@@ -52,21 +52,10 @@ public class AuditProgramController {
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
+    @GetMapping(value = URIs.AUDIT_PROGRAM_BY_ENGAGEMENT_ID,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AuditProgramDTO>>> auditProgramByEngagementId(@PathVariable(name = "id") Long id){
+        ResultWrapper<List<AuditProgramDTO>> resultWrapper=auditProgramService.getAllAuditProgramByEngagementId(id);
+        return new ResponseEntity<>(resultWrapper,HttpStatus.OK);
+    }
+  }
 
-//
-//    @GetMapping(value = URIs.ANNUAL_PLAN_BY_ID,produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<ResultWrapper<AnnualPlanDTO>> getAnnualPlanById(@PathVariable(name = "id") Long id){
-//
-//        ResultWrapper<AnnualPlanDTO> resultWrapper=annualPlanService.getAnnualPlanById(id);
-//
-//        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
-//    }
-//
-//    @PostMapping(value = URIs.ANNUAL_PLAN_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<ResultWrapper<AnnualPlanDTO>> updateAnnualPlan(@RequestBody AnnualPlanDTO annualPlanDTO){
-//
-//        ResultWrapper<AnnualPlanDTO> resultWrapper=annualPlanService.updateAnnualPlan(annualPlanDTO);
-//
-//        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
-//    }
-}

@@ -159,5 +159,21 @@ public class AuditProgramServiceImpl implements AuditProgramService {
         return Optional.empty();
     }
 
+    @Override
+    public ResultWrapper<List<AuditProgramDTO>> getAllAuditProgramByEngagementId(Long engagement_id) {
+        ResultWrapper<List<AuditProgramDTO>> resultWrapper=new ResultWrapper<>();
+        List<AuditProgram> auditPrograms=auditProgramRepository.getAllAuditProgramByEngagementId(engagement_id);
+
+        if(auditPrograms.isEmpty()){
+            resultWrapper.setResult(null);
+            resultWrapper.setMessage("Engagement does not have an Audit Program created for it");
+            resultWrapper.setStatus(false);
+            return resultWrapper;
+        }
+        resultWrapper.setResult(AuditProgramMapper.INSTANCE.auditProgramsToAuditProgramDTOs(auditPrograms));
+        return resultWrapper;
+
+    }
+
 
 }

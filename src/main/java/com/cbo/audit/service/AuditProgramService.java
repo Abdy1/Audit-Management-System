@@ -20,4 +20,5 @@ public interface AuditProgramService {
 
 
     Optional<AuditProgram> findAuditProgramById(Long id);
+    ResultWrapper<List<AuditProgramDTO>> getAllAuditProgramByEngagementId(Long id);
 }

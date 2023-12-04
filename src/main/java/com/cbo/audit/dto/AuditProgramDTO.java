@@ -24,7 +24,7 @@ private String name;
 
 
     private String scopeDescription;
-
+    private String methodology;
 
     private String OverAllTime;
 

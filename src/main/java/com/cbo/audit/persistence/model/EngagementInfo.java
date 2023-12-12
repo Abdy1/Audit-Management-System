@@ -20,6 +20,7 @@ public class EngagementInfo extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "AUDIT_SCHEDULE_ID")
     private AuditSchedule auditSchedule;
+    private String status;
 
     @Column(name = "REF_NUM")
     private String refNum;

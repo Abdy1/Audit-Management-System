@@ -32,7 +32,7 @@ ResultWrapper<FindingDTO> resultWrapper=auditProgramFindingService.registerAudit
 
 
     }
-    @GetMapping(value = LIST_ALL_FINDINGS_BY_AUDIT_PROGRAM_ID,consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = LIST_ALL_FINDINGS_BY_AUDIT_PROGRAM_ID,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<List<FindingDTO>>> listAllAuditProgramFindingsByAuditProgramId(@PathVariable(name = "id") Long auditProgramId){
         ResultWrapper<List<FindingDTO>> resultWrapper=auditProgramFindingService.listAllFindingsByAuditProgramId(auditProgramId);
 

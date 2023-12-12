@@ -45,6 +45,7 @@ public final class URIs {
     public static final String AUDIT_PROGRAM_BY_ENGAGEMENT_ID=AUDIT_PROGRAM + "byEngagementId/"+FIND_BY_ID;
 
     public static final String AUDIT_PROGRAM_BY_ID = AUDIT_PROGRAM +FIND_BY_ID;
+    public static final String CHANGE_STATUS_BY_ID = AUDIT_PROGRAM +"changeStatus/"+FIND_BY_ID;
     public static final String AUDIT_PROGRAM_UPDATE= AUDIT_PROGRAM + UPDATE;
 
 

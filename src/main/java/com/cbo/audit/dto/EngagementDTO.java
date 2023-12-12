@@ -13,7 +13,7 @@ public class EngagementDTO extends BaseDTO{
     private String message;
 
     private AuditScheduleDTO auditSchedule;
-
+    private String status;
     private String refNum;
 
     private String date;

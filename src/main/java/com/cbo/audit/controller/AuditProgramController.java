@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.cbo.audit.constants.URIs.CHANGE_STATUS_BY_ID;
+
 @RestController
 public class AuditProgramController {
     @Autowired
@@ -57,5 +59,11 @@ public class AuditProgramController {
         ResultWrapper<List<AuditProgramDTO>> resultWrapper=auditProgramService.getAllAuditProgramByEngagementId(id);
         return new ResponseEntity<>(resultWrapper,HttpStatus.OK);
     }
-  }
+    @PostMapping(value = URIs.CHANGE_STATUS_BY_ID,produces =MediaType.APPLICATION_JSON_VALUE )
+    public ResponseEntity<ResultWrapper<AuditProgramDTO>> updateAuditProgramStatus(@PathVariable(name = "id") Long id){
+        ResultWrapper<AuditProgramDTO> resultWrapper=auditProgramService.changeStatusOfAuditProgramToEngagement(id);
+        return new ResponseEntity<>(resultWrapper,HttpStatus.OK);
+    }
+
+}
 

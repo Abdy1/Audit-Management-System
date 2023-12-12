@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-02T09:20:49+0300",
+    date = "2023-12-11T15:28:33+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
 )
 @Component
@@ -40,6 +40,7 @@ public class EngagementMapperImpl implements EngagementMapper {
         engagementDTO.setModifiedTimestamp( user.getModifiedTimestamp() );
         engagementDTO.setMessage( user.getMessage() );
         engagementDTO.setAuditSchedule( auditScheduleToAuditScheduleDTO( user.getAuditSchedule() ) );
+        engagementDTO.setStatus( user.getStatus() );
         engagementDTO.setRefNum( user.getRefNum() );
         engagementDTO.setDate( user.getDate() );
 
@@ -67,6 +68,7 @@ public class EngagementMapperImpl implements EngagementMapper {
         else {
             userDTO.setAuditSchedule( null );
         }
+        userDTO.setStatus( user.getStatus() );
         userDTO.setRefNum( user.getRefNum() );
         userDTO.setDate( user.getDate() );
     }
@@ -86,6 +88,7 @@ public class EngagementMapperImpl implements EngagementMapper {
         engagementInfo.setModifiedTimestamp( userDTO.getModifiedTimestamp() );
         engagementInfo.setMessage( userDTO.getMessage() );
         engagementInfo.setAuditSchedule( auditScheduleDTOToAuditSchedule( userDTO.getAuditSchedule() ) );
+        engagementInfo.setStatus( userDTO.getStatus() );
         engagementInfo.setRefNum( userDTO.getRefNum() );
         engagementInfo.setDate( userDTO.getDate() );
 

@@ -23,7 +23,8 @@ public class AuditProgramServiceImpl implements AuditProgramService {
 
     @Autowired
     private AuditUniverseService annualPlanService;
-
+@Autowired
+AuditScheduleRepository auditScheduleRepository;
     @Autowired
     private AuditScheduleService auditScheduleService;
     @Autowired
@@ -33,15 +34,16 @@ public class AuditProgramServiceImpl implements AuditProgramService {
 
 
 
+
     @Override
     public ResultWrapper<AuditProgramDTO> registerAuditProgram(AuditProgramDTO auditProgramDTO) {
         ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>();
-        Optional<EngagementInfo> engagementInfoOpt=engagementInfoRepository.findById(auditProgramDTO.getEngagementInfo().getId());
+        EngagementInfo engagementInfoOpt=engagementInfoRepository.findById(auditProgramDTO.getEngagementInfo().getId()).orElse(null);
 
 
 
 
-        if (!engagementInfoOpt.isPresent()) {
+        if (engagementInfoOpt == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Engagement with the provided information is not available.");
             return resultWrapper;
@@ -63,12 +65,18 @@ public class AuditProgramServiceImpl implements AuditProgramService {
 
 
         AuditProgram auditProgram = AuditProgramMapper.INSTANCE.toEntity(auditProgramDTO);
-        auditProgram.setEngagementInfo(EngagementMapper.INSTANCE.toEntity(auditProgramDTO.getEngagementInfo()));
+        AuditSchedule auditSchedule= auditScheduleService.findAuditScheduleById(engagementInfoOpt.getAuditSchedule().getId());
+        auditSchedule.setStatus(AuditProgramStatus.Draft.name());
+        auditScheduleRepository.save(auditSchedule);
+        engagementInfoOpt.setStatus(AuditProgramStatus.Draft.name());
+
+        auditProgram.setEngagementInfo(engagementInfoRepository.save(engagementInfoOpt));
 
 
         auditProgram.setCreatedTimestamp(LocalDateTime.now());
         auditProgram.setCreatedUser("TODO");
-        auditProgram.setStatus(AuditProgramStatus.Draft.getType());
+
+
 
 
         AuditProgram savedProgram = auditProgramRepository.save(auditProgram);
@@ -172,6 +180,34 @@ public class AuditProgramServiceImpl implements AuditProgramService {
         }
         resultWrapper.setResult(AuditProgramMapper.INSTANCE.auditProgramsToAuditProgramDTOs(auditPrograms));
         return resultWrapper;
+
+    }
+
+    @Override
+    public ResultWrapper<AuditProgramDTO> changeStatusOfAuditProgramToEngagement(Long id) {
+        ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>();
+        AuditProgram auditProgram=auditProgramRepository.findById(id).orElse(null);
+        if(auditProgram == null){
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit Program with the provided id does not exist");
+            resultWrapper.setResult(null);
+            return resultWrapper;
+        }
+        auditProgram.setStatus(AuditProgramStatus.Approved.name());
+     /*   EngagementInfo engagementInfo=engagementInfoRepository.findById(auditProgram.getEngagementInfo().getId()).orElse(null);
+        if(engagementInfo == null){
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit Program with the provided id does not have engagement related to it");
+            resultWrapper.setResult(null);
+            return resultWrapper;
+        }
+        engagementInfo.setStatus()
+        */
+        resultWrapper.setResult(AuditProgramMapper.INSTANCE.toDTO(auditProgram));
+        resultWrapper.setStatus(true);
+        resultWrapper.setMessage("success");
+        return resultWrapper;
+
 
     }
 

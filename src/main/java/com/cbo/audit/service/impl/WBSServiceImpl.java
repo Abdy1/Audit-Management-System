@@ -6,6 +6,7 @@ import com.cbo.audit.mapper.WBSMapper;
 
 import com.cbo.audit.persistence.model.AuditProgram;
 import com.cbo.audit.persistence.model.WBS;
+import com.cbo.audit.persistence.repository.AuditProgramRepository;
 import com.cbo.audit.persistence.repository.AuditProgramWBSRepository;
 import com.cbo.audit.service.AuditProgramService;
 import com.cbo.audit.service.WBSService;
@@ -24,6 +25,8 @@ public class WBSServiceImpl implements WBSService {
     private AuditProgramWBSRepository  auditProgramWBSRepository;
     @Autowired
     private AuditProgramService auditProgramService;
+    @Autowired
+    private AuditProgramRepository auditProgramRepository;
     @Override
     public ResultWrapper<List<AuditProgramWBSDTO>> getAllWBSByAuditProgramId(Long auditProgram_id) {
         ResultWrapper<List<AuditProgramWBSDTO>> resultWrapper= new ResultWrapper<>();
@@ -41,7 +44,7 @@ public class WBSServiceImpl implements WBSService {
     public ResultWrapper<AuditProgramWBSDTO> registerAuditProgramWBS(AuditProgramWBSDTO auditProgramWBSDTO) {
             ResultWrapper<AuditProgramWBSDTO> resultWrapper = new ResultWrapper<>();
 
-        Optional<AuditProgram> auditProgramOpt =auditProgramService.findAuditProgramById(auditProgramWBSDTO.getAuditProgram().getId());
+        Optional<AuditProgram> auditProgramOpt =auditProgramRepository.findById(auditProgramWBSDTO.getAuditProgram().getId());
         //add attributes to be checked if they are present in the audit program
         System.out.println(auditProgramWBSDTO.toString());
             if (!auditProgramOpt.isPresent()) {

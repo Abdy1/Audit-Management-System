@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-02T09:20:48+0300",
+    date = "2023-12-11T15:28:32+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
 )
 @Component
@@ -46,6 +46,7 @@ public class AuditProgramMapperImpl implements AuditProgramMapper {
         auditProgramDTO.setObjectives( auditProgram.getObjectives() );
         auditProgramDTO.setPreviousDescription( auditProgram.getPreviousDescription() );
         auditProgramDTO.setScopeDescription( auditProgram.getScopeDescription() );
+        auditProgramDTO.setMethodology( auditProgram.getMethodology() );
         auditProgramDTO.setOverAllTime( auditProgram.getOverAllTime() );
         auditProgramDTO.setEngagementInfo( engagementInfoToEngagementDTO( auditProgram.getEngagementInfo() ) );
 
@@ -69,6 +70,7 @@ public class AuditProgramMapperImpl implements AuditProgramMapper {
         auditProgramDTO.setObjectives( auditProgram.getObjectives() );
         auditProgramDTO.setPreviousDescription( auditProgram.getPreviousDescription() );
         auditProgramDTO.setScopeDescription( auditProgram.getScopeDescription() );
+        auditProgramDTO.setMethodology( auditProgram.getMethodology() );
         auditProgramDTO.setOverAllTime( auditProgram.getOverAllTime() );
         if ( auditProgram.getEngagementInfo() != null ) {
             if ( auditProgramDTO.getEngagementInfo() == null ) {
@@ -97,6 +99,7 @@ public class AuditProgramMapperImpl implements AuditProgramMapper {
         auditProgram.setName( auditProgramDTO.getName() );
         auditProgram.setStatus( auditProgramDTO.getStatus() );
         auditProgram.setPreviousStatus( auditProgramDTO.getPreviousStatus() );
+        auditProgram.setMethodology( auditProgramDTO.getMethodology() );
         auditProgram.setPreviousDescription( auditProgramDTO.getPreviousDescription() );
         auditProgram.setObjectives( auditProgramDTO.getObjectives() );
         auditProgram.setScopeDescription( auditProgramDTO.getScopeDescription() );
@@ -243,6 +246,7 @@ public class AuditProgramMapperImpl implements AuditProgramMapper {
         engagementDTO.setModifiedTimestamp( engagementInfo.getModifiedTimestamp() );
         engagementDTO.setMessage( engagementInfo.getMessage() );
         engagementDTO.setAuditSchedule( auditScheduleToAuditScheduleDTO( engagementInfo.getAuditSchedule() ) );
+        engagementDTO.setStatus( engagementInfo.getStatus() );
         engagementDTO.setRefNum( engagementInfo.getRefNum() );
         engagementDTO.setDate( engagementInfo.getDate() );
 
@@ -382,6 +386,7 @@ public class AuditProgramMapperImpl implements AuditProgramMapper {
         else {
             mappingTarget.setAuditSchedule( null );
         }
+        mappingTarget.setStatus( engagementInfo.getStatus() );
         mappingTarget.setRefNum( engagementInfo.getRefNum() );
         mappingTarget.setDate( engagementInfo.getDate() );
     }
@@ -523,6 +528,7 @@ public class AuditProgramMapperImpl implements AuditProgramMapper {
         engagementInfo.setModifiedTimestamp( engagementDTO.getModifiedTimestamp() );
         engagementInfo.setMessage( engagementDTO.getMessage() );
         engagementInfo.setAuditSchedule( auditScheduleDTOToAuditSchedule( engagementDTO.getAuditSchedule() ) );
+        engagementInfo.setStatus( engagementDTO.getStatus() );
         engagementInfo.setRefNum( engagementDTO.getRefNum() );
         engagementInfo.setDate( engagementDTO.getDate() );
 

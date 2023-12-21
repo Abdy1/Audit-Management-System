@@ -35,7 +35,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-11T15:28:32+0300",
+    date = "2023-12-21T11:05:37+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
 )
 @Component
@@ -58,7 +58,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         findingCommentDTO.setOriginalfinding( findingComment.getOriginalfinding() );
         findingCommentDTO.setComment( findingComment.getComment() );
         findingCommentDTO.setProvidedBy( findingComment.getProvidedBy() );
-        findingCommentDTO.setSatus( findingComment.getSatus() );
+        findingCommentDTO.setStatus( findingComment.getStatus() );
 
         return findingCommentDTO;
     }
@@ -86,7 +86,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         findingCommentDTO.setOriginalfinding( findingComment.getOriginalfinding() );
         findingCommentDTO.setComment( findingComment.getComment() );
         findingCommentDTO.setProvidedBy( findingComment.getProvidedBy() );
-        findingCommentDTO.setSatus( findingComment.getSatus() );
+        findingCommentDTO.setStatus( findingComment.getStatus() );
     }
 
     @Override
@@ -106,7 +106,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         findingComment.setOriginalfinding( findingCommentDTO.getOriginalfinding() );
         findingComment.setComment( findingCommentDTO.getComment() );
         findingComment.setProvidedBy( findingCommentDTO.getProvidedBy() );
-        findingComment.setSatus( findingCommentDTO.getSatus() );
+        findingComment.setStatus( findingCommentDTO.getStatus() );
 
         return findingComment;
     }

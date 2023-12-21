@@ -1,5 +1,6 @@
 package com.cbo.audit.controller;
 
+import com.cbo.audit.dto.AmendedFindingDTO;
 import com.cbo.audit.dto.FindingDTO;
 import com.cbo.audit.dto.ResultWrapper;
 
@@ -42,5 +43,11 @@ ResultWrapper<FindingDTO> resultWrapper=auditProgramFindingService.registerAudit
     public ResponseEntity<ResultWrapper<FindingDTO>> updateAuditProgramFinding(@RequestBody FindingDTO findingDTO){
         ResultWrapper<FindingDTO> resultWrapper=auditProgramFindingService.updateAuditProgramFinding(findingDTO);
         return new ResponseEntity<>(resultWrapper,HttpStatus.OK);
+    }
+    @GetMapping(value = "ams/auditProgram/finding/amendedFinding/ByFindingId/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AmendedFindingDTO>>> getAllAmendedFindingsByFindingId(@PathVariable(name="id") Long id){
+        ResultWrapper<List<AmendedFindingDTO>> resultWrapper=auditProgramFindingService.getAllAmendedFindingsByFindingId(id);
+
+        return  new ResponseEntity<>(resultWrapper,HttpStatus.OK);
     }
 }

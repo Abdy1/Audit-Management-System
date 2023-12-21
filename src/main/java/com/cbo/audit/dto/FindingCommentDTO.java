@@ -26,5 +26,5 @@ public class FindingCommentDTO extends  BaseDTO{
 
     private AuditStaff providedBy;
 
-    private Boolean Satus;
+    private Boolean Status;
 }

@@ -22,5 +22,5 @@ private String comment ;//long text
     @ManyToOne
 private AuditStaff providedBy;
 
-private Boolean Satus;
+private Boolean Status;
 }

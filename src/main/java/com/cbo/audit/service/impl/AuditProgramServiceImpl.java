@@ -62,9 +62,10 @@ AuditScheduleRepository auditScheduleRepository;
 //            resultWrapper.setMessage("Annual Plan risk year cannot be null.");
 //            return resultWrapper;
 //        }
-
+auditProgramDTO.setStatus(AuditProgramStatus.Draft.name());
 
         AuditProgram auditProgram = AuditProgramMapper.INSTANCE.toEntity(auditProgramDTO);
+
         AuditSchedule auditSchedule= auditScheduleService.findAuditScheduleById(engagementInfoOpt.getAuditSchedule().getId());
         auditSchedule.setStatus(AuditProgramStatus.Draft.name());
         auditScheduleRepository.save(auditSchedule);
@@ -193,7 +194,31 @@ AuditScheduleRepository auditScheduleRepository;
             resultWrapper.setResult(null);
             return resultWrapper;
         }
+        EngagementInfo engagementInfo=engagementInfoRepository.findById(auditProgram.getEngagementInfo().getId()).orElse(null);
+        if(engagementInfo == null){
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit Engagement with the provided information does not exist");
+            resultWrapper.setResult(null);
+            return resultWrapper;
+        }
+
+
+        AuditSchedule auditSchedule= auditScheduleService.findAuditScheduleById(auditProgram.getEngagementInfo().getAuditSchedule().getId());
+
+        if(auditSchedule == null){
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit Schedule with the provided information does not exist");
+            resultWrapper.setResult(null);
+            return resultWrapper;
+        }
+
+        auditSchedule.setStatus(AuditProgramStatus.Approved.name());
         auditProgram.setStatus(AuditProgramStatus.Approved.name());
+        engagementInfo.setStatus(AuditProgramStatus.Approved.name());
+        engagementInfoRepository.save(engagementInfo);
+        auditScheduleRepository.save(auditSchedule);
+        auditProgramRepository.save(auditProgram);
+
      /*   EngagementInfo engagementInfo=engagementInfoRepository.findById(auditProgram.getEngagementInfo().getId()).orElse(null);
         if(engagementInfo == null){
             resultWrapper.setStatus(false);

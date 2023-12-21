@@ -1,7 +1,9 @@
 package com.cbo.audit.service.impl;
 
+import com.cbo.audit.dto.AmendedFindingDTO;
 import com.cbo.audit.dto.FindingDTO;
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.mapper.AmendedFindingMapper;
 import com.cbo.audit.mapper.AuditProgramMapper;
 import com.cbo.audit.mapper.FindingMapper;
 import com.cbo.audit.persistence.model.AmendedFinding;
@@ -13,6 +15,7 @@ import com.cbo.audit.persistence.repository.AuditProgramRepository;
 import com.cbo.audit.persistence.repository.FindingRepository;
 import com.cbo.audit.service.AuditProgramFindingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -109,5 +112,23 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
 
 
 
+    }
+
+    @Override
+    public ResultWrapper<List<AmendedFindingDTO>> getAllAmendedFindingsByFindingId(long id) {
+        List<AmendedFinding> amendedFindings=amendedFindingRepository.findAllAmendedFindingByFindingId(id);
+        ResultWrapper<List<AmendedFindingDTO>> resultWrapper=new ResultWrapper<>();
+        if (amendedFindings.isEmpty()){
+            resultWrapper.setMessage("There are no amendment made with the given information");
+            resultWrapper.setStatus(false);
+            resultWrapper.setResult(null);
+            return resultWrapper;
+
+        }
+        resultWrapper.setMessage("success");
+        List<AmendedFindingDTO> amendedFindingDTOS=AmendedFindingMapper.INSTANCE.AmendedFindingToAmendedFindingDTOs(amendedFindings);
+        resultWrapper.setResult(amendedFindingDTOS);
+        resultWrapper.setStatus(true);
+        return resultWrapper;
     }
 }

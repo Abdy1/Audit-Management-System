@@ -2,6 +2,7 @@ package com.cbo.audit.persistence.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -50,7 +51,8 @@ private LocalDateTime rectificationTime;
 private Boolean isRectificationApproved; //who can approve ?
 //private Comments[list] separate class or table more than one comment for per findings?
 
-private String findingEvidenceFileUploadedToSupplementTheFindings; // file path
+private String findingEvidenceFileUploadedToSupplementTheFindingsPath; // file path
+
 
 
 

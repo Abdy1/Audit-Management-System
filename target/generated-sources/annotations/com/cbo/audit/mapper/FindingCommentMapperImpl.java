@@ -35,7 +35,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-21T11:05:37+0300",
+    date = "2023-12-27T10:50:06+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
 )
 @Component
@@ -410,7 +410,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         findingDTO.setRectificationEvidenceAttachmentPath( finding.getRectificationEvidenceAttachmentPath() );
         findingDTO.setRectificationTime( finding.getRectificationTime() );
         findingDTO.setIsRectificationApproved( finding.getIsRectificationApproved() );
-        findingDTO.setFindingEvidenceFileUploadedToSupplementTheFindings( finding.getFindingEvidenceFileUploadedToSupplementTheFindings() );
+        findingDTO.setFindingEvidenceFileUploadedToSupplementTheFindingsPath( finding.getFindingEvidenceFileUploadedToSupplementTheFindingsPath() );
 
         return findingDTO;
     }
@@ -754,7 +754,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         mappingTarget.setRectificationEvidenceAttachmentPath( finding.getRectificationEvidenceAttachmentPath() );
         mappingTarget.setRectificationTime( finding.getRectificationTime() );
         mappingTarget.setIsRectificationApproved( finding.getIsRectificationApproved() );
-        mappingTarget.setFindingEvidenceFileUploadedToSupplementTheFindings( finding.getFindingEvidenceFileUploadedToSupplementTheFindings() );
+        mappingTarget.setFindingEvidenceFileUploadedToSupplementTheFindingsPath( finding.getFindingEvidenceFileUploadedToSupplementTheFindingsPath() );
     }
 
     protected TeamMember teamMemberDTOToTeamMember(TeamMemberDTO teamMemberDTO) {
@@ -1056,7 +1056,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         finding.setRectificationEvidenceAttachmentPath( findingDTO.getRectificationEvidenceAttachmentPath() );
         finding.setRectificationTime( findingDTO.getRectificationTime() );
         finding.setIsRectificationApproved( findingDTO.getIsRectificationApproved() );
-        finding.setFindingEvidenceFileUploadedToSupplementTheFindings( findingDTO.getFindingEvidenceFileUploadedToSupplementTheFindings() );
+        finding.setFindingEvidenceFileUploadedToSupplementTheFindingsPath( findingDTO.getFindingEvidenceFileUploadedToSupplementTheFindingsPath() );
 
         return finding;
     }

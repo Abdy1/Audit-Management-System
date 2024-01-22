@@ -28,7 +28,7 @@ public ResponseEntity<ResultWrapper<FindingCommentDTO>> addCommentOnFinding(@Req
         ResultWrapper<FindingCommentDTO> resultWrapper=findingCommentService.addCommentToFinding(findingCommentDTO);
     return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
 }
-@GetMapping(value = LIST_ALL_COMMENTS_BY_FINDING_ID,consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+@GetMapping(value = LIST_ALL_COMMENTS_BY_FINDING_ID,produces = MediaType.APPLICATION_JSON_VALUE)
 public ResponseEntity<ResultWrapper<List<FindingCommentDTO>>> listAllCommentByFindingId(@PathVariable Long id){
         ResultWrapper<List<FindingCommentDTO>> resultWrapper= findingCommentService.listAllFindingCommentByFindingId(id);
         return new ResponseEntity<>(resultWrapper,HttpStatus.OK);

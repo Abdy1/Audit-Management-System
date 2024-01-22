@@ -26,7 +26,7 @@ public class AuditProgram extends BaseEntity{
     @Column
     private String previousDescription;
     @Column
-    private String  objectives;
+    private List<AuditProgramObjective>  objectives;
     @Column
     private String scopeDescription;
     @Column

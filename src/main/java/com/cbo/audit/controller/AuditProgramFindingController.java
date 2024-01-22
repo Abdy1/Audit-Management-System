@@ -14,9 +14,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.print.attribute.standard.Media;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import static com.cbo.audit.constants.URIs.*;
@@ -26,12 +29,17 @@ public class AuditProgramFindingController {
     @Autowired
     private  AuditProgramFindingService auditProgramFindingService;
     @PostMapping(value = AUDIT_PROGRAM_FINDING_REGISTER,consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<FindingDTO>> addFindingToAuditProgram(@RequestBody FindingDTO findingDTO){
-
+    public ResponseEntity<ResultWrapper<FindingDTO>> addFindingToAuditProgram(@RequestBody FindingDTO findingDTO) throws IOException {
 ResultWrapper<FindingDTO> resultWrapper=auditProgramFindingService.registerAuditProgramFinding(findingDTO);
+        System.out.println("api");
         return new ResponseEntity<>(resultWrapper,HttpStatus.CREATED);
 
 
+    }
+    @PostMapping("ams/auditProgram/finding/attachEvidence/{id}")
+    public ResponseEntity<ResultWrapper<String>> attachEvidence(@RequestParam("file")MultipartFile file,@PathVariable("id") Long id) throws IOException {
+ResultWrapper<String> resultWrapper = auditProgramFindingService.attachFile(file,id);
+return new ResponseEntity<>(resultWrapper,HttpStatus.OK);
     }
     @GetMapping(value = LIST_ALL_FINDINGS_BY_AUDIT_PROGRAM_ID,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<List<FindingDTO>>> listAllAuditProgramFindingsByAuditProgramId(@PathVariable(name = "id") Long auditProgramId){

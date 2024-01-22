@@ -14,11 +14,21 @@ import com.cbo.audit.persistence.repository.AmendedFindingRepository;
 import com.cbo.audit.persistence.repository.AuditProgramRepository;
 import com.cbo.audit.persistence.repository.FindingRepository;
 import com.cbo.audit.service.AuditProgramFindingService;
+import com.cbo.audit.utils.FileUploadUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,16 +52,20 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Program with the Provided information does not exist");
             resultWrapper.setResult(null);
+            return resultWrapper;
         }
+
+
         Finding finding= FindingMapper.INSTANCE.toEntity(findingDTO);
         finding.setCreatedTimestamp(LocalDateTime.now());
-        finding.setFindingEvidenceFileUploadedToSupplementTheFindings(findingDTO.getFindingEvidenceFileUploadedToSupplementTheFindings());
+        finding.setFindingEvidenceFileUploadedToSupplementTheFindingsPath(null);
         Finding savedFinding=auditProgramFindingRepository.save(finding);
+
 
         resultWrapper.setResult(FindingMapper.INSTANCE.toDTO(savedFinding));
         resultWrapper.setStatus(true);
 
-        resultWrapper.setResult(findingDTO);
+
         return resultWrapper;
 
     }
@@ -131,4 +145,43 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
         resultWrapper.setStatus(true);
         return resultWrapper;
     }
+
+
+
+    @Override
+    public ResultWrapper<String> attachFile(MultipartFile file,Long id) throws IOException {
+        ResultWrapper<String> resultWrapper=new ResultWrapper<>();
+Finding finding=auditProgramFindingRepository.findById(id).orElse(null);
+if(finding == null){
+    resultWrapper.setStatus(false);
+    resultWrapper.setResult(null);
+    resultWrapper.setMessage("There is no Finding with the provided Information");
+    return resultWrapper;
 }
+Path path = saveFile("findings/evidences",file.getOriginalFilename(),file);
+finding.setFindingEvidenceFileUploadedToSupplementTheFindingsPath(path.toString());
+resultWrapper.setMessage("success");
+resultWrapper.setStatus(true);
+resultWrapper.setResult(finding.getFindingEvidenceFileUploadedToSupplementTheFindingsPath());
+return resultWrapper;
+
+    }
+    public Path saveFile(String uploadDir, String fileName,
+                                MultipartFile multipartFile) throws IOException {
+        Path uploadPath = Paths.get(uploadDir);
+
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        try (InputStream inputStream = multipartFile.getInputStream()) {
+            Path filePath = uploadPath.resolve(fileName);
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+            return filePath;
+        } catch (IOException ioe) {
+            throw new IOException("Could not save image file: " + fileName, ioe);
+        }
+    }
+
+    }
+

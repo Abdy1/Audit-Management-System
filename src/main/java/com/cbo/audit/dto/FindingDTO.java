@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
@@ -50,7 +51,8 @@ public class FindingDTO extends  BaseDTO {
     private String rectificationEvidenceAttachmentPath; //is it file path
     private LocalDateTime rectificationTime;
     private Boolean isRectificationApproved;
-    private String findingEvidenceFileUploadedToSupplementTheFindings; // file path
+private String findingEvidenceFileUploadedToSupplementTheFindingsPath; // file path
+
 
 
 }

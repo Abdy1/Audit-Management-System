@@ -81,6 +81,7 @@ com\cbo\audit\mapper\AuditScheduleMapper.class
 com\cbo\audit\service\AuditableAreaService.class
 com\cbo\audit\persistence\repository\AuditProgramObjectiveRepository.class
 com\cbo\audit\service\RiskService.class
+com\cbo\audit\mapper\AmendedFindingMapperImpl.class
 com\cbo\audit\persistence\model\AuditSchedule.class
 com\cbo\audit\service\impl\AuditProgramFindingServiceImpl.class
 com\cbo\audit\mapper\AuditScheduleMapperImpl.class

@@ -47,6 +47,11 @@ return new ResponseEntity<>(reportService.generateDefaultReport(scheduleDTO), Ht
 
         return new ResponseEntity<>(resultWrapper,HttpStatus.OK);
     }
+    @GetMapping("ams/report/findByAuditScheduleId")
+    public ResponseEntity<ResultWrapper<ReportDTO>> getReportByAuditScheduleId(@RequestParam("id") Long id){
+        ResultWrapper<ReportDTO> resultWrapper = reportService.getReportByScheduleId(id);
+        return new ResponseEntity<>(resultWrapper,HttpStatus.OK);
+    }
     @GetMapping("/listAllReports")
     public ResponseEntity<ResultWrapper<List<ReportDTO>>> listAllReports(){
         ResultWrapper<List<ReportDTO>> resultWrapper= reportService.listAllReports();

@@ -130,6 +130,23 @@ if(savedReport != null){
 
     }
 
+    public ResultWrapper<ReportDTO> getReportByScheduleId(Long id){
+        ResultWrapper<ReportDTO> resultWrapper=new ResultWrapper<>();
+        Report report = reportRepository.findReportByAuditScheduleId(id);
+        if(report == null){
+            resultWrapper.setMessage("report with the provide Audit schedule record does not exist ");
+            resultWrapper.setStatus(false);
+            resultWrapper.setResult(null);
+            return resultWrapper;
+        }
+        resultWrapper.setResult(ReportMapper.INSTANCE.toDTO(report));
+        resultWrapper.setStatus(true);
+        resultWrapper.setMessage("success");
+        return resultWrapper;
+
+
+    }
+
     public ResultWrapper<List<ReportDTO>> listAllReports(){
         List<Report> reports= reportRepository.findAll();
         List<ReportDTO> reportDTOS = ReportMapper.INSTANCE.ReportsToReportDTOs(reports);
@@ -146,5 +163,5 @@ if(savedReport != null){
 
 // check if the api is working fine
 // check if the customized Report has the correct information about the findings , objectives so that they are related or from the same process
-// fill the rest of information needed to complete the report generation and storing process
+// fill with the rest of information needed to complete the report generation and storing process
 

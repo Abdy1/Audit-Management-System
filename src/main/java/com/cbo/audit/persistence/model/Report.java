@@ -1,10 +1,14 @@
 package com.cbo.audit.persistence.model;
 
 import com.cbo.audit.enums.ReportStatus;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+@Getter
+@Setter
 @Entity
 public class Report extends BaseEntity{
     @OneToOne
@@ -18,14 +22,13 @@ public class Report extends BaseEntity{
     private String summary;
     private String scope;
     // find a way to store a list of objectives
-    @OneToMany(mappedBy = "objectives", fetch = FetchType.LAZY)
+    @OneToMany
     private List<AuditProgramObjective> objectives;
     private String methodology;
     // implement enum for report status
     private ReportStatus status;
     private double totalRectification;
-    @OneToMany(mappedBy = "findings", fetch = FetchType.LAZY)
-
+    @OneToMany
     private List<Finding> findings;
 
 }

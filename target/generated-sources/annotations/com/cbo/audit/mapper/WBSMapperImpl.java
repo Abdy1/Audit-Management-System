@@ -3,6 +3,7 @@ package com.cbo.audit.mapper;
 import com.cbo.audit.dto.AnnualPlanDTO;
 import com.cbo.audit.dto.AuditObjectDTO;
 import com.cbo.audit.dto.AuditProgramDTO;
+import com.cbo.audit.dto.AuditProgramObjectiveDTO;
 import com.cbo.audit.dto.AuditProgramWBSDTO;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.dto.AuditUniverseDTO;
@@ -11,6 +12,7 @@ import com.cbo.audit.dto.TeamMemberDTO;
 import com.cbo.audit.persistence.model.AnnualPlan;
 import com.cbo.audit.persistence.model.AuditObject;
 import com.cbo.audit.persistence.model.AuditProgram;
+import com.cbo.audit.persistence.model.AuditProgramObjective;
 import com.cbo.audit.persistence.model.AuditSchedule;
 import com.cbo.audit.persistence.model.AuditUniverse;
 import com.cbo.audit.persistence.model.EngagementInfo;
@@ -23,8 +25,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-27T10:50:05+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
+    date = "2024-01-23T14:50:47+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
 public class WBSMapperImpl implements WBSMapper {
@@ -103,6 +105,37 @@ public class WBSMapperImpl implements WBSMapper {
         wBS.setNumberOfDays( auditProgramWBSDTO.getNumberOfDays() );
 
         return wBS;
+    }
+
+    protected AuditProgramObjectiveDTO auditProgramObjectiveToAuditProgramObjectiveDTO(AuditProgramObjective auditProgramObjective) {
+        if ( auditProgramObjective == null ) {
+            return null;
+        }
+
+        AuditProgramObjectiveDTO auditProgramObjectiveDTO = new AuditProgramObjectiveDTO();
+
+        auditProgramObjectiveDTO.setId( auditProgramObjective.getId() );
+        auditProgramObjectiveDTO.setCreatedUser( auditProgramObjective.getCreatedUser() );
+        auditProgramObjectiveDTO.setModifiedUser( auditProgramObjective.getModifiedUser() );
+        auditProgramObjectiveDTO.setCreatedTimestamp( auditProgramObjective.getCreatedTimestamp() );
+        auditProgramObjectiveDTO.setModifiedTimestamp( auditProgramObjective.getModifiedTimestamp() );
+        auditProgramObjectiveDTO.setDescription( auditProgramObjective.getDescription() );
+        auditProgramObjectiveDTO.setAuditProgram( auditProgramToAuditProgramDTO( auditProgramObjective.getAuditProgram() ) );
+
+        return auditProgramObjectiveDTO;
+    }
+
+    protected List<AuditProgramObjectiveDTO> auditProgramObjectiveListToAuditProgramObjectiveDTOList(List<AuditProgramObjective> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<AuditProgramObjectiveDTO> list1 = new ArrayList<AuditProgramObjectiveDTO>( list.size() );
+        for ( AuditProgramObjective auditProgramObjective : list ) {
+            list1.add( auditProgramObjectiveToAuditProgramObjectiveDTO( auditProgramObjective ) );
+        }
+
+        return list1;
     }
 
     protected TeamMemberDTO teamMemberToTeamMemberDTO(TeamMember teamMember) {
@@ -264,7 +297,7 @@ public class WBSMapperImpl implements WBSMapper {
         auditProgramDTO.setName( auditProgram.getName() );
         auditProgramDTO.setStatus( auditProgram.getStatus() );
         auditProgramDTO.setPreviousStatus( auditProgram.getPreviousStatus() );
-        auditProgramDTO.setObjectives( auditProgram.getObjectives() );
+        auditProgramDTO.setObjectives( auditProgramObjectiveListToAuditProgramObjectiveDTOList( auditProgram.getObjectives() ) );
         auditProgramDTO.setPreviousDescription( auditProgram.getPreviousDescription() );
         auditProgramDTO.setScopeDescription( auditProgram.getScopeDescription() );
         auditProgramDTO.setMethodology( auditProgram.getMethodology() );
@@ -425,7 +458,22 @@ public class WBSMapperImpl implements WBSMapper {
         mappingTarget.setName( auditProgram.getName() );
         mappingTarget.setStatus( auditProgram.getStatus() );
         mappingTarget.setPreviousStatus( auditProgram.getPreviousStatus() );
-        mappingTarget.setObjectives( auditProgram.getObjectives() );
+        if ( mappingTarget.getObjectives() != null ) {
+            List<AuditProgramObjectiveDTO> list = auditProgramObjectiveListToAuditProgramObjectiveDTOList( auditProgram.getObjectives() );
+            if ( list != null ) {
+                mappingTarget.getObjectives().clear();
+                mappingTarget.getObjectives().addAll( list );
+            }
+            else {
+                mappingTarget.setObjectives( null );
+            }
+        }
+        else {
+            List<AuditProgramObjectiveDTO> list = auditProgramObjectiveListToAuditProgramObjectiveDTOList( auditProgram.getObjectives() );
+            if ( list != null ) {
+                mappingTarget.setObjectives( list );
+            }
+        }
         mappingTarget.setPreviousDescription( auditProgram.getPreviousDescription() );
         mappingTarget.setScopeDescription( auditProgram.getScopeDescription() );
         mappingTarget.setMethodology( auditProgram.getMethodology() );
@@ -439,6 +487,37 @@ public class WBSMapperImpl implements WBSMapper {
         else {
             mappingTarget.setEngagementInfo( null );
         }
+    }
+
+    protected AuditProgramObjective auditProgramObjectiveDTOToAuditProgramObjective(AuditProgramObjectiveDTO auditProgramObjectiveDTO) {
+        if ( auditProgramObjectiveDTO == null ) {
+            return null;
+        }
+
+        AuditProgramObjective auditProgramObjective = new AuditProgramObjective();
+
+        auditProgramObjective.setId( auditProgramObjectiveDTO.getId() );
+        auditProgramObjective.setCreatedUser( auditProgramObjectiveDTO.getCreatedUser() );
+        auditProgramObjective.setModifiedUser( auditProgramObjectiveDTO.getModifiedUser() );
+        auditProgramObjective.setCreatedTimestamp( auditProgramObjectiveDTO.getCreatedTimestamp() );
+        auditProgramObjective.setModifiedTimestamp( auditProgramObjectiveDTO.getModifiedTimestamp() );
+        auditProgramObjective.setDescription( auditProgramObjectiveDTO.getDescription() );
+        auditProgramObjective.setAuditProgram( auditProgramDTOToAuditProgram( auditProgramObjectiveDTO.getAuditProgram() ) );
+
+        return auditProgramObjective;
+    }
+
+    protected List<AuditProgramObjective> auditProgramObjectiveDTOListToAuditProgramObjectiveList(List<AuditProgramObjectiveDTO> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<AuditProgramObjective> list1 = new ArrayList<AuditProgramObjective>( list.size() );
+        for ( AuditProgramObjectiveDTO auditProgramObjectiveDTO : list ) {
+            list1.add( auditProgramObjectiveDTOToAuditProgramObjective( auditProgramObjectiveDTO ) );
+        }
+
+        return list1;
     }
 
     protected TeamMember teamMemberDTOToTeamMember(TeamMemberDTO teamMemberDTO) {
@@ -602,7 +681,7 @@ public class WBSMapperImpl implements WBSMapper {
         auditProgram.setPreviousStatus( auditProgramDTO.getPreviousStatus() );
         auditProgram.setMethodology( auditProgramDTO.getMethodology() );
         auditProgram.setPreviousDescription( auditProgramDTO.getPreviousDescription() );
-        auditProgram.setObjectives( auditProgramDTO.getObjectives() );
+        auditProgram.setObjectives( auditProgramObjectiveDTOListToAuditProgramObjectiveList( auditProgramDTO.getObjectives() ) );
         auditProgram.setScopeDescription( auditProgramDTO.getScopeDescription() );
         auditProgram.setOverAllTime( auditProgramDTO.getOverAllTime() );
         auditProgram.setEngagementInfo( engagementDTOToEngagementInfo( auditProgramDTO.getEngagementInfo() ) );

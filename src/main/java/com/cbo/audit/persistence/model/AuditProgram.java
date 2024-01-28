@@ -26,12 +26,13 @@ public class AuditProgram extends BaseEntity{
     @Column
     private String previousDescription;
     @Column
+    @OneToMany
     private List<AuditProgramObjective>  objectives;
     @Column
     private String scopeDescription;
     @Column
     private String OverAllTime;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "ENGAGEMENT_ID")
     private EngagementInfo engagementInfo;
 

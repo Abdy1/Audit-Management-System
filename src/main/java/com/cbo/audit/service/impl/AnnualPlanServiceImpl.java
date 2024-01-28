@@ -151,7 +151,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
                 annualPlan.setStatus(AnnualPlanStatus.Scheduled.name());
                 annualPlanRepository.save(annualPlan);
-                resultWrapper.setMessage("Success fully added to planned annual plan");
+                resultWrapper.setMessage("Successfully added to planned annual plan");
                 resultWrapper.setStatus(true);
             } else {
                 resultWrapper.setMessage(String.format("Annual Plan with id %s is not found", annualPlanDTO.getId()));

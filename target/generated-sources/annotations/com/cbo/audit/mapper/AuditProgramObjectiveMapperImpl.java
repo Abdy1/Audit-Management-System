@@ -23,8 +23,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-27T10:50:05+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
+    date = "2024-01-23T14:50:45+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
 public class AuditProgramObjectiveMapperImpl implements AuditProgramObjectiveMapper {
@@ -249,7 +249,7 @@ public class AuditProgramObjectiveMapperImpl implements AuditProgramObjectiveMap
         auditProgramDTO.setName( auditProgram.getName() );
         auditProgramDTO.setStatus( auditProgram.getStatus() );
         auditProgramDTO.setPreviousStatus( auditProgram.getPreviousStatus() );
-        auditProgramDTO.setObjectives( auditProgram.getObjectives() );
+        auditProgramDTO.setObjectives( auditProgramObjectiveToAuditProgramObjectiveDTOs( auditProgram.getObjectives() ) );
         auditProgramDTO.setPreviousDescription( auditProgram.getPreviousDescription() );
         auditProgramDTO.setScopeDescription( auditProgram.getScopeDescription() );
         auditProgramDTO.setMethodology( auditProgram.getMethodology() );
@@ -410,7 +410,22 @@ public class AuditProgramObjectiveMapperImpl implements AuditProgramObjectiveMap
         mappingTarget.setName( auditProgram.getName() );
         mappingTarget.setStatus( auditProgram.getStatus() );
         mappingTarget.setPreviousStatus( auditProgram.getPreviousStatus() );
-        mappingTarget.setObjectives( auditProgram.getObjectives() );
+        if ( mappingTarget.getObjectives() != null ) {
+            List<AuditProgramObjectiveDTO> list = auditProgramObjectiveToAuditProgramObjectiveDTOs( auditProgram.getObjectives() );
+            if ( list != null ) {
+                mappingTarget.getObjectives().clear();
+                mappingTarget.getObjectives().addAll( list );
+            }
+            else {
+                mappingTarget.setObjectives( null );
+            }
+        }
+        else {
+            List<AuditProgramObjectiveDTO> list = auditProgramObjectiveToAuditProgramObjectiveDTOs( auditProgram.getObjectives() );
+            if ( list != null ) {
+                mappingTarget.setObjectives( list );
+            }
+        }
         mappingTarget.setPreviousDescription( auditProgram.getPreviousDescription() );
         mappingTarget.setScopeDescription( auditProgram.getScopeDescription() );
         mappingTarget.setMethodology( auditProgram.getMethodology() );
@@ -424,6 +439,19 @@ public class AuditProgramObjectiveMapperImpl implements AuditProgramObjectiveMap
         else {
             mappingTarget.setEngagementInfo( null );
         }
+    }
+
+    protected List<AuditProgramObjective> auditProgramObjectiveDTOListToAuditProgramObjectiveList(List<AuditProgramObjectiveDTO> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<AuditProgramObjective> list1 = new ArrayList<AuditProgramObjective>( list.size() );
+        for ( AuditProgramObjectiveDTO auditProgramObjectiveDTO : list ) {
+            list1.add( toEntity( auditProgramObjectiveDTO ) );
+        }
+
+        return list1;
     }
 
     protected TeamMember teamMemberDTOToTeamMember(TeamMemberDTO teamMemberDTO) {
@@ -587,7 +615,7 @@ public class AuditProgramObjectiveMapperImpl implements AuditProgramObjectiveMap
         auditProgram.setPreviousStatus( auditProgramDTO.getPreviousStatus() );
         auditProgram.setMethodology( auditProgramDTO.getMethodology() );
         auditProgram.setPreviousDescription( auditProgramDTO.getPreviousDescription() );
-        auditProgram.setObjectives( auditProgramDTO.getObjectives() );
+        auditProgram.setObjectives( auditProgramObjectiveDTOListToAuditProgramObjectiveList( auditProgramDTO.getObjectives() ) );
         auditProgram.setScopeDescription( auditProgramDTO.getScopeDescription() );
         auditProgram.setOverAllTime( auditProgramDTO.getOverAllTime() );
         auditProgram.setEngagementInfo( engagementDTOToEngagementInfo( auditProgramDTO.getEngagementInfo() ) );

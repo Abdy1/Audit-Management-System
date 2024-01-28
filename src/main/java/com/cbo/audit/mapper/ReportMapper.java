@@ -25,7 +25,7 @@ public interface ReportMapper {
 
     Report toEntity(ReportDTO reportDTO);
 
-    default List<ReportDTO> AmendedFindingToAmendedFindingDTOs(List<Report> reports) {
+    default List<ReportDTO> ReportsToReportDTOs(List<Report> reports) {
         if (reports == null) {
             return null;
         }

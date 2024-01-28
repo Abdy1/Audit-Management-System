@@ -164,5 +164,11 @@ public static final String AUDIT_PROGRAM_FINDING= "finding/";
     public static final String AUDIT_STAFF_LBY_AUDIT_TYPE= AUDIT_STAFF + "byAuditType";
 
     public static final String AUDIT_STAFF_REMOVE = AUDIT_STAFF + "remove";
+    public static final String REPORT = "/report/";
+    public static final String REPORT_REGISTRATION =  APPLICATION_CONTEXT+REPORT + REGISTER + "/byAuditSchedule";
+    public static final String GENERATE_REPORT = APPLICATION_CONTEXT + REPORT + "generateByAuditSchedule";
+
+
+
 
 }

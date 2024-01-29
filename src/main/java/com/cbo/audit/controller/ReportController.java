@@ -27,7 +27,7 @@ public class ReportController {
     @Autowired
     private ReportServiceImpl reportService;
 
-    @GetMapping(value = GENERATE_REPORT, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = GENERATE_REPORT, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<ReportDTO>> generateDefaultReport(@RequestBody AuditScheduleDTO scheduleDTO){
 
 
@@ -41,15 +41,15 @@ return new ResponseEntity<>(reportService.generateDefaultReport(scheduleDTO), Ht
 
         return new ResponseEntity<>(resultWrapper,HttpStatus.CREATED);
     }
-    @GetMapping("ams/report/findById")
-    public ResponseEntity<ResultWrapper<ReportDTO>> getReportByReportId(@RequestParam("id") Long id){
-        ResultWrapper<ReportDTO> resultWrapper = reportService.getReportById(id);
+    @PostMapping("ams/report/findById")
+    public ResponseEntity<ResultWrapper<ReportDTO>> getReportByReportId(@RequestBody ReportDTO reportDTO){
+        ResultWrapper<ReportDTO> resultWrapper = reportService.getReportById(reportDTO.getId());
 
         return new ResponseEntity<>(resultWrapper,HttpStatus.OK);
     }
-    @GetMapping("ams/report/findByAuditScheduleId")
-    public ResponseEntity<ResultWrapper<ReportDTO>> getReportByAuditScheduleId(@RequestParam("id") Long id){
-        ResultWrapper<ReportDTO> resultWrapper = reportService.getReportByScheduleId(id);
+    @PostMapping("ams/report/findByAuditScheduleId")
+    public ResponseEntity<ResultWrapper<ReportDTO>> getReportByAuditScheduleId(@RequestBody AuditScheduleDTO auditScheduleDTO){
+        ResultWrapper<ReportDTO> resultWrapper = reportService.getReportByScheduleId(auditScheduleDTO.getId());
         return new ResponseEntity<>(resultWrapper,HttpStatus.OK);
     }
     @GetMapping("/listAllReports")

@@ -11,8 +11,8 @@ import java.util.List;
 
 public interface AuditStaffRepository extends JpaRepository<AuditStaff, Long> {
 
-    @Query("SELECT AST FROM AuditStaff AST WHERE AST.user.id = :id")
-    AuditStaff findAuditStaffByUserId(@Param("id") Long id);
+    @Query("SELECT AST FROM AuditStaff AST WHERE AST.employeeId = :id")
+    AuditStaff findAuditStaffByUserId(@Param("id") String employeeId);
 
     @Query(" SELECT AST FROM AuditStaff AST  "
             + " WHERE AST.status = :status")

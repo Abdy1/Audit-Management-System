@@ -20,9 +20,8 @@ public class AuditStaff extends BaseEntity{
     @JoinColumn(name = "AUDIT_TYPE_ID")
     private AuditType auditType;
 
-    @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @Column(name = "EMPLOYEE_ID")
+    private String employeeId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")

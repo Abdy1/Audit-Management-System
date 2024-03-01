@@ -44,14 +44,7 @@ public class AuditStaffServiceImpl implements AuditStaffService {
     public ResultWrapper<AuditStaffDTO> registerAuditStaff(AuditStaffDTO auditStaffDTO) {
         ResultWrapper<AuditStaffDTO> resultWrapper = new ResultWrapper<>();
 
-        Optional<User> user = userRepository.findById(auditStaffDTO.getUser().getId());
-
-        if (!user.isPresent()) {
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("User with the provided information is not present.");
-            return resultWrapper;
-        }
-        AuditStaff existAlready = auditStaffRepository.findAuditStaffByUserId(user.get().getId());
+        AuditStaff existAlready = auditStaffRepository.findAuditStaffByUserId(auditStaffDTO.getEmployeeId());
         if (existAlready != null){
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit staff already created.");
@@ -60,8 +53,9 @@ public class AuditStaffServiceImpl implements AuditStaffService {
 
         AuditStaff auditStaff = AuditStaffMapper.INSTANCE.toEntity(auditStaffDTO);
         auditStaff.setCreatedTimestamp(LocalDateTime.now());
+        auditStaff.setStatus(AuditStaffStatus.Active);
         auditStaff.setCreatedUser("TODO");
-        auditStaff.setUser(user.get());
+        auditStaff.setEmployeeId(auditStaff.getEmployeeId());
 
         AuditStaff savedMember = auditStaffRepository.save(auditStaff);
 

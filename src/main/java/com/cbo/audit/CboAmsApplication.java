@@ -9,11 +9,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class CboAmsApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(CboAmsApplication.class, args);
     }
-
     @Bean
     public WebMvcConfigurer corsConfiguration() {
         return new WebMvcConfigurer() {

@@ -35,7 +35,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-29T08:41:44+0300",
+    date = "2024-02-09T14:45:06+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
@@ -193,7 +193,6 @@ public class FindingMapperImpl implements FindingMapper {
         auditProgramObjectiveDTO.setCreatedTimestamp( auditProgramObjective.getCreatedTimestamp() );
         auditProgramObjectiveDTO.setModifiedTimestamp( auditProgramObjective.getModifiedTimestamp() );
         auditProgramObjectiveDTO.setDescription( auditProgramObjective.getDescription() );
-        auditProgramObjectiveDTO.setAuditProgram( auditProgramToAuditProgramDTO( auditProgramObjective.getAuditProgram() ) );
 
         return auditProgramObjectiveDTO;
     }
@@ -785,7 +784,6 @@ public class FindingMapperImpl implements FindingMapper {
         auditProgramObjective.setCreatedTimestamp( auditProgramObjectiveDTO.getCreatedTimestamp() );
         auditProgramObjective.setModifiedTimestamp( auditProgramObjectiveDTO.getModifiedTimestamp() );
         auditProgramObjective.setDescription( auditProgramObjectiveDTO.getDescription() );
-        auditProgramObjective.setAuditProgram( auditProgramDTOToAuditProgram( auditProgramObjectiveDTO.getAuditProgram() ) );
 
         return auditProgramObjective;
     }

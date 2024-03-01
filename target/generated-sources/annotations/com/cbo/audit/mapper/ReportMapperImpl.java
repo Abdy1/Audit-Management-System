@@ -36,7 +36,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-29T08:41:43+0300",
+    date = "2024-02-09T14:45:05+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 public class ReportMapperImpl implements ReportMapper {
@@ -288,6 +288,23 @@ public class ReportMapperImpl implements ReportMapper {
         return auditScheduleDTO;
     }
 
+    protected AuditProgramObjectiveDTO auditProgramObjectiveToAuditProgramObjectiveDTO(AuditProgramObjective auditProgramObjective) {
+        if ( auditProgramObjective == null ) {
+            return null;
+        }
+
+        AuditProgramObjectiveDTO auditProgramObjectiveDTO = new AuditProgramObjectiveDTO();
+
+        auditProgramObjectiveDTO.setId( auditProgramObjective.getId() );
+        auditProgramObjectiveDTO.setCreatedUser( auditProgramObjective.getCreatedUser() );
+        auditProgramObjectiveDTO.setModifiedUser( auditProgramObjective.getModifiedUser() );
+        auditProgramObjectiveDTO.setCreatedTimestamp( auditProgramObjective.getCreatedTimestamp() );
+        auditProgramObjectiveDTO.setModifiedTimestamp( auditProgramObjective.getModifiedTimestamp() );
+        auditProgramObjectiveDTO.setDescription( auditProgramObjective.getDescription() );
+
+        return auditProgramObjectiveDTO;
+    }
+
     protected List<AuditProgramObjectiveDTO> auditProgramObjectiveListToAuditProgramObjectiveDTOList(List<AuditProgramObjective> list) {
         if ( list == null ) {
             return null;
@@ -345,24 +362,6 @@ public class ReportMapperImpl implements ReportMapper {
         auditProgramDTO.setEngagementInfo( engagementInfoToEngagementDTO( auditProgram.getEngagementInfo() ) );
 
         return auditProgramDTO;
-    }
-
-    protected AuditProgramObjectiveDTO auditProgramObjectiveToAuditProgramObjectiveDTO(AuditProgramObjective auditProgramObjective) {
-        if ( auditProgramObjective == null ) {
-            return null;
-        }
-
-        AuditProgramObjectiveDTO auditProgramObjectiveDTO = new AuditProgramObjectiveDTO();
-
-        auditProgramObjectiveDTO.setId( auditProgramObjective.getId() );
-        auditProgramObjectiveDTO.setCreatedUser( auditProgramObjective.getCreatedUser() );
-        auditProgramObjectiveDTO.setModifiedUser( auditProgramObjective.getModifiedUser() );
-        auditProgramObjectiveDTO.setCreatedTimestamp( auditProgramObjective.getCreatedTimestamp() );
-        auditProgramObjectiveDTO.setModifiedTimestamp( auditProgramObjective.getModifiedTimestamp() );
-        auditProgramObjectiveDTO.setDescription( auditProgramObjective.getDescription() );
-        auditProgramObjectiveDTO.setAuditProgram( auditProgramToAuditProgramDTO( auditProgramObjective.getAuditProgram() ) );
-
-        return auditProgramObjectiveDTO;
     }
 
     protected AuditableAreaDTO auditableAreaToAuditableAreaDTO(AuditableArea auditableArea) {
@@ -749,6 +748,23 @@ public class ReportMapperImpl implements ReportMapper {
         return auditSchedule;
     }
 
+    protected AuditProgramObjective auditProgramObjectiveDTOToAuditProgramObjective(AuditProgramObjectiveDTO auditProgramObjectiveDTO) {
+        if ( auditProgramObjectiveDTO == null ) {
+            return null;
+        }
+
+        AuditProgramObjective auditProgramObjective = new AuditProgramObjective();
+
+        auditProgramObjective.setId( auditProgramObjectiveDTO.getId() );
+        auditProgramObjective.setCreatedUser( auditProgramObjectiveDTO.getCreatedUser() );
+        auditProgramObjective.setModifiedUser( auditProgramObjectiveDTO.getModifiedUser() );
+        auditProgramObjective.setCreatedTimestamp( auditProgramObjectiveDTO.getCreatedTimestamp() );
+        auditProgramObjective.setModifiedTimestamp( auditProgramObjectiveDTO.getModifiedTimestamp() );
+        auditProgramObjective.setDescription( auditProgramObjectiveDTO.getDescription() );
+
+        return auditProgramObjective;
+    }
+
     protected List<AuditProgramObjective> auditProgramObjectiveDTOListToAuditProgramObjectiveList(List<AuditProgramObjectiveDTO> list) {
         if ( list == null ) {
             return null;
@@ -806,24 +822,6 @@ public class ReportMapperImpl implements ReportMapper {
         auditProgram.setEngagementInfo( engagementDTOToEngagementInfo( auditProgramDTO.getEngagementInfo() ) );
 
         return auditProgram;
-    }
-
-    protected AuditProgramObjective auditProgramObjectiveDTOToAuditProgramObjective(AuditProgramObjectiveDTO auditProgramObjectiveDTO) {
-        if ( auditProgramObjectiveDTO == null ) {
-            return null;
-        }
-
-        AuditProgramObjective auditProgramObjective = new AuditProgramObjective();
-
-        auditProgramObjective.setId( auditProgramObjectiveDTO.getId() );
-        auditProgramObjective.setCreatedUser( auditProgramObjectiveDTO.getCreatedUser() );
-        auditProgramObjective.setModifiedUser( auditProgramObjectiveDTO.getModifiedUser() );
-        auditProgramObjective.setCreatedTimestamp( auditProgramObjectiveDTO.getCreatedTimestamp() );
-        auditProgramObjective.setModifiedTimestamp( auditProgramObjectiveDTO.getModifiedTimestamp() );
-        auditProgramObjective.setDescription( auditProgramObjectiveDTO.getDescription() );
-        auditProgramObjective.setAuditProgram( auditProgramDTOToAuditProgram( auditProgramObjectiveDTO.getAuditProgram() ) );
-
-        return auditProgramObjective;
     }
 
     protected AuditableArea auditableAreaDTOToAuditableArea(AuditableAreaDTO auditableAreaDTO) {

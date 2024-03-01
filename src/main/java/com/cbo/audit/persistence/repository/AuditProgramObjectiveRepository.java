@@ -9,6 +9,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface AuditProgramObjectiveRepository extends JpaRepository<AuditProgramObjective , Long> {
-    @Query(" SELECT AN FROM AuditProgramObjective AN WHERE AN.auditProgram.id= :auditProgram_id")
-    List<AuditProgramObjective> findAllObjectiveByAuditProgramId(@Param("auditProgram_id") Long auditProgram_id);
+
 }

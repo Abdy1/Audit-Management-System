@@ -24,7 +24,7 @@ public class CboAmsApplication {
                         .allowedOrigins("*")
                         .allowedMethods("GET", "POST", "OPTIONS")
                         .allowedHeaders("*")
-                        .maxAge(86400);
+                        .maxAge(864000);
             }
         };
     }

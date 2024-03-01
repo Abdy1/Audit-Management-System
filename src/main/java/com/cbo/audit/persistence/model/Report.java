@@ -13,17 +13,21 @@ import java.util.List;
 public class Report extends BaseEntity{
     @OneToOne
     private AuditSchedule auditSchedule;
+    @Column(columnDefinition = "text")
     private String introduction;
     private LocalDate dateGenerated;
     @ManyToOne
     private TeamMember generatedBy;
     private String sentTime;
     private String archiveTie;
+    @Column(columnDefinition = "text")
     private String summary;
+    @Column(columnDefinition = "text")
     private String scope;
     // find a way to store a list of objectives
     @OneToMany
     private List<AuditProgramObjective> objectives;
+    @Column(columnDefinition = "text")
     private String methodology;
     // implement enum for report status
     private ReportStatus status;

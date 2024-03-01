@@ -10,10 +10,8 @@ import java.util.List;
 @Data
 
 public class ReportResultWrapper {
-    private AuditScheduleDTO auditSchedule;
-    List<AuditProgramObjectiveDTO> objectives;
-    List<FindingDTO> finding;
-    EngagementDTO engagementInfo;
+
+
     AuditProgramDTO auditProgram;
     private String scope;
     private String methodology;

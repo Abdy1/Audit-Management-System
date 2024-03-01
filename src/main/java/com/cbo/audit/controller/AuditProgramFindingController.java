@@ -9,6 +9,7 @@ import com.cbo.audit.persistence.repository.FindingRepository;
 import com.cbo.audit.service.AuditProgramFindingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -57,5 +58,13 @@ return new ResponseEntity<>(resultWrapper,HttpStatus.OK);
         ResultWrapper<List<AmendedFindingDTO>> resultWrapper=auditProgramFindingService.getAllAmendedFindingsByFindingId(id);
 
         return  new ResponseEntity<>(resultWrapper,HttpStatus.OK);
+    }
+    @GetMapping("/ams/auditProgram/finding/getFileAttached/byFileName/{filename}")
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String filename) throws IOException {
+
+        ByteArrayResource resource = auditProgramFindingService.downloadFile(filename);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(resource);
     }
 }

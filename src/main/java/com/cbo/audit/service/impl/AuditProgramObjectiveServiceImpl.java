@@ -8,6 +8,7 @@ import com.cbo.audit.mapper.AuditProgramObjectiveMapper;
 import com.cbo.audit.persistence.model.AuditProgram;
 import com.cbo.audit.persistence.model.AuditProgramObjective;
 import com.cbo.audit.persistence.repository.AuditProgramObjectiveRepository;
+import com.cbo.audit.persistence.repository.AuditProgramRepository;
 import com.cbo.audit.service.AuditProgramObjectiveService;
 import com.cbo.audit.service.AuditProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,14 @@ public class AuditProgramObjectiveServiceImpl implements AuditProgramObjectiveSe
     AuditProgramObjectiveRepository auditProgramObjectiveRepository;
     @Autowired
     AuditProgramService auditProgramService;
+    @Autowired
+    AuditProgramRepository auditProgramRepository;
 
 
     @Override
     public ResultWrapper<List<AuditProgramObjectiveDTO>> getAllAuditProgramObjectiveByAuditProgramId(Long auditProgram_id) {
         ResultWrapper<List<AuditProgramObjectiveDTO>> resultWrapper = new ResultWrapper<>();
-        List<AuditProgramObjective> auditProgramObjectives = auditProgramObjectiveRepository.findAllObjectiveByAuditProgramId(auditProgram_id);
+        List<AuditProgramObjective> auditProgramObjectives = auditProgramRepository.findById(auditProgram_id).get().getObjectives();
         if (auditProgramObjectives != null) {
             List<AuditProgramObjectiveDTO> auditProgramObjectiveDTOS = AuditProgramObjectiveMapper.INSTANCE.auditProgramObjectiveToAuditProgramObjectiveDTOs(auditProgramObjectives);
             resultWrapper.setResult(auditProgramObjectiveDTOS);
@@ -69,7 +72,7 @@ public class AuditProgramObjectiveServiceImpl implements AuditProgramObjectiveSe
 
         auditProgramObjective.setCreatedUser("TODO");
         auditProgramObjective.setModifiedUser("TODO");
-        auditProgramObjective.setAuditProgram(auditProgramOpt.get());
+
         //wbs.setStatus(AnnualPlanStatus.Planned.getType());
 
         AuditProgramObjective savedAuditProgramObjective = auditProgramObjectiveRepository.save(auditProgramObjective);
@@ -96,7 +99,6 @@ public class AuditProgramObjectiveServiceImpl implements AuditProgramObjectiveSe
 
                 auditProgramObjective.setCreatedTimestamp(oldAuditProgramObjective.getCreatedTimestamp());
                 auditProgramObjective.setCreatedUser(oldAuditProgramObjective.getCreatedUser());
-                auditProgramObjective.setAuditProgram(oldAuditProgramObjective.getAuditProgram());
 
                 AuditProgramObjective savedAuditProgramObjective = auditProgramObjectiveRepository.save(auditProgramObjective);
                 resultWrapper.setResult(AuditProgramObjectiveMapper.INSTANCE.toDTO(savedAuditProgramObjective));

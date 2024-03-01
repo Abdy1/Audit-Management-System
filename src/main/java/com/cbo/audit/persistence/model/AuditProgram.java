@@ -12,23 +12,23 @@ import java.util.List;
 @Setter
 @Getter
 public class AuditProgram extends BaseEntity{
-    @Column
+
     private String name;
 
     @Getter
-    @Column
+
     private String status;
     //for discussion
-    @Column
+    @Column(columnDefinition = "text")
     private String previousStatus;
-    @Column
+    @Column(columnDefinition = "text")
     private String methodology;
-    @Column
+    @Column(columnDefinition = "text")
     private String previousDescription;
     @Column
     @OneToMany
     private List<AuditProgramObjective>  objectives;
-    @Column
+    @Column(columnDefinition = "text")
     private String scopeDescription;
     @Column
     private String OverAllTime;

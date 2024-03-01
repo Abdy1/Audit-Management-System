@@ -27,7 +27,7 @@ public class ReportServiceImpl implements ReportService
     public ResultWrapper<ReportDTO> generateDefaultReport(AuditScheduleDTO auditScheduleDTO) {
         ResultWrapper<ReportDTO> resultWrapper=new ResultWrapper<>();
 
-        reportResultWrapper.setAuditSchedule(auditScheduleDTO);
+
 
         EngagementInfo engagementInfo = engagementInfoRepository.findAuditEngagementBySchedule(auditScheduleDTO.getId());
         if(engagementInfo == null){
@@ -37,7 +37,6 @@ public class ReportServiceImpl implements ReportService
  return  resultWrapper;
 
         }
-        reportResultWrapper.setEngagementInfo(EngagementMapper.INSTANCE.toDTO(engagementInfo));
         AuditProgram auditProgram=auditProgramRepository.getAuditProgramByEngagementId(engagementInfo.getId());
         if(auditProgram == null){
             resultWrapper.setResult(null);
@@ -58,17 +57,6 @@ public class ReportServiceImpl implements ReportService
 
         }
         reportResultWrapper.setFindings(FindingMapper.INSTANCE.FindingToFindingDTOs(findings));
-        List<AuditProgramObjective> objectives=auditProgramObjectiveRepository.findAllObjectiveByAuditProgramId(auditProgram.getId());
-
-        if(objectives == null){
-            resultWrapper.setResult(null);
-            resultWrapper.setMessage("Objectives with the provided information does not exist");
-            resultWrapper.setStatus(false);
-            return  resultWrapper;
-
-        }
-        reportResultWrapper.setObjectives(AuditProgramObjectiveMapper.INSTANCE.auditProgramObjectiveToAuditProgramObjectiveDTOs(objectives));
-
 
         resultWrapper.setMessage("success");
         resultWrapper.setStatus(true);

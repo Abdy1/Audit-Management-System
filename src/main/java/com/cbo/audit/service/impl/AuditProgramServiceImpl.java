@@ -3,6 +3,7 @@ package com.cbo.audit.service.impl;
 import com.cbo.audit.dto.*;
 import com.cbo.audit.enums.AuditProgramStatus;
 import com.cbo.audit.mapper.AuditProgramMapper;
+import com.cbo.audit.mapper.AuditProgramObjectiveMapper;
 import com.cbo.audit.mapper.EngagementMapper;
 import com.cbo.audit.persistence.model.*;
 import com.cbo.audit.persistence.repository.*;
@@ -13,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.SQLOutput;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +34,8 @@ AuditScheduleRepository auditScheduleRepository;
     private AuditProgramRepository auditProgramRepository;
     @Autowired
     EngagementInfoRepository engagementInfoRepository;
+    @Autowired
+    AuditProgramObjectiveRepository auditProgramObjectiveRepository;
 
 
 
@@ -40,7 +45,7 @@ AuditScheduleRepository auditScheduleRepository;
         ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>();
         EngagementInfo engagementInfoOpt=engagementInfoRepository.findById(auditProgramDTO.getEngagementInfo().getId()).orElse(null);
 
-
+        System.out.println(auditProgramDTO.getObjectives()+"1");
 
 
         if (engagementInfoOpt == null) {
@@ -76,15 +81,29 @@ auditProgramDTO.setStatus(AuditProgramStatus.Draft.name());
 
         auditProgram.setCreatedTimestamp(LocalDateTime.now());
         auditProgram.setCreatedUser("TODO");
+        System.out.println(auditProgramDTO.getObjectives()+"2");
 
+        List<AuditProgramObjectiveDTO> objectives=auditProgramDTO.getObjectives();
 
+        List<AuditProgramObjective> savedObjectives=new ArrayList<>();
 
+for(AuditProgramObjectiveDTO auditProgramObjectiveDTO:objectives){
+    savedObjectives.add(auditProgramObjectiveRepository.save(AuditProgramObjectiveMapper.INSTANCE.toEntity(auditProgramObjectiveDTO)));
+}
+
+if(savedObjectives.size() != auditProgramDTO.getObjectives().size()){
+    resultWrapper.setStatus(false);
+    resultWrapper.setMessage("Unsaved objectives");
+    return resultWrapper;
+}
+
+        auditProgram.setObjectives(savedObjectives);
 
         AuditProgram savedProgram = auditProgramRepository.save(auditProgram);
 
 
 
-        auditProgramRepository.save(savedProgram);
+
         resultWrapper.setStatus(true);
         resultWrapper.setResult(AuditProgramMapper.INSTANCE.toDTO(savedProgram));
         resultWrapper.getResult().setEngagementInfo(auditProgramDTO.getEngagementInfo());

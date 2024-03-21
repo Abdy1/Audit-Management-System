@@ -33,7 +33,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-01T16:00:31+0300",
+    date = "2024-03-21T15:39:57+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
@@ -359,6 +359,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         auditStaffDTO.setModifiedTimestamp( auditStaff.getModifiedTimestamp() );
         auditStaffDTO.setAuditType( auditTypeToAuditTypeDTO( auditStaff.getAuditType() ) );
         auditStaffDTO.setEmployeeId( auditStaff.getEmployeeId() );
+        auditStaffDTO.setFullName( auditStaff.getFullName() );
         auditStaffDTO.setStatus( auditStaff.getStatus() );
 
         return auditStaffDTO;
@@ -639,6 +640,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
             mappingTarget.setAuditType( null );
         }
         mappingTarget.setEmployeeId( auditStaff.getEmployeeId() );
+        mappingTarget.setFullName( auditStaff.getFullName() );
         mappingTarget.setStatus( auditStaff.getStatus() );
     }
 
@@ -956,6 +958,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         auditStaff.setModifiedTimestamp( auditStaffDTO.getModifiedTimestamp() );
         auditStaff.setAuditType( auditTypeDTOToAuditType( auditStaffDTO.getAuditType() ) );
         auditStaff.setEmployeeId( auditStaffDTO.getEmployeeId() );
+        auditStaff.setFullName( auditStaffDTO.getFullName() );
         auditStaff.setStatus( auditStaffDTO.getStatus() );
 
         return auditStaff;

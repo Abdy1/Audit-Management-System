@@ -23,6 +23,9 @@ public class AuditStaff extends BaseEntity{
     @Column(name = "EMPLOYEE_ID")
     private String employeeId;
 
+    @Column(name = "EMPLOYEE_NAME")
+    private String fullName;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
     private AuditStaffStatus status;

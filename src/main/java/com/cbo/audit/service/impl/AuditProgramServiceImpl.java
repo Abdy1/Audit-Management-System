@@ -67,7 +67,7 @@ AuditScheduleRepository auditScheduleRepository;
 //            resultWrapper.setMessage("Annual Plan risk year cannot be null.");
 //            return resultWrapper;
 //        }
-auditProgramDTO.setStatus(AuditProgramStatus.Draft.name());
+// auditProgramDTO.setStatus(AuditProgramStatus.Draft.name());
 
         AuditProgram auditProgram = AuditProgramMapper.INSTANCE.toEntity(auditProgramDTO);
 

@@ -74,6 +74,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             auditSchedule.setAnnualPlan(annualPlan);
             auditSchedule.setCreatedUser("TODO");
             auditSchedule.setStatus(AuditScheduleStatus.Scheduled.name());
+            auditSchedule.setAuditeesOrganID(auditScheduleDTO.getAuditeesOrganID());
 
             auditSchedule.setYear(annualPlan.getYear());
             annualPlan.setStatus(AnnualPlanStatus.Scheduled.name());
@@ -279,9 +280,11 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         EngagementInfo engagementInfo = engagementInfoRepository.findAuditEngagementBySchedule(auditScheduleDTO.getId());
         if (engagementInfo != null){
             engagementInfo.setAuditSchedule(null);
+
             EngagementDTO engagementDTO = EngagementMapper.INSTANCE.toDTO(engagementInfo);
             //AuditScheduleDTO auditScheduleDTOs = AuditScheduleMapper.INSTANCE.toDTO(auditSchedule);
             engagementDTO.setAuditSchedule(auditScheduleDTO);
+
             resultWrapper.setResult(engagementDTO);
 
             resultWrapper.setStatus(true);
@@ -298,8 +301,10 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
         ResultWrapper<List<EngagementDTO>> resultWrapper = new ResultWrapper<>();
         List<EngagementInfo> engagementInfos=engagementInfoRepository.findEngagementByYear(year);
+
         if (!engagementInfos.isEmpty()){
             List<EngagementDTO> engagementDTOS = EngagementMapper.INSTANCE.engagementInfosToEngagementDTOs(engagementInfos);
+
             resultWrapper.setResult(engagementDTOS);
             resultWrapper.setStatus(true);
         }{

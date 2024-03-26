@@ -23,4 +23,5 @@ public class AuditObject extends BaseEntity{
     private String auditType;
 
 
+
 }

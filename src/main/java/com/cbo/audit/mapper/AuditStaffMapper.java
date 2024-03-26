@@ -32,4 +32,17 @@ public interface AuditStaffMapper {
 
         return list;
     }
+    default List<AuditStaff> toEntities(List<AuditStaffDTO> auditStaffDTOS) {
+        if (auditStaffDTOS == null) {
+            return null;
+        }
+
+        List<AuditStaff> list = new ArrayList<AuditStaff>(auditStaffDTOS.size());
+        for (AuditStaffDTO auditStaffDTO : auditStaffDTOS) {
+            list.add(toEntity(auditStaffDTO));
+        }
+
+        return list;
+    }
+
 }

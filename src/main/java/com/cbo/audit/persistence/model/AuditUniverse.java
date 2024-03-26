@@ -6,6 +6,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -33,4 +35,5 @@ public class AuditUniverse  extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "AUDIT_OBJECT_ID")
     private AuditObject auditObject;
+
 }

@@ -32,7 +32,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-26T12:04:14+0300",
+    date = "2024-03-26T15:31:28+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 public class ReportMapperImpl implements ReportMapper {
@@ -440,6 +440,7 @@ public class ReportMapperImpl implements ReportMapper {
         findingDTO.setAuditees( finding.getAuditees() );
         findingDTO.setAuditeesResponse( finding.getAuditeesResponse() );
         findingDTO.setJustifications( finding.getJustifications() );
+        findingDTO.setIsVisibleToAuditees( finding.getIsVisibleToAuditees() );
         findingDTO.setRegisteredBy( auditStaffToAuditStaffDTO( finding.getRegisteredBy() ) );
         findingDTO.setApprovedBY( auditStaffToAuditStaffDTO( finding.getApprovedBY() ) );
         findingDTO.setResponseTime( finding.getResponseTime() );
@@ -858,6 +859,7 @@ public class ReportMapperImpl implements ReportMapper {
         finding.setAuditees( findingDTO.getAuditees() );
         finding.setAuditeesResponse( findingDTO.getAuditeesResponse() );
         finding.setJustifications( findingDTO.getJustifications() );
+        finding.setIsVisibleToAuditees( findingDTO.getIsVisibleToAuditees() );
         finding.setRegisteredBy( auditStaffDTOToAuditStaff( findingDTO.getRegisteredBy() ) );
         finding.setApprovedBY( auditStaffDTOToAuditStaff( findingDTO.getApprovedBY() ) );
         finding.setResponseTime( findingDTO.getResponseTime() );

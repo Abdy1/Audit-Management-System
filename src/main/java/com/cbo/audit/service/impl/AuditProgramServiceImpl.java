@@ -98,7 +98,7 @@ if(savedObjectives.size() != auditProgramDTO.getObjectives().size()){
 }
 
         auditProgram.setObjectives(savedObjectives);
-
+auditProgram.setStatus(AuditProgramStatus.Draft.name());
         AuditProgram savedProgram = auditProgramRepository.save(auditProgram);
 
 

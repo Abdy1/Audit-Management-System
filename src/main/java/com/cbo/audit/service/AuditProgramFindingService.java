@@ -18,4 +18,6 @@ public interface AuditProgramFindingService {
 
     ResultWrapper<String> attachFile(MultipartFile file, Long id) throws IOException;
     ByteArrayResource downloadFile(String filename) throws IOException;
+
+    void makeVisible(Long id);
 }

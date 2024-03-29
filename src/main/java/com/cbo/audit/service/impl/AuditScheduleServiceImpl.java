@@ -301,6 +301,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
         ResultWrapper<List<EngagementDTO>> resultWrapper = new ResultWrapper<>();
         List<EngagementInfo> engagementInfos=engagementInfoRepository.findEngagementByYear(year);
+        System.out.println( engagementInfos.get(1).getAuditSchedule().getTeamMembers().get(0).getAuditStaff());
 
         if (!engagementInfos.isEmpty()){
             List<EngagementDTO> engagementDTOS = EngagementMapper.INSTANCE.engagementInfosToEngagementDTOs(engagementInfos);

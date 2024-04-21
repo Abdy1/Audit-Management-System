@@ -15,6 +15,7 @@ import com.cbo.audit.persistence.repository.AuditProgramRepository;
 import com.cbo.audit.persistence.repository.FindingRepository;
 import com.cbo.audit.service.AuditProgramFindingService;
 import com.cbo.audit.utils.FileUploadUtil;
+import io.github.pixee.security.Filenames;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -161,8 +162,8 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
             return resultWrapper;
         }
         try {
-            System.out.println(file.getOriginalFilename());
-            String extention = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf('.'));
+            System.out.println(Filenames.toSimpleFileName(file.getOriginalFilename()));
+            String extention = Filenames.toSimpleFileName(file.getOriginalFilename()).substring(file.getOriginalFilename().indexOf('.'));
             Path path = saveFile("findings/evidences", finding.getId() + extention, file);
 
             finding.setFindingEvidenceFileUploadedToSupplementTheFindingsPath(finding.getId() + extention);

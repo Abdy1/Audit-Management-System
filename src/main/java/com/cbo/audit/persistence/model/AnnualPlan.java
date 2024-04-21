@@ -38,6 +38,10 @@ public class AnnualPlan extends BaseEntity{
     @JoinColumn(name="AUDIT_UNIVERSE_ID")
     private AuditUniverse auditUniverse;
 
+    @ManyToOne
+    @JoinColumn(name = "AUDIT_OBJECT_ID")
+    private AuditObject auditObject;
+
 /*    @OneToMany(mappedBy = "annualPlan", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<RiskScore> riskScores;*/
 

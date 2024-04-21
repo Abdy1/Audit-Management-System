@@ -40,21 +40,15 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
         }else if(!auditUniverseName.isEmpty()){
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Universe duplicate name is not allowed.");
-        }else if(auditUniverseDTO.getAuditType() == null){
+        }else if(auditUniverseDTO.getAuditType() == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Universe audit type cannot be null.");
-        }else if(auditUniverseDTO.getAuditObject() == null){
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Object cannot be null.");
         }else {
-
-            Optional<AuditObject> auditObject = auditObjectService.findAuditObjectById(auditUniverseDTO.getAuditObject().getId());
 
             AuditUniverse auditUniverse = AuditUniverseMapper.INSTANCE.toEntity(auditUniverseDTO);
             auditUniverse.setCreatedTimestamp(LocalDateTime.now());
             auditUniverse.setCreatedUser("TODO");
             auditUniverse.setStatus(AuditUniverseStatus.PendingApproval.getType());
-            auditUniverse.setAuditObject(auditObject.get());
             AuditUniverse savedUniverse = auditUniverseRepository.save(auditUniverse);
             resultWrapper.setResult(AuditUniverseMapper.INSTANCE.toDTO(savedUniverse));
             resultWrapper.setStatus(true);
@@ -120,13 +114,11 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
             resultWrapper.setMessage("Audit Universe audit type cannot be null.");
         }else {
 
-            Optional<AuditObject> auditObject = auditObjectService.findAuditObjectById(auditUniverseDTO.getAuditObject().getId());
             AuditUniverse auditUniverse = AuditUniverseMapper.INSTANCE.toEntity(auditUniverseDTO);
 
 
             auditUniverse.setCreatedTimestamp(oldUniverse.getCreatedTimestamp());
             auditUniverse.setCreatedUser(oldUniverse.getCreatedUser());
-            auditUniverse.setAuditObject(auditObject.get());
             AuditUniverse savedUniverse = auditUniverseRepository.save(auditUniverse);
             resultWrapper.setResult(AuditUniverseMapper.INSTANCE.toDTO(savedUniverse));
             resultWrapper.setStatus(true);

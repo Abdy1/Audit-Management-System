@@ -31,6 +31,9 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     private AnnualPlanRepository annualPlanRepository;
 
     @Autowired
+    private AuditObjectRepository auditObjectRepository;
+
+    @Autowired
     private AuditUniverseService auditUniverseService;
 
     @Autowired
@@ -50,10 +53,17 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         ResultWrapper<AnnualPlanDTO> resultWrapper = new ResultWrapper<>();
 
         Optional<AuditUniverse> auditUniverseOpt = auditUniverseService.findAuditUniverseById(annualPlanDTO.getAuditUniverse().getId());
+        Optional<AuditObject> auditObjectOpt = auditObjectRepository.findById(annualPlanDTO.getAuditObject().getId());
 
         if (!auditUniverseOpt.isPresent()) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Universe with the provided information is not available.");
+            return resultWrapper;
+        }
+
+        if (!auditObjectOpt.isPresent()) {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit Object with the provided information is not available.");
             return resultWrapper;
         }
 
@@ -73,7 +83,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         annualPlan.setCreatedTimestamp(LocalDateTime.now());
         annualPlan.setCreatedUser("TODO");
         annualPlan.setStatus(AnnualPlanStatus.Pending.getType());
-
+        annualPlan.setAuditObject(auditObjectOpt.get());
         AnnualPlan savedPlan = annualPlanRepository.save(annualPlan);
 
         List<RiskScoreDTO> riskScores = annualPlanDTO.getRiskScores();
@@ -134,6 +144,20 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
         ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
         List<AnnualPlan> annualPlans = annualPlanRepository.findAnnualPlanByAuditUniverseId(id);
+        if (annualPlans != null) {
+            List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);
+            resultWrapper.setResult(annualPlanDTOS);
+            resultWrapper.setStatus(true);
+        }
+        return resultWrapper;
+    }
+
+
+    @Override
+    public ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByAuditObjectId(Long id) {
+
+        ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
+        List<AnnualPlan> annualPlans = annualPlanRepository.findAnnualPlanByAuditObjectId(id);
         if (annualPlans != null) {
             List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);
             resultWrapper.setResult(annualPlanDTOS);
@@ -215,6 +239,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
                 annualPlan.setCreatedTimestamp(oldAnnualPlan.getCreatedTimestamp());
                 annualPlan.setCreatedUser(oldAnnualPlan.getCreatedUser());
                 annualPlan.setAuditUniverse(oldAnnualPlan.getAuditUniverse());
+                annualPlan.setAuditObject(oldAnnualPlan.getAuditObject());
                 AnnualPlan savedPlan = annualPlanRepository.save(annualPlan);
 
                 List<RiskScoreDTO> riskScores = annualPlanDTO.getRiskScores();
@@ -254,30 +279,35 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
         }
         List<AuditUniverse> auditUniverses = auditUniverseService.getAllActiveAuditUniverse();
+        List<AuditObject> auditObjects = new ArrayList<>();
 
+        for( AuditUniverse auditUniverse: auditUniverses){
+            List<AuditObject> auditObjectsUn = auditObjectRepository.findAuditObjectsByUniverseId(auditUniverse.getId());
+            auditObjects.addAll(auditObjectsUn);
+        }
         if (year == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Year must be provided");
             return resultWrapper;
         }
-        for (AuditUniverse auditUniverse : auditUniverses) {
+        for (AuditObject auditObject : auditObjects) {
 
-            if (auditUniverse.getStatus().equals(AuditUniverseStatus.Approved.name())){
+            if (auditObject.getStatus().equals(AuditUniverseStatus.Approved.name())){
 
                 AnnualPlan annualPlan = new AnnualPlan();
-                annualPlan.setAuditUniverse(auditUniverse);
+                annualPlan.setAuditUniverse(auditObject.getAuditUniverse());
                 annualPlan.setYear(year);
                 annualPlan.setStatus(AnnualPlanStatus.Pending.name());
                 annualPlan.setCreatedTimestamp(LocalDateTime.now());
-                annualPlan.setName(auditUniverse.getName());
+                annualPlan.setName(auditObject.getName());
+                annualPlan.setAuditObject(auditObject);
                 annualPlan.setCreatedUser("TODO");
                 AnnualPlan savedAnnualPlan = annualPlanRepository.save(annualPlan);
-                int score = saveRiskScore(getRiskScoresOfAuditType(auditUniverse.getType()), savedAnnualPlan);
+                int score = saveRiskScore(getRiskScoresOfAuditType(auditObject.getAuditType()), savedAnnualPlan);
                 savedAnnualPlan.setRiskScore(score);
                 savedAnnualPlan.setRiskLevel(getRiskLevel(score));
                 annualPlanRepository.save(savedAnnualPlan);
                 annualPlanDTOS.add(AnnualPlanMapper.INSTANCE.toDTO(savedAnnualPlan));
-
             }
         }
         resultWrapper.setStatus(true);

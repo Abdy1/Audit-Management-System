@@ -29,8 +29,4 @@ public class AuditUniverse  extends BaseEntity{
     @UpdateTimestamp
     @Column(name = "APPROVED_AT")
     private LocalDateTime approvedAt;
-
-    @ManyToOne
-    @JoinColumn(name = "AUDIT_OBJECT_ID")
-    private AuditObject auditObject;
 }

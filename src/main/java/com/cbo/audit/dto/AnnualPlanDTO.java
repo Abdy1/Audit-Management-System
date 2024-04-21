@@ -32,5 +32,7 @@ public class AnnualPlanDTO extends BaseDTO{
 
     private AuditUniverseDTO auditUniverse;
 
+    private AuditObjectDTO auditObject;
+
     private List<RiskScoreDTO> riskScores;
 }

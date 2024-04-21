@@ -12,4 +12,7 @@ public interface AuditObjectRepository extends JpaRepository<AuditObject, Long> 
 
     @Query(" SELECT AO FROM AuditObject AO WHERE AO.auditType = :auditType")
     List<AuditObject> findAuditObjectsByAuditType(@Param("auditType") String auditType);
+
+    @Query(" SELECT AO FROM AuditObject AO WHERE AO.auditUniverse.id = :universeId")
+    List<AuditObject> findAuditObjectsByUniverseId(@Param("universeId") Long universeId);
 }

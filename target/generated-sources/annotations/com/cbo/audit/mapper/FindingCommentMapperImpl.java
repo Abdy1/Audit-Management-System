@@ -33,7 +33,11 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
+<<<<<<< HEAD
     date = "2024-04-22T08:12:49+0300",
+=======
+    date = "2024-03-26T15:31:29+0300",
+>>>>>>> 0ae09cec54e57f3e3ef58be15b9f317a55722add
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
@@ -360,6 +364,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         auditStaffDTO.setModifiedTimestamp( auditStaff.getModifiedTimestamp() );
         auditStaffDTO.setAuditType( auditTypeToAuditTypeDTO( auditStaff.getAuditType() ) );
         auditStaffDTO.setEmployeeId( auditStaff.getEmployeeId() );
+        auditStaffDTO.setFullName( auditStaff.getFullName() );
         auditStaffDTO.setStatus( auditStaff.getStatus() );
 
         return auditStaffDTO;
@@ -388,6 +393,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         findingDTO.setAuditees( finding.getAuditees() );
         findingDTO.setAuditeesResponse( finding.getAuditeesResponse() );
         findingDTO.setJustifications( finding.getJustifications() );
+        findingDTO.setIsVisibleToAuditees( finding.getIsVisibleToAuditees() );
         findingDTO.setRegisteredBy( auditStaffToAuditStaffDTO( finding.getRegisteredBy() ) );
         findingDTO.setApprovedBY( auditStaffToAuditStaffDTO( finding.getApprovedBY() ) );
         findingDTO.setResponseTime( finding.getResponseTime() );
@@ -641,6 +647,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
             mappingTarget.setAuditType( null );
         }
         mappingTarget.setEmployeeId( auditStaff.getEmployeeId() );
+        mappingTarget.setFullName( auditStaff.getFullName() );
         mappingTarget.setStatus( auditStaff.getStatus() );
     }
 
@@ -681,6 +688,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         mappingTarget.setAuditees( finding.getAuditees() );
         mappingTarget.setAuditeesResponse( finding.getAuditeesResponse() );
         mappingTarget.setJustifications( finding.getJustifications() );
+        mappingTarget.setIsVisibleToAuditees( finding.getIsVisibleToAuditees() );
         if ( finding.getRegisteredBy() != null ) {
             if ( mappingTarget.getRegisteredBy() == null ) {
                 mappingTarget.setRegisteredBy( new AuditStaffDTO() );
@@ -959,6 +967,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         auditStaff.setModifiedTimestamp( auditStaffDTO.getModifiedTimestamp() );
         auditStaff.setAuditType( auditTypeDTOToAuditType( auditStaffDTO.getAuditType() ) );
         auditStaff.setEmployeeId( auditStaffDTO.getEmployeeId() );
+        auditStaff.setFullName( auditStaffDTO.getFullName() );
         auditStaff.setStatus( auditStaffDTO.getStatus() );
 
         return auditStaff;
@@ -987,6 +996,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         finding.setAuditees( findingDTO.getAuditees() );
         finding.setAuditeesResponse( findingDTO.getAuditeesResponse() );
         finding.setJustifications( findingDTO.getJustifications() );
+        finding.setIsVisibleToAuditees( findingDTO.getIsVisibleToAuditees() );
         finding.setRegisteredBy( auditStaffDTOToAuditStaff( findingDTO.getRegisteredBy() ) );
         finding.setApprovedBY( auditStaffDTOToAuditStaff( findingDTO.getApprovedBY() ) );
         finding.setResponseTime( findingDTO.getResponseTime() );

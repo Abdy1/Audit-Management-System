@@ -22,5 +22,5 @@ public class AuditTaskDTO extends BaseDTO{
 
     private String endDate;
 
-    private AnnualPlan annualPlan;
+    private AnnualPlanDTO annualPlan;
 }

@@ -10,7 +10,8 @@ import javax.persistence.*;
 @Setter
 @Getter
 public class AuditProgramObjective extends BaseEntity{
-    @Column(name="Audit_Objective")
+
+    @Column(name="Audit_Objective",columnDefinition = "text")
     private String description;
 
 

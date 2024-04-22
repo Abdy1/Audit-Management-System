@@ -31,11 +31,9 @@ public class AuditProgramFindingController {
     private  AuditProgramFindingService auditProgramFindingService;
     @PostMapping(value = AUDIT_PROGRAM_FINDING_REGISTER,consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<FindingDTO>> addFindingToAuditProgram(@RequestBody FindingDTO findingDTO) throws IOException {
-ResultWrapper<FindingDTO> resultWrapper=auditProgramFindingService.registerAuditProgramFinding(findingDTO);
+     ResultWrapper<FindingDTO> resultWrapper=auditProgramFindingService.registerAuditProgramFinding(findingDTO);
         System.out.println("api");
         return new ResponseEntity<>(resultWrapper,HttpStatus.CREATED);
-
-
     }
     @PostMapping("ams/auditProgram/finding/attachEvidence/{id}")
     public ResponseEntity<ResultWrapper<String>> attachEvidence(@RequestParam("file")MultipartFile file,@PathVariable("id") Long id) throws IOException {
@@ -67,4 +65,12 @@ return new ResponseEntity<>(resultWrapper,HttpStatus.OK);
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(resource);
     }
+
+    @GetMapping(value = "ams/auditProgram/finding/makeVisible/ByFindingId/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public void makeFindingVisible(@PathVariable(name="id") Long id){
+      auditProgramFindingService.makeVisible(id);
+
+
+    }
+
 }

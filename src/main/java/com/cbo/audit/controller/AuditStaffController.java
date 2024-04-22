@@ -6,17 +6,17 @@ import com.cbo.audit.dto.AuditTypeDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.dto.AuditStaffDTO;
 import com.cbo.audit.dto.UserDTO;
+import com.cbo.audit.persistence.model.AuditStaff;
 import com.cbo.audit.service.AuditStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.xml.transform.Result;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class AuditStaffController {
@@ -35,6 +35,15 @@ public class AuditStaffController {
     public ResponseEntity<ResultWrapper<AuditStaffDTO>> getAuditStaffById(@RequestBody AuditStaffDTO auditStaffDTO){
 
         ResultWrapper<AuditStaffDTO> resultWrapper=auditStaffService.getAuditStaffById(auditStaffDTO.getId());
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @GetMapping(value = URIs.AUDIT_STAFF_BY_USER_ID, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> getAuditStaffById(@PathVariable String employeeId){
+        Optional<AuditStaff> theAuditStaff = auditStaffService.findAuditStaffByEmployeeId(employeeId);
+        System.out.println(theAuditStaff);
+        Long resultWrapper = theAuditStaff.get().getId();
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

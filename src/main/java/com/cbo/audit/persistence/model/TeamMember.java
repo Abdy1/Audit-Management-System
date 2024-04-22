@@ -18,6 +18,9 @@ public class TeamMember extends BaseEntity{
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
     private TeamMemberStatus status;
+//    @Column(name = "STATUS")
+//    private TeamMemberStatus auditProgramStatus;
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = " TEAM_TYPE")

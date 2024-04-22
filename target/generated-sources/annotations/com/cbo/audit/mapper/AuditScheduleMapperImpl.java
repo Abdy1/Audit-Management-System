@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-01T16:00:31+0300",
+    date = "2024-04-22T08:12:48+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
@@ -156,25 +156,6 @@ public class AuditScheduleMapperImpl implements AuditScheduleMapper {
         return list1;
     }
 
-    protected AuditObjectDTO auditObjectToAuditObjectDTO(AuditObject auditObject) {
-        if ( auditObject == null ) {
-            return null;
-        }
-
-        AuditObjectDTO auditObjectDTO = new AuditObjectDTO();
-
-        auditObjectDTO.setId( auditObject.getId() );
-        auditObjectDTO.setCreatedUser( auditObject.getCreatedUser() );
-        auditObjectDTO.setModifiedUser( auditObject.getModifiedUser() );
-        auditObjectDTO.setCreatedTimestamp( auditObject.getCreatedTimestamp() );
-        auditObjectDTO.setModifiedTimestamp( auditObject.getModifiedTimestamp() );
-        auditObjectDTO.setName( auditObject.getName() );
-        auditObjectDTO.setDescription( auditObject.getDescription() );
-        auditObjectDTO.setAuditType( auditObject.getAuditType() );
-
-        return auditObjectDTO;
-    }
-
     protected AuditUniverseDTO auditUniverseToAuditUniverseDTO(AuditUniverse auditUniverse) {
         if ( auditUniverse == null ) {
             return null;
@@ -191,9 +172,28 @@ public class AuditScheduleMapperImpl implements AuditScheduleMapper {
         auditUniverseDTO.setStatus( auditUniverse.getStatus() );
         auditUniverseDTO.setApprovedBy( auditUniverse.getApprovedBy() );
         auditUniverseDTO.setApprovedAt( auditUniverse.getApprovedAt() );
-        auditUniverseDTO.setAuditObject( auditObjectToAuditObjectDTO( auditUniverse.getAuditObject() ) );
 
         return auditUniverseDTO;
+    }
+
+    protected AuditObjectDTO auditObjectToAuditObjectDTO(AuditObject auditObject) {
+        if ( auditObject == null ) {
+            return null;
+        }
+
+        AuditObjectDTO auditObjectDTO = new AuditObjectDTO();
+
+        auditObjectDTO.setId( auditObject.getId() );
+        auditObjectDTO.setCreatedUser( auditObject.getCreatedUser() );
+        auditObjectDTO.setModifiedUser( auditObject.getModifiedUser() );
+        auditObjectDTO.setCreatedTimestamp( auditObject.getCreatedTimestamp() );
+        auditObjectDTO.setModifiedTimestamp( auditObject.getModifiedTimestamp() );
+        auditObjectDTO.setName( auditObject.getName() );
+        auditObjectDTO.setDescription( auditObject.getDescription() );
+        auditObjectDTO.setAuditType( auditObject.getAuditType() );
+        auditObjectDTO.setAuditUniverse( auditObject.getAuditUniverse() );
+
+        return auditObjectDTO;
     }
 
     protected AnnualPlanDTO annualPlanToAnnualPlanDTO(AnnualPlan annualPlan) {
@@ -216,23 +216,9 @@ public class AuditScheduleMapperImpl implements AuditScheduleMapper {
         annualPlanDTO.setStatus( annualPlan.getStatus() );
         annualPlanDTO.setRectificationStatus( annualPlan.getRectificationStatus() );
         annualPlanDTO.setAuditUniverse( auditUniverseToAuditUniverseDTO( annualPlan.getAuditUniverse() ) );
+        annualPlanDTO.setAuditObject( auditObjectToAuditObjectDTO( annualPlan.getAuditObject() ) );
 
         return annualPlanDTO;
-    }
-
-    protected void auditObjectToAuditObjectDTO1(AuditObject auditObject, AuditObjectDTO mappingTarget) {
-        if ( auditObject == null ) {
-            return;
-        }
-
-        mappingTarget.setId( auditObject.getId() );
-        mappingTarget.setCreatedUser( auditObject.getCreatedUser() );
-        mappingTarget.setModifiedUser( auditObject.getModifiedUser() );
-        mappingTarget.setCreatedTimestamp( auditObject.getCreatedTimestamp() );
-        mappingTarget.setModifiedTimestamp( auditObject.getModifiedTimestamp() );
-        mappingTarget.setName( auditObject.getName() );
-        mappingTarget.setDescription( auditObject.getDescription() );
-        mappingTarget.setAuditType( auditObject.getAuditType() );
     }
 
     protected void auditUniverseToAuditUniverseDTO1(AuditUniverse auditUniverse, AuditUniverseDTO mappingTarget) {
@@ -249,15 +235,22 @@ public class AuditScheduleMapperImpl implements AuditScheduleMapper {
         mappingTarget.setStatus( auditUniverse.getStatus() );
         mappingTarget.setApprovedBy( auditUniverse.getApprovedBy() );
         mappingTarget.setApprovedAt( auditUniverse.getApprovedAt() );
-        if ( auditUniverse.getAuditObject() != null ) {
-            if ( mappingTarget.getAuditObject() == null ) {
-                mappingTarget.setAuditObject( new AuditObjectDTO() );
-            }
-            auditObjectToAuditObjectDTO1( auditUniverse.getAuditObject(), mappingTarget.getAuditObject() );
+    }
+
+    protected void auditObjectToAuditObjectDTO1(AuditObject auditObject, AuditObjectDTO mappingTarget) {
+        if ( auditObject == null ) {
+            return;
         }
-        else {
-            mappingTarget.setAuditObject( null );
-        }
+
+        mappingTarget.setId( auditObject.getId() );
+        mappingTarget.setCreatedUser( auditObject.getCreatedUser() );
+        mappingTarget.setModifiedUser( auditObject.getModifiedUser() );
+        mappingTarget.setCreatedTimestamp( auditObject.getCreatedTimestamp() );
+        mappingTarget.setModifiedTimestamp( auditObject.getModifiedTimestamp() );
+        mappingTarget.setName( auditObject.getName() );
+        mappingTarget.setDescription( auditObject.getDescription() );
+        mappingTarget.setAuditType( auditObject.getAuditType() );
+        mappingTarget.setAuditUniverse( auditObject.getAuditUniverse() );
     }
 
     protected void annualPlanToAnnualPlanDTO1(AnnualPlan annualPlan, AnnualPlanDTO mappingTarget) {
@@ -285,6 +278,15 @@ public class AuditScheduleMapperImpl implements AuditScheduleMapper {
         }
         else {
             mappingTarget.setAuditUniverse( null );
+        }
+        if ( annualPlan.getAuditObject() != null ) {
+            if ( mappingTarget.getAuditObject() == null ) {
+                mappingTarget.setAuditObject( new AuditObjectDTO() );
+            }
+            auditObjectToAuditObjectDTO1( annualPlan.getAuditObject(), mappingTarget.getAuditObject() );
+        }
+        else {
+            mappingTarget.setAuditObject( null );
         }
     }
 
@@ -321,25 +323,6 @@ public class AuditScheduleMapperImpl implements AuditScheduleMapper {
         return list1;
     }
 
-    protected AuditObject auditObjectDTOToAuditObject(AuditObjectDTO auditObjectDTO) {
-        if ( auditObjectDTO == null ) {
-            return null;
-        }
-
-        AuditObject auditObject = new AuditObject();
-
-        auditObject.setId( auditObjectDTO.getId() );
-        auditObject.setCreatedUser( auditObjectDTO.getCreatedUser() );
-        auditObject.setModifiedUser( auditObjectDTO.getModifiedUser() );
-        auditObject.setCreatedTimestamp( auditObjectDTO.getCreatedTimestamp() );
-        auditObject.setModifiedTimestamp( auditObjectDTO.getModifiedTimestamp() );
-        auditObject.setName( auditObjectDTO.getName() );
-        auditObject.setDescription( auditObjectDTO.getDescription() );
-        auditObject.setAuditType( auditObjectDTO.getAuditType() );
-
-        return auditObject;
-    }
-
     protected AuditUniverse auditUniverseDTOToAuditUniverse(AuditUniverseDTO auditUniverseDTO) {
         if ( auditUniverseDTO == null ) {
             return null;
@@ -356,9 +339,28 @@ public class AuditScheduleMapperImpl implements AuditScheduleMapper {
         auditUniverse.setStatus( auditUniverseDTO.getStatus() );
         auditUniverse.setApprovedBy( auditUniverseDTO.getApprovedBy() );
         auditUniverse.setApprovedAt( auditUniverseDTO.getApprovedAt() );
-        auditUniverse.setAuditObject( auditObjectDTOToAuditObject( auditUniverseDTO.getAuditObject() ) );
 
         return auditUniverse;
+    }
+
+    protected AuditObject auditObjectDTOToAuditObject(AuditObjectDTO auditObjectDTO) {
+        if ( auditObjectDTO == null ) {
+            return null;
+        }
+
+        AuditObject auditObject = new AuditObject();
+
+        auditObject.setId( auditObjectDTO.getId() );
+        auditObject.setCreatedUser( auditObjectDTO.getCreatedUser() );
+        auditObject.setModifiedUser( auditObjectDTO.getModifiedUser() );
+        auditObject.setCreatedTimestamp( auditObjectDTO.getCreatedTimestamp() );
+        auditObject.setModifiedTimestamp( auditObjectDTO.getModifiedTimestamp() );
+        auditObject.setName( auditObjectDTO.getName() );
+        auditObject.setDescription( auditObjectDTO.getDescription() );
+        auditObject.setAuditType( auditObjectDTO.getAuditType() );
+        auditObject.setAuditUniverse( auditObjectDTO.getAuditUniverse() );
+
+        return auditObject;
     }
 
     protected AnnualPlan annualPlanDTOToAnnualPlan(AnnualPlanDTO annualPlanDTO) {
@@ -381,6 +383,7 @@ public class AuditScheduleMapperImpl implements AuditScheduleMapper {
         annualPlan.setStatus( annualPlanDTO.getStatus() );
         annualPlan.setRectificationStatus( annualPlanDTO.getRectificationStatus() );
         annualPlan.setAuditUniverse( auditUniverseDTOToAuditUniverse( annualPlanDTO.getAuditUniverse() ) );
+        annualPlan.setAuditObject( auditObjectDTOToAuditObject( annualPlanDTO.getAuditObject() ) );
 
         return annualPlan;
     }

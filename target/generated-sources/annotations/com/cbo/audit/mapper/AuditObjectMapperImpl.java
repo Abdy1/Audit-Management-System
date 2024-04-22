@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-01T16:00:30+0300",
+    date = "2024-04-22T08:12:49+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
@@ -29,6 +29,7 @@ public class AuditObjectMapperImpl implements AuditObjectMapper {
         auditObjectDTO.setName( auditObject.getName() );
         auditObjectDTO.setDescription( auditObject.getDescription() );
         auditObjectDTO.setAuditType( auditObject.getAuditType() );
+        auditObjectDTO.setAuditUniverse( auditObject.getAuditUniverse() );
 
         return auditObjectDTO;
     }
@@ -47,6 +48,7 @@ public class AuditObjectMapperImpl implements AuditObjectMapper {
         auditObjectDTO.setName( auditObject.getName() );
         auditObjectDTO.setDescription( auditObject.getDescription() );
         auditObjectDTO.setAuditType( auditObject.getAuditType() );
+        auditObjectDTO.setAuditUniverse( auditObject.getAuditUniverse() );
     }
 
     @Override
@@ -65,6 +67,7 @@ public class AuditObjectMapperImpl implements AuditObjectMapper {
         auditObject.setName( auditObjectDTO.getName() );
         auditObject.setDescription( auditObjectDTO.getDescription() );
         auditObject.setAuditType( auditObjectDTO.getAuditType() );
+        auditObject.setAuditUniverse( auditObjectDTO.getAuditUniverse() );
 
         return auditObject;
     }

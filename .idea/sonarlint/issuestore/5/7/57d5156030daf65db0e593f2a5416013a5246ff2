@@ -1,0 +1,11 @@
+
+E
+java:S1948"*Make "employee" transient or serializable.(ô› şÿÿÿÿ
+Q
+java:S1128"6Remove this unused import 'lombok.AllArgsConstructor'.(´œ¾öùÿÿÿÿ
+@
+java:S1128"*Remove this unused import 'lombok.Getter'.(ùÒµÙ
+K
+java:S1128"5Remove this unused import 'lombok.NoArgsConstructor'.(¸¨›
+@
+java:S1128"*Remove this unused import 'lombok.Setter'.(ó¸çµ

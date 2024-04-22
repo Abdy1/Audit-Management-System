@@ -1,14 +1,11 @@
 package com.cbo.audit.service.impl;
 
-import com.cbo.audit.dto.AuditableAreaDTO;
 import com.cbo.audit.dto.ChecklistItemDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.mapper.ChecklistItemMapper;
-import com.cbo.audit.persistence.model.AuditObject;
 import com.cbo.audit.persistence.model.AuditableArea;
 import com.cbo.audit.persistence.model.ChecklistItem;
 import com.cbo.audit.persistence.repository.ChecklistItemRepository;
-import com.cbo.audit.service.AuditObjectService;
 import com.cbo.audit.service.AuditableAreaService;
 import com.cbo.audit.service.ChecklistItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,34 +27,59 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
 
     @Autowired
     private AuditableAreaService auditableAreaService;
+//
+//    @Override
+//    public ResultWrapper<ChecklistItemDTO> registerChecklistItem(ChecklistItemDTO checklistItemDTO) {
+//        ResultWrapper<ChecklistItemDTO> resultWrapper = new ResultWrapper<>();
+//
+//        Optional<AuditableArea> auditableArea = auditableAreaService.findAuditableAreaById(checklistItemDTO.getAuditableArea().getId());
+//        if (!auditableArea.isPresent()) {
+//            resultWrapper.setStatus(false);
+//            resultWrapper.setMessage("Auditable area with the provided information is not available.");
+//            return resultWrapper;
+//        }
+//
+//        if (checklistItemDTO.getName() == null) {
+//            resultWrapper.setStatus(false);
+//            resultWrapper.setMessage("Checklist Item name cannot be null.");
+//            return resultWrapper;
+//        }
+//
+//        ChecklistItem checklistItem = ChecklistItemMapper.INSTANCE.toEntity(checklistItemDTO);
+//        checklistItem.setCreatedTimestamp(LocalDateTime.now());
+//        checklistItem.setCreatedUser("TODO");
+//        checklistItem.setAuditableArea(auditableArea.get());
+//        ChecklistItem savedPlan = checklistItemRepository.save(checklistItem);
+//
+//        resultWrapper.setStatus(true);
+//        resultWrapper.setResult(ChecklistItemMapper.INSTANCE.toDTO(savedPlan));
+//        resultWrapper.setMessage("Checklist Item created successfully.");
+//        return resultWrapper;
+//    }
 
     @Override
-    public ResultWrapper<ChecklistItemDTO> registerChecklistItem(ChecklistItemDTO checklistItemDTO) {
-        ResultWrapper<ChecklistItemDTO> resultWrapper = new ResultWrapper<>();
-
-        Optional<AuditableArea> auditableArea = auditableAreaService.findAuditableAreaById(checklistItemDTO.getAuditableArea().getId());
-        if (!auditableArea.isPresent()) {
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Auditable area with the provided information is not available.");
-            return resultWrapper;
-        }
+    public ResultWrapper registerChecklistItem(ChecklistItemDTO checklistItemDTO) {
 
         if (checklistItemDTO.getName() == null) {
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Checklist Item name cannot be null.");
-            return resultWrapper;
+            return new ResultWrapper<>(null, false, "Checklist Item name cannot be null.");
         }
 
-        ChecklistItem checklistItem = ChecklistItemMapper.INSTANCE.toEntity(checklistItemDTO);
-        checklistItem.setCreatedTimestamp(LocalDateTime.now());
-        checklistItem.setCreatedUser("TODO");
-        checklistItem.setAuditableArea(auditableArea.get());
-        ChecklistItem savedPlan = checklistItemRepository.save(checklistItem);
+        Optional<AuditableArea> auditableAreaOpt = auditableAreaService.findAuditableAreaById(checklistItemDTO.getAuditableArea().getId());
+        if (!auditableAreaOpt.isPresent()) {
+            return new ResultWrapper<>(null, false, "Auditable area with the provided information is not available.");
+        }
 
-        resultWrapper.setStatus(true);
-        resultWrapper.setResult(ChecklistItemMapper.INSTANCE.toDTO(savedPlan));
-        resultWrapper.setMessage("Checklist Item created successfully.");
-        return resultWrapper;
+        AuditableArea auditableArea = auditableAreaOpt.get();
+        ChecklistItem checklistItem = new ChecklistItem();
+        checklistItem.setName(checklistItemDTO.getName());
+        checklistItem.setCreatedTimestamp(LocalDateTime.now());
+        checklistItem.setCreatedUser("TODO"); // Replace "TODOs" with actual user information
+        checklistItem.setAuditableArea(auditableArea);
+
+        ChecklistItem savedChecklistItem = checklistItemRepository.save(checklistItem);
+        checklistItemDTO.setId(savedChecklistItem.getId()); // Assuming the DTO has an id field
+
+        return new ResultWrapper<>(checklistItemDTO, true, "Checklist Item created successfully.");
     }
 
     @Override

@@ -29,5 +29,4 @@ public class AuditObject extends BaseEntity{
     @JoinColumn(name = "AUDIT_UNIVERSE_ID")
     private AuditUniverse auditUniverse;
 
-
 }

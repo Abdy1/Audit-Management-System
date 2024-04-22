@@ -84,7 +84,7 @@ public class ScheduleController {
     @GetMapping(value = URIs.AUDIT_ENGAGEMENT_LIST_ALL,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<List<EngagementDTO>>> getAuditEngagements(){
 
-        ResultWrapper<List<EngagementDTO>> resultWrapper=auditScheduleService.getAuditEngagements();
+        ResultWrapper<List<EngagementDTO>> resultWrapper = auditScheduleService.getAuditEngagements();
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
+@Table(name = "amended_finding")
 public class AmendedFinding extends BaseEntity{
     @ManyToOne
     private Finding finding;

@@ -12,5 +12,7 @@ public class AuditStaffDTO extends BaseDTO{
 
     private String employeeId;
 
+    private String fullName;
+
     private AuditStaffStatus status;
 }

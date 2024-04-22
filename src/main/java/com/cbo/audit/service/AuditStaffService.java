@@ -1,6 +1,5 @@
 package com.cbo.audit.service;
 
-import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.dto.AuditStaffDTO;
 import com.cbo.audit.dto.UserDTO;
@@ -14,6 +13,8 @@ public interface AuditStaffService {
     ResultWrapper<AuditStaffDTO> registerAuditStaff(AuditStaffDTO auditObjectDTO);
 
     ResultWrapper<AuditStaffDTO> getAuditStaffById(Long id);
+
+    Optional<AuditStaff> findAuditStaffByEmployeeId(String employeeId);
 
     Optional<AuditStaff> findAuditStaffById(Long id);
 

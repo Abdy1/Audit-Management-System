@@ -6,6 +6,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,4 +31,12 @@ public class AuditUniverse  extends BaseEntity{
     @UpdateTimestamp
     @Column(name = "APPROVED_AT")
     private LocalDateTime approvedAt;
+<<<<<<< HEAD
+=======
+
+    @ManyToOne
+    @JoinColumn(name = "AUDIT_OBJECT_ID")
+    private AuditObject auditObject;
+
+>>>>>>> 0ae09cec54e57f3e3ef58be15b9f317a55722add
 }

@@ -61,6 +61,7 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
 
 
         Finding finding = FindingMapper.INSTANCE.toEntity(findingDTO);
+        finding.setIsVisibleToAuditees(false);
         finding.setCreatedTimestamp(LocalDateTime.now());
         finding.setFindingEvidenceFileUploadedToSupplementTheFindingsPath(null);
         Finding savedFinding = auditProgramFindingRepository.save(finding);
@@ -78,7 +79,7 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
     public ResultWrapper<List<FindingDTO>> listAllFindingsByAuditProgramId(Long auditProgram_id) {
         ResultWrapper<List<FindingDTO>> resultWrapper = new ResultWrapper<>();
         List<Finding> findings = auditProgramFindingRepository.findFindingByAuditProgramId(auditProgram_id);
-        System.out.println(findings.size());
+        System.out.println(findings.get(0).getIsVisibleToAuditees());
         if (findings.isEmpty()) {
             resultWrapper.setMessage("Finding with the provided information does not exist");
             resultWrapper.setStatus(false);
@@ -86,6 +87,7 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
             return resultWrapper;
         }
         List<FindingDTO> findingDTOs = FindingMapper.INSTANCE.FindingToFindingDTOs(findings);
+        System.out.println(findingDTOs.get(0).getIsVisibleToAuditees());
         resultWrapper.setResult(findingDTOs);
         resultWrapper.setStatus(true);
         return resultWrapper;
@@ -280,6 +282,15 @@ return resource;
         }
 
 
+    }
+
+    @Override
+    public void makeVisible(Long id) {
+       Finding finding=auditProgramFindingRepository.getById(id);
+
+       if(finding != null){
+           finding.setIsVisibleToAuditees(true);
+       }
     }
 
 }

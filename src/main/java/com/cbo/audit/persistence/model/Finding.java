@@ -34,7 +34,7 @@ private String auditees ; //Unit being Audited?
 private String auditeesResponse; //after finding approved and set visible
      @Column(columnDefinition="TEXT")
 private String justifications;
-private Boolean isVisibletoAuditees;
+private Boolean isVisibleToAuditees;
 //Auditees references the auditees users what does it mean?
      @ManyToOne
 private AuditStaff registeredBy;

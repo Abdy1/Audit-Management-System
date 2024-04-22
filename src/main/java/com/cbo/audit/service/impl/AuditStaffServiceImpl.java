@@ -1,31 +1,23 @@
 package com.cbo.audit.service.impl;
 
-import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.dto.AuditStaffDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.dto.UserDTO;
 import com.cbo.audit.enums.AuditStaffStatus;
-import com.cbo.audit.enums.TeamType;
 import com.cbo.audit.mapper.AuditStaffMapper;
 import com.cbo.audit.mapper.UserMapper;
-import com.cbo.audit.persistence.model.AuditSchedule;
 import com.cbo.audit.persistence.model.AuditStaff;
-import com.cbo.audit.persistence.model.User;
 import com.cbo.audit.persistence.repository.AuditStaffRepository;
 import com.cbo.audit.persistence.repository.EmployeeRepository;
 import com.cbo.audit.persistence.repository.UserRepository;
-import com.cbo.audit.service.AuditScheduleService;
 import com.cbo.audit.service.AuditStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service("auditStaffService")
 @Transactional
@@ -56,6 +48,8 @@ public class AuditStaffServiceImpl implements AuditStaffService {
         auditStaff.setStatus(AuditStaffStatus.Active);
         auditStaff.setCreatedUser("TODO");
         auditStaff.setEmployeeId(auditStaff.getEmployeeId());
+        auditStaff.setFullName(auditStaff.getFullName());
+
 
         AuditStaff savedMember = auditStaffRepository.save(auditStaff);
 
@@ -83,6 +77,11 @@ public class AuditStaffServiceImpl implements AuditStaffService {
     @Override
     public Optional<AuditStaff> findAuditStaffById(Long id) {
         return auditStaffRepository.findById(id);
+    }
+
+
+    @Override
+    public Optional<AuditStaff> findAuditStaffByEmployeeId(String employeeId) {return auditStaffRepository.findAuditStaffByEmployeeId(employeeId);
     }
 
     @Override

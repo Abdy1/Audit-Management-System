@@ -13,7 +13,11 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-01T16:00:31+0300",
+<<<<<<< HEAD
+    date = "2024-04-22T08:12:49+0300",
+=======
+    date = "2024-03-26T15:31:29+0300",
+>>>>>>> 0ae09cec54e57f3e3ef58be15b9f317a55722add
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
@@ -146,6 +150,7 @@ public class ChecklistItemMapperImpl implements ChecklistItemMapper {
         auditObjectDTO.setName( auditObject.getName() );
         auditObjectDTO.setDescription( auditObject.getDescription() );
         auditObjectDTO.setAuditType( auditObject.getAuditType() );
+        auditObjectDTO.setAuditUniverse( auditObject.getAuditUniverse() );
 
         return auditObjectDTO;
     }
@@ -182,6 +187,7 @@ public class ChecklistItemMapperImpl implements ChecklistItemMapper {
         mappingTarget.setName( auditObject.getName() );
         mappingTarget.setDescription( auditObject.getDescription() );
         mappingTarget.setAuditType( auditObject.getAuditType() );
+        mappingTarget.setAuditUniverse( auditObject.getAuditUniverse() );
     }
 
     protected void auditableAreaToAuditableAreaDTO1(AuditableArea auditableArea, AuditableAreaDTO mappingTarget) {
@@ -222,6 +228,7 @@ public class ChecklistItemMapperImpl implements ChecklistItemMapper {
         auditObject.setName( auditObjectDTO.getName() );
         auditObject.setDescription( auditObjectDTO.getDescription() );
         auditObject.setAuditType( auditObjectDTO.getAuditType() );
+        auditObject.setAuditUniverse( auditObjectDTO.getAuditUniverse() );
 
         return auditObject;
     }

@@ -27,6 +27,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service("auditScheduleService")
 @Transactional
@@ -36,7 +37,6 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
     private AuditScheduleRepository auditScheduleRepository;
     @Autowired
     private AnnualPlanService annualPlanService;
-
 
     @Autowired
     private AnnualPlanRepository annualPlanRepository;
@@ -48,6 +48,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
     @Autowired
     private BudgetYearRepository budgetYearRepository;
+
 
     @Override
     public ResultWrapper<AuditScheduleDTO> registerAuditSchedule(AuditScheduleDTO auditScheduleDTO) {
@@ -101,6 +102,9 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             for (AuditScheduleDTO auditScheduleDTO : auditScheduleDTOS) {
                 List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
                 List<TeamMemberDTO> teamMemberDTOS = TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
+//                if (!teamMembers.isEmpty()){
+//                    teamMembers.get(0).getAuditStaff();
+//                }
                 auditScheduleDTO.setTeamMembers(teamMemberDTOS);
                 modifiedSchedules.add(auditScheduleDTO);
             }
@@ -301,14 +305,21 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
         ResultWrapper<List<EngagementDTO>> resultWrapper = new ResultWrapper<>();
         List<EngagementInfo> engagementInfos=engagementInfoRepository.findEngagementByYear(year);
-        System.out.println( engagementInfos.get(1).getAuditSchedule().getTeamMembers().get(0).getAuditStaff());
 
         if (!engagementInfos.isEmpty()){
             List<EngagementDTO> engagementDTOS = EngagementMapper.INSTANCE.engagementInfosToEngagementDTOs(engagementInfos);
-
+            engagementDTOS = engagementDTOS.stream().map(engagementDTO -> {
+                AuditScheduleDTO auditScheduleDTO = engagementDTO.getAuditSchedule();
+                List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
+                List<TeamMemberDTO> teamMemberDTOS = TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
+                auditScheduleDTO.setTeamMembers(teamMemberDTOS);
+                engagementDTO.setAuditSchedule(auditScheduleDTO);
+                return engagementDTO;
+            }).collect(Collectors.toList());
             resultWrapper.setResult(engagementDTOS);
             resultWrapper.setStatus(true);
-        }{
+        } else
+        {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Engagement not found.");
         }

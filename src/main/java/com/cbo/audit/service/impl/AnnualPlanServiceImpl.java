@@ -261,7 +261,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
             return resultWrapper;
         }
         for (AuditUniverse auditUniverse : auditUniverses) {
-
+            System.out.println(auditUniverse.getName());
             if (auditUniverse.getStatus().equals(AuditUniverseStatus.Approved.name())){
 
                 AnnualPlan annualPlan = new AnnualPlan();
@@ -272,6 +272,8 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
                 annualPlan.setName(auditUniverse.getName());
                 annualPlan.setCreatedUser("TODO");
                 AnnualPlan savedAnnualPlan = annualPlanRepository.save(annualPlan);
+                System.out.println(savedAnnualPlan.getId());
+
                 int score = saveRiskScore(getRiskScoresOfAuditType(auditUniverse.getType()), savedAnnualPlan);
                 savedAnnualPlan.setRiskScore(score);
                 savedAnnualPlan.setRiskLevel(getRiskLevel(score));

@@ -1,0 +1,6 @@
+
+
+java:S1488R"]Immediately return this expression instead of assigning it to the temporary variable "roles".(ìÑã•ÿÿÿÿÿJ$6b0d5c79-935b-42a9-9ad2-f16858559dcb
+l
+java:S1172"+Remove this unused method parameter "date".(¨ÆÊóøÿÿÿÿJ$7d436645-111f-41a4-b417-3de29de20071
+f	java:S106;"+Replace this use of System.out by a logger.(ÖÓ†“J$8dec9158-36c7-497c-807e-99327b4fc1a8

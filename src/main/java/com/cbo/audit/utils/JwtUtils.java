@@ -1,4 +1,4 @@
-package com.cbo.core.utility;
+package com.cbo.audit.utils;
 
 
 import io.jsonwebtoken.*;

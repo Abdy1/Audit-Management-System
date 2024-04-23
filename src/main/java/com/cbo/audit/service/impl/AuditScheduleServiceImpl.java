@@ -305,7 +305,6 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
         if (!engagementInfos.isEmpty()){
             List<EngagementDTO> engagementDTOS = EngagementMapper.INSTANCE.engagementInfosToEngagementDTOs(engagementInfos);
-<<<<<<< HEAD
             engagementDTOS = engagementDTOS.stream().map(engagementDTO -> {
                 AuditScheduleDTO auditScheduleDTO = engagementDTO.getAuditSchedule();
                 List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
@@ -314,9 +313,6 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
                 engagementDTO.setAuditSchedule(auditScheduleDTO);
                 return engagementDTO;
             }).collect(Collectors.toList());
-=======
-
->>>>>>> 0ae09cec54e57f3e3ef58be15b9f317a55722add
             resultWrapper.setResult(engagementDTOS);
             resultWrapper.setStatus(true);
         }{

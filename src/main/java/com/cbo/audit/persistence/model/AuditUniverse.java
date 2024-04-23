@@ -19,9 +19,6 @@ public class AuditUniverse  extends BaseEntity{
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "TYPE")
-    private String type;
-
     @Column(name = "STATUS")
     private String status;
 
@@ -31,12 +28,4 @@ public class AuditUniverse  extends BaseEntity{
     @UpdateTimestamp
     @Column(name = "APPROVED_AT")
     private LocalDateTime approvedAt;
-<<<<<<< HEAD
-=======
-
-    @ManyToOne
-    @JoinColumn(name = "AUDIT_OBJECT_ID")
-    private AuditObject auditObject;
-
->>>>>>> 0ae09cec54e57f3e3ef58be15b9f317a55722add
 }

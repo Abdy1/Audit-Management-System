@@ -57,3 +57,5 @@ v
 Fsrc/main/java/com/cbo/audit/service/impl/ChecklistItemServiceImpl.java,e\4\e44b73603e24f41b3836cd505ea6bbd98c640786
 r
 Bsrc/main/java/com/cbo/audit/service/impl/AuditTypeServiceImpl.java,9\b\9bedf24dbc56b71fcdd70d4969b6aa3d14e90c1d
+p
+@src/main/java/com/cbo/audit/configuration/CorsConfiguration.java,3\8\38e5bd056e1a737331b4dca19fe60fcf2a290124

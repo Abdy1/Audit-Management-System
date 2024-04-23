@@ -20,7 +20,6 @@ public class AuditTypeServiceImpl implements AuditTypeService {
     @Autowired
     private AuditTypeRepository auditTypeRepository;
 
-
     @Override
     public ResultWrapper<AuditTypeDTO> registerAuditType(AuditTypeDTO auditTypeDTO) {
         ResultWrapper<AuditTypeDTO> resultWrapper = new ResultWrapper<>();

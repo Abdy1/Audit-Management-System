@@ -1,19 +1,19 @@
 
-s
-java:S3655h"7Call "Optional#isPresent()" before accessing the value.(˜±‘J$f4de7d64-8eff-49c6-bf7e-d753e12e9d32
-~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$2cd88fd6-b1ea-4cda-a871-f349b4990182
-~
-java:S6813!"BRemove this field injection and use constructor injection instead.(êæÄŞJ$b38d7dac-7d78-4bde-a7eb-f7f222db17ed
-~
-java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞJ$1deb76bc-284e-43d4-b322-368ea71d1ef9
-~
-java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞJ$7e2eff9b-1f2c-4c2e-abcb-babc07f1c6b1
-~
-java:S6813*"BRemove this field injection and use constructor injection instead.(êæÄŞJ$b0bf1688-bcfc-4e48-a16f-6bbed621990b
-~
-java:S6813-"BRemove this field injection and use constructor injection instead.(êæÄŞJ$29a77fc2-5edb-4b8e-8386-74d999fb9f77
-~
-java:S68130"BRemove this field injection and use constructor injection instead.(êæÄŞJ$ec3feb4b-075e-4e32-a9c7-59c9e53f7705
-m
-java:S2201Â"+The return value of "getYear" must be used.(¸–“àüÿÿÿÿJ$1780cc9e-5fe5-44b3-8403-8adf5cd88bce
+T
+java:S3655h"7Call "Optional#isPresent()" before accessing the value.(˜±‘8ã„ÖÏğ1
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8æ„ÖÏğ1
+_
+java:S6813!"BRemove this field injection and use constructor injection instead.(êæÄŞ8æ„ÖÏğ1
+_
+java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8æ„ÖÏğ1
+_
+java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8æ„ÖÏğ1
+_
+java:S6813*"BRemove this field injection and use constructor injection instead.(êæÄŞ8æ„ÖÏğ1
+_
+java:S6813-"BRemove this field injection and use constructor injection instead.(êæÄŞ8ç„ÖÏğ1
+_
+java:S68130"BRemove this field injection and use constructor injection instead.(êæÄŞ8ç„ÖÏğ1
+N
+java:S2201Â"+The return value of "getYear" must be used.(¸–“àüÿÿÿÿ8«…ÖÏğ1

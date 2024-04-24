@@ -30,6 +30,7 @@ public class WBSServiceImpl implements WBSService {
     @Override
     public ResultWrapper<List<AuditProgramWBSDTO>> getAllWBSByAuditProgramId(Long auditProgram_id) {
         ResultWrapper<List<AuditProgramWBSDTO>> resultWrapper= new ResultWrapper<>();
+        System.out.println(auditProgram_id);
         List<WBS> auditProgramWBSs  = auditProgramWBSRepository.findAllWBSByAuditProgramId(auditProgram_id);
         if (auditProgramWBSs != null){
             List<AuditProgramWBSDTO> auditProgramWBSDTOs = WBSMapper.INSTANCE.wbsToAuditProgramWBSDTOs(auditProgramWBSs);
@@ -46,7 +47,6 @@ public class WBSServiceImpl implements WBSService {
 
         Optional<AuditProgram> auditProgramOpt =auditProgramRepository.findById(auditProgramWBSDTO.getAuditProgram().getId());
         //add attributes to be checked if they are present in the audit program
-        System.out.println(auditProgramWBSDTO.toString());
             if (!auditProgramOpt.isPresent()) {
                 resultWrapper.setStatus(false);
                 resultWrapper.setMessage("Audit Program with the provided information is not available.");
@@ -59,25 +59,14 @@ public class WBSServiceImpl implements WBSService {
                 return resultWrapper;
             }
 
-
-
-
             //AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO;
         WBS wBS = WBSMapper.INSTANCE.toEntity(auditProgramWBSDTO);
         wBS.setCreatedTimestamp(LocalDateTime.now());
         wBS.setModifiedTimestamp(LocalDateTime.now());
         wBS.setEndOn(null);
         wBS.setStartOn(null);
-
-
-
         wBS.setCreatedUser("TODO");
         wBS.setModifiedUser("TODO");
-
-
-            //wbs.setStatus(AnnualPlanStatus.Planned.getType());
-
-
 
         wBS.setAuditProgram(auditProgramOpt.get());
         WBS savedWBS = auditProgramWBSRepository.save(wBS);

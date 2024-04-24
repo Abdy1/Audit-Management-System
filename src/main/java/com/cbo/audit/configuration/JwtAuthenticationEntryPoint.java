@@ -1,4 +1,4 @@
-package com.cbo.core.configuration;
+package com.cbo.audit.configuration;
 
 
 import org.json.simple.JSONObject;

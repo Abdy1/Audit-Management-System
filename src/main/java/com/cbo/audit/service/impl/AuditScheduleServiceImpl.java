@@ -49,6 +49,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
     @Autowired
     private BudgetYearRepository budgetYearRepository;
 
+
     @Override
     public ResultWrapper<AuditScheduleDTO> registerAuditSchedule(AuditScheduleDTO auditScheduleDTO) {
 
@@ -101,6 +102,9 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             for (AuditScheduleDTO auditScheduleDTO : auditScheduleDTOS) {
                 List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
                 List<TeamMemberDTO> teamMemberDTOS = TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
+//                if (!teamMembers.isEmpty()){
+//                    teamMembers.get(0).getAuditStaff();
+//                }
                 auditScheduleDTO.setTeamMembers(teamMemberDTOS);
                 modifiedSchedules.add(auditScheduleDTO);
             }
@@ -301,7 +305,6 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
         ResultWrapper<List<EngagementDTO>> resultWrapper = new ResultWrapper<>();
         List<EngagementInfo> engagementInfos=engagementInfoRepository.findEngagementByYear(year);
-        System.out.println( engagementInfos.get(1).getAuditSchedule().getTeamMembers().get(0).getAuditStaff());
 
         if (!engagementInfos.isEmpty()){
             List<EngagementDTO> engagementDTOS = EngagementMapper.INSTANCE.engagementInfosToEngagementDTOs(engagementInfos);
@@ -315,7 +318,8 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             }).collect(Collectors.toList());
             resultWrapper.setResult(engagementDTOS);
             resultWrapper.setStatus(true);
-        }{
+        } else
+        {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Engagement not found.");
         }

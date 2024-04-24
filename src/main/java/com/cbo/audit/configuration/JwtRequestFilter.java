@@ -1,6 +1,6 @@
-package com.cbo.core.configuration;
+package com.cbo.audit.configuration;
 
-import com.cbo.core.utility.JwtUtils;
+import com.cbo.audit.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

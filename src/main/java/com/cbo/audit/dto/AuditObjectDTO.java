@@ -20,6 +20,8 @@ public class AuditObjectDTO extends BaseDTO{
 
     private String auditType;//it,ifb,invstri,heado
 
+    private String status;
+
     private AuditUniverse auditUniverse;
 
 }

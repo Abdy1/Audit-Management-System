@@ -64,7 +64,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         }
 
         TeamMember teamMemberLeader = teamMemberRepository.findTeamLeaderOfSchedule(auditSchedule.getId(), TeamType.Leader);
-        System.out.println(teamMemberLeader);
         if ((teamMemberLeader != null) && teamMemberDTO.getTeamRole().equals(TeamType.Leader)) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Leader duplication is not allowed.");
@@ -94,10 +93,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
 
         if(!teamMembers.isEmpty()){
-            //System.out.println("here "+teamMembers.get(0));
-            //System.out.println("entity"+teamMembers.get(0).getAuditStaff());
             List<TeamMemberDTO> teamMemberDTOS = TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
-            //System.out.println("dto "+teamMemberDTOS.get(0).getAuditStaffDTO());
             resultWrapper.setStatus(true);
             resultWrapper.setResult(teamMemberDTOS);
         } else {

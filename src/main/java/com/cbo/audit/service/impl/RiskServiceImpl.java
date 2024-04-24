@@ -53,9 +53,7 @@ public class RiskServiceImpl implements RiskService {
 
         Optional<RiskLevel> riskLevel = riskLevelRepository.findAll().stream().findFirst();
 
-        if (riskLevel.isPresent()){
-            resultWrapper.setResult(riskLevel.get());
-        }
+        riskLevel.ifPresent(resultWrapper::setResult);
         return resultWrapper;
     }
 }

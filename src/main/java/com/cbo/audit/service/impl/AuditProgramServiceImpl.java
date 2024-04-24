@@ -54,21 +54,6 @@ AuditScheduleRepository auditScheduleRepository;
             return resultWrapper;
         }
 
-        //USE THIS IF THERE IS ANY PROPERTY THAT MUST BE INCLUDED
-
-//        if (AuditProgramDTO.getSomething() == null) {
-//            resultWrapper.setStatus(false);
-//            resultWrapper.setMessage("Annual Plan name cannot be null.");
-//            return resultWrapper;
-//        }
-//
-//        if (AuditProgramDTO.getSomething() == null) {
-//            resultWrapper.setStatus(false);
-//            resultWrapper.setMessage("Annual Plan risk year cannot be null.");
-//            return resultWrapper;
-//        }
-// auditProgramDTO.setStatus(AuditProgramStatus.Draft.name());
-
         AuditProgram auditProgram = AuditProgramMapper.INSTANCE.toEntity(auditProgramDTO);
 
         AuditSchedule auditSchedule= auditScheduleService.findAuditScheduleById(engagementInfoOpt.getAuditSchedule().getId());
@@ -81,7 +66,6 @@ AuditScheduleRepository auditScheduleRepository;
 
         auditProgram.setCreatedTimestamp(LocalDateTime.now());
         auditProgram.setCreatedUser("TODO");
-        System.out.println(auditProgramDTO.getObjectives()+"2");
 
         List<AuditProgramObjectiveDTO> objectives=auditProgramDTO.getObjectives();
 

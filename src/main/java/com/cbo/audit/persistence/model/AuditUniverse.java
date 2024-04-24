@@ -6,6 +6,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,9 +18,6 @@ public class AuditUniverse  extends BaseEntity{
 
     @Column(name = "NAME")
     private String name;
-
-    @Column(name = "TYPE")
-    private String type;
 
     @Column(name = "STATUS")
     private String status;

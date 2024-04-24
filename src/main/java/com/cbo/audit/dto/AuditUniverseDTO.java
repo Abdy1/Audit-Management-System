@@ -16,13 +16,9 @@ public class AuditUniverseDTO extends BaseDTO{
 
     private String name;
 
-    private String auditType;
-
     private String status;
 
     private String approvedBy;
 
     private LocalDateTime approvedAt;
-
-    private AuditObjectDTO auditObject;
 }

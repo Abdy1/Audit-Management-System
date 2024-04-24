@@ -66,6 +66,20 @@
 		<dependency>
 			<groupId>io.github.pixee</groupId>
 			<artifactId>java-security-toolkit</artifactId>
+    </dependency>
+    <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
 		</dependency>
 	</dependencies>
 

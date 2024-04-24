@@ -157,6 +157,8 @@ public static final String AUDIT_PROGRAM_FINDING= "finding/";
     public static final String AUDIT_STAFF = APPLICATION_CONTEXT + "/auditStaff/";
     public static final String AUDIT_STAFF_REGISTER = AUDIT_STAFF + REGISTER;
     public static final String AUDIT_STAFF_BY_ID = AUDIT_STAFF + "findById";
+
+    public static final String AUDIT_STAFF_BY_USER_ID = AUDIT_STAFF + "findByUserId/{employeeId}";
     public static final String AUDIT_STAFF_UPDATE = AUDIT_STAFF + UPDATE;
     public static final String AUDIT_STAFF_LIST_ALL = AUDIT_STAFF + "listAll";
     public static final String AUDIT_STAFF_LIST_ACTIVE= AUDIT_STAFF + "listActive";

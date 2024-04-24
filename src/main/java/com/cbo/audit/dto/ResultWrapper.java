@@ -13,6 +13,9 @@ public class ResultWrapper<T> {
     private String message;
     private boolean status;
 
+    public ResultWrapper(Object o, boolean b, String s) {
+    }
+
 
     public boolean isStatus() {
         return status;

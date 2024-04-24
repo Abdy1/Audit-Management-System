@@ -40,9 +40,6 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
         }else if(!auditUniverseName.isEmpty()){
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Universe duplicate name is not allowed.");
-        }else if(auditUniverseDTO.getAuditType() == null) {
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Universe audit type cannot be null.");
         }else {
 
             AuditUniverse auditUniverse = AuditUniverseMapper.INSTANCE.toEntity(auditUniverseDTO);
@@ -109,9 +106,6 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
         if (auditUniverseDTO.getName() == null){
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Universe name cannot be null.");
-        }else if(auditUniverseDTO.getAuditType() == null){
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Audit Universe audit type cannot be null.");
         }else {
 
             AuditUniverse auditUniverse = AuditUniverseMapper.INSTANCE.toEntity(auditUniverseDTO);

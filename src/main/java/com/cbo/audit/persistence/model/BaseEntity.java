@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -35,5 +36,24 @@ public abstract class BaseEntity implements Serializable {
   @Column(name = "MODIFIED_TS")
   private LocalDateTime modifiedTimestamp;
 
+  @PrePersist
+  protected void basePrePersists() {
+    setUserStamp();
+  }
+
+  @PreUpdate
+  protected void beforeUpdate() {
+    setUserStamp();
+  }
+
+  private void setUserStamp() {
+
+    if (modifiedTimestamp == null) {
+      modifiedTimestamp = LocalDateTime.now();
+    }
+    if (createdTimestamp == null) {
+      createdTimestamp = modifiedTimestamp;
+    }
+  }
 
 }

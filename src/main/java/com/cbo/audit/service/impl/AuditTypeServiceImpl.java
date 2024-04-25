@@ -26,7 +26,6 @@ public class AuditTypeServiceImpl implements AuditTypeService {
 
         AuditType auditType = AuditTypeMapper.INSTANCE.toEntity(auditTypeDTO);
         auditType.setCreatedTimestamp(LocalDateTime.now());
-        auditType.setCreatedUser("TODO");
         AuditType savedPlan = auditTypeRepository.save(auditType);
 
         resultWrapper.setStatus(true);

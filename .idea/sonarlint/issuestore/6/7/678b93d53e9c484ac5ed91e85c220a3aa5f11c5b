@@ -1,0 +1,10 @@
+
+c
+java:S1192ƒ"GDefine a constant instead of duplicating this literal "delete" 4 times.(å×ñ…üÿÿÿÿ
+d
+java:S1192"IDefine a constant instead of duplicating this literal "findById" 7 times.(ó–æ°úÿÿÿÿ
+e
+java:S1192£"NUse already-defined constant 'LIST_ALL' instead of duplicating its value here.(»Ÿê±
+n	java:S1159"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(äîÇ
+U
+java:S1118":Add a private constructor to hide the implicit public one.(šø©«øÿÿÿÿ

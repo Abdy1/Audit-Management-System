@@ -73,7 +73,6 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             AuditSchedule auditSchedule = AuditScheduleMapper.INSTANCE.toEntity(auditScheduleDTO);
             auditSchedule.setCreatedTimestamp(LocalDateTime.now());
             auditSchedule.setAnnualPlan(annualPlan);
-            auditSchedule.setCreatedUser("TODO");
             auditSchedule.setStatus(AuditScheduleStatus.Scheduled.name());
             auditSchedule.setAuditeesOrganID(auditScheduleDTO.getAuditeesOrganID());
 
@@ -226,7 +225,6 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         for (TeamMemberDTO teamMemberDTO: auditScheduleDTO.getTeamMembers()) {
             TeamMember teamMember = TeamMemberMapper.INSTANCE.toEntity(teamMemberDTO);
             teamMember.setCreatedTimestamp(LocalDateTime.now());
-            teamMember.setCreatedUser("TODO");
             teamMember.setStatus(TeamMemberStatus.Waiting);
             teamMember.setAuditStatus(oldAuditSchedule.get().getStatus());
             teamMember.setAuditSchedule(oldAuditSchedule.get());

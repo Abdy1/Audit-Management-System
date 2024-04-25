@@ -72,7 +72,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
         TeamMember teamMember = TeamMemberMapper.INSTANCE.toEntity(teamMemberDTO);
         teamMember.setCreatedTimestamp(LocalDateTime.now());
-        teamMember.setCreatedUser("TODO");
         teamMember.setStatus(TeamMemberStatus.Waiting);
         teamMember.setAuditStatus(auditSchedule.getStatus());
         teamMember.setAuditSchedule(auditSchedule);
@@ -165,7 +164,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         TeamMember updatedTeam = oldTeamMember.get();
         updatedTeam.setStatus(teamMemberDTO.getStatus());
         updatedTeam.setModifiedTimestamp(LocalDateTime.now());
-        updatedTeam.setModifiedUser("TODO");
         TeamMember saveMember = teamMemberRepository.save(updatedTeam);
         resultWrapper.setResult(TeamMemberMapper.INSTANCE.toDTO(saveMember));
         resultWrapper.setStatus(true);

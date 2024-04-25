@@ -54,7 +54,6 @@ public ResultWrapper<AuditableAreaDTO> registerAuditableArea(AuditableAreaDTO au
     else {
         AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
         auditableArea.setCreatedTimestamp(LocalDateTime.now());
-        auditableArea.setCreatedUser("TODO");
         auditableArea.setAuditObject(auditObject.get());
 
         AuditableArea savedAuditableArea = auditableAreaRepository.save(auditableArea);

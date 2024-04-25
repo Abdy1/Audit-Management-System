@@ -46,10 +46,7 @@ public class AuditProgramObjectiveServiceImpl implements AuditProgramObjectiveSe
     @Override
     public ResultWrapper<AuditProgramObjectiveDTO> registerAuditProgramObjective(AuditProgramObjectiveDTO auditProgramObjectiveDTO) {
         ResultWrapper<AuditProgramObjectiveDTO> resultWrapper = new ResultWrapper<>();
-
-
         Optional<AuditProgram> auditProgramOpt =auditProgramService.findAuditProgramById(auditProgramObjectiveDTO.getAuditProgram().getId());
-
 
         if (!auditProgramOpt.isPresent()) {
             resultWrapper.setStatus(false);
@@ -64,19 +61,10 @@ public class AuditProgramObjectiveServiceImpl implements AuditProgramObjectiveSe
         }
 
 
-        //AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO;
-        System.out.println(auditProgramObjectiveDTO.getAuditProgram().getId());
         AuditProgramObjective auditProgramObjective = AuditProgramObjectiveMapper.INSTANCE.toEntity(auditProgramObjectiveDTO);
         auditProgramObjective.setCreatedTimestamp(LocalDateTime.now());
 
-
-        auditProgramObjective.setCreatedUser("TODO");
-        auditProgramObjective.setModifiedUser("TODO");
-
-        //wbs.setStatus(AnnualPlanStatus.Planned.getType());
-
         AuditProgramObjective savedAuditProgramObjective = auditProgramObjectiveRepository.save(auditProgramObjective);
-
 
         resultWrapper.setStatus(true);
         resultWrapper.setResult(AuditProgramObjectiveMapper.INSTANCE.toDTO(savedAuditProgramObjective));

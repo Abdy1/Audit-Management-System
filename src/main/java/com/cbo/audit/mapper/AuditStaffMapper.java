@@ -32,6 +32,7 @@ public interface AuditStaffMapper {
 
         return list;
     }
+
     default List<AuditStaff> toEntities(List<AuditStaffDTO> auditStaffDTOS) {
         if (auditStaffDTOS == null) {
             return null;

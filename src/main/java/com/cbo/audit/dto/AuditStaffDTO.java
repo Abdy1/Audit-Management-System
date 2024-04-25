@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AuditStaffDTO extends BaseDTO{
+public class AuditStaffDTO extends BaseDTO {
 
     private AuditTypeDTO auditType;
 

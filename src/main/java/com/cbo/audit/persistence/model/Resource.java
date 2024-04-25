@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "ams_resource")
-public class Resource extends BaseEntity{
+public class Resource extends BaseEntity {
 
     @Column(name = "NAME")
     private String name;

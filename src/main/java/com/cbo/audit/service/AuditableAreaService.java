@@ -1,6 +1,5 @@
 package com.cbo.audit.service;
 
-import com.cbo.audit.dto.AuditObjectDTO;
 import com.cbo.audit.dto.AuditableAreaDTO;
 import com.cbo.audit.dto.ChecklistItemDTO;
 import com.cbo.audit.dto.ResultWrapper;

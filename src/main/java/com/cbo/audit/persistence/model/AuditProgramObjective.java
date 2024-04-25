@@ -9,9 +9,9 @@ import javax.persistence.*;
 @Table(name = "ams_audit_objectives")
 @Setter
 @Getter
-public class AuditProgramObjective extends BaseEntity{
+public class AuditProgramObjective extends BaseEntity {
 
-    @Column(name="Audit_Objective",columnDefinition = "text")
+    @Column(name = "Audit_Objective", columnDefinition = "text")
     private String description;
 
 

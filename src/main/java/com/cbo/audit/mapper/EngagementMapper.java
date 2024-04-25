@@ -8,27 +8,28 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface EngagementMapper {
 
-        EngagementMapper INSTANCE = Mappers.getMapper(EngagementMapper.class);
+    EngagementMapper INSTANCE = Mappers.getMapper(EngagementMapper.class);
 
-        EngagementDTO toDTO(EngagementInfo user);
+    EngagementDTO toDTO(EngagementInfo user);
 
-        void copyToDTO(EngagementInfo user, @MappingTarget EngagementDTO userDTO);
+    void copyToDTO(EngagementInfo user, @MappingTarget EngagementDTO userDTO);
 
-        EngagementInfo toEntity(EngagementDTO userDTO);
+    EngagementInfo toEntity(EngagementDTO userDTO);
 
-        default List<EngagementDTO> engagementInfosToEngagementDTOs(List<EngagementInfo> engagementInfos) {
-            if (engagementInfos == null) {
-                return null;
-            }
-
-            List<EngagementDTO> list = new ArrayList<EngagementDTO>(engagementInfos.size());
-            for (EngagementInfo engagementInfo : engagementInfos) {
-                list.add(toDTO(engagementInfo));
-            }
-
-            return list;
+    default List<EngagementDTO> engagementInfosToEngagementDTOs(List<EngagementInfo> engagementInfos) {
+        if (engagementInfos == null) {
+            return null;
         }
+
+        List<EngagementDTO> list = new ArrayList<EngagementDTO>(engagementInfos.size());
+        for (EngagementInfo engagementInfo : engagementInfos) {
+            list.add(toDTO(engagementInfo));
+        }
+
+        return list;
+    }
 }

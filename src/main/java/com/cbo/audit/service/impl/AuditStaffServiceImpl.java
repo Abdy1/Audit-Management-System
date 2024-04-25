@@ -37,7 +37,7 @@ public class AuditStaffServiceImpl implements AuditStaffService {
         ResultWrapper<AuditStaffDTO> resultWrapper = new ResultWrapper<>();
 
         AuditStaff existAlready = auditStaffRepository.findAuditStaffByUserId(auditStaffDTO.getEmployeeId());
-        if (existAlready != null){
+        if (existAlready != null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit staff already created.");
             return resultWrapper;
@@ -62,11 +62,11 @@ public class AuditStaffServiceImpl implements AuditStaffService {
     public ResultWrapper<AuditStaffDTO> getAuditStaffById(Long id) {
         ResultWrapper<AuditStaffDTO> resultWrapper = new ResultWrapper<>();
         Optional<AuditStaff> auditStaff = auditStaffRepository.findById(id);
-        if (auditStaff.isPresent()){
-            AuditStaffDTO auditStaffDTO =  AuditStaffMapper.INSTANCE.toDTO(auditStaff.get());
+        if (auditStaff.isPresent()) {
+            AuditStaffDTO auditStaffDTO = AuditStaffMapper.INSTANCE.toDTO(auditStaff.get());
             resultWrapper.setResult(auditStaffDTO);
             resultWrapper.setStatus(true);
-        }else {
+        } else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("No record found with the provided id.");
         }
@@ -80,18 +80,19 @@ public class AuditStaffServiceImpl implements AuditStaffService {
 
 
     @Override
-    public Optional<AuditStaff> findAuditStaffByEmployeeId(String employeeId) {return auditStaffRepository.findAuditStaffByEmployeeId(employeeId);
+    public Optional<AuditStaff> findAuditStaffByEmployeeId(String employeeId) {
+        return auditStaffRepository.findAuditStaffByEmployeeId(employeeId);
     }
 
     @Override
     public ResultWrapper<AuditStaffDTO> removeAuditStaff(AuditStaffDTO auditStaffDTO) {
         ResultWrapper<AuditStaffDTO> resultWrapper = new ResultWrapper<>();
         Optional<AuditStaff> auditStaff = auditStaffRepository.findById(auditStaffDTO.getId());
-        if (auditStaff.isPresent()){
+        if (auditStaff.isPresent()) {
             auditStaffRepository.delete(auditStaff.get());
             resultWrapper.setStatus(true);
             resultWrapper.setMessage("Deleted successfully");
-        }else {
+        } else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Incorrect team Id");
         }
@@ -120,15 +121,16 @@ public class AuditStaffServiceImpl implements AuditStaffService {
 
     @Override
     public ResultWrapper<List<UserDTO>> getAllUsers() {
-        ResultWrapper<List<UserDTO>> resultWrapper= new ResultWrapper<>();
+        ResultWrapper<List<UserDTO>> resultWrapper = new ResultWrapper<>();
         System.out.println(userRepository.findAll().size());
         resultWrapper.setResult(UserMapper.INSTANCE.usersToUserDTOs(userRepository.findAll()));
         resultWrapper.setStatus(true);
         return resultWrapper;
     }
+
     @Override
     public ResultWrapper<List<AuditStaffDTO>> getAllAuditStaffs() {
-        ResultWrapper<List<AuditStaffDTO>> resultWrapper= new ResultWrapper<>();
+        ResultWrapper<List<AuditStaffDTO>> resultWrapper = new ResultWrapper<>();
         System.out.println(auditStaffRepository.findAll().size());
         resultWrapper.setResult(AuditStaffMapper.INSTANCE.auditStaffsToAuditStaffDTOs(auditStaffRepository.findAll()));
         resultWrapper.setStatus(true);
@@ -137,7 +139,7 @@ public class AuditStaffServiceImpl implements AuditStaffService {
 
     @Override
     public ResultWrapper<List<AuditStaffDTO>> getAllActiveAuditStaffs() {
-        ResultWrapper<List<AuditStaffDTO>> resultWrapper= new ResultWrapper<>();
+        ResultWrapper<List<AuditStaffDTO>> resultWrapper = new ResultWrapper<>();
         System.out.println(auditStaffRepository.findAuditStaffByState(AuditStaffStatus.Active).size());
         resultWrapper.setResult(AuditStaffMapper.INSTANCE.auditStaffsToAuditStaffDTOs(auditStaffRepository.findAuditStaffByState(AuditStaffStatus.Active)));
         resultWrapper.setStatus(true);
@@ -146,7 +148,7 @@ public class AuditStaffServiceImpl implements AuditStaffService {
 
     @Override
     public ResultWrapper<List<AuditStaffDTO>> getAllByAuditTypeId(Long auditTypeId) {
-        ResultWrapper<List<AuditStaffDTO>> resultWrapper= new ResultWrapper<>();
+        ResultWrapper<List<AuditStaffDTO>> resultWrapper = new ResultWrapper<>();
         System.out.println(auditStaffRepository.findAuditStaffByAuditTypeId(auditTypeId).size());
         resultWrapper.setResult(AuditStaffMapper.INSTANCE.auditStaffsToAuditStaffDTOs(auditStaffRepository.findAuditStaffByAuditTypeId(auditTypeId)));
         resultWrapper.setStatus(true);

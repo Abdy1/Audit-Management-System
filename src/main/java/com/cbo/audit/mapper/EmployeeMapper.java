@@ -14,22 +14,22 @@ public interface EmployeeMapper {
 
     EmployeeMapper INSTANCE = Mappers.getMapper(EmployeeMapper.class);
 
-        EmployeeDTO toDTO(Employee user);
+    EmployeeDTO toDTO(Employee user);
 
-        void copyToDTO(Employee user, @MappingTarget EmployeeDTO userDTO);
+    void copyToDTO(Employee user, @MappingTarget EmployeeDTO userDTO);
 
-        Employee toEntity(EmployeeDTO userDTO);
+    Employee toEntity(EmployeeDTO userDTO);
 
-        default List<EmployeeDTO> usersToEmployeeDTOs(List<Employee> users) {
-            if (users == null) {
-                return null;
-            }
-
-            List<EmployeeDTO> list = new ArrayList<EmployeeDTO>(users.size());
-            for (Employee user : users) {
-                list.add(toDTO(user));
-            }
-
-            return list;
+    default List<EmployeeDTO> usersToEmployeeDTOs(List<Employee> users) {
+        if (users == null) {
+            return null;
         }
+
+        List<EmployeeDTO> list = new ArrayList<EmployeeDTO>(users.size());
+        for (Employee user : users) {
+            list.add(toDTO(user));
+        }
+
+        return list;
+    }
 }

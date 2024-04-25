@@ -14,7 +14,7 @@ public interface AnnualPlanRepository extends JpaRepository<AnnualPlan, Long> {
     List<AnnualPlan> findAnnualPlanByYear(@Param("year") String year);
 
     @Query(" SELECT AN FROM AnnualPlan AN WHERE AN.status = :status AND AN.year = :year")
-    List<AnnualPlan> findAnnualPlanByStatus(@Param("status") String status,@Param("year") int year);
+    List<AnnualPlan> findAnnualPlanByStatus(@Param("status") String status, @Param("year") int year);
 
     @Query(" SELECT AN FROM AnnualPlan AN WHERE AN.auditUniverse.id = :universeId")
     List<AnnualPlan> findAnnualPlanByAuditUniverseId(@Param("universeId") Long universeId);

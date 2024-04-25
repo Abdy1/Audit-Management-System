@@ -1,9 +1,7 @@
 package com.cbo.audit.service;
 
-import com.cbo.audit.dto.AnnualPlanDTO;
 import com.cbo.audit.dto.AuditProgramDTO;
 import com.cbo.audit.dto.ResultWrapper;
-import com.cbo.audit.persistence.model.AnnualPlan;
 import com.cbo.audit.persistence.model.AuditProgram;
 
 import java.util.List;
@@ -20,6 +18,8 @@ public interface AuditProgramService {
 
 
     Optional<AuditProgram> findAuditProgramById(Long id);
+
     ResultWrapper<List<AuditProgramDTO>> getAllAuditProgramByEngagementId(Long id);
-    ResultWrapper<AuditProgramDTO> changeStatusOfAuditProgramToEngagement(Long id );
+
+    ResultWrapper<AuditProgramDTO> changeStatusOfAuditProgramToEngagement(Long id);
 }

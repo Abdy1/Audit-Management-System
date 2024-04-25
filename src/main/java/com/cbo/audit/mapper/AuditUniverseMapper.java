@@ -4,7 +4,6 @@ package com.cbo.audit.mapper;
 import com.cbo.audit.dto.AuditUniverseDTO;
 import com.cbo.audit.persistence.model.AuditUniverse;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 

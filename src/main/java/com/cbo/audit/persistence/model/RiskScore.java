@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "ams_risk_score")
-public class RiskScore extends BaseEntity{
+public class RiskScore extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "RISK_ITEM_ID")

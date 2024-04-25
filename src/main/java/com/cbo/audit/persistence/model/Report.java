@@ -7,10 +7,11 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+
 @Getter
 @Setter
 @Entity
-public class Report extends BaseEntity{
+public class Report extends BaseEntity {
     @OneToOne
     private AuditSchedule auditSchedule;
     @Column(columnDefinition = "text")

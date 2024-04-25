@@ -1,6 +1,5 @@
 package com.cbo.audit.dto;
 
-import com.cbo.audit.dto.BaseDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 

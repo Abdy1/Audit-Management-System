@@ -1,37 +1,36 @@
 
 š
-java:S1192Â"VDefine a constant instead of duplicating this literal "Engagement not found." 4 times.(ı‘È8Å¾À¥ğ1J$e4bc552c-54c3-4a75-b2a6-ba9935d4827f
+java:S1192Â"VDefine a constant instead of duplicating this literal "Engagement not found." 4 times.(ı‘È8Å¾À¥ğ1J$370b3d26-c004-4f77-9430-2fc3f0f00671
 v
-java:S1199Ğ"-Extract this nested code block into a method.(Î€ä‚şÿÿÿÿ8Ê¾À¥ğ1J$72cab39b-9602-47ff-894c-8bb520b26cc4
+java:S1199Ğ"-Extract this nested code block into a method.(Î€ä‚şÿÿÿÿ8Ê¾À¥ğ1J$72acf9b9-8906-46b1-971f-51ec447aab22
 v
-java:S1199à"-Extract this nested code block into a method.(Î€ä‚şÿÿÿÿ8Ê¾À¥ğ1J$cc50b37f-9ecc-4458-8069-7b465a0918fe
+java:S1199à"-Extract this nested code block into a method.(Î€ä‚şÿÿÿÿ8Ê¾À¥ğ1J$30211d39-a753-4122-96e1-a2e2147fccaf
 v
-java:S1199ğ"-Extract this nested code block into a method.(Î€ä‚şÿÿÿÿ8Ê¾À¥ğ1J$6d7e4e2a-7376-40ff-a577-d67552391591
+java:S1199ğ"-Extract this nested code block into a method.(Î€ä‚şÿÿÿÿ8Ê¾À¥ğ1J$fbacb15d-c850-408f-8efa-74c9b173b777
 {
-java:S3655"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$1aa69b33-2655-43d3-9b26-72d63b7683ae
+java:S3655é"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$55867baa-f3d3-40b8-839b-ef48d989c6ca
 {
-java:S3655®"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$98ccb9e7-ce45-4dbf-aa1b-46571556b95c
-{
-java:S3655é"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$0ba34721-2c47-4af5-832a-24b8d1b7439f
-{
-java:S3655Ù"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$a49c843d-a8ef-45ac-8d51-c048322cb6cc
+java:S3655Ù"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$351532c8-c40f-47c4-b53f-f9ae7b91a3bd
 z
-java:S3655^"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ğ¨ù ñ1J$42d8e078-44ed-4295-8b58-e8b77f31af6c
+java:S3655^"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ğ¨ù ñ1J$72719dcf-b76b-44f8-b5b8-87cd3289ae3d
+{
+java:S3655®"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$37794bc7-168c-487d-a154-8eec67f1e8f2
+{
+java:S3655"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$83b00a4e-0af7-4072-8ee5-6fbad92c2630
 …
-java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8é¾À¥ğ1J$fd82a1fe-c006-4454-aad2-9b6f07276635
+java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8é¾À¥ğ1J$c2f6f6ac-4d75-4aa6-b4aa-7d368cfca1c8
 …
-java:S6813&"BRemove this field injection and use constructor injection instead.(êæÄŞ8ê¾À¥ğ1J$88b1156d-4429-4d97-95b0-217c5f078e97
+java:S6813&"BRemove this field injection and use constructor injection instead.(êæÄŞ8ê¾À¥ğ1J$f734f487-a74a-4d71-b129-528f16d7efc5
 …
-java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄŞ8ê¾À¥ğ1J$8c11a48a-a4cb-4041-8b2a-ba265b5abbd6
+java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄŞ8ê¾À¥ğ1J$0f3c23cb-da64-4d0e-a7d8-f1c77d282fd9
 …
-java:S6813+"BRemove this field injection and use constructor injection instead.(êæÄŞ8ê¾À¥ğ1J$d5ca00eb-604c-48c0-a651-09a637bbebfc
+java:S6813+"BRemove this field injection and use constructor injection instead.(êæÄŞ8ê¾À¥ğ1J$1f91f923-8843-48bf-af06-718324015f6a
 …
-java:S6813."BRemove this field injection and use constructor injection instead.(êæÄŞ8ê¾À¥ğ1J$5a94fd8a-5d28-46d4-9452-d320fe7d4566
+java:S6813."BRemove this field injection and use constructor injection instead.(êæÄŞ8ê¾À¥ğ1J$fa8ce5fb-c5c0-4592-8b0a-38dd620be764
 …
-java:S68131"BRemove this field injection and use constructor injection instead.(êæÄŞ8ê¾À¥ğ1J$664180ec-ca7a-4bf6-8dac-1a773a3a523e
-}	java:S125h"<This block of commented-out lines of code should be removed.(Î áD8à¨ù ñ1J$b93e3ee8-46cc-4512-8c6b-a7a179c0caaa
-~	java:S125|"<This block of commented-out lines of code should be removed.(½²öÉ8„¿À¥ğ1J$88feefbf-7a07-459d-9b32-50d71ebc54fa
-	java:S125•"<This block of commented-out lines of code should be removed.(½²öÉ8ˆ¿À¥ğ1J$fbabc14a-dba1-4dcb-a435-9eccb3b565bb
-„	java:S125Ÿ"<This block of commented-out lines of code should be removed.(óß‰üûÿÿÿÿ8›¿À¥ğ1J$e839b682-b5ad-41f9-9a70-5b2495e6edf0
-‡
-java:S1128"DRemove this unused import 'com.cbo.audit.service.TeamMemberService'.(€€ı¦8ù¨ù ñ1J$7a01adbb-875a-4355-a84d-db428d56a69c
+java:S68131"BRemove this field injection and use constructor injection instead.(êæÄŞ8ê¾À¥ğ1J$434821a3-fdf5-41db-bf3b-bb6fa2923f73
+}	java:S125h"<This block of commented-out lines of code should be removed.(Î áD8à¨ù ñ1J$8ce93fab-ce82-4aca-b3eb-40b602c80b41
+~	java:S125|"<This block of commented-out lines of code should be removed.(½²öÉ8„¿À¥ğ1J$6e9792af-b204-467b-811c-24fe5042d109
+	java:S125•"<This block of commented-out lines of code should be removed.(½²öÉ8ˆ¿À¥ğ1J$05448966-e8ad-407c-b8af-117f0917fbe3
+„	java:S125Ÿ"<This block of commented-out lines of code should be removed.(óß‰üûÿÿÿÿ8›¿À¥ğ1J$205b9c3a-5cf2-4080-b4e0-37e78e28188e
+n	java:S106¯"+Replace this use of System.out by a logger.(®®µ†8Ÿé†¨ñ1J$7016155f-ebd7-4e84-a092-efe082fe1eae

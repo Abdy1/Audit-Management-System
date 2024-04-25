@@ -3,7 +3,6 @@ package com.cbo.audit.mapper;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.persistence.model.AuditSchedule;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 

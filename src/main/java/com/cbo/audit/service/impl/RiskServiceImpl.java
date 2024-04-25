@@ -43,7 +43,7 @@ public class RiskServiceImpl implements RiskService {
         ResultWrapper<List<RiskItemDTO>> resultWrapper = new ResultWrapper<>();
 
         resultWrapper.setResult(RiskItemMapper.INSTANCE.riskItemsToRiskItemDTOs(riskItemRepository.findAll()));
-        
+
         return resultWrapper;
     }
 

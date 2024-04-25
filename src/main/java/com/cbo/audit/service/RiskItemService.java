@@ -1,7 +1,7 @@
 package com.cbo.audit.service;
 
-import com.cbo.audit.dto.RiskItemDTO;
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.dto.RiskItemDTO;
 import com.cbo.audit.persistence.model.RiskItem;
 
 import java.util.List;

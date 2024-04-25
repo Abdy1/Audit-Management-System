@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "ams_audit_type")
-public class AuditType extends BaseEntity{
+public class AuditType extends BaseEntity {
 
     @Column(name = "NAME")
     private String name;

@@ -10,10 +10,10 @@ import java.util.List;
 public interface AuditUniverseRepository extends JpaRepository<AuditUniverse, Long> {
     @Query(" SELECT AU FROM AuditUniverse AU  "
             + " WHERE AU.status = :status")
-    List<AuditUniverse> findAuditUniverseByState( @Param("status") String status);
+    List<AuditUniverse> findAuditUniverseByState(@Param("status") String status);
 
     @Query(" SELECT AU FROM AuditUniverse AU  "
             + " WHERE AU.status = :status " +
             " AND AU.name = :name ")
-    List<AuditUniverse> findAuditUniverseByStateAndName( @Param("status") String status, @Param("name") String name);
+    List<AuditUniverse> findAuditUniverseByStateAndName(@Param("status") String status, @Param("name") String name);
 }

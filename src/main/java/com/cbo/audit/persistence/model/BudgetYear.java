@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "ams_budget_year")
-public class BudgetYear extends BaseEntity{
+public class BudgetYear extends BaseEntity {
 
     @Column(name = "YEAR", unique = true)
     private String year;

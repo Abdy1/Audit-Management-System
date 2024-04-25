@@ -251,8 +251,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("Annual Plan updated successfully.");
             }
-            }
-        else {
+        } else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Plan with the provided id is not available.");
         }
@@ -267,19 +266,19 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         List<AnnualPlanDTO> annualPlanDTOS = new ArrayList<>();
         BudgetYear budgetYear = new BudgetYear();
         budgetYear.setYear(year);
-        Optional<BudgetYear> budgetYear1= budgetYearRepository.findByYear(year);
-        if (budgetYear1.isPresent()){
+        Optional<BudgetYear> budgetYear1 = budgetYearRepository.findByYear(year);
+        if (budgetYear1.isPresent()) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("This budget year already applied.");
             return resultWrapper;
-        }else {
+        } else {
             budgetYearRepository.save(budgetYear);
 
         }
         List<AuditUniverse> auditUniverses = auditUniverseService.getAllActiveAuditUniverse();
         List<AuditObject> auditObjects = new ArrayList<>();
 
-        for( AuditUniverse auditUniverse: auditUniverses){
+        for (AuditUniverse auditUniverse : auditUniverses) {
             List<AuditObject> auditObjectsUn = auditObjectRepository.findAuditObjectsByUniverseId(auditUniverse.getId());
             auditObjects.addAll(auditObjectsUn);
         }
@@ -290,7 +289,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         }
         for (AuditObject auditObject : auditObjects) {
 
-            if (auditObject.getStatus().equals(AuditUniverseStatus.Approved.name())){
+            if (auditObject.getStatus().equals(AuditUniverseStatus.Approved.name())) {
 
                 AnnualPlan annualPlan = new AnnualPlan();
                 annualPlan.setAuditUniverse(auditObject.getAuditUniverse());
@@ -314,9 +313,9 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         return resultWrapper;
     }
 
-    private List<RiskScoreDTO> getRiskScoresOfAuditType(String auditType){
+    private List<RiskScoreDTO> getRiskScoresOfAuditType(String auditType) {
         List<RiskItem> riskItems = riskItemRepository.findByRiskType(auditType);
-        List<RiskScoreDTO> riskScores= new ArrayList<>();
+        List<RiskScoreDTO> riskScores = new ArrayList<>();
         riskItems.forEach(riskItem -> {
             RiskScoreDTO riskScoreDTO = new RiskScoreDTO();
             riskScoreDTO.setRiskItem(RiskItemMapper.INSTANCE.toDTO(riskItem));

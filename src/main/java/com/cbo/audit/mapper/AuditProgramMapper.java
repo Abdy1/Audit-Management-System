@@ -1,7 +1,6 @@
 package com.cbo.audit.mapper;
 
 import com.cbo.audit.dto.AuditProgramDTO;
-
 import com.cbo.audit.persistence.model.AuditProgram;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -9,7 +8,6 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Mapper(componentModel = "spring")
 public interface AuditProgramMapper {

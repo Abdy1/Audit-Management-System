@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "ams_auditable_area")
-public class AuditableArea extends BaseEntity{
+public class AuditableArea extends BaseEntity {
 
     @Column(name = "name")
     private String name;
@@ -24,6 +24,6 @@ public class AuditableArea extends BaseEntity{
     private AuditObject auditObject;
 
     @OneToMany(mappedBy = "auditableArea", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<ChecklistItem>  checklistItems;
+    private List<ChecklistItem> checklistItems;
 
 }

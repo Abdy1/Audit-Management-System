@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AuditScheduleDTO extends BaseDTO{
+public class AuditScheduleDTO extends BaseDTO {
     private String startOn;
 
     private String endOn;

@@ -46,7 +46,6 @@ public class AuditStaffServiceImpl implements AuditStaffService {
         AuditStaff auditStaff = AuditStaffMapper.INSTANCE.toEntity(auditStaffDTO);
         auditStaff.setCreatedTimestamp(LocalDateTime.now());
         auditStaff.setStatus(AuditStaffStatus.Active);
-        auditStaff.setCreatedUser("TODO");
         auditStaff.setEmployeeId(auditStaff.getEmployeeId());
         auditStaff.setFullName(auditStaff.getFullName());
 
@@ -113,7 +112,6 @@ public class AuditStaffServiceImpl implements AuditStaffService {
         AuditStaff updatedTeam = oldAuditStaff.get();
         updatedTeam.setStatus(auditStaffDTO.getStatus());
         updatedTeam.setModifiedTimestamp(LocalDateTime.now());
-        updatedTeam.setModifiedUser("TODO");
         AuditStaff saveMember = auditStaffRepository.save(updatedTeam);
         resultWrapper.setResult(AuditStaffMapper.INSTANCE.toDTO(saveMember));
         resultWrapper.setStatus(true);

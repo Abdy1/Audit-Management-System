@@ -65,7 +65,6 @@ AuditScheduleRepository auditScheduleRepository;
 
 
         auditProgram.setCreatedTimestamp(LocalDateTime.now());
-        auditProgram.setCreatedUser("TODO");
 
         List<AuditProgramObjectiveDTO> objectives=auditProgramDTO.getObjectives();
 

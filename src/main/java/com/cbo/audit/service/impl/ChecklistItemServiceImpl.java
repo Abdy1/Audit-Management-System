@@ -73,7 +73,6 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
         ChecklistItem checklistItem = new ChecklistItem();
         checklistItem.setName(checklistItemDTO.getName());
         checklistItem.setCreatedTimestamp(LocalDateTime.now());
-        checklistItem.setCreatedUser("TODO"); // Replace "TODOs" with actual user information
         checklistItem.setAuditableArea(auditableArea);
 
         ChecklistItem savedChecklistItem = checklistItemRepository.save(checklistItem);

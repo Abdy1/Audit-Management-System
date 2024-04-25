@@ -45,7 +45,6 @@ public class AuditObjectServiceImpl implements AuditObjectService {
 
         AuditObject auditObject = AuditObjectMapper.INSTANCE.toEntity(auditObjectDTO);
         auditObject.setCreatedTimestamp(LocalDateTime.now());
-        auditObject.setCreatedUser("TODO");
         AuditObject savedPlan = auditObjectRepository.save(auditObject);
 
         resultWrapper.setStatus(true);

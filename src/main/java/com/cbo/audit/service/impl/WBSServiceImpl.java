@@ -65,8 +65,6 @@ public class WBSServiceImpl implements WBSService {
         wBS.setModifiedTimestamp(LocalDateTime.now());
         wBS.setEndOn(null);
         wBS.setStartOn(null);
-        wBS.setCreatedUser("TODO");
-        wBS.setModifiedUser("TODO");
 
         wBS.setAuditProgram(auditProgramOpt.get());
         WBS savedWBS = auditProgramWBSRepository.save(wBS);

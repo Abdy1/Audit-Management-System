@@ -1,9 +1,9 @@
 
-§
-java:S1488H"fImmediately return this expression instead of assigning it to the temporary variable "auditUniverses".(ƒ…û«þÿÿÿÿJ$1ee69cc3-f75b-4949-bbf1-ff4744bacd04
+¢
+java:S1488G"fImmediately return this expression instead of assigning it to the temporary variable "auditUniverses".(©Þ–ºJ$e3e9c2a3-aaf0-439f-9ead-679e3be11a6e
 ~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞJ$a09d750e-11ce-469e-a768-1c7511aec7ad
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞJ$679884c0-4b33-477c-bea2-217c9c38d1dc
 ~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞJ$5d40403a-998e-4e63-8935-16291a267e99
-e
-java:S1128"HRemove this unused import 'com.cbo.audit.persistence.model.AuditObject'.(â€—¼8¬»ã¬ð1
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞJ$5dd245a3-1a53-4796-97a6-c36a575e967f
+‹
+java:S1128"HRemove this unused import 'com.cbo.audit.persistence.model.AuditObject'.(â€—¼8ïëß…ñ1J$4fa5d825-c569-4e1b-a51a-942c64049b4d

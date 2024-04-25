@@ -81,7 +81,6 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
         AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO);
         annualPlan.setCreatedTimestamp(LocalDateTime.now());
-        annualPlan.setCreatedUser("TODO");
         annualPlan.setStatus(AnnualPlanStatus.Pending.getType());
         annualPlan.setAuditObject(auditObjectOpt.get());
         AnnualPlan savedPlan = annualPlanRepository.save(annualPlan);
@@ -235,7 +234,6 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
                 AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO);
                 annualPlan.setCreatedTimestamp(LocalDateTime.now());
-                annualPlan.setCreatedUser("TODO");
                 annualPlan.setCreatedTimestamp(oldAnnualPlan.getCreatedTimestamp());
                 annualPlan.setCreatedUser(oldAnnualPlan.getCreatedUser());
                 annualPlan.setAuditUniverse(oldAnnualPlan.getAuditUniverse());
@@ -301,7 +299,6 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
                 annualPlan.setCreatedTimestamp(LocalDateTime.now());
                 annualPlan.setName(auditObject.getName());
                 annualPlan.setAuditObject(auditObject);
-                annualPlan.setCreatedUser("TODO");
                 AnnualPlan savedAnnualPlan = annualPlanRepository.save(annualPlan);
                 int score = saveRiskScore(getRiskScoresOfAuditType(auditObject.getAuditType()), savedAnnualPlan);
                 savedAnnualPlan.setRiskScore(score);

@@ -43,7 +43,6 @@ public class ResourceServiceImpl implements ResourceService {
 
         Resource resource = ResourceMapper.INSTANCE.toEntity(resourceDTO);
         resource.setCreatedTimestamp(LocalDateTime.now());
-        resource.setCreatedUser("TODO");
         resource.setAuditSchedule(auditSchedule);
 
         Resource savedMember = resourceRepository.save(resource);
@@ -105,7 +104,6 @@ public class ResourceServiceImpl implements ResourceService {
         Resource updatedTeam = oldResource.get();
         updatedTeam.setResourceStatus(resourceDTO.getResourceStatus());
         updatedTeam.setModifiedTimestamp(LocalDateTime.now());
-        updatedTeam.setModifiedUser("TODO");
         Resource saveMember = resourceRepository.save(updatedTeam);
         resultWrapper.setResult(ResourceMapper.INSTANCE.toDTO(saveMember));
         resultWrapper.setStatus(true);

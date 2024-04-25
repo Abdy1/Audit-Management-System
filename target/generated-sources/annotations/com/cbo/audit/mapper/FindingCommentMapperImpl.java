@@ -33,7 +33,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-23T10:59:58+0300",
+    date = "2024-04-23T11:31:32+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
@@ -207,6 +207,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         auditObjectDTO.setName( auditObject.getName() );
         auditObjectDTO.setDescription( auditObject.getDescription() );
         auditObjectDTO.setAuditType( auditObject.getAuditType() );
+        auditObjectDTO.setStatus( auditObject.getStatus() );
         auditObjectDTO.setAuditUniverse( auditObject.getAuditUniverse() );
 
         return auditObjectDTO;
@@ -432,6 +433,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         mappingTarget.setName( auditObject.getName() );
         mappingTarget.setDescription( auditObject.getDescription() );
         mappingTarget.setAuditType( auditObject.getAuditType() );
+        mappingTarget.setStatus( auditObject.getStatus() );
         mappingTarget.setAuditUniverse( auditObject.getAuditUniverse() );
     }
 
@@ -810,6 +812,7 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         auditObject.setName( auditObjectDTO.getName() );
         auditObject.setDescription( auditObjectDTO.getDescription() );
         auditObject.setAuditType( auditObjectDTO.getAuditType() );
+        auditObject.setStatus( auditObjectDTO.getStatus() );
         auditObject.setAuditUniverse( auditObjectDTO.getAuditUniverse() );
 
         return auditObject;

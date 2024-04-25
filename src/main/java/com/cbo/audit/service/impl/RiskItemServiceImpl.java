@@ -28,7 +28,6 @@ public class RiskItemServiceImpl implements RiskItemService {
 
         RiskItem riskItem = RiskItemMapper.INSTANCE.toEntity(riskItemDTO);
         riskItem.setCreatedTimestamp(LocalDateTime.now());
-        riskItem.setCreatedUser("TODO");
 
         RiskItem savedPlan = riskItemRepository.save(riskItem);
 

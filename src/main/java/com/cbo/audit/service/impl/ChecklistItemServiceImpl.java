@@ -84,8 +84,8 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
     @Override
     public ResultWrapper<List<ChecklistItemDTO>> getAllChecklistItem() {
         ResultWrapper<List<ChecklistItemDTO>> resultWrapper = new ResultWrapper<>();
-        List<ChecklistItem> checklistItems=checklistItemRepository.findAll();
-        if (!checklistItems.isEmpty()){
+        List<ChecklistItem> checklistItems = checklistItemRepository.findAll();
+        if (!checklistItems.isEmpty()) {
             List<ChecklistItemDTO> checklistItemDTOS = ChecklistItemMapper.INSTANCE.checklistItemsToChecklistItemDTOs(checklistItems);
             resultWrapper.setResult(checklistItemDTOS);
             resultWrapper.setStatus(true);
@@ -99,7 +99,7 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
 
         ResultWrapper<ChecklistItemDTO> resultWrapper = new ResultWrapper<>();
         ChecklistItem checklistItem = checklistItemRepository.findById(id).orElse(null);
-        if (checklistItem != null){
+        if (checklistItem != null) {
             ChecklistItemDTO checklistItemDTO = ChecklistItemMapper.INSTANCE.toDTO(checklistItem);
             resultWrapper.setResult(checklistItemDTO);
             resultWrapper.setStatus(true);
@@ -117,7 +117,7 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
 
         ResultWrapper<List<ChecklistItemDTO>> resultWrapper = new ResultWrapper<>();
         List<ChecklistItem> checklistItems = checklistItemRepository.findChecklistItemByAuditableAreaId(id);
-        if (checklistItems != null){
+        if (checklistItems != null) {
             List<ChecklistItemDTO> checklistItemDTOS = ChecklistItemMapper.INSTANCE.checklistItemsToChecklistItemDTOs(checklistItems);
             resultWrapper.setResult(checklistItemDTOS);
             resultWrapper.setStatus(true);
@@ -131,12 +131,12 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
 
         ChecklistItem oldChecklist = checklistItemRepository.findById(checklistItemDTO.getId()).orElse(null);
 
-        if (oldChecklist != null){
+        if (oldChecklist != null) {
 
-                checklistItemRepository.delete(oldChecklist);
-                resultWrapper.setStatus(true);
-                resultWrapper.setMessage("Checklist Item deleted successfully.");
-        }else {
+            checklistItemRepository.delete(oldChecklist);
+            resultWrapper.setStatus(true);
+            resultWrapper.setMessage("Checklist Item deleted successfully.");
+        } else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("CheckList with the provided id is not available.");
         }
@@ -150,11 +150,12 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
 
         ChecklistItem oldChecklist = checklistItemRepository.findById(checklistItemDTO.getId()).orElse(null);
 
-        if (oldChecklist != null){
-            if (checklistItemDTO.getName() == null){
+        if (oldChecklist != null) {
+            if (checklistItemDTO.getName() == null) {
                 resultWrapper.setStatus(false);
                 resultWrapper.setMessage("Audit Object name cannot be null.");
-            } {
+            }
+            {
 
                 ChecklistItem checklistItem = ChecklistItemMapper.INSTANCE.toEntity(checklistItemDTO);
 
@@ -167,7 +168,7 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("Checklist Item updated successfully.");
             }
-        }else {
+        } else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("CheckList with the provided id is not available.");
         }

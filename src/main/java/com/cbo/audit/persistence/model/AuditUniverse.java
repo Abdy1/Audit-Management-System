@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "ams_audit_universe")
-public class AuditUniverse  extends BaseEntity{
+public class AuditUniverse extends BaseEntity {
 
 
     @Column(name = "NAME")

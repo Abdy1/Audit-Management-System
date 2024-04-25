@@ -17,43 +17,43 @@ import java.time.ZoneOffset;
 @SuppressWarnings("serial")
 public abstract class BaseEntity implements Serializable {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "ID")
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Long id;
 
-  @Column(name = "CREATED_USER")
-  private String createdUser;
+    @Column(name = "CREATED_USER")
+    private String createdUser;
 
-  @Column(name = "MODIFIED_USER")
-  private String modifiedUser;
+    @Column(name = "MODIFIED_USER")
+    private String modifiedUser;
 
-  @Column(name = "CREATED_TS")
-  @CreationTimestamp
-  private LocalDateTime createdTimestamp;
+    @Column(name = "CREATED_TS")
+    @CreationTimestamp
+    private LocalDateTime createdTimestamp;
 
-  @UpdateTimestamp
-  @Column(name = "MODIFIED_TS")
-  private LocalDateTime modifiedTimestamp;
+    @UpdateTimestamp
+    @Column(name = "MODIFIED_TS")
+    private LocalDateTime modifiedTimestamp;
 
-  @PrePersist
-  protected void basePrePersists() {
-    setUserStamp();
-  }
-
-  @PreUpdate
-  protected void beforeUpdate() {
-    setUserStamp();
-  }
-
-  private void setUserStamp() {
-
-    if (modifiedTimestamp == null) {
-      modifiedTimestamp = LocalDateTime.now();
+    @PrePersist
+    protected void basePrePersists() {
+        setUserStamp();
     }
-    if (createdTimestamp == null) {
-      createdTimestamp = modifiedTimestamp;
+
+    @PreUpdate
+    protected void beforeUpdate() {
+        setUserStamp();
     }
-  }
+
+    private void setUserStamp() {
+
+        if (modifiedTimestamp == null) {
+            modifiedTimestamp = LocalDateTime.now();
+        }
+        if (createdTimestamp == null) {
+            createdTimestamp = modifiedTimestamp;
+        }
+    }
 
 }

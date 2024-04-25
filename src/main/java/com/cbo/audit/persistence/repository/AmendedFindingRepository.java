@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AmendedFindingRepository extends JpaRepository<AmendedFinding,Long> {
+public interface AmendedFindingRepository extends JpaRepository<AmendedFinding, Long> {
     @Query(" SELECT AN FROM AmendedFinding AN WHERE AN.finding.id = :findingId")
     List<AmendedFinding> findAllAmendedFindingByFindingId(@Param("findingId") Long findingId);
 }

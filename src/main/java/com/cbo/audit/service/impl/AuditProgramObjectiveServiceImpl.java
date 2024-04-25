@@ -1,9 +1,7 @@
 package com.cbo.audit.service.impl;
 
-import com.cbo.audit.dto.AuditProgramDTO;
 import com.cbo.audit.dto.AuditProgramObjectiveDTO;
 import com.cbo.audit.dto.ResultWrapper;
-import com.cbo.audit.mapper.AuditProgramMapper;
 import com.cbo.audit.mapper.AuditProgramObjectiveMapper;
 import com.cbo.audit.persistence.model.AuditProgram;
 import com.cbo.audit.persistence.model.AuditProgramObjective;
@@ -46,7 +44,7 @@ public class AuditProgramObjectiveServiceImpl implements AuditProgramObjectiveSe
     @Override
     public ResultWrapper<AuditProgramObjectiveDTO> registerAuditProgramObjective(AuditProgramObjectiveDTO auditProgramObjectiveDTO) {
         ResultWrapper<AuditProgramObjectiveDTO> resultWrapper = new ResultWrapper<>();
-        Optional<AuditProgram> auditProgramOpt =auditProgramService.findAuditProgramById(auditProgramObjectiveDTO.getAuditProgram().getId());
+        Optional<AuditProgram> auditProgramOpt = auditProgramService.findAuditProgramById(auditProgramObjectiveDTO.getAuditProgram().getId());
 
         if (!auditProgramOpt.isPresent()) {
             resultWrapper.setStatus(false);
@@ -80,8 +78,7 @@ public class AuditProgramObjectiveServiceImpl implements AuditProgramObjectiveSe
             if (auditProgramObjectiveDTO.getDescription() == null) {
                 resultWrapper.setStatus(false);
                 resultWrapper.setMessage("Audit Program Objective Can not be Empty!");
-            }
-            else {
+            } else {
 
                 AuditProgramObjective auditProgramObjective = AuditProgramObjectiveMapper.INSTANCE.toEntity(auditProgramObjectiveDTO);
 
@@ -93,11 +90,10 @@ public class AuditProgramObjectiveServiceImpl implements AuditProgramObjectiveSe
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("Audit Program Objective updated successfully.");
             }
+        } else {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit Program WBS with the Provided id is not available");
         }
-        else {
-                resultWrapper.setStatus(false);
-                resultWrapper.setMessage("Audit Program WBS with the Provided id is not available");
-    }
 
         return resultWrapper;
     }

@@ -1,7 +1,7 @@
 package com.cbo.audit.service;
 
-import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.dto.AuditStaffDTO;
+import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.dto.UserDTO;
 import com.cbo.audit.persistence.model.AuditStaff;
 
@@ -23,6 +23,7 @@ public interface AuditStaffService {
     ResultWrapper<AuditStaffDTO> updateAuditStaff(AuditStaffDTO auditObjectDTO);
 
     ResultWrapper<List<AuditStaffDTO>> getAllAuditStaffs();
+
     ResultWrapper<List<AuditStaffDTO>> getAllActiveAuditStaffs();
 
     ResultWrapper<List<AuditStaffDTO>> getAllByAuditTypeId(Long auditTypeId);

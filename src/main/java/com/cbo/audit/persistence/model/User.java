@@ -1,17 +1,13 @@
 package com.cbo.audit.persistence.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "ams_user")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
     @Column(name = "username", unique = true, nullable = false, length = 20)
     private String username;
     @Column(nullable = false, length = 64)

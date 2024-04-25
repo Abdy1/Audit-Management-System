@@ -4,11 +4,9 @@ import com.cbo.audit.dto.AmendedFindingDTO;
 import com.cbo.audit.dto.FindingDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.mapper.AmendedFindingMapper;
-import com.cbo.audit.mapper.AuditProgramMapper;
 import com.cbo.audit.mapper.FindingMapper;
 import com.cbo.audit.persistence.model.AmendedFinding;
 import com.cbo.audit.persistence.model.AuditProgram;
-import com.cbo.audit.persistence.model.AuditUniverse;
 import com.cbo.audit.persistence.model.Finding;
 import com.cbo.audit.persistence.repository.AmendedFindingRepository;
 import com.cbo.audit.persistence.repository.AuditProgramRepository;
@@ -16,22 +14,18 @@ import com.cbo.audit.persistence.repository.FindingRepository;
 import com.cbo.audit.service.AuditProgramFindingService;
 import com.cbo.audit.utils.FileUploadUtil;
 import io.github.pixee.security.Filenames;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -233,8 +227,9 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
             throw new IOException("Could not save the File: " + fileName, ioe);
         }
     }
+
     public String saveFileAngGetFileName(String uploadDir, String fileName,
-                         MultipartFile multipartFile) throws IOException {
+                                         MultipartFile multipartFile) throws IOException {
         Path uploadPath = Paths.get(uploadDir);
 
         if (!Files.exists(uploadPath)) {
@@ -250,7 +245,6 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
             throw new IOException("Could not save the File: " + fileName, ioe);
         }
     }
-
 
 
     public List<Path> getFilesStartingWithChar(String directoryPath, String startingChars) throws IOException {
@@ -273,7 +267,7 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
             Path filePath = Paths.get("findings/evidences", filename);
             byte[] fileBytes = Files.readAllBytes(filePath);
             ByteArrayResource resource = new ByteArrayResource(fileBytes);
-return resource;
+            return resource;
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -285,11 +279,11 @@ return resource;
 }
     @Override
     public void makeVisible(Long id) {
-       Finding finding=auditProgramFindingRepository.getById(id);
+        Finding finding = auditProgramFindingRepository.getById(id);
 
-       if(finding != null){
-           finding.setIsVisibleToAuditees(true);
-       }
+        if (finding != null) {
+            finding.setIsVisibleToAuditees(true);
+        }
     }
 
 }

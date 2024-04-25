@@ -3,17 +3,13 @@ package com.cbo.audit.service.impl;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.dto.ResourceDTO;
 import com.cbo.audit.dto.ResultWrapper;
-import com.cbo.audit.dto.ResourceDTO;
 import com.cbo.audit.mapper.ResourceMapper;
 import com.cbo.audit.persistence.model.AuditSchedule;
 import com.cbo.audit.persistence.model.Resource;
-import com.cbo.audit.persistence.model.Resource;
-import com.cbo.audit.persistence.model.User;
 import com.cbo.audit.persistence.repository.ResourceRepository;
 import com.cbo.audit.service.AuditScheduleService;
 import com.cbo.audit.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.init.ResourceReader;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -59,7 +55,7 @@ public class ResourceServiceImpl implements ResourceService {
 
         List<Resource> resources = resourceRepository.findAllResourcesOfSchedule(auditScheduleDTO.getId());
 
-        if(!resources.isEmpty()){
+        if (!resources.isEmpty()) {
             List<ResourceDTO> resourceDTOS = ResourceMapper.INSTANCE.resourcesToResourceDTOs(resources);
             resultWrapper.setStatus(true);
             resultWrapper.setResult(resourceDTOS);
@@ -75,11 +71,11 @@ public class ResourceServiceImpl implements ResourceService {
     public ResultWrapper<ResourceDTO> getResourceById(Long id) {
         ResultWrapper<ResourceDTO> resultWrapper = new ResultWrapper<>();
         Optional<Resource> resource = resourceRepository.findById(id);
-        if (resource.isPresent()){
-            ResourceDTO resourceDTO =  ResourceMapper.INSTANCE.toDTO(resource.get());
+        if (resource.isPresent()) {
+            ResourceDTO resourceDTO = ResourceMapper.INSTANCE.toDTO(resource.get());
             resultWrapper.setResult(resourceDTO);
             resultWrapper.setStatus(true);
-        }else {
+        } else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("No record found with the provided id.");
         }
@@ -97,7 +93,7 @@ public class ResourceServiceImpl implements ResourceService {
 
         Optional<Resource> oldResource = resourceRepository.findById(resourceDTO.getId());
 
-        if (!oldResource.isPresent()){
+        if (!oldResource.isPresent()) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Invalid resource member id");
         }

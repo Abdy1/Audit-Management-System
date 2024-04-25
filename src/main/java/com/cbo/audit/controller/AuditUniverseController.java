@@ -5,12 +5,14 @@ import com.cbo.audit.constants.URIs;
 import com.cbo.audit.dto.AuditUniverseDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.service.AuditUniverseService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -18,41 +20,42 @@ import java.util.List;
 public class AuditUniverseController {
     @Autowired
     AuditUniverseService auditUniverseService;
-    @PostMapping(value = URIs.AUDIT_UNIVERSE_REGISTER, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<AuditUniverseDTO>> auditUniverseRegister(@RequestBody AuditUniverseDTO auditUniverseDTO){
 
-    ResultWrapper<AuditUniverseDTO> resultWrapper=auditUniverseService.registerAuditUniverse(auditUniverseDTO);
+    @PostMapping(value = URIs.AUDIT_UNIVERSE_REGISTER, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditUniverseDTO>> auditUniverseRegister(@RequestBody AuditUniverseDTO auditUniverseDTO) {
 
-    return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
-    }
-
-    @GetMapping(value = URIs.AUDIT_UNIVERSE_LIST_ALL,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<AuditUniverseDTO>>> listAllAuditUniverse(){
-        ResultWrapper<List<AuditUniverseDTO>> resultWrapper=auditUniverseService.getAllAuditUniverse();
+        ResultWrapper<AuditUniverseDTO> resultWrapper = auditUniverseService.registerAuditUniverse(auditUniverseDTO);
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @PostMapping(value = URIs.AUDIT_UNIVERSE_BY_ID,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<AuditUniverseDTO>> getAuditUniverseById(@RequestBody AuditUniverseDTO auditUniverseDTO){
-
-        ResultWrapper<AuditUniverseDTO> resultWrapper=auditUniverseService.getAuditUniverseById(auditUniverseDTO.getId());
-
-        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
-    }
-
-    @PostMapping(value = URIs.AUDIT_UNIVERSE_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<AuditUniverseDTO>> updateAuditUniverse(@RequestBody AuditUniverseDTO auditUniverseDTO){
-
-        ResultWrapper<AuditUniverseDTO> resultWrapper=auditUniverseService.updateAuditUniverse(auditUniverseDTO);
+    @GetMapping(value = URIs.AUDIT_UNIVERSE_LIST_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AuditUniverseDTO>>> listAllAuditUniverse() {
+        ResultWrapper<List<AuditUniverseDTO>> resultWrapper = auditUniverseService.getAllAuditUniverse();
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @PostMapping(value = URIs.AUDIT_UNIVERSE_APPROVE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<AuditUniverseDTO>> approveAuditUniverse(@RequestBody AuditUniverseDTO auditUniverseDTO){
+    @PostMapping(value = URIs.AUDIT_UNIVERSE_BY_ID, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditUniverseDTO>> getAuditUniverseById(@RequestBody AuditUniverseDTO auditUniverseDTO) {
 
-        ResultWrapper<AuditUniverseDTO> resultWrapper=auditUniverseService.approveAuditUniverse(auditUniverseDTO);
+        ResultWrapper<AuditUniverseDTO> resultWrapper = auditUniverseService.getAuditUniverseById(auditUniverseDTO.getId());
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @PostMapping(value = URIs.AUDIT_UNIVERSE_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditUniverseDTO>> updateAuditUniverse(@RequestBody AuditUniverseDTO auditUniverseDTO) {
+
+        ResultWrapper<AuditUniverseDTO> resultWrapper = auditUniverseService.updateAuditUniverse(auditUniverseDTO);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @PostMapping(value = URIs.AUDIT_UNIVERSE_APPROVE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditUniverseDTO>> approveAuditUniverse(@RequestBody AuditUniverseDTO auditUniverseDTO) {
+
+        ResultWrapper<AuditUniverseDTO> resultWrapper = auditUniverseService.approveAuditUniverse(auditUniverseDTO);
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

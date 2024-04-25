@@ -1,18 +1,23 @@
 package com.cbo.audit.service.impl;
 
-import com.cbo.audit.dto.*;
+import com.cbo.audit.dto.AuditScheduleDTO;
+import com.cbo.audit.dto.ReportDTO;
+import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.mapper.*;
-import com.cbo.audit.persistence.model.*;
+import com.cbo.audit.persistence.model.AuditProgram;
+import com.cbo.audit.persistence.model.EngagementInfo;
+import com.cbo.audit.persistence.model.Finding;
+import com.cbo.audit.persistence.model.Report;
 import com.cbo.audit.persistence.repository.*;
 import com.cbo.audit.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.*;
+import java.util.List;
+
 @Service
-public class ReportServiceImpl implements ReportService
-{
+public class ReportServiceImpl implements ReportService {
+    ReportDTO reportResultWrapper = new ReportDTO();
     @Autowired
     private ReportRepository reportRepository;
     @Autowired
@@ -23,48 +28,45 @@ public class ReportServiceImpl implements ReportService
     private FindingRepository auditProgramFindingRepository;
     @Autowired
     private AuditProgramObjectiveRepository auditProgramObjectiveRepository;
-    ReportDTO reportResultWrapper= new ReportDTO() ;
-    public ResultWrapper<ReportDTO> generateDefaultReport(AuditScheduleDTO auditScheduleDTO) {
-        ResultWrapper<ReportDTO> resultWrapper=new ResultWrapper<>();
 
+    public ResultWrapper<ReportDTO> generateDefaultReport(AuditScheduleDTO auditScheduleDTO) {
+        ResultWrapper<ReportDTO> resultWrapper = new ResultWrapper<>();
 
 
         EngagementInfo engagementInfo = engagementInfoRepository.findAuditEngagementBySchedule(auditScheduleDTO.getId());
-        if(engagementInfo == null){
- resultWrapper.setResult(null);
- resultWrapper.setMessage("Engagement with the provided information does not exist");
- resultWrapper.setStatus(false);
- return  resultWrapper;
+        if (engagementInfo == null) {
+            resultWrapper.setResult(null);
+            resultWrapper.setMessage("Engagement with the provided information does not exist");
+            resultWrapper.setStatus(false);
+            return resultWrapper;
 
         }
-        if(engagementInfo.getAuditSchedule() == null){
+        if (engagementInfo.getAuditSchedule() == null) {
             resultWrapper.setResult(null);
             resultWrapper.setMessage("Audit schedule with the provided information does not exist");
             resultWrapper.setStatus(false);
-            return  resultWrapper;
+            return resultWrapper;
 
         }
 
         System.out.println("engagement present");
-        AuditProgram auditProgram=auditProgramRepository.getAuditProgramByEngagementId(engagementInfo.getId());
-        if(auditProgram == null){
+        AuditProgram auditProgram = auditProgramRepository.getAuditProgramByEngagementId(engagementInfo.getId());
+        if (auditProgram == null) {
             resultWrapper.setResult(null);
             resultWrapper.setMessage("Audit Program with the provided information does not exist");
             resultWrapper.setStatus(false);
-            return  resultWrapper;
+            return resultWrapper;
 
         }
 
-        List<Finding> findings=auditProgramFindingRepository.findFindingByAuditProgramId(auditProgram.getId());
-        if(findings == null){
+        List<Finding> findings = auditProgramFindingRepository.findFindingByAuditProgramId(auditProgram.getId());
+        if (findings == null) {
             resultWrapper.setResult(null);
             resultWrapper.setMessage("Finding with the provided information does not exist");
             resultWrapper.setStatus(false);
-            return  resultWrapper;
+            return resultWrapper;
 
         }
-
-
 
 
         reportResultWrapper.setFindings(FindingMapper.INSTANCE.FindingToFindingDTOs(findings));
@@ -77,21 +79,21 @@ public class ReportServiceImpl implements ReportService
         resultWrapper.setStatus(true);
         resultWrapper.setResult(reportResultWrapper);
 
-return resultWrapper;
+        return resultWrapper;
     }
 
-    public ResultWrapper<ReportDTO> registerReport(ReportDTO reportDTO ){
+    public ResultWrapper<ReportDTO> registerReport(ReportDTO reportDTO) {
         Report report = ReportMapper.INSTANCE.toEntity(reportDTO);
-        ResultWrapper<ReportDTO> resultWrapper=new ResultWrapper<>();
+        ResultWrapper<ReportDTO> resultWrapper = new ResultWrapper<>();
         System.out.println(reportDTO.getAuditProgram().getEngagementInfo().getAuditSchedule().getId());
-        if(reportDTO.getAuditProgram().getEngagementInfo().getAuditSchedule() == null){
+        if (reportDTO.getAuditProgram().getEngagementInfo().getAuditSchedule() == null) {
             resultWrapper.setResult(null);
             resultWrapper.setMessage("there is no report with the provided information");
             resultWrapper.setStatus(false);
             return resultWrapper;
         }
         System.out.println(reportDTO);
-    Report savedReport=reportRepository.findReportByAuditScheduleId(reportDTO.getAuditSchedule().getId());
+        Report savedReport = reportRepository.findReportByAuditScheduleId(reportDTO.getAuditSchedule().getId());
 
 
         System.out.println(report.getObjectives());
@@ -99,35 +101,37 @@ return resultWrapper;
         System.out.println(reportDTO);
 
 
-        if(report == null){
+        if (report == null) {
             resultWrapper.setResult(null);
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("no report found");
-            return  resultWrapper;
+            return resultWrapper;
 
         }
         // check detail of the report , ex finding not null,schedule not null , engagement not null ... etc
-if(savedReport != null){
-    reportRepository.delete(savedReport);
-    Report savedResult=reportRepository.save(report);
-    resultWrapper.setMessage("success");
-    resultWrapper.setStatus(true);
-    resultWrapper.setResult(ReportMapper.INSTANCE.toDTO(savedResult));
-    return resultWrapper;
+        if (savedReport != null) {
+            reportRepository.delete(savedReport);
+            Report savedResult = reportRepository.save(report);
+            resultWrapper.setMessage("success");
+            resultWrapper.setStatus(true);
+            resultWrapper.setResult(ReportMapper.INSTANCE.toDTO(savedResult));
+            return resultWrapper;
 
-}else{
-       Report savedResult=reportRepository.save(report);
-        resultWrapper.setMessage("success");
-        resultWrapper.setStatus(true);
-        resultWrapper.setResult(ReportMapper.INSTANCE.toDTO(savedResult));
-        return resultWrapper;}
+        } else {
+            Report savedResult = reportRepository.save(report);
+            resultWrapper.setMessage("success");
+            resultWrapper.setStatus(true);
+            resultWrapper.setResult(ReportMapper.INSTANCE.toDTO(savedResult));
+            return resultWrapper;
+        }
 
     }
-    public ResultWrapper<ReportDTO> getReportById(Long id){
-        Report report = reportRepository.findById(id).orElse(null);
-        ResultWrapper<ReportDTO> resultWrapper=new ResultWrapper<>();
 
-        if(report == null){
+    public ResultWrapper<ReportDTO> getReportById(Long id) {
+        Report report = reportRepository.findById(id).orElse(null);
+        ResultWrapper<ReportDTO> resultWrapper = new ResultWrapper<>();
+
+        if (report == null) {
             resultWrapper.setResult(null);
             resultWrapper.setMessage("there is no report with the provided information");
             resultWrapper.setStatus(false);
@@ -142,10 +146,10 @@ if(savedReport != null){
 
     }
 
-    public ResultWrapper<ReportDTO> getReportByScheduleId(Long id){
-        ResultWrapper<ReportDTO> resultWrapper=new ResultWrapper<>();
+    public ResultWrapper<ReportDTO> getReportByScheduleId(Long id) {
+        ResultWrapper<ReportDTO> resultWrapper = new ResultWrapper<>();
         Report report = reportRepository.findReportByAuditScheduleId(id);
-        if(report == null){
+        if (report == null) {
             resultWrapper.setMessage("report with the provide Audit schedule record does not exist ");
             resultWrapper.setStatus(false);
             resultWrapper.setResult(null);
@@ -159,11 +163,11 @@ if(savedReport != null){
 
     }
 
-    public ResultWrapper<List<ReportDTO>> listAllReports(){
-        List<Report> reports= reportRepository.findAll();
+    public ResultWrapper<List<ReportDTO>> listAllReports() {
+        List<Report> reports = reportRepository.findAll();
         List<ReportDTO> reportDTOS = ReportMapper.INSTANCE.ReportsToReportDTOs(reports);
 
-        ResultWrapper<List<ReportDTO>> resultWrapper=new ResultWrapper<>();
+        ResultWrapper<List<ReportDTO>> resultWrapper = new ResultWrapper<>();
         resultWrapper.setResult(reportDTOS);
 
         return resultWrapper;

@@ -23,5 +23,5 @@ public interface ChecklistItemService {
     ResultWrapper<ChecklistItemDTO> deleteChecklistItem(ChecklistItemDTO checklistItemDTO);
 
 
-/*    ResultWrapper<List<ChecklistItemDTO>> getChecklistItemByAuditObjectId(Long id);*/
+    /*    ResultWrapper<List<ChecklistItemDTO>> getChecklistItemByAuditObjectId(Long id);*/
 }

@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "ams_team_member")
-public class TeamMember extends BaseEntity{
+public class TeamMember extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")

@@ -5,17 +5,14 @@ import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.mapper.AuditObjectMapper;
 import com.cbo.audit.persistence.model.AuditObject;
 import com.cbo.audit.persistence.model.AuditType;
-import com.cbo.audit.persistence.model.AuditUniverse;
 import com.cbo.audit.persistence.repository.AuditObjectRepository;
 import com.cbo.audit.persistence.repository.AuditTypeRepository;
 import com.cbo.audit.service.AuditObjectService;
-import com.cbo.audit.service.AuditUniverseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +35,7 @@ public class AuditObjectServiceImpl implements AuditObjectService {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Object name cannot be null.");
             return resultWrapper;
-        }else if(auditObjectDTO.getAuditType() == null){
+        } else if (auditObjectDTO.getAuditType() == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Object type cannot be null.");
         }
@@ -56,8 +53,8 @@ public class AuditObjectServiceImpl implements AuditObjectService {
     @Override
     public ResultWrapper<List<AuditObjectDTO>> getAllAuditObject() {
         ResultWrapper<List<AuditObjectDTO>> resultWrapper = new ResultWrapper<>();
-        List<AuditObject> auditObjects=auditObjectRepository.findAll();
-        if (!auditObjects.isEmpty()){
+        List<AuditObject> auditObjects = auditObjectRepository.findAll();
+        if (!auditObjects.isEmpty()) {
             List<AuditObjectDTO> auditObjectDTOS = AuditObjectMapper.INSTANCE.auditObjectsToAuditObjectDTOs(auditObjects);
             resultWrapper.setResult(auditObjectDTOS);
             resultWrapper.setStatus(true);
@@ -71,7 +68,7 @@ public class AuditObjectServiceImpl implements AuditObjectService {
 
         ResultWrapper<AuditObjectDTO> resultWrapper = new ResultWrapper<>();
         AuditObject auditObject = auditObjectRepository.findById(id).orElse(null);
-        if (auditObject != null){
+        if (auditObject != null) {
             AuditObjectDTO auditObjectDTO = AuditObjectMapper.INSTANCE.toDTO(auditObject);
             resultWrapper.setResult(auditObjectDTO);
             resultWrapper.setStatus(true);
@@ -90,7 +87,7 @@ public class AuditObjectServiceImpl implements AuditObjectService {
 
         ResultWrapper<List<AuditType>> resultWrapper = new ResultWrapper<>();
         List<AuditType> auditObjects = auditTypeRepository.findAll();
-        if (!auditObjects.isEmpty()){
+        if (!auditObjects.isEmpty()) {
             resultWrapper.setResult(auditObjects);
             resultWrapper.setStatus(true);
         }
@@ -101,8 +98,8 @@ public class AuditObjectServiceImpl implements AuditObjectService {
     public ResultWrapper<List<AuditObjectDTO>> getAuditObjectByAuditType(String auditType) {
 
         ResultWrapper<List<AuditObjectDTO>> resultWrapper = new ResultWrapper<>();
-        List<AuditObject> auditObjects=auditObjectRepository.findAuditObjectsByAuditType(auditType);
-        if (!auditObjects.isEmpty()){
+        List<AuditObject> auditObjects = auditObjectRepository.findAuditObjectsByAuditType(auditType);
+        if (!auditObjects.isEmpty()) {
             List<AuditObjectDTO> auditObjectDTOS = AuditObjectMapper.INSTANCE.auditObjectsToAuditObjectDTOs(auditObjects);
             resultWrapper.setResult(auditObjectDTOS);
             resultWrapper.setStatus(true);
@@ -117,14 +114,14 @@ public class AuditObjectServiceImpl implements AuditObjectService {
 
         AuditObject oldUniverse = auditObjectRepository.findById(auditObjectDTO.getId()).orElse(null);
 
-        if (oldUniverse != null){
-            if (auditObjectDTO.getName() == null){
+        if (oldUniverse != null) {
+            if (auditObjectDTO.getName() == null) {
                 resultWrapper.setStatus(false);
                 resultWrapper.setMessage("Audit Object name cannot be null.");
-            }else if(auditObjectDTO.getAuditType() == null){
+            } else if (auditObjectDTO.getAuditType() == null) {
                 resultWrapper.setStatus(false);
                 resultWrapper.setMessage("Audit Object type cannot be null.");
-            }else {
+            } else {
 
                 AuditObject auditObject = AuditObjectMapper.INSTANCE.toEntity(auditObjectDTO);
 
@@ -136,7 +133,7 @@ public class AuditObjectServiceImpl implements AuditObjectService {
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("Audit Object updated successfully.");
             }
-        }else {
+        } else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit object with the provided id is not available.");
         }

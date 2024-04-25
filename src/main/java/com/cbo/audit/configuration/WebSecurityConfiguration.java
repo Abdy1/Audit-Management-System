@@ -47,7 +47,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/auth/**","/sasv/authority/employees/branch/**","/sasv/authority/employees/district/**",
+                .authorizeRequests().antMatchers("/auth/**", "/sasv/authority/employees/branch/**", "/sasv/authority/employees/district/**",
                         "/sasv/authority/employees/process/vp/**").permitAll()
                 .antMatchers(HttpHeaders.ALLOW).permitAll()
                 .anyRequest().authenticated();

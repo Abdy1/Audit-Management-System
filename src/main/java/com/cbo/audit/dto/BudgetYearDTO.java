@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BudgetYearDTO extends BaseDTO{
+public class BudgetYearDTO extends BaseDTO {
 
     private String year;
 

@@ -11,7 +11,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "ams_audit_object")
-public class AuditObject extends BaseEntity{
+public class AuditObject extends BaseEntity {
 
     @Column(name = "NAME")
     private String name;

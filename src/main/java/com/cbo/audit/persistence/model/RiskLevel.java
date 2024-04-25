@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "ams_risk_level")
-public class RiskLevel extends BaseEntity{
+public class RiskLevel extends BaseEntity {
 
     @Column(name = "HIGH")
     private int high;

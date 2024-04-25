@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "ams_audit_staff")
-public class AuditStaff extends BaseEntity{
+public class AuditStaff extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "AUDIT_TYPE_ID")

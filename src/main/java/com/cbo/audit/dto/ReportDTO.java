@@ -1,18 +1,11 @@
 package com.cbo.audit.dto;
 
 import com.cbo.audit.enums.ReportStatus;
-import com.cbo.audit.persistence.model.AuditProgramObjective;
-import com.cbo.audit.persistence.model.AuditSchedule;
-import com.cbo.audit.persistence.model.Finding;
 import com.cbo.audit.persistence.model.TeamMember;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReportDTO extends BaseDTO{
+public class ReportDTO extends BaseDTO {
 
     private AuditScheduleDTO auditSchedule;
     private String introduction;
@@ -41,7 +34,6 @@ public class ReportDTO extends BaseDTO{
 
     private EngagementDTO engagementInfo;
     private AuditProgramDTO auditProgram;
-
 
 
 }

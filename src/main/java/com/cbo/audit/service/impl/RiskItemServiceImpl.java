@@ -20,6 +20,8 @@ public class RiskItemServiceImpl implements RiskItemService {
     @Autowired
     private RiskItemRepository riskItemRepository;
 
+    private static final String noRiskItem = "Risk Item with the provided id does not exist.";
+
 
     @Override
     public ResultWrapper<RiskItemDTO> registerRiskItem(RiskItemDTO riskItemDTO) {
@@ -92,7 +94,7 @@ public class RiskItemServiceImpl implements RiskItemService {
             }
         } else {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Risk Item with the provided id does not exist.");
+            resultWrapper.setMessage(noRiskItem);
         }
 
         return resultWrapper;
@@ -110,7 +112,7 @@ public class RiskItemServiceImpl implements RiskItemService {
             resultWrapper.setMessage("Risk Item deleted successfully.");
         } else {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Risk Item with the provided id does not exist.");
+            resultWrapper.setMessage(noRiskItem);
         }
 
         return resultWrapper;

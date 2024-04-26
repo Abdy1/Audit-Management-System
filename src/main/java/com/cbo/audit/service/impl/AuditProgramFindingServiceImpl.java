@@ -41,6 +41,8 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
     @Autowired
     private AmendedFindingRepository amendedFindingRepository;
 
+    private static final String noFindingInfo = "There is no Finding with the provided Information";
+
     @Override
     public ResultWrapper<FindingDTO> registerAuditProgramFinding(FindingDTO findingDTO) {
 
@@ -144,33 +146,38 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
 
 
     @Override
-    public ResultWrapper<String> attachFile(MultipartFile file, Long id) throws IOException {
+    public ResultWrapper<String> attachFile(MultipartFile file, Long id) {
         ResultWrapper<String> resultWrapper = new ResultWrapper<>();
-        Finding finding = auditProgramFindingRepository.findById(id).orElse(null);
-        if (finding == null) {
+        Optional<Finding> optionalFinding = auditProgramFindingRepository.findById(id);
+
+        if (!optionalFinding.isPresent()) {
             resultWrapper.setStatus(false);
             resultWrapper.setResult(null);
-            resultWrapper.setMessage("There is no Finding with the provided Information");
+            resultWrapper.setMessage(noFindingInfo);
             return resultWrapper;
         }
-        try {
-            System.out.println(Filenames.toSimpleFileName(file.getOriginalFilename()));
-            String extention = Filenames.toSimpleFileName(file.getOriginalFilename()).substring(file.getOriginalFilename().indexOf('.'));
-            Path path = saveFile("findings/evidences", finding.getId() + extention, file);
 
-            finding.setFindingEvidenceFileUploadedToSupplementTheFindingsPath(finding.getId() + extention);
+        Finding finding = optionalFinding.get();
+        try {
+            String originalFilename = file.getOriginalFilename();
+            String simpleFileName = Filenames.toSimpleFileName(originalFilename);
+            String extension = simpleFileName.substring(originalFilename.indexOf('.'));
+
+            Path path = saveFile("findings/evidences", finding.getId() + extension, file);
+
+            finding.setFindingEvidenceFileUploadedToSupplementTheFindingsPath(finding.getId() + extension);
             resultWrapper.setMessage("success");
             resultWrapper.setStatus(true);
             resultWrapper.setResult(finding.getFindingEvidenceFileUploadedToSupplementTheFindingsPath());
-            return resultWrapper;
         } catch (Exception e) {
             resultWrapper.setStatus(false);
             resultWrapper.setResult(null);
             resultWrapper.setMessage("Something went wrong while uploading the file, please try again later");
-            return resultWrapper;
         }
 
+        return resultWrapper;
     }
+
 
 
     public ResultWrapper<List<Path>> getFillesAttachedByFindingId(Long id) {
@@ -179,7 +186,7 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
         if (finding == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setResult(null);
-            resultWrapper.setMessage("There is no Finding with the provided Information");
+            resultWrapper.setMessage(noFindingInfo);
             return resultWrapper;
         }
 
@@ -204,7 +211,7 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
         }
         resultWrapper.setStatus(false);
         resultWrapper.setResult(null);
-        resultWrapper.setMessage("There is no Finding with the provided Information");
+        resultWrapper.setMessage(noFindingInfo);
         return resultWrapper;
 
     }

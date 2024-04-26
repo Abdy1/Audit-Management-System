@@ -1,23 +1,21 @@
 
-z
-java:S3655j"7Call "Optional#isPresent()" before accessing the value.(˜±‘8ƒËÌñ1J$d58f4d6e-ef53-4aac-a972-7212ca2d6255
+|
+java:S3655t"9Call "budgetYear.isPresent()" before accessing the value.(à¦Âƒ8ªô®Óñ1J$eab728f9-9e25-43f2-b7c9-914e0723dd36
 …
-java:S6813!"BRemove this field injection and use constructor injection instead.(êæÄŞ8„ƒËÌñ1J$ea8bf607-74d4-42a7-8c18-0fb8fe356f4d
+java:S6813!"BRemove this field injection and use constructor injection instead.(êæÄŞ8èé¬Óñ1J$d47e7b7e-bc71-4f9e-9490-97398497d868
 …
-java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8„ƒËÌñ1J$7be231cc-589b-4758-a7c5-9b43b22e9538
+java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8éé¬Óñ1J$f2503d68-da6d-4ec0-a371-4e01c06a46d3
 …
-java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8„ƒËÌñ1J$c968eec8-17d6-49a0-95a3-8526742f49bb
+java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8éé¬Óñ1J$2931d30f-5f34-475d-9acc-c80875ea6901
 …
-java:S6813*"BRemove this field injection and use constructor injection instead.(êæÄŞ8„ƒËÌñ1J$6cc697fb-9587-4075-8d65-1f94c787a624
+java:S6813*"BRemove this field injection and use constructor injection instead.(êæÄŞ8éé¬Óñ1J$3c315757-b1c0-4d1e-b837-e518d870e435
 …
-java:S6813-"BRemove this field injection and use constructor injection instead.(êæÄŞ8„ƒËÌñ1J$7a2cec8a-9da9-4130-a85b-f8cb4fba1ada
+java:S6813-"BRemove this field injection and use constructor injection instead.(êæÄŞ8éé¬Óñ1J$49403bd7-134d-4119-9a9b-ef44565d9ce6
 …
-java:S68130"BRemove this field injection and use constructor injection instead.(êæÄŞ8„ƒËÌñ1J$78ad8e7a-af8a-48dc-8608-b03a4667fb1b
+java:S68130"BRemove this field injection and use constructor injection instead.(êæÄŞ8éé¬Óñ1J$f7d5aba2-fc38-4f70-bc5c-e0214a9086c7
 …
-java:S68133"BRemove this field injection and use constructor injection instead.(êæÄŞ8„ƒËÌñ1J$c0d01b9a-4085-4dbf-af97-fae1186718e9
-t
-java:S2201Ä"+The return value of "getYear" must be used.(¸–“àüÿÿÿÿ8“ƒËÌñ1J$6c9aba66-1860-4f08-8837-d2009d6233a1
-H
-java:S1128"+Remove this unused import 'java.time.Year'.(Èƒœ¦8Ÿ¹ªÑñ1
-H
-java:S1128"+Remove this unused import 'java.util.Date'.(¸…¼ü8Ÿ¹ªÑñ1
+java:S68133"BRemove this field injection and use constructor injection instead.(êæÄŞ8éé¬Óñ1J$a6fabfb9-aa79-4b3a-986d-9dc60ddbb891
+n
+java:S1128"+Remove this unused import 'java.time.Year'.(Èƒœ¦8‰¼®Óñ1J$3c700111-2749-4295-9bec-bcc999659d76
+n
+java:S1128"+Remove this unused import 'java.util.Date'.(¸…¼ü8‰¼®Óñ1J$752faabb-ae2e-4bf5-8e9c-b708f6fde093

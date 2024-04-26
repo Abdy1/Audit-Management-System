@@ -1,16 +1,5 @@
 
-{
-java:S3655h":Call "oldResource.isPresent()" before accessing the value.(ôíÛÕşÿÿÿÿJ$85474ee4-5038-402e-be0d-cc7e8dd899fd
 ~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$cccf0832-4adf-48aa-a83f-1e350d4f6962
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$c4575d90-6726-4bf5-a8d0-074b3f14adf8
 ~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$b83bdb72-e83d-49b9-a103-1a155b9493d7
-Z
-java:S1128"Remove this duplicated import.(¢Ô‹©J$92d7b2e5-a46e-4cdc-8901-22fbb5244ae5
-Z
-java:S1128
-"Remove this duplicated import.(–€ü–J$546d1dba-a7f5-48dd-a631-820952dcb597
-‚
-java:S1128"ARemove this unused import 'com.cbo.audit.persistence.model.User'.(˜öÓóûÿÿÿÿJ$6853911b-b886-4cc1-b2cb-9c192bf0c605
-
-java:S1128"TRemove this unused import 'org.springframework.data.repository.init.ResourceReader'.(®è™¬J$12f7104c-0e6d-4f33-bf67-890693b10657
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$d8c7c86b-2029-4f13-adda-9730c8bd4429

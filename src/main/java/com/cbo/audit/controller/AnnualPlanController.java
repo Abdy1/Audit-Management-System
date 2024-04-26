@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -79,6 +76,14 @@ public class AnnualPlanController {
     public ResponseEntity<ResultWrapper<List<AnnualPlanDTO>>> findPlanedAnnualPlans() {
 
         ResultWrapper<List<AnnualPlanDTO>> resultWrapper = annualPlanService.getPlannedAnnualPlans();
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @GetMapping(value = URIs.ANNUAL_PLAN_PLANED_LIST_YEAR, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AnnualPlanDTO>>> findPlanedAnnualPlansByYear(@PathVariable("year") String year) {
+
+        ResultWrapper<List<AnnualPlanDTO>> resultWrapper = annualPlanService.getPlannedAnnualPlansByYear(year);
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

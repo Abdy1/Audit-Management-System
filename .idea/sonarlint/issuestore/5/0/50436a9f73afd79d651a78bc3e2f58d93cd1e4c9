@@ -1,41 +1,37 @@
 
-‡	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒéüÿÿÿÿJ$2154c815-9f1d-4a5f-aad5-ceb101fb6675
-´
-java:S1192˜"rDefine a constant instead of duplicating this literal "There is no Finding with the provided Information" 3 times.(²„ÖíúÿÿÿÿJ$635e6c22-0ecf-4561-a6cf-3ac37a817410
+h	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8‚ı£Ññ1
 •
-java:S1192"SDefine a constant instead of duplicating this literal "findings/evidences" 3 times.(…ñ˜™üÿÿÿÿJ$213ff586-3572-4654-807a-dfeac7b9f7d9
-Š
-java:S1192‰"HDefine a constant instead of duplicating this literal "success" 3 times.(«éÄÕıÿÿÿÿJ$e7c7027d-9769-440f-aee5-337ca5888a09
-‘	java:S117H"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ìÏ¼ÒÿÿÿÿÿJ$bec01119-a6c4-4e00-83bd-43d8cd08e30f
-
-java:S1488‹"`Immediately return this expression instead of assigning it to the temporary variable "resource".(ÛçÖØJ$66097ccc-0a22-4dc3-ac48-f0e4acf021c8
-
-java:S2259"RA "NullPointerException" could be thrown; "getOriginalFilename()" can return null.(§áõ„J$90f4fc44-4cbe-4b68-aeee-bc996f8cd958
-
-java:S2259"RA "NullPointerException" could be thrown; "getOriginalFilename()" can return null.(§áõ„J$66e82e50-d055-4be9-9621-32fcf84ec451
-t
-java:S2589™"7Remove this expression which always evaluates to "true"(ÜãÃáJ$92bf08dc-274c-40aa-a0d4-462092e91094
-~
-java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞJ$fe1f16b5-f0dd-4cbf-ae5a-89b9dac306e3
-~
-java:S6813&"BRemove this field injection and use constructor injection instead.(êæÄŞJ$cb87c920-4657-45c1-b219-874712fe7228
-~
-java:S6813("BRemove this field injection and use constructor injection instead.(êæÄŞJ$e7ff266e-0edf-4db1-89fb-885e6e6ae2fa
-i
-java:S1854t"GRemove this useless assignment to local variable "savedAmendedFinding".(¶éİòşÿÿÿÿ8³üÈñ1
-]
-java:S1116p"Remove this empty statement.(Åñ­õşÿÿÿÿJ$1110575b-8b62-42b9-9935-2d8fe7efeceb
-Z
-java:S1481t"8Remove this unused "savedAmendedFinding" local variable.(¶éİòşÿÿÿÿ8¸üÈñ1
-z
-java:S1854"8Remove this useless assignment to local variable "path".(…ñ˜™üÿÿÿÿJ$1507c7a7-fef8-4863-a9f7-f5b7827ab41a
-l	java:S106œ"+Replace this use of System.out by a logger.(ºÿÿùÿÿÿÿJ$3cdded12-e36c-46c6-b171-de937b8122d8
+java:S1192™"rDefine a constant instead of duplicating this literal "There is no Finding with the provided Information" 3 times.(²„Öíúÿÿÿÿ8„ı£Ññ1
+v
+java:S1192Ÿ"SDefine a constant instead of duplicating this literal "findings/evidences" 3 times.(…ñ˜™üÿÿÿÿ8„ı£Ññ1
 k
-java:S1481")Remove this unused "path" local variable.(…ñ˜™üÿÿÿÿJ$e9786ac7-2bd6-43af-8b81-4f1b1bcb51a4
-s	java:S106À"+Replace this use of System.out by a logger.(ƒ¢İøÿÿÿÿ8î¤Èñ1J$8aceab0e-0ddc-480c-a4de-8d87b32f703f
-^
-java:S1116Á"Remove this empty statement.(Åñ­õşÿÿÿÿJ$a9ae2e58-a364-47ec-8de8-95d760dc7fba
+java:S1192Š"HDefine a constant instead of duplicating this literal "success" 3 times.(«éÄÕıÿÿÿÿ8„ı£Ññ1
+r	java:S117I"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ìÏ¼Òÿÿÿÿÿ8…ı£Ññ1
 ~
-java:S1612"AReplace this lambda with method reference 'Files::isRegularFile'.(İ‘×”J$70aa7df2-5454-49ae-bf2e-24b87b4f08ca
-q
-java:S1874—"/Remove this use of "getById"; it is deprecated.(çÚšşÿÿÿÿJ$72cd96ee-aa59-4084-92f0-c670b6f0957c
+java:S1488Œ"`Immediately return this expression instead of assigning it to the temporary variable "resource".(ÛçÖØ8†ı£Ññ1
+U
+java:S2589™"7Remove this expression which always evaluates to "true"(ÜãÃá8Ø¬ªÑñ1
+_
+java:S6813%"BRemove this field injection and use constructor injection instead.(êæÄŞ8”ı£Ññ1
+_
+java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8”ı£Ññ1
+_
+java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄŞ8”ı£Ññ1
+i
+java:S1854u"GRemove this useless assignment to local variable "savedAmendedFinding".(¶éİòşÿÿÿÿ8œı£Ññ1
+>
+java:S1116q"Remove this empty statement.(Åñ­õşÿÿÿÿ8Ÿı£Ññ1
+Z
+java:S1481u"8Remove this unused "savedAmendedFinding" local variable.(¶éİòşÿÿÿÿ8 ı£Ññ1
+[
+java:S1854Ÿ"8Remove this useless assignment to local variable "path".(…ñ˜™üÿÿÿÿ8¢ı£Ññ1
+H	java:S106"+Replace this use of System.out by a logger.(¸°É¬8¤ı£Ññ1
+L
+java:S1481Ÿ")Remove this unused "path" local variable.(…ñ˜™üÿÿÿÿ8¦ı£Ññ1
+M	java:S106Á"+Replace this use of System.out by a logger.(ƒ¢İøÿÿÿÿ8©ı£Ññ1
+?
+java:S1116Â"Remove this empty statement.(Åñ­õşÿÿÿÿ8©ı£Ññ1
+_
+java:S1612‚"AReplace this lambda with method reference 'Files::isRegularFile'.(İ‘×”8´ı£Ññ1
+R
+java:S1874—"/Remove this use of "getById"; it is deprecated.(çÚšşÿÿÿÿ8œ­ªÑñ1

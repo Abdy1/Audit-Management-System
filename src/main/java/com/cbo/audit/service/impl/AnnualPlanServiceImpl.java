@@ -18,7 +18,10 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -194,6 +197,26 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
 
         List<AnnualPlan> annualPlans = annualPlanRepository.findAnnualPlanByStatus(AnnualPlanStatus.Scheduled.name(), LocalDateTime.now().getYear());
+
+        if (!annualPlans.isEmpty()) {
+            List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);
+            resultWrapper.setResult(annualPlanDTOS);
+            resultWrapper.setStatus(true);
+        } else {
+            resultWrapper.setMessage(String.format("No annual plans found for this year, %s", LocalDateTime.now().getYear()));
+            resultWrapper.setStatus(false);
+        }
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<List<AnnualPlanDTO>> getPlannedAnnualPlansByYear(String date) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MMM-dd");
+        LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+        ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
+
+        List<AnnualPlan> annualPlans = annualPlanRepository.findAnnualPlanByYearAndStatus(AnnualPlanStatus.Scheduled.name(), dateTime.getYear());
 
         if (!annualPlans.isEmpty()) {
             List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);

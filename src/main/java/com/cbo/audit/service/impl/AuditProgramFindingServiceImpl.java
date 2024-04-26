@@ -12,7 +12,6 @@ import com.cbo.audit.persistence.repository.AmendedFindingRepository;
 import com.cbo.audit.persistence.repository.AuditProgramRepository;
 import com.cbo.audit.persistence.repository.FindingRepository;
 import com.cbo.audit.service.AuditProgramFindingService;
-import com.cbo.audit.utils.FileUploadUtil;
 import io.github.pixee.security.Filenames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -275,8 +274,6 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
 
 
     }
-
-}
     @Override
     public void makeVisible(Long id) {
         Finding finding = auditProgramFindingRepository.getById(id);
@@ -285,5 +282,4 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
             finding.setIsVisibleToAuditees(true);
         }
     }
-
 }

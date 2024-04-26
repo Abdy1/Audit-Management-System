@@ -28,6 +28,9 @@ public interface AnnualPlanService {
 
     ResultWrapper<List<AnnualPlanDTO>> getPlannedAnnualPlans();
 
+    // to do
+    ResultWrapper<List<AnnualPlanDTO>> getPlannedAnnualPlansByYear(String date);
+
     ResultWrapper<List<AnnualPlanDTO>> autoGenerateAnnualPlans(String year);
 
 }

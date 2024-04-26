@@ -1,22 +1,22 @@
 
 š
-java:S1192Â"VDefine a constant instead of duplicating this literal "Engagement not found." 4 times.(ı‘È8Å¾À¥ğ1J$370b3d26-c004-4f77-9430-2fc3f0f00671
+java:S1192Á"VDefine a constant instead of duplicating this literal "Engagement not found." 4 times.(ı‘È8Å¾À¥ğ1J$370b3d26-c004-4f77-9430-2fc3f0f00671
 v
-java:S1199Ğ"-Extract this nested code block into a method.(Î€ä‚şÿÿÿÿ8Ê¾À¥ğ1J$72acf9b9-8906-46b1-971f-51ec447aab22
-v
-java:S1199à"-Extract this nested code block into a method.(Î€ä‚şÿÿÿÿ8Ê¾À¥ğ1J$30211d39-a753-4122-96e1-a2e2147fccaf
-v
-java:S1199ğ"-Extract this nested code block into a method.(Î€ä‚şÿÿÿÿ8Ê¾À¥ğ1J$fbacb15d-c850-408f-8efa-74c9b173b777
-{
-java:S3655é"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$55867baa-f3d3-40b8-839b-ef48d989c6ca
-{
-java:S3655Ù"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$351532c8-c40f-47c4-b53f-f9ae7b91a3bd
+java:S1199Ğ"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ8Ê¾À¥ğ1J$72acf9b9-8906-46b1-971f-51ec447aab22
+P
+java:S1199á"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ8òÀ¶Èñ1
+P
+java:S1199ò"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ8òÀ¶Èñ1
 z
 java:S3655^"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ğ¨ù ñ1J$72719dcf-b76b-44f8-b5b8-87cd3289ae3d
 {
-java:S3655®"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$37794bc7-168c-487d-a154-8eec67f1e8f2
+java:S3655Ù"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$351532c8-c40f-47c4-b53f-f9ae7b91a3bd
 {
 java:S3655"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$83b00a4e-0af7-4072-8ee5-6fbad92c2630
+{
+java:S3655®"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$37794bc7-168c-487d-a154-8eec67f1e8f2
+{
+java:S3655ê"7Call "Optional#isPresent()" before accessing the value.(˜±‘8Ñ¨ù ñ1J$55867baa-f3d3-40b8-839b-ef48d989c6ca
 …
 java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8é¾À¥ğ1J$c2f6f6ac-4d75-4aa6-b4aa-7d368cfca1c8
 …

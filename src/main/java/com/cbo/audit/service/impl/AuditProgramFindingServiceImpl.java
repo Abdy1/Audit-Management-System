@@ -159,7 +159,7 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
 
         Finding finding = optionalFinding.get();
         try {
-            String originalFilename = file.getOriginalFilename();
+            String originalFilename = Filenames.toSimpleFileName(file.getOriginalFilename());
             String simpleFileName = Filenames.toSimpleFileName(originalFilename);
             String extension = simpleFileName.substring(originalFilename.indexOf('.'));
 

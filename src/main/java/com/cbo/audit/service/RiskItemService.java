@@ -19,4 +19,6 @@ public interface RiskItemService {
     ResultWrapper<RiskItemDTO> updateRiskItem(RiskItemDTO riskItemDTO);
 
     ResultWrapper<RiskItemDTO> deleteRiskItem(RiskItemDTO riskItemDTO);
+
+
 }

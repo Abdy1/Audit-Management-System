@@ -34,18 +34,17 @@ public class ResourceServiceImpl implements ResourceService {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Schedule with the provided information is not available.");
             return resultWrapper;
+        }else {
+            Resource resource = ResourceMapper.INSTANCE.toEntity(resourceDTO);
+            resource.setAuditSchedule(auditSchedule);
+
+            Resource savedMember = resourceRepository.save(resource);
+
+            resultWrapper.setStatus(true);
+            resultWrapper.setResult(ResourceMapper.INSTANCE.toDTO(savedMember));
+            resultWrapper.setMessage("Resource successfully added to schedule.");
         }
 
-
-        Resource resource = ResourceMapper.INSTANCE.toEntity(resourceDTO);
-        resource.setCreatedTimestamp(LocalDateTime.now());
-        resource.setAuditSchedule(auditSchedule);
-
-        Resource savedMember = resourceRepository.save(resource);
-
-        resultWrapper.setStatus(true);
-        resultWrapper.setResult(ResourceMapper.INSTANCE.toDTO(savedMember));
-        resultWrapper.setMessage("Resource successfully added to schedule.");
         return resultWrapper;
     }
 
@@ -96,13 +95,15 @@ public class ResourceServiceImpl implements ResourceService {
         if (!oldResource.isPresent()) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Invalid resource member id");
+        }else{
+            Resource updatedTeam = oldResource.get();
+            updatedTeam.setResourceStatus(resourceDTO.getResourceStatus());
+            updatedTeam.setModifiedTimestamp(LocalDateTime.now());
+            Resource saveMember = resourceRepository.save(updatedTeam);
+            resultWrapper.setResult(ResourceMapper.INSTANCE.toDTO(saveMember));
+            resultWrapper.setStatus(true);
         }
-        Resource updatedTeam = oldResource.get();
-        updatedTeam.setResourceStatus(resourceDTO.getResourceStatus());
-        updatedTeam.setModifiedTimestamp(LocalDateTime.now());
-        Resource saveMember = resourceRepository.save(updatedTeam);
-        resultWrapper.setResult(ResourceMapper.INSTANCE.toDTO(saveMember));
-        resultWrapper.setStatus(true);
+
         return resultWrapper;
     }
 

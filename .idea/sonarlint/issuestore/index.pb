@@ -142,3 +142,9 @@ j
 :src/main/java/com/cbo/audit/controller/TestController.java,6\e\6e078322dd1ad3aaed9efeb8df6d26bfeb2356de
 8
 mvnw.cmd,1\f\1f1763f358c257ea3515417352b82b0165647ad1
+h
+8src/main/java/com/cbo/audit/service/RiskItemService.java,6\6\66613ff24b8c55b15abb5e2992954802840d870b
+d
+4src/main/java/com/cbo/audit/service/RiskService.java,5\9\5947d0e28641d639575a0242106c7e69d4b149ae
+f
+6src/main/java/com/cbo/audit/service/ReportService.java,f\5\f5fa118fb25588be9fc1a8395f9406719b589043

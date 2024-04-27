@@ -103,20 +103,29 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
     @Override
     public ResultWrapper<List<AnnualPlanDTO>> getAllAnnualPlan() {
-        String year = budgetYearRepository.findAll(Sort.by(Sort.Direction.DESC, "year")).stream().findFirst().get().getYear();
-
         ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
-        List<AnnualPlan> annualPlans = annualPlanRepository.findAnnualPlanByYear(year);
-        List<AnnualPlanDTO> annualPlansWithScore = new ArrayList<>();
-        if (!annualPlans.isEmpty()) {
-            List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);
-            annualPlanDTOS.stream().forEach(annualPlanDTO -> {
 
-                annualPlanDTO.setRiskScores(RiskScoreMapper.INSTANCE.riskScoresToRiskScoreDTOs(riskScoreRepository.findRiskScoreByAnnualPlanId(annualPlanDTO.getId())));
-                annualPlansWithScore.add(annualPlanDTO);
-            });
-            resultWrapper.setResult(annualPlansWithScore);
-            resultWrapper.setStatus(true);
+        List<BudgetYear> budgetYears = budgetYearRepository.findAll(Sort.by(Sort.Direction.DESC, "year"));
+
+        if(budgetYears.isEmpty()){
+            resultWrapper.setMessage("No Budget year found!");
+            resultWrapper.setStatus(false);
+        }else {
+            Optional<BudgetYear> budgetYear = budgetYears.stream().findFirst();
+            String year = "";
+            year = budgetYear.get().getYear();
+            List<AnnualPlan> annualPlans = annualPlanRepository.findAnnualPlanByYear(year);
+            List<AnnualPlanDTO> annualPlansWithScore = new ArrayList<>();
+            if (!annualPlans.isEmpty()) {
+                List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);
+                annualPlanDTOS.stream().forEach(annualPlanDTO -> {
+
+                    annualPlanDTO.setRiskScores(RiskScoreMapper.INSTANCE.riskScoresToRiskScoreDTOs(riskScoreRepository.findRiskScoreByAnnualPlanId(annualPlanDTO.getId())));
+                    annualPlansWithScore.add(annualPlanDTO);
+                });
+                resultWrapper.setResult(annualPlansWithScore);
+                resultWrapper.setStatus(true);
+            }
         }
         return resultWrapper;
     }
@@ -193,7 +202,6 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     @Override
     public ResultWrapper<List<AnnualPlanDTO>> getPlannedAnnualPlans() {
 
-        LocalDateTime.now().getYear();
         ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
 
         List<AnnualPlan> annualPlans = annualPlanRepository.findAnnualPlanByStatus(AnnualPlanStatus.Scheduled.name(), LocalDateTime.now().getYear());
@@ -292,7 +300,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         Optional<BudgetYear> budgetYear1 = budgetYearRepository.findByYear(year);
         if (budgetYear1.isPresent()) {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("This budget year already applied.");
+            resultWrapper.setMessage(String.format("Budget year %s already applied.", year));
             return resultWrapper;
         } else {
             budgetYearRepository.save(budgetYear);

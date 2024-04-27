@@ -67,9 +67,8 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
 
     @Override
     public List<AuditUniverse> getAllActiveAuditUniverse() {
-        List<AuditUniverse> auditUniverses = auditUniverseRepository.findAll();
 
-        return auditUniverses;
+        return auditUniverseRepository.findAll();
     }
 
     @Override

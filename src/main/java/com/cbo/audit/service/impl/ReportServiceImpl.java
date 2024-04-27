@@ -29,6 +29,7 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private AuditProgramObjectiveRepository auditProgramObjectiveRepository;
 
+    @Override
     public ResultWrapper<ReportDTO> generateDefaultReport(AuditScheduleDTO auditScheduleDTO) {
         ResultWrapper<ReportDTO> resultWrapper = new ResultWrapper<>();
 
@@ -49,7 +50,6 @@ public class ReportServiceImpl implements ReportService {
 
         }
 
-        System.out.println("engagement present");
         AuditProgram auditProgram = auditProgramRepository.getAuditProgramByEngagementId(engagementInfo.getId());
         if (auditProgram == null) {
             resultWrapper.setResult(null);
@@ -82,32 +82,18 @@ public class ReportServiceImpl implements ReportService {
         return resultWrapper;
     }
 
+    @Override
     public ResultWrapper<ReportDTO> registerReport(ReportDTO reportDTO) {
         Report report = ReportMapper.INSTANCE.toEntity(reportDTO);
         ResultWrapper<ReportDTO> resultWrapper = new ResultWrapper<>();
-        System.out.println(reportDTO.getAuditProgram().getEngagementInfo().getAuditSchedule().getId());
         if (reportDTO.getAuditProgram().getEngagementInfo().getAuditSchedule() == null) {
             resultWrapper.setResult(null);
             resultWrapper.setMessage("there is no report with the provided information");
             resultWrapper.setStatus(false);
             return resultWrapper;
         }
-        System.out.println(reportDTO);
         Report savedReport = reportRepository.findReportByAuditScheduleId(reportDTO.getAuditSchedule().getId());
 
-
-        System.out.println(report.getObjectives());
-        System.out.println("======================");
-        System.out.println(reportDTO);
-
-
-        if (report == null) {
-            resultWrapper.setResult(null);
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("no report found");
-            return resultWrapper;
-
-        }
         // check detail of the report , ex finding not null,schedule not null , engagement not null ... etc
         if (savedReport != null) {
             reportRepository.delete(savedReport);
@@ -127,6 +113,7 @@ public class ReportServiceImpl implements ReportService {
 
     }
 
+    @Override
     public ResultWrapper<ReportDTO> getReportById(Long id) {
         Report report = reportRepository.findById(id).orElse(null);
         ResultWrapper<ReportDTO> resultWrapper = new ResultWrapper<>();
@@ -146,6 +133,7 @@ public class ReportServiceImpl implements ReportService {
 
     }
 
+    @Override
     public ResultWrapper<ReportDTO> getReportByScheduleId(Long id) {
         ResultWrapper<ReportDTO> resultWrapper = new ResultWrapper<>();
         Report report = reportRepository.findReportByAuditScheduleId(id);
@@ -163,6 +151,7 @@ public class ReportServiceImpl implements ReportService {
 
     }
 
+    @Override
     public ResultWrapper<List<ReportDTO>> listAllReports() {
         List<Report> reports = reportRepository.findAll();
         List<ReportDTO> reportDTOS = ReportMapper.INSTANCE.ReportsToReportDTOs(reports);
@@ -171,13 +160,6 @@ public class ReportServiceImpl implements ReportService {
         resultWrapper.setResult(reportDTOS);
 
         return resultWrapper;
-
-
     }
 
 }
-
-// check if the api is working fine
-// check if the customized Report has the correct information about the findings , objectives so that they are related or from the same process
-// fill with the rest of information needed to complete the report generation and storing process
-

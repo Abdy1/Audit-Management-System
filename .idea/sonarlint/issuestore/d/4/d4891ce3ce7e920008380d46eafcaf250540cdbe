@@ -1,20 +1,16 @@
 
-’	java:S117®"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ö¯ûÿÿÿÿJ$4e53a3da-4be7-4f31-90de-958ad2339ef1
-~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$0ecbacd0-45db-4658-9fda-0e7db5b06a0d
-~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$3b9353cb-d0c9-4354-9d23-94eb8ed0559d
-~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$32889292-f866-4a26-9d16-8e66b7f0bc27
+’	java:S117¯"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ö¯ûÿÿÿÿJ$4e53a3da-4be7-4f31-90de-958ad2339ef1
 ~
 java:S6813!"BRemove this field injection and use constructor injection instead.(êæÄŞJ$4e03504c-fb16-4a70-815f-c4f972ae4926
 ~
 java:S6813#"BRemove this field injection and use constructor injection instead.(êæÄŞJ$573c2858-67f6-431d-8658-0078573ee58e
 ~
 java:S6813%"BRemove this field injection and use constructor injection instead.(êæÄŞJ$91f459f2-e26a-4388-bfef-12e7087c4d1d
-f	java:S1060"+Replace this use of System.out by a logger.(üÁ›ßJ$2466bf69-8815-416f-b187-0d18837e1040
-x	java:S125à"<This block of commented-out lines of code should be removed.(†Ÿâ³J$f692d39f-8891-463d-8d73-b492ca7a0bc5
-ƒ
-java:S1128"BRemove this unused import 'com.cbo.audit.mapper.EngagementMapper'.(°”¬ËÿÿÿÿÿJ$3aaa3e9b-53cc-4728-a847-fa46ea52c127
-p
-java:S1128"/Remove this unused import 'java.sql.SQLOutput'.(ê¤òÃùÿÿÿÿJ$d08a5e02-7506-4e7d-bf24-4af210ffdcd0
+~
+java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞJ$0ecbacd0-45db-4658-9fda-0e7db5b06a0d
+~
+java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄŞJ$3b9353cb-d0c9-4354-9d23-94eb8ed0559d
+~
+java:S6813+"BRemove this field injection and use constructor injection instead.(êæÄŞJ$32889292-f866-4a26-9d16-8e66b7f0bc27
+f	java:S1063"+Replace this use of System.out by a logger.(üÁ›ßJ$2466bf69-8815-416f-b187-0d18837e1040
+x	java:S125á"<This block of commented-out lines of code should be removed.(†Ÿâ³J$f692d39f-8891-463d-8d73-b492ca7a0bc5

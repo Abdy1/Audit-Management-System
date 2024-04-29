@@ -43,7 +43,7 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
 
             AuditUniverse auditUniverse = AuditUniverseMapper.INSTANCE.toEntity(auditUniverseDTO);
             auditUniverse.setCreatedTimestamp(LocalDateTime.now());
-            auditUniverse.setStatus(AuditUniverseStatus.PendingApproval.getType());
+            auditUniverse.setStatus(AuditUniverseStatus.Approved.getType());
             AuditUniverse savedUniverse = auditUniverseRepository.save(auditUniverse);
             resultWrapper.setResult(AuditUniverseMapper.INSTANCE.toDTO(savedUniverse));
             resultWrapper.setStatus(true);

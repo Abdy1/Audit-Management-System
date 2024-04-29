@@ -35,6 +35,14 @@ public class ResourceController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
+    @PostMapping(value = URIs.TEAM_MEMBER_BY_STATUS, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<ResourceDTO>>> getResourceByStatus(@RequestBody ResourceDTO resourceDTO) {
+
+        ResultWrapper<List<ResourceDTO>> resultWrapper = resourceService.getResourceByStatus(resourceDTO.getResourceStatus().name());
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
     @PostMapping(value = URIs.TEAM_MEMBER_LIST_BY_SCHEDULE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<List<ResourceDTO>>> getAllResourceOfSchedule(@RequestBody AuditScheduleDTO auditScheduleDTO) {
 

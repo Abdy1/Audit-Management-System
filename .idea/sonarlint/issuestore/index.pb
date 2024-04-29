@@ -164,3 +164,9 @@ z
 Jsrc/main/java/com/cbo/audit/persistence/repository/ResourceRepository.java,c\1\c1de23558934112c34eb1d6b2b5c4519a749b8ff
 h
 8src/main/java/com/cbo/audit/service/ResourceService.java,a\8\a8f0085b5d0625ef0b82063dc7802f09eab32c44
+n
+>src/main/java/com/cbo/audit/controller/ResourceController.java,7\a\7a293281fd0af28f0d0d4bee4dfea4d0b08c9762
+j
+:src/main/java/com/cbo/audit/controller/RiskController.java,d\5\d5be019aa97bb149a3e9d9401279b060074c1a7c
+n
+>src/main/java/com/cbo/audit/controller/RiskItemController.java,d\1\d10edec04b577659a3a50b2873251e7384f3889c

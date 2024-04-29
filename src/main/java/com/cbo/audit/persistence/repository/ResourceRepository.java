@@ -12,6 +12,6 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
     @Query("SELECT RSC FROM Resource RSC WHERE RSC.auditSchedule.id = :scheduleId")
     List<Resource> findAllResourcesOfSchedule(@Param("scheduleId") Long scheduleId);
 
-    @Query("SELECT RSC FROM Resource RSC WHERE RSC.status = :status")
+    @Query("SELECT RSC FROM Resource RSC WHERE RSC.resourceStatus = :status")
     List<Resource> findAllResourcesByStatus(@Param("status") String status);
 }

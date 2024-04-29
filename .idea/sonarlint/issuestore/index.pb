@@ -170,3 +170,9 @@ j
 :src/main/java/com/cbo/audit/controller/RiskController.java,d\5\d5be019aa97bb149a3e9d9401279b060074c1a7c
 n
 >src/main/java/com/cbo/audit/controller/RiskItemController.java,d\1\d10edec04b577659a3a50b2873251e7384f3889c
+k
+;src/main/java/com/cbo/audit/persistence/model/Resource.java,1\5\1530c5cf6f89886ac31ad0acc59864636b1c0af3
+k
+;src/main/java/com/cbo/audit/service/AuditObjectService.java,4\3\43fc76bdaee7dcde83a66d4a4047b5dbab809f44
+o
+?src/main/java/com/cbo/audit/controller/RiskLevelController.java,1\e\1e1d69c4857e90b57f3fa5df925459ac59add438

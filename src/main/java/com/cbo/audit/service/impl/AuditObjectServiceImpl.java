@@ -2,9 +2,11 @@ package com.cbo.audit.service.impl;
 
 import com.cbo.audit.dto.AuditObjectDTO;
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.enums.AuditUniverseStatus;
 import com.cbo.audit.mapper.AuditObjectMapper;
 import com.cbo.audit.persistence.model.AuditObject;
 import com.cbo.audit.persistence.model.AuditType;
+import com.cbo.audit.persistence.model.AuditUniverse;
 import com.cbo.audit.persistence.repository.AuditObjectRepository;
 import com.cbo.audit.persistence.repository.AuditTypeRepository;
 import com.cbo.audit.service.AuditObjectService;
@@ -42,6 +44,7 @@ public class AuditObjectServiceImpl implements AuditObjectService {
 
         AuditObject auditObject = AuditObjectMapper.INSTANCE.toEntity(auditObjectDTO);
         auditObject.setCreatedTimestamp(LocalDateTime.now());
+        auditObject.setStatus(AuditUniverseStatus.PendingApproval.name());
         AuditObject savedPlan = auditObjectRepository.save(auditObject);
 
         resultWrapper.setStatus(true);

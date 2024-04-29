@@ -42,6 +42,8 @@ public final class URIs {
     public static final String TEAM_MEMBER_LIST_BY_SCHEDULE = TEAM_MEMBER + "bySchedule";
     public static final String TEAM_MEMBER_LIST_BY_STAFF_ID = TEAM_MEMBER + "byStaffId";
     public static final String TEAM_MEMBER_BY_ID = TEAM_MEMBER + "findById";
+
+    public static final String TEAM_MEMBER_BY_STATUS = TEAM_MEMBER + "findByStatus";
     public static final String TEAM_MEMBER_REMOVE = TEAM_MEMBER + "remove";
     public static final String USER_LIST_BALL = APPLICATION_CONTEXT + "/users";
     public static final String RESOURCE = APPLICATION_CONTEXT + "/resource/";

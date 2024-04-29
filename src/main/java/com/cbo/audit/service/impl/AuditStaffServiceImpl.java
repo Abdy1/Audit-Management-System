@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,7 @@ public class AuditStaffServiceImpl implements AuditStaffService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    private String noRecord = "No record found";
 
     @Override
     public ResultWrapper<AuditStaffDTO> registerAuditStaff(AuditStaffDTO auditStaffDTO) {
@@ -140,16 +142,31 @@ public class AuditStaffServiceImpl implements AuditStaffService {
     @Override
     public ResultWrapper<List<AuditStaffDTO>> getAllActiveAuditStaffs() {
         ResultWrapper<List<AuditStaffDTO>> resultWrapper = new ResultWrapper<>();
-        resultWrapper.setResult(AuditStaffMapper.INSTANCE.auditStaffsToAuditStaffDTOs(auditStaffRepository.findAuditStaffByState(AuditStaffStatus.Active)));
-        resultWrapper.setStatus(true);
+        List<AuditStaff> auditStaffs = auditStaffRepository.findAuditStaffByState(AuditStaffStatus.Active);
+        if(auditStaffs.isEmpty()){
+            resultWrapper.setStatus(true);
+            resultWrapper.setMessage(noRecord);
+            resultWrapper.setResult(new ArrayList<>());
+        }else{
+            resultWrapper.setResult(AuditStaffMapper.INSTANCE.auditStaffsToAuditStaffDTOs(auditStaffs));
+            resultWrapper.setStatus(true);
+        }
+
         return resultWrapper;
     }
 
     @Override
     public ResultWrapper<List<AuditStaffDTO>> getAllByAuditTypeId(Long auditTypeId) {
         ResultWrapper<List<AuditStaffDTO>> resultWrapper = new ResultWrapper<>();
-        resultWrapper.setResult(AuditStaffMapper.INSTANCE.auditStaffsToAuditStaffDTOs(auditStaffRepository.findAuditStaffByAuditTypeId(auditTypeId)));
-        resultWrapper.setStatus(true);
+        List<AuditStaff> auditStaffs = auditStaffRepository.findAuditStaffByAuditTypeId(auditTypeId);
+        if(auditStaffs.isEmpty()){
+            resultWrapper.setStatus(true);
+            resultWrapper.setMessage(noRecord);
+            resultWrapper.setResult(new ArrayList<>());
+        }else{
+            resultWrapper.setResult(AuditStaffMapper.INSTANCE.auditStaffsToAuditStaffDTOs(auditStaffs));
+            resultWrapper.setStatus(true);
+        }
         return resultWrapper;
     }
 

@@ -14,4 +14,7 @@ public interface AuditableAreaRepository extends JpaRepository<AuditableArea, Lo
     @Query(" SELECT AA FROM AuditableArea AA WHERE AA.auditObject.id = :objectId")
     List<AuditableArea> findAuditableAreasByAuditObjectId(@Param("objectId") Long objectId);
 
+    @Query(" SELECT AA FROM AuditableArea AA WHERE AA.auditObject.auditUniverse.id = :universeId")
+    List<AuditableArea> findAuditableAreasByAUniverseId(@Param("universeId") Long universeId);
+
 }

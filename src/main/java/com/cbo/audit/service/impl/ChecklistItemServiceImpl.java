@@ -27,35 +27,6 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
 
     @Autowired
     private AuditableAreaService auditableAreaService;
-//
-//    @Override
-//    public ResultWrapper<ChecklistItemDTO> registerChecklistItem(ChecklistItemDTO checklistItemDTO) {
-//        ResultWrapper<ChecklistItemDTO> resultWrapper = new ResultWrapper<>();
-//
-//        Optional<AuditableArea> auditableArea = auditableAreaService.findAuditableAreaById(checklistItemDTO.getAuditableArea().getId());
-//        if (!auditableArea.isPresent()) {
-//            resultWrapper.setStatus(false);
-//            resultWrapper.setMessage("Auditable area with the provided information is not available.");
-//            return resultWrapper;
-//        }
-//
-//        if (checklistItemDTO.getName() == null) {
-//            resultWrapper.setStatus(false);
-//            resultWrapper.setMessage("Checklist Item name cannot be null.");
-//            return resultWrapper;
-//        }
-//
-//        ChecklistItem checklistItem = ChecklistItemMapper.INSTANCE.toEntity(checklistItemDTO);
-//        checklistItem.setCreatedTimestamp(LocalDateTime.now());
-//        checklistItem.setCreatedUser("TODO");
-//        checklistItem.setAuditableArea(auditableArea.get());
-//        ChecklistItem savedPlan = checklistItemRepository.save(checklistItem);
-//
-//        resultWrapper.setStatus(true);
-//        resultWrapper.setResult(ChecklistItemMapper.INSTANCE.toDTO(savedPlan));
-//        resultWrapper.setMessage("Checklist Item created successfully.");
-//        return resultWrapper;
-//    }
 
     @Override
     public ResultWrapper registerChecklistItem(ChecklistItemDTO checklistItemDTO) {

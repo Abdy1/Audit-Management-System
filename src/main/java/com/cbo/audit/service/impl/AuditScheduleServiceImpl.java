@@ -49,6 +49,8 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
     @Autowired
     private BudgetYearRepository budgetYearRepository;
 
+    private String notFound = "Engagement not found.";
+
 
     @Override
     public ResultWrapper<AuditScheduleDTO> registerAuditSchedule(AuditScheduleDTO auditScheduleDTO) {
@@ -292,7 +294,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             resultWrapper.setStatus(true);
         } else {
             resultWrapper.setStatus(true);
-            resultWrapper.setMessage("Not found");
+            resultWrapper.setMessage(notFound);
         }
         return resultWrapper;
     }
@@ -306,19 +308,18 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
 
         if (!engagementInfos.isEmpty()) {
             List<EngagementDTO> engagementDTOS = EngagementMapper.INSTANCE.engagementInfosToEngagementDTOs(engagementInfos);
-            engagementDTOS = engagementDTOS.stream().map(engagementDTO -> {
+            engagementDTOS = engagementDTOS.stream().peek(engagementDTO -> {
                 AuditScheduleDTO auditScheduleDTO = engagementDTO.getAuditSchedule();
                 List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
                 List<TeamMemberDTO> teamMemberDTOS = TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
                 auditScheduleDTO.setTeamMembers(teamMemberDTOS);
                 engagementDTO.setAuditSchedule(auditScheduleDTO);
-                return engagementDTO;
             }).collect(Collectors.toList());
             resultWrapper.setResult(engagementDTOS);
             resultWrapper.setStatus(true);
         } else {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Engagement not found.");
+            resultWrapper.setMessage(notFound);
         }
         return resultWrapper;
     }
@@ -335,7 +336,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         }
         {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Engagement not found.");
+            resultWrapper.setMessage(notFound);
         }
         return resultWrapper;
     }
@@ -352,7 +353,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         }
         {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Engagement not found.");
+            resultWrapper.setMessage(notFound);
         }
         return resultWrapper;
     }
@@ -369,7 +370,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         }
         {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Engagement not found.");
+            resultWrapper.setMessage(notFound);
         }
         return resultWrapper;
     }

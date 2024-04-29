@@ -27,26 +27,23 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public ResultWrapper<ResourceDTO> registerResourceToSchedule(ResourceDTO resourceDTO) {
         ResultWrapper<ResourceDTO> resultWrapper = new ResultWrapper<>();
-
         AuditSchedule auditSchedule = auditScheduleService.findAuditScheduleById(resourceDTO.getAuditSchedule().getId());
 
         if (auditSchedule == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Schedule with the provided information is not available.");
-            return resultWrapper;
-        }else {
+        } else {
             Resource resource = ResourceMapper.INSTANCE.toEntity(resourceDTO);
             resource.setAuditSchedule(auditSchedule);
-
-            Resource savedMember = resourceRepository.save(resource);
-
+            Resource savedResource = resourceRepository.save(resource);
             resultWrapper.setStatus(true);
-            resultWrapper.setResult(ResourceMapper.INSTANCE.toDTO(savedMember));
+            resultWrapper.setResult(ResourceMapper.INSTANCE.toDTO(savedResource));
             resultWrapper.setMessage("Resource successfully added to schedule.");
         }
 
         return resultWrapper;
     }
+
 
     @Override
     public ResultWrapper<List<ResourceDTO>> getAllResourceOfSchedule(AuditScheduleDTO auditScheduleDTO) {
@@ -77,6 +74,20 @@ public class ResourceServiceImpl implements ResourceService {
         } else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("No record found with the provided id.");
+        }
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<List<ResourceDTO>> getResourceByStatus(String status) {
+        ResultWrapper<List<ResourceDTO>> resultWrapper = new ResultWrapper<>();
+        List<Resource> resources = resourceRepository.findAllResourcesByStatus(status);
+        if (resources.isEmpty()) {
+            resultWrapper.setResult(ResourceMapper.INSTANCE.resourcesToResourceDTOs(resources));
+            resultWrapper.setStatus(true);
+        } else {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("No record found with the provided status.");
         }
         return resultWrapper;
     }

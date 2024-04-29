@@ -158,3 +158,9 @@ e
 5src/main/java/com/cbo/audit/dto/AuditScheduleDTO.java,2\1\21fdf7daeb7012854df2223bef932b1da4ab0851
 
 Osrc/main/java/com/cbo/audit/persistence/repository/AuditableAreaRepository.java,0\c\0c747eb3a2d907547e7a75eba22f5acb93161c36
+`
+0src/main/java/com/cbo/audit/dto/ResourceDTO.java,a\7\a76e567bc185b3d0373be2a0ac5a5ed57302f047
+z
+Jsrc/main/java/com/cbo/audit/persistence/repository/ResourceRepository.java,c\1\c1de23558934112c34eb1d6b2b5c4519a749b8ff
+h
+8src/main/java/com/cbo/audit/service/ResourceService.java,a\8\a8f0085b5d0625ef0b82063dc7802f09eab32c44

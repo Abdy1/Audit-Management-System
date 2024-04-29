@@ -97,6 +97,10 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
             List<AuditableAreaDTO> auditableAreaDTOS = AuditableAreaMapper.INSTANCE.auditableAreasToAuditableAreaDTOs(auditableAreas);
             resultWrapper.setResult(auditableAreaDTOS);
             resultWrapper.setStatus(true);
+        }else {
+            resultWrapper.setResult(new ArrayList<>());
+            resultWrapper.setStatus(true);
+            resultWrapper.setMessage("There is no auditable area with the provided id");
         }
         return resultWrapper;
     }
@@ -168,6 +172,25 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
             resultWrapper.setMessage("Auditable Area with the provided id is not found.");
         }
 
+        return resultWrapper;
+    }
+
+    public ResultWrapper<List<ChecklistItemDTO>> getCheckListsByUniverseId(Long auditUniverseId) {
+        ResultWrapper<List<ChecklistItemDTO>> resultWrapper = new ResultWrapper<>();
+        List<ChecklistItemDTO> checklistItemDTOS = new ArrayList<>();
+        List<AuditableArea> auditableAreas = auditableAreaRepository.findAuditableAreasByAUniverseId(auditUniverseId);
+        if(auditableAreas.isEmpty()){
+            resultWrapper.setResult(null);
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("No checklist found.");
+
+            return resultWrapper;
+        }
+        for (AuditableArea auditableArea : auditableAreas) {
+            checklistItemDTOS.addAll(ChecklistItemMapper.INSTANCE.checklistItemsToChecklistItemDTOs(auditableArea.getChecklistItems()));
+        }
+        resultWrapper.setResult(checklistItemDTOS);
+        resultWrapper.setStatus(true);
         return resultWrapper;
     }
 

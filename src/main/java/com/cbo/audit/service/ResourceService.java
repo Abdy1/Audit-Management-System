@@ -22,4 +22,6 @@ public interface ResourceService {
 
     ResultWrapper<ResourceDTO> updateResource(ResourceDTO resourceDTO);
 
+    ResultWrapper<List<ResourceDTO>> getResourceByStatus(String status);
+
 }

@@ -1,11 +1,5 @@
 
 ~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞJ$c43c5bd7-23e1-4016-a618-ac642c09e109
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞJ$c43c5bd7-23e1-4016-a618-ac642c09e109
 ~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞJ$0afcfc7f-bb69-446f-beea-0e5380b6063d
-†
-java:S1128"JRemove this unused import 'com.cbo.audit.persistence.model.AuditUniverse'.(»›óÑJ$86878345-ce20-46b8-806a-ffb7ca54461b
-‚
-java:S1128"GRemove this unused import 'com.cbo.audit.service.AuditUniverseService'.(É›…rJ$8c3267e9-e310-4a5a-8935-8a0d6a2c0abb
-l
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒJ$bd5866cb-9eca-4151-acb6-8939b83ad99d
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞJ$0afcfc7f-bb69-446f-beea-0e5380b6063d

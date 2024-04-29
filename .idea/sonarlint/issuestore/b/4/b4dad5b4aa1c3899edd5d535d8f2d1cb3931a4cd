@@ -1,13 +1,7 @@
 
-x
-java:S3655q"<Call "oldAuditStaff.isPresent()" before accessing the value.(…’ŸßJ$06c73f68-362c-4ec6-a85c-1593a4694de7
 ~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$8c8cd540-1771-4c18-a955-a8c339109bb4
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$ab6412a4-7c12-4489-9ecc-a98446001b6a
 ~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$8b53e688-74f3-4a34-9409-698cbfc1a9ae
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$8a82e988-2c51-4c30-92ec-3516297dbb89
 ~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$35d337fb-4f45-41ec-92a3-7a02ecb11c24
-k	java:S106}"+Replace this use of System.out by a logger.(Ÿ÷¡®øÿÿÿÿJ$ff3d8ec3-a97f-46ce-b8eb-946edbc634e5
-l	java:S106†"+Replace this use of System.out by a logger.(†È¢âøÿÿÿÿJ$e007eb5d-f788-4367-9b67-f897f9a9bf88
-g	java:S106"+Replace this use of System.out by a logger.(øÑ¿åJ$0f797b6d-93bd-44fe-943e-b37857aa453a
-g	java:S106˜"+Replace this use of System.out by a logger.(Í¸ïäJ$2dcb8e25-81df-4695-ae34-effd70179ec1
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$ddb06a8f-f94d-44b8-88dd-4889efc0014e

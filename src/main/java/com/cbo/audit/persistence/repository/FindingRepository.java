@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface FindingRepository extends JpaRepository<Finding,Long> {
+public interface FindingRepository extends JpaRepository<Finding, Long> {
     @Query(" SELECT AN FROM Finding AN WHERE AN.auditProgram.id= :auditProgram_id")
-    List<Finding>  findFindingByAuditProgramId(@Param("auditProgram_id") Long auditProgram_id);
+    List<Finding> findFindingByAuditProgramId(@Param("auditProgram_id") Long auditProgram_id);
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "ams_checklist_item")
-public class ChecklistItem extends BaseEntity{
+public class ChecklistItem extends BaseEntity {
 
     @Column(name = "name")
     private String name;

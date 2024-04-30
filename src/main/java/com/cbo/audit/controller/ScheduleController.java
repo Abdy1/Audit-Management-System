@@ -18,98 +18,98 @@ public class ScheduleController {
     @Autowired
     AuditScheduleService auditScheduleService;
 
-    @PostMapping(value = URIs.AUDIT_SCHEDULE_REGISTER, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<AuditScheduleDTO>> auditScheduleRegister(@RequestBody AuditScheduleDTO auditScheduleDTO){
+    @PostMapping(value = URIs.AUDIT_SCHEDULE_REGISTER, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditScheduleDTO>> auditScheduleRegister(@RequestBody AuditScheduleDTO auditScheduleDTO) {
 
-        ResultWrapper<AuditScheduleDTO> resultWrapper=auditScheduleService.registerAuditSchedule(auditScheduleDTO);
-
-        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
-    }
-
-    @GetMapping(value = URIs.AUDIT_SCHEDULE_LIST_ALL,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<AuditScheduleDTO>>> listAllAuditSchedule(){
-
-        ResultWrapper<List<AuditScheduleDTO>> resultWrapper=auditScheduleService.getAllAuditSchedule();
+        ResultWrapper<AuditScheduleDTO> resultWrapper = auditScheduleService.registerAuditSchedule(auditScheduleDTO);
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @GetMapping(value = URIs.AUDIT_SCHEDULE_BY_ID,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<AuditScheduleDTO>> getAuditScheduleById(@PathVariable(name = "id") Long id){
+    @GetMapping(value = URIs.AUDIT_SCHEDULE_LIST_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AuditScheduleDTO>>> listAllAuditSchedule() {
 
-        ResultWrapper<AuditScheduleDTO> resultWrapper=auditScheduleService.getAuditScheduleById(id);
-
-        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
-    }
-
-    @GetMapping(value = URIs.AUDIT_SCHEDULE_BY_YEAR,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<AuditScheduleDTO>>> getAllAuditScheduleByYear(@RequestParam(name = "year") String year){
-
-        ResultWrapper<List<AuditScheduleDTO>> resultWrapper=auditScheduleService.getAllAuditScheduleByYear(year);
+        ResultWrapper<List<AuditScheduleDTO>> resultWrapper = auditScheduleService.getAllAuditSchedule();
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @GetMapping(value = URIs.AUDIT_SCHEDULE_BY_YEAR_AND_QUARTER,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<AuditScheduleDTO>>> getAllAuditScheduleByQuarter(@PathVariable(name = "quarter") int quarter){
+    @GetMapping(value = URIs.AUDIT_SCHEDULE_BY_ID, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditScheduleDTO>> getAuditScheduleById(@PathVariable(name = "id") Long id) {
 
-        ResultWrapper<List<AuditScheduleDTO>> resultWrapper=auditScheduleService.getAllAuditScheduleByQuarter(quarter);
-
-        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
-    }
-    @PostMapping(value = URIs.AUDIT_SCHEDULE_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<AuditScheduleDTO>> updateAuditSchedule(@RequestBody AuditScheduleDTO auditScheduleDTO){
-
-        ResultWrapper<AuditScheduleDTO> resultWrapper=auditScheduleService.updateAuditSchedule(auditScheduleDTO);
+        ResultWrapper<AuditScheduleDTO> resultWrapper = auditScheduleService.getAuditScheduleById(id);
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @PostMapping(value = URIs.ADD_AUDIT_SCHEDULE_TO_ENGAGEMENT, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<EngagementDTO>> addAuditScheduleToEngagement(@RequestBody EngagementDTO engagementDTO){
+    @GetMapping(value = URIs.AUDIT_SCHEDULE_BY_YEAR, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AuditScheduleDTO>>> getAllAuditScheduleByYear(@RequestParam(name = "year") String year) {
 
-        ResultWrapper<EngagementDTO> resultWrapper=auditScheduleService.addAuditScheduleToEngagement(engagementDTO);
-
-        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
-    }
-
-    @PostMapping(value = URIs.GET_AUDIT_ENGAGEMENT_BY_SCHEDULE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<EngagementDTO>> getAuditEngagementBySchedule(@RequestBody AuditScheduleDTO engagementDTO){
-
-        ResultWrapper<EngagementDTO> resultWrapper=auditScheduleService.getAuditEngagementBySchedule(engagementDTO);
+        ResultWrapper<List<AuditScheduleDTO>> resultWrapper = auditScheduleService.getAllAuditScheduleByYear(year);
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @GetMapping(value = URIs.AUDIT_ENGAGEMENT_LIST_ALL,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<EngagementDTO>>> getAuditEngagements(){
+    @GetMapping(value = URIs.AUDIT_SCHEDULE_BY_YEAR_AND_QUARTER, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<AuditScheduleDTO>>> getAllAuditScheduleByQuarter(@PathVariable(name = "quarter") int quarter) {
 
-        ResultWrapper<List<EngagementDTO>> resultWrapper=auditScheduleService.getAuditEngagements();
-
-        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
-    }
-
-    @GetMapping(value = URIs.GET_AUDIT_ENGAGEMENT_BY_QUARTER,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<EngagementDTO>>> getAllAuditEngagementByQuarter(@PathVariable(name = "quarter") int quarter){
-
-        ResultWrapper<List<EngagementDTO>> resultWrapper=auditScheduleService.getAllAuditEngagementByQuarter(quarter);
+        ResultWrapper<List<AuditScheduleDTO>> resultWrapper = auditScheduleService.getAllAuditScheduleByQuarter(quarter);
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @GetMapping(value = URIs.GET_AUDIT_ENGAGEMENT_BY_YEAR,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<EngagementDTO>>> getAllAuditEngagementByYear(@RequestParam(name = "year") String year){
+    @PostMapping(value = URIs.AUDIT_SCHEDULE_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditScheduleDTO>> updateAuditSchedule(@RequestBody AuditScheduleDTO auditScheduleDTO) {
 
-        ResultWrapper<List<EngagementDTO>> resultWrapper=auditScheduleService.getAllAuditEngagementByYear(year);
+        ResultWrapper<AuditScheduleDTO> resultWrapper = auditScheduleService.updateAuditSchedule(auditScheduleDTO);
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @GetMapping(value = URIs.GET_AUDIT_ENGAGEMENT_BY_STATUS,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<List<EngagementDTO>>> getAllAuditEngagementByStatus(@PathVariable(name = "status") String status){
+    @PostMapping(value = URIs.ADD_AUDIT_SCHEDULE_TO_ENGAGEMENT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<EngagementDTO>> addAuditScheduleToEngagement(@RequestBody EngagementDTO engagementDTO) {
 
-        ResultWrapper<List<EngagementDTO>> resultWrapper=auditScheduleService.getAllAuditEngagementByStatus(status);
+        ResultWrapper<EngagementDTO> resultWrapper = auditScheduleService.addAuditScheduleToEngagement(engagementDTO);
 
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @PostMapping(value = URIs.GET_AUDIT_ENGAGEMENT_BY_SCHEDULE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<EngagementDTO>> getAuditEngagementBySchedule(@RequestBody AuditScheduleDTO engagementDTO) {
+
+        ResultWrapper<EngagementDTO> resultWrapper = auditScheduleService.getAuditEngagementBySchedule(engagementDTO);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @GetMapping(value = URIs.AUDIT_ENGAGEMENT_LIST_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<EngagementDTO>>> getAuditEngagements() {
+
+        ResultWrapper<List<EngagementDTO>> resultWrapper = auditScheduleService.getAuditEngagements();
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @GetMapping(value = URIs.GET_AUDIT_ENGAGEMENT_BY_QUARTER, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<EngagementDTO>>> getAllAuditEngagementByQuarter(@PathVariable(name = "quarter") int quarter) {
+
+        ResultWrapper<List<EngagementDTO>> resultWrapper = auditScheduleService.getAllAuditEngagementByQuarter(quarter);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @GetMapping(value = URIs.GET_AUDIT_ENGAGEMENT_BY_YEAR, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<EngagementDTO>>> getAllAuditEngagementByYear(@RequestParam(name = "year") String year) {
+
+        ResultWrapper<List<EngagementDTO>> resultWrapper = auditScheduleService.getAllAuditEngagementByYear(year);
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @GetMapping(value = URIs.GET_AUDIT_ENGAGEMENT_BY_STATUS, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<EngagementDTO>>> getAllAuditEngagementByStatus(@PathVariable(name = "status") String status) {
+
+        ResultWrapper<List<EngagementDTO>> resultWrapper = auditScheduleService.getAllAuditEngagementByStatus(status);
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 }

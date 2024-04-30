@@ -12,8 +12,10 @@ public class CboAmsApplication {
     public static void main(String[] args) {
         SpringApplication.run(CboAmsApplication.class, args);
     }
+
     @Bean
     public WebMvcConfigurer corsConfiguration() {
+
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {

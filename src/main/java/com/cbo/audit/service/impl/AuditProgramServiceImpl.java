@@ -1,12 +1,19 @@
 package com.cbo.audit.service.impl;
 
-import com.cbo.audit.dto.*;
+import com.cbo.audit.dto.AuditProgramDTO;
+import com.cbo.audit.dto.AuditProgramObjectiveDTO;
+import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.enums.AuditProgramStatus;
 import com.cbo.audit.mapper.AuditProgramMapper;
 import com.cbo.audit.mapper.AuditProgramObjectiveMapper;
-import com.cbo.audit.mapper.EngagementMapper;
-import com.cbo.audit.persistence.model.*;
-import com.cbo.audit.persistence.repository.*;
+import com.cbo.audit.persistence.model.AuditProgram;
+import com.cbo.audit.persistence.model.AuditProgramObjective;
+import com.cbo.audit.persistence.model.AuditSchedule;
+import com.cbo.audit.persistence.model.EngagementInfo;
+import com.cbo.audit.persistence.repository.AuditProgramObjectiveRepository;
+import com.cbo.audit.persistence.repository.AuditProgramRepository;
+import com.cbo.audit.persistence.repository.AuditScheduleRepository;
+import com.cbo.audit.persistence.repository.EngagementInfoRepository;
 import com.cbo.audit.service.AuditProgramService;
 import com.cbo.audit.service.AuditScheduleService;
 import com.cbo.audit.service.AuditUniverseService;
@@ -14,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,27 +31,24 @@ import java.util.Optional;
 public class AuditProgramServiceImpl implements AuditProgramService {
 
     @Autowired
-    private AuditUniverseService annualPlanService;
-@Autowired
-AuditScheduleRepository auditScheduleRepository;
-    @Autowired
-    private AuditScheduleService auditScheduleService;
-    @Autowired
-    private AuditProgramRepository auditProgramRepository;
+    AuditScheduleRepository auditScheduleRepository;
     @Autowired
     EngagementInfoRepository engagementInfoRepository;
     @Autowired
     AuditProgramObjectiveRepository auditProgramObjectiveRepository;
-
-
-
+    @Autowired
+    private AuditUniverseService annualPlanService;
+    @Autowired
+    private AuditScheduleService auditScheduleService;
+    @Autowired
+    private AuditProgramRepository auditProgramRepository;
 
     @Override
     public ResultWrapper<AuditProgramDTO> registerAuditProgram(AuditProgramDTO auditProgramDTO) {
         ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>();
-        EngagementInfo engagementInfoOpt=engagementInfoRepository.findById(auditProgramDTO.getEngagementInfo().getId()).orElse(null);
+        EngagementInfo engagementInfoOpt = engagementInfoRepository.findById(auditProgramDTO.getEngagementInfo().getId()).orElse(null);
 
-        System.out.println(auditProgramDTO.getObjectives()+"1");
+        System.out.println(auditProgramDTO.getObjectives() + "1");
 
 
         if (engagementInfoOpt == null) {
@@ -54,24 +57,9 @@ AuditScheduleRepository auditScheduleRepository;
             return resultWrapper;
         }
 
-        //USE THIS IF THERE IS ANY PROPERTY THAT MUST BE INCLUDED
-
-//        if (AuditProgramDTO.getSomething() == null) {
-//            resultWrapper.setStatus(false);
-//            resultWrapper.setMessage("Annual Plan name cannot be null.");
-//            return resultWrapper;
-//        }
-//
-//        if (AuditProgramDTO.getSomething() == null) {
-//            resultWrapper.setStatus(false);
-//            resultWrapper.setMessage("Annual Plan risk year cannot be null.");
-//            return resultWrapper;
-//        }
-// auditProgramDTO.setStatus(AuditProgramStatus.Draft.name());
-
         AuditProgram auditProgram = AuditProgramMapper.INSTANCE.toEntity(auditProgramDTO);
 
-        AuditSchedule auditSchedule= auditScheduleService.findAuditScheduleById(engagementInfoOpt.getAuditSchedule().getId());
+        AuditSchedule auditSchedule = auditScheduleService.findAuditScheduleById(engagementInfoOpt.getAuditSchedule().getId());
         auditSchedule.setStatus(AuditProgramStatus.Draft.name());
         auditScheduleRepository.save(auditSchedule);
         engagementInfoOpt.setStatus(AuditProgramStatus.Draft.name());
@@ -80,28 +68,24 @@ AuditScheduleRepository auditScheduleRepository;
 
 
         auditProgram.setCreatedTimestamp(LocalDateTime.now());
-        auditProgram.setCreatedUser("TODO");
-        System.out.println(auditProgramDTO.getObjectives()+"2");
 
-        List<AuditProgramObjectiveDTO> objectives=auditProgramDTO.getObjectives();
+        List<AuditProgramObjectiveDTO> objectives = auditProgramDTO.getObjectives();
 
-        List<AuditProgramObjective> savedObjectives=new ArrayList<>();
+        List<AuditProgramObjective> savedObjectives = new ArrayList<>();
 
-for(AuditProgramObjectiveDTO auditProgramObjectiveDTO:objectives){
-    savedObjectives.add(auditProgramObjectiveRepository.save(AuditProgramObjectiveMapper.INSTANCE.toEntity(auditProgramObjectiveDTO)));
-}
+        for (AuditProgramObjectiveDTO auditProgramObjectiveDTO : objectives) {
+            savedObjectives.add(auditProgramObjectiveRepository.save(AuditProgramObjectiveMapper.INSTANCE.toEntity(auditProgramObjectiveDTO)));
+        }
 
-if(savedObjectives.size() != auditProgramDTO.getObjectives().size()){
-    resultWrapper.setStatus(false);
-    resultWrapper.setMessage("Unsaved objectives");
-    return resultWrapper;
-}
+        if (savedObjectives.size() != auditProgramDTO.getObjectives().size()) {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Unsaved objectives");
+            return resultWrapper;
+        }
 
         auditProgram.setObjectives(savedObjectives);
-auditProgram.setStatus(AuditProgramStatus.Draft.name());
+        auditProgram.setStatus(AuditProgramStatus.Draft.name());
         AuditProgram savedProgram = auditProgramRepository.save(auditProgram);
-
-
 
 
         resultWrapper.setStatus(true);
@@ -115,9 +99,9 @@ auditProgram.setStatus(AuditProgramStatus.Draft.name());
     @Override
     public ResultWrapper<List<AuditProgramDTO>> getAllAuditProgram() {
         ResultWrapper<List<AuditProgramDTO>> resultWrapper = new ResultWrapper<>();
-        List<AuditProgram> auditPrograms=auditProgramRepository.findAll();
+        List<AuditProgram> auditPrograms = auditProgramRepository.findAll();
 
-        if (!auditPrograms.isEmpty()){
+        if (!auditPrograms.isEmpty()) {
 
 
             List<AuditProgramDTO> auditProgramDTOS = AuditProgramMapper.INSTANCE.auditProgramsToAuditProgramDTOs(auditPrograms);
@@ -136,7 +120,7 @@ auditProgram.setStatus(AuditProgramStatus.Draft.name());
         ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>();
         AuditProgram auditProgram = auditProgramRepository.findById(id).orElse(null);
 
-        if (auditProgram != null){
+        if (auditProgram != null) {
             AuditProgramDTO auditProgramDTO = AuditProgramMapper.INSTANCE.toDTO(auditProgram);
 
             resultWrapper.setResult(auditProgramDTO);
@@ -155,14 +139,14 @@ auditProgram.setStatus(AuditProgramStatus.Draft.name());
 
         AuditProgram oldAuditProgramDTO = auditProgramRepository.findById(auditProgramDTO.getId()).orElse(null);
 
-        if (oldAuditProgramDTO != null){
-            if (auditProgramDTO.getStatus() == null){
+        if (oldAuditProgramDTO != null) {
+            if (auditProgramDTO.getStatus() == null) {
                 resultWrapper.setStatus(false);
                 resultWrapper.setMessage("Audit Universe Status can not be empty.");
-            }else if(auditProgramDTO.getObjectives() == null){
+            } else if (auditProgramDTO.getObjectives() == null) {
                 resultWrapper.setStatus(false);
                 resultWrapper.setMessage("Audit Universe Objectives can not be empty.");
-            }else {
+            } else {
 
                 AuditProgram auditProgram = AuditProgramMapper.INSTANCE.toEntity(auditProgramDTO);
 
@@ -174,7 +158,7 @@ auditProgram.setStatus(AuditProgramStatus.Draft.name());
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("Updated Successfully.");
             }
-        }else {
+        } else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Program  with the provided id is not available.");
         }
@@ -189,10 +173,10 @@ auditProgram.setStatus(AuditProgramStatus.Draft.name());
 
     @Override
     public ResultWrapper<List<AuditProgramDTO>> getAllAuditProgramByEngagementId(Long engagement_id) {
-        ResultWrapper<List<AuditProgramDTO>> resultWrapper=new ResultWrapper<>();
-        List<AuditProgram> auditPrograms=auditProgramRepository.getAllAuditProgramByEngagementId(engagement_id);
+        ResultWrapper<List<AuditProgramDTO>> resultWrapper = new ResultWrapper<>();
+        List<AuditProgram> auditPrograms = auditProgramRepository.getAllAuditProgramByEngagementId(engagement_id);
 
-        if(auditPrograms.isEmpty()){
+        if (auditPrograms.isEmpty()) {
             resultWrapper.setResult(null);
             resultWrapper.setMessage("Engagement does not have an Audit Program created for it");
             resultWrapper.setStatus(false);
@@ -206,15 +190,15 @@ auditProgram.setStatus(AuditProgramStatus.Draft.name());
     @Override
     public ResultWrapper<AuditProgramDTO> changeStatusOfAuditProgramToEngagement(Long id) {
         ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>();
-        AuditProgram auditProgram=auditProgramRepository.findById(id).orElse(null);
-        if(auditProgram == null){
+        AuditProgram auditProgram = auditProgramRepository.findById(id).orElse(null);
+        if (auditProgram == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Program with the provided id does not exist");
             resultWrapper.setResult(null);
             return resultWrapper;
         }
-        EngagementInfo engagementInfo=engagementInfoRepository.findById(auditProgram.getEngagementInfo().getId()).orElse(null);
-        if(engagementInfo == null){
+        EngagementInfo engagementInfo = engagementInfoRepository.findById(auditProgram.getEngagementInfo().getId()).orElse(null);
+        if (engagementInfo == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Engagement with the provided information does not exist");
             resultWrapper.setResult(null);
@@ -222,9 +206,9 @@ auditProgram.setStatus(AuditProgramStatus.Draft.name());
         }
 
 
-        AuditSchedule auditSchedule= auditScheduleService.findAuditScheduleById(auditProgram.getEngagementInfo().getAuditSchedule().getId());
+        AuditSchedule auditSchedule = auditScheduleService.findAuditScheduleById(auditProgram.getEngagementInfo().getAuditSchedule().getId());
 
-        if(auditSchedule == null){
+        if (auditSchedule == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Schedule with the provided information does not exist");
             resultWrapper.setResult(null);

@@ -4,7 +4,6 @@ package com.cbo.audit.mapper;
 import com.cbo.audit.dto.AuditUniverseDTO;
 import com.cbo.audit.persistence.model.AuditUniverse;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
@@ -16,12 +15,10 @@ public interface AuditUniverseMapper {
 
     AuditUniverseMapper INSTANCE = Mappers.getMapper(AuditUniverseMapper.class);
 
-    @Mapping(source = "type", target = "auditType")
     AuditUniverseDTO toDTO(AuditUniverse auditUniverse);
 
     void copyToDTO(AuditUniverse auditUniverse, @MappingTarget AuditUniverseDTO auditUniverseDTO);
 
-    @Mapping(source = "auditType", target = "type")
     AuditUniverse toEntity(AuditUniverseDTO auditUniverseDTO);
 
     default List<AuditUniverseDTO> auditUniversesToAuditUniverseDTOs(List<AuditUniverse> auditUniverses) {

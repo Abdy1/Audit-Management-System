@@ -1,22 +1,24 @@
 package com.cbo.audit.service.impl;
 
-import com.cbo.audit.dto.*;
+import com.cbo.audit.dto.AuditScheduleDTO;
+import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.dto.TeamMemberDTO;
 import com.cbo.audit.enums.TeamMemberStatus;
 import com.cbo.audit.enums.TeamType;
 import com.cbo.audit.mapper.AuditScheduleMapper;
 import com.cbo.audit.mapper.TeamMemberMapper;
-import com.cbo.audit.persistence.model.*;
+import com.cbo.audit.persistence.model.AuditSchedule;
+import com.cbo.audit.persistence.model.AuditStaff;
+import com.cbo.audit.persistence.model.TeamMember;
+import com.cbo.audit.persistence.repository.AuditStaffRepository;
 import com.cbo.audit.persistence.repository.EmployeeRepository;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
-import com.cbo.audit.persistence.repository.AuditStaffRepository;
 import com.cbo.audit.service.AuditScheduleService;
 import com.cbo.audit.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -57,14 +59,13 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             return resultWrapper;
         }
         TeamMember existAlready = teamMemberRepository.findTeamMemberByAuditStaffIdAndSchedule(auditStaff.get().getId(), auditSchedule.getId());
-        if (existAlready != null){
+        if (existAlready != null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Assigned already.");
             return resultWrapper;
         }
 
         TeamMember teamMemberLeader = teamMemberRepository.findTeamLeaderOfSchedule(auditSchedule.getId(), TeamType.Leader);
-        System.out.println(teamMemberLeader);
         if ((teamMemberLeader != null) && teamMemberDTO.getTeamRole().equals(TeamType.Leader)) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Leader duplication is not allowed.");
@@ -73,7 +74,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
         TeamMember teamMember = TeamMemberMapper.INSTANCE.toEntity(teamMemberDTO);
         teamMember.setCreatedTimestamp(LocalDateTime.now());
-        teamMember.setCreatedUser("TODO");
         teamMember.setStatus(TeamMemberStatus.Waiting);
         teamMember.setAuditStatus(auditSchedule.getStatus());
         teamMember.setAuditSchedule(auditSchedule);
@@ -93,11 +93,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
         List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
 
-        if(!teamMembers.isEmpty()){
-            //System.out.println("here "+teamMembers.get(0));
-            //System.out.println("entity"+teamMembers.get(0).getAuditStaff());
+        if (!teamMembers.isEmpty()) {
             List<TeamMemberDTO> teamMemberDTOS = TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
-            //System.out.println("dto "+teamMemberDTOS.get(0).getAuditStaffDTO());
             resultWrapper.setStatus(true);
             resultWrapper.setResult(teamMemberDTOS);
         } else {
@@ -119,11 +116,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     public ResultWrapper<TeamMemberDTO> getTeamMemberById(Long id) {
         ResultWrapper<TeamMemberDTO> resultWrapper = new ResultWrapper<>();
         Optional<TeamMember> teamMember = teamMemberRepository.findById(id);
-        if (teamMember.isPresent()){
-            TeamMemberDTO teamMemberDTO =  TeamMemberMapper.INSTANCE.toDTO(teamMember.get());
+        if (teamMember.isPresent()) {
+            TeamMemberDTO teamMemberDTO = TeamMemberMapper.INSTANCE.toDTO(teamMember.get());
             resultWrapper.setResult(teamMemberDTO);
             resultWrapper.setStatus(true);
-        }else {
+        } else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("No record found with the provided id.");
         }
@@ -144,11 +141,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     public ResultWrapper<TeamMemberDTO> removeTeamMember(TeamMemberDTO teamMemberDTO) {
         ResultWrapper<TeamMemberDTO> resultWrapper = new ResultWrapper<>();
         Optional<TeamMember> teamMember = teamMemberRepository.findById(teamMemberDTO.getId());
-        if (teamMember.isPresent()){
+        if (teamMember.isPresent()) {
             teamMemberRepository.delete(teamMember.get());
             resultWrapper.setStatus(true);
             resultWrapper.setMessage("Deleted successfully");
-        }else {
+        } else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Incorrect team Id");
         }
@@ -162,14 +159,13 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
         Optional<TeamMember> oldTeamMember = teamMemberRepository.findById(teamMemberDTO.getId());
 
-        if (!oldTeamMember.isPresent()){
+        if (!oldTeamMember.isPresent()) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Invalid team member id");
         }
         TeamMember updatedTeam = oldTeamMember.get();
         updatedTeam.setStatus(teamMemberDTO.getStatus());
         updatedTeam.setModifiedTimestamp(LocalDateTime.now());
-        updatedTeam.setModifiedUser("TODO");
         TeamMember saveMember = teamMemberRepository.save(updatedTeam);
         resultWrapper.setResult(TeamMemberMapper.INSTANCE.toDTO(saveMember));
         resultWrapper.setStatus(true);
@@ -193,15 +189,15 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         List<TeamMember> teamList = teamMemberRepository.findTeamMemberByAuditStaffId(auditStaffId);
         Set<Long> scheduleIds = new HashSet<>();
 
-        if (!teamList.isEmpty()){
-            for (TeamMember teamMember: teamList) {
-                if (!teamMember.getStatus().equals(TeamMemberStatus.Completed)){
+        if (!teamList.isEmpty()) {
+            for (TeamMember teamMember : teamList) {
+                if (!teamMember.getStatus().equals(TeamMemberStatus.Completed)) {
                     scheduleIds.add(teamMember.getAuditSchedule().getId());
                 }
             }
         }
         List<AuditSchedule> auditSchedules = new ArrayList<>();
-        for (Long scheduleId: scheduleIds) {
+        for (Long scheduleId : scheduleIds) {
             auditSchedules.add(auditScheduleService.findAuditScheduleById(scheduleId));
         }
         resultWrapper.setResult(AuditScheduleMapper.INSTANCE.auditSchedulesToAuditScheduleDTOs(auditSchedules));
@@ -214,7 +210,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     public List<TeamMember> updateAllTeamsStatus(Long scheduleId) {
         List<TeamMember> teams = teamMemberRepository.findAllTeamsOfSchedule(scheduleId);
 
-        for (TeamMember teamMember: teams) {
+        for (TeamMember teamMember : teams) {
             teamMember.setStatus(TeamMemberStatus.Completed);
             teamMemberRepository.save(teamMember);
         }

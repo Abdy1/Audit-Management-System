@@ -33,6 +33,7 @@ public interface AuditScheduleService {
     ResultWrapper<List<EngagementDTO>> getAllAuditEngagementByQuarter(int quarter);
 
     ResultWrapper<List<EngagementDTO>> getAllAuditEngagementByYear(String year);
+
     ResultWrapper<List<EngagementDTO>> getAllAuditEngagementByStatus(String status);
 
     ResultWrapper<List<AuditScheduleDTO>> getAuditScheduleByAnnualPlanId(Long id);

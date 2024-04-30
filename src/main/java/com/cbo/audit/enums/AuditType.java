@@ -2,6 +2,7 @@ package com.cbo.audit.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 @Getter
 @AllArgsConstructor
 public enum AuditType {

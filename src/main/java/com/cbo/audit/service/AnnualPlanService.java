@@ -22,9 +22,14 @@ public interface AnnualPlanService {
 
     ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByAuditUniverseId(Long id);
 
+    ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByAuditObjectId(Long id);
+
     ResultWrapper<AnnualPlanDTO> addAnnualPlanToSchedule(AnnualPlanDTO annualPlanDTO);
 
     ResultWrapper<List<AnnualPlanDTO>> getPlannedAnnualPlans();
+
+    // to do
+    ResultWrapper<List<AnnualPlanDTO>> getPlannedAnnualPlansByYear(String date);
 
     ResultWrapper<List<AnnualPlanDTO>> autoGenerateAnnualPlans(String year);
 

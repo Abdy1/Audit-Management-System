@@ -13,14 +13,11 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "ams_audit_universe")
-public class AuditUniverse  extends BaseEntity{
+public class AuditUniverse extends BaseEntity {
 
 
     @Column(name = "NAME")
     private String name;
-
-    @Column(name = "TYPE")
-    private String type;
 
     @Column(name = "STATUS")
     private String status;
@@ -31,9 +28,4 @@ public class AuditUniverse  extends BaseEntity{
     @UpdateTimestamp
     @Column(name = "APPROVED_AT")
     private LocalDateTime approvedAt;
-
-    @ManyToOne
-    @JoinColumn(name = "AUDIT_OBJECT_ID")
-    private AuditObject auditObject;
-
 }

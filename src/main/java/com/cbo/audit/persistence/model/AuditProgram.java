@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "ams_audit_program")
 @Setter
 @Getter
-public class AuditProgram extends BaseEntity{
+public class AuditProgram extends BaseEntity {
 
     private String name;
 
@@ -27,7 +27,7 @@ public class AuditProgram extends BaseEntity{
     private String previousDescription;
     @Column
     @OneToMany
-    private List<AuditProgramObjective>  objectives;
+    private List<AuditProgramObjective> objectives;
     @Column(columnDefinition = "text")
     private String scopeDescription;
     @Column

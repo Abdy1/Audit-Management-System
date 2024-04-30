@@ -1,0 +1,12 @@
+
+k	java:S1173"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï¢Å£ÿÿÿÿÿ
+X
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ
+X
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ
+T
+java:S1854&">Remove this useless assignment to local variable "commentDTO".(•¾çÈ
+E
+java:S1481&"/Remove this unused "commentDTO" local variable.(•¾çÈ
+U
+java:S1128"?Remove this unused import 'com.cbo.audit.mapper.FindingMapper'.(¨µåì

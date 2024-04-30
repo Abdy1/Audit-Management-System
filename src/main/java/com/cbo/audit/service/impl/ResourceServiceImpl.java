@@ -3,17 +3,13 @@ package com.cbo.audit.service.impl;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.dto.ResourceDTO;
 import com.cbo.audit.dto.ResultWrapper;
-import com.cbo.audit.dto.ResourceDTO;
 import com.cbo.audit.mapper.ResourceMapper;
 import com.cbo.audit.persistence.model.AuditSchedule;
 import com.cbo.audit.persistence.model.Resource;
-import com.cbo.audit.persistence.model.Resource;
-import com.cbo.audit.persistence.model.User;
 import com.cbo.audit.persistence.repository.ResourceRepository;
 import com.cbo.audit.service.AuditScheduleService;
 import com.cbo.audit.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.init.ResourceReader;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,28 +27,23 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public ResultWrapper<ResourceDTO> registerResourceToSchedule(ResourceDTO resourceDTO) {
         ResultWrapper<ResourceDTO> resultWrapper = new ResultWrapper<>();
-
         AuditSchedule auditSchedule = auditScheduleService.findAuditScheduleById(resourceDTO.getAuditSchedule().getId());
 
         if (auditSchedule == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Schedule with the provided information is not available.");
-            return resultWrapper;
+        } else {
+            Resource resource = ResourceMapper.INSTANCE.toEntity(resourceDTO);
+            resource.setAuditSchedule(auditSchedule);
+            Resource savedResource = resourceRepository.save(resource);
+            resultWrapper.setStatus(true);
+            resultWrapper.setResult(ResourceMapper.INSTANCE.toDTO(savedResource));
+            resultWrapper.setMessage("Resource successfully added to schedule.");
         }
 
-
-        Resource resource = ResourceMapper.INSTANCE.toEntity(resourceDTO);
-        resource.setCreatedTimestamp(LocalDateTime.now());
-        resource.setCreatedUser("TODO");
-        resource.setAuditSchedule(auditSchedule);
-
-        Resource savedMember = resourceRepository.save(resource);
-
-        resultWrapper.setStatus(true);
-        resultWrapper.setResult(ResourceMapper.INSTANCE.toDTO(savedMember));
-        resultWrapper.setMessage("Resource successfully added to schedule.");
         return resultWrapper;
     }
+
 
     @Override
     public ResultWrapper<List<ResourceDTO>> getAllResourceOfSchedule(AuditScheduleDTO auditScheduleDTO) {
@@ -60,7 +51,7 @@ public class ResourceServiceImpl implements ResourceService {
 
         List<Resource> resources = resourceRepository.findAllResourcesOfSchedule(auditScheduleDTO.getId());
 
-        if(!resources.isEmpty()){
+        if (!resources.isEmpty()) {
             List<ResourceDTO> resourceDTOS = ResourceMapper.INSTANCE.resourcesToResourceDTOs(resources);
             resultWrapper.setStatus(true);
             resultWrapper.setResult(resourceDTOS);
@@ -76,13 +67,27 @@ public class ResourceServiceImpl implements ResourceService {
     public ResultWrapper<ResourceDTO> getResourceById(Long id) {
         ResultWrapper<ResourceDTO> resultWrapper = new ResultWrapper<>();
         Optional<Resource> resource = resourceRepository.findById(id);
-        if (resource.isPresent()){
-            ResourceDTO resourceDTO =  ResourceMapper.INSTANCE.toDTO(resource.get());
+        if (resource.isPresent()) {
+            ResourceDTO resourceDTO = ResourceMapper.INSTANCE.toDTO(resource.get());
             resultWrapper.setResult(resourceDTO);
             resultWrapper.setStatus(true);
-        }else {
+        } else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("No record found with the provided id.");
+        }
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<List<ResourceDTO>> getResourceByStatus(String status) {
+        ResultWrapper<List<ResourceDTO>> resultWrapper = new ResultWrapper<>();
+        List<Resource> resources = resourceRepository.findAllResourcesByStatus(status);
+        if (resources.isEmpty()) {
+            resultWrapper.setResult(ResourceMapper.INSTANCE.resourcesToResourceDTOs(resources));
+            resultWrapper.setStatus(true);
+        } else {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("No record found with the provided status.");
         }
         return resultWrapper;
     }
@@ -98,17 +103,18 @@ public class ResourceServiceImpl implements ResourceService {
 
         Optional<Resource> oldResource = resourceRepository.findById(resourceDTO.getId());
 
-        if (!oldResource.isPresent()){
+        if (!oldResource.isPresent()) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Invalid resource member id");
+        }else{
+            Resource updatedTeam = oldResource.get();
+            updatedTeam.setResourceStatus(resourceDTO.getResourceStatus());
+            updatedTeam.setModifiedTimestamp(LocalDateTime.now());
+            Resource saveMember = resourceRepository.save(updatedTeam);
+            resultWrapper.setResult(ResourceMapper.INSTANCE.toDTO(saveMember));
+            resultWrapper.setStatus(true);
         }
-        Resource updatedTeam = oldResource.get();
-        updatedTeam.setResourceStatus(resourceDTO.getResourceStatus());
-        updatedTeam.setModifiedTimestamp(LocalDateTime.now());
-        updatedTeam.setModifiedUser("TODO");
-        Resource saveMember = resourceRepository.save(updatedTeam);
-        resultWrapper.setResult(ResourceMapper.INSTANCE.toDTO(saveMember));
-        resultWrapper.setStatus(true);
+
         return resultWrapper;
     }
 

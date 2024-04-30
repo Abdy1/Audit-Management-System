@@ -1,0 +1,21 @@
+
+|
+java:S3655t"9Call "budgetYear.isPresent()" before accessing the value.(à¦Âƒ8¶¤ŞÌò1J$7eb7215b-d9fc-4dda-afa2-6c1895fe60a2
+…
+java:S6813!"BRemove this field injection and use constructor injection instead.(êæÄŞ8·¤ŞÌò1J$25fa03b7-d892-487b-8496-14c7aa8c40ab
+…
+java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8·¤ŞÌò1J$8afaae7b-83eb-4ffb-895f-ca7fe7f613f4
+…
+java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8·¤ŞÌò1J$b360b4da-acbe-4e07-bc23-b2217864c543
+…
+java:S6813*"BRemove this field injection and use constructor injection instead.(êæÄŞ8·¤ŞÌò1J$23af4ed8-2d46-437a-abf0-9b0925245ba4
+…
+java:S6813-"BRemove this field injection and use constructor injection instead.(êæÄŞ8·¤ŞÌò1J$15f05b84-0ea2-4f7f-a988-14791daaf8b3
+…
+java:S68130"BRemove this field injection and use constructor injection instead.(êæÄŞ8·¤ŞÌò1J$8bbd6409-123f-483d-8545-6ae5f7752e58
+…
+java:S68133"BRemove this field injection and use constructor injection instead.(êæÄŞ8·¤ŞÌò1J$6325cf12-37a9-4976-ac69-640417c57eeb
+H
+java:S1128"+Remove this unused import 'java.time.Year'.(Èƒœ¦8ğâÌò1
+H
+java:S1128"+Remove this unused import 'java.util.Date'.(¸…¼ü8ğâÌò1

@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface RiskScoreRepository extends JpaRepository<RiskScore, Long>{
+public interface RiskScoreRepository extends JpaRepository<RiskScore, Long> {
 
     List<RiskScore> findRiskScoreByAnnualPlanId(Long annualPlanId);
 }

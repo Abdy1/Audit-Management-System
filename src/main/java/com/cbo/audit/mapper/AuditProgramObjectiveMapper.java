@@ -1,18 +1,16 @@
 package com.cbo.audit.mapper;
 
 import com.cbo.audit.dto.AuditProgramObjectiveDTO;
-import com.cbo.audit.dto.TeamMemberDTO;
 import com.cbo.audit.persistence.model.AuditProgramObjective;
-import com.cbo.audit.persistence.model.TeamMember;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface AuditProgramObjectiveMapper {
-
 
 
     AuditProgramObjectiveMapper INSTANCE = Mappers.getMapper(AuditProgramObjectiveMapper.class);

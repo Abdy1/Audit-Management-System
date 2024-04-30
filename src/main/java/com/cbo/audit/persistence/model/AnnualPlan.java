@@ -11,32 +11,36 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "ams_annual_plan")
-public class AnnualPlan extends BaseEntity{
+public class AnnualPlan extends BaseEntity {
 
-    @Column(name="NAME")
+    @Column(name = "NAME")
     private String name;
 
-    @Column(name="DESCRIPTION")
+    @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name="YEAR")
+    @Column(name = "YEAR")
     private String year;
 
-    @Column(name="RISK_LEVEL")
+    @Column(name = "RISK_LEVEL")
     private String riskLevel;
 
-    @Column(name="RISK_SCORE")
+    @Column(name = "RISK_SCORE")
     private int riskScore;
 
-    @Column(name="STATUS")
+    @Column(name = "STATUS")
     private String status;
 
     @Column(name = "RECTIFICATION_STATUS")
     private double rectificationStatus;
 
     @ManyToOne
-    @JoinColumn(name="AUDIT_UNIVERSE_ID")
+    @JoinColumn(name = "AUDIT_UNIVERSE_ID")
     private AuditUniverse auditUniverse;
+
+    @ManyToOne
+    @JoinColumn(name = "AUDIT_OBJECT_ID")
+    private AuditObject auditObject;
 
 /*    @OneToMany(mappedBy = "annualPlan", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<RiskScore> riskScores;*/

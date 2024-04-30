@@ -1,8 +1,6 @@
 package com.cbo.audit.mapper;
 
-import com.cbo.audit.dto.AuditProgramDTO;
 import com.cbo.audit.dto.AuditProgramWBSDTO;
-import com.cbo.audit.persistence.model.AuditProgram;
 import com.cbo.audit.persistence.model.WBS;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -13,7 +11,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface WBSMapper {
-
 
 
     WBSMapper INSTANCE = Mappers.getMapper(WBSMapper.class);

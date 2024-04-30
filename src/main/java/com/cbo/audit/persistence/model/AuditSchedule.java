@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "ams_audit_schedule")
-public class AuditSchedule extends BaseEntity{
+public class AuditSchedule extends BaseEntity {
 
     @Column(name = "START_ON")
     private String startOn;

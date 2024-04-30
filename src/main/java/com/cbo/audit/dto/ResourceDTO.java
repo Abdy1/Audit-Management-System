@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ResourceDTO extends BaseDTO{
+public class ResourceDTO extends BaseDTO {
 
     private String name;
 

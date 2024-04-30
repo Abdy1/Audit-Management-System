@@ -24,6 +24,4 @@ public abstract class BaseDTO implements Serializable {
     private LocalDateTime createdTimestamp;
 
     private LocalDateTime modifiedTimestamp;
-
-
 }

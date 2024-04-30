@@ -4,33 +4,27 @@ import com.cbo.audit.dto.AmendedFindingDTO;
 import com.cbo.audit.dto.FindingDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.mapper.AmendedFindingMapper;
-import com.cbo.audit.mapper.AuditProgramMapper;
 import com.cbo.audit.mapper.FindingMapper;
 import com.cbo.audit.persistence.model.AmendedFinding;
 import com.cbo.audit.persistence.model.AuditProgram;
-import com.cbo.audit.persistence.model.AuditUniverse;
 import com.cbo.audit.persistence.model.Finding;
 import com.cbo.audit.persistence.repository.AmendedFindingRepository;
 import com.cbo.audit.persistence.repository.AuditProgramRepository;
 import com.cbo.audit.persistence.repository.FindingRepository;
 import com.cbo.audit.service.AuditProgramFindingService;
-import com.cbo.audit.utils.FileUploadUtil;
-
+import io.github.pixee.security.Filenames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -46,6 +40,8 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
     private AuditProgramRepository auditProgramRepository;
     @Autowired
     private AmendedFindingRepository amendedFindingRepository;
+
+    private static final String noFindingInfo = "There is no Finding with the provided Information";
 
     @Override
     public ResultWrapper<FindingDTO> registerAuditProgramFinding(FindingDTO findingDTO) {
@@ -79,7 +75,6 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
     public ResultWrapper<List<FindingDTO>> listAllFindingsByAuditProgramId(Long auditProgram_id) {
         ResultWrapper<List<FindingDTO>> resultWrapper = new ResultWrapper<>();
         List<Finding> findings = auditProgramFindingRepository.findFindingByAuditProgramId(auditProgram_id);
-        System.out.println(findings.get(0).getIsVisibleToAuditees());
         if (findings.isEmpty()) {
             resultWrapper.setMessage("Finding with the provided information does not exist");
             resultWrapper.setStatus(false);
@@ -87,7 +82,6 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
             return resultWrapper;
         }
         List<FindingDTO> findingDTOs = FindingMapper.INSTANCE.FindingToFindingDTOs(findings);
-        System.out.println(findingDTOs.get(0).getIsVisibleToAuditees());
         resultWrapper.setResult(findingDTOs);
         resultWrapper.setStatus(true);
         return resultWrapper;
@@ -123,7 +117,6 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
         amendedFinding.setFinding(savedFinding);
 
         AmendedFinding savedAmendedFinding = amendedFindingRepository.save(amendedFinding);
-        System.out.println(savedAmendedFinding);
         FindingDTO savedFindingDTO = FindingMapper.INSTANCE.toDTO(savedFinding);
         resultWrapper.setResult(savedFindingDTO);
         resultWrapper.setStatus(true);
@@ -153,33 +146,38 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
 
 
     @Override
-    public ResultWrapper<String> attachFile(MultipartFile file, Long id) throws IOException {
+    public ResultWrapper<String> attachFile(MultipartFile file, Long id) {
         ResultWrapper<String> resultWrapper = new ResultWrapper<>();
-        Finding finding = auditProgramFindingRepository.findById(id).orElse(null);
-        if (finding == null) {
+        Optional<Finding> optionalFinding = auditProgramFindingRepository.findById(id);
+
+        if (!optionalFinding.isPresent()) {
             resultWrapper.setStatus(false);
             resultWrapper.setResult(null);
-            resultWrapper.setMessage("There is no Finding with the provided Information");
+            resultWrapper.setMessage(noFindingInfo);
             return resultWrapper;
         }
-        try {
-            System.out.println(file.getOriginalFilename());
-            String extention = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf('.'));
-            Path path = saveFile("findings/evidences", finding.getId() + extention, file);
 
-            finding.setFindingEvidenceFileUploadedToSupplementTheFindingsPath(finding.getId() + extention);
+        Finding finding = optionalFinding.get();
+        try {
+            String originalFilename = Filenames.toSimpleFileName(file.getOriginalFilename());
+            String simpleFileName = Filenames.toSimpleFileName(originalFilename);
+            String extension = simpleFileName.substring(originalFilename.indexOf('.'));
+
+            Path path = saveFile("findings/evidences", finding.getId() + extension, file);
+
+            finding.setFindingEvidenceFileUploadedToSupplementTheFindingsPath(finding.getId() + extension);
             resultWrapper.setMessage("success");
             resultWrapper.setStatus(true);
             resultWrapper.setResult(finding.getFindingEvidenceFileUploadedToSupplementTheFindingsPath());
-            return resultWrapper;
         } catch (Exception e) {
             resultWrapper.setStatus(false);
             resultWrapper.setResult(null);
             resultWrapper.setMessage("Something went wrong while uploading the file, please try again later");
-            return resultWrapper;
         }
 
+        return resultWrapper;
     }
+
 
 
     public ResultWrapper<List<Path>> getFillesAttachedByFindingId(Long id) {
@@ -188,7 +186,7 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
         if (finding == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setResult(null);
-            resultWrapper.setMessage("There is no Finding with the provided Information");
+            resultWrapper.setMessage(noFindingInfo);
             return resultWrapper;
         }
 
@@ -213,7 +211,7 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
         }
         resultWrapper.setStatus(false);
         resultWrapper.setResult(null);
-        resultWrapper.setMessage("There is no Finding with the provided Information");
+        resultWrapper.setMessage(noFindingInfo);
         return resultWrapper;
 
     }
@@ -235,8 +233,9 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
             throw new IOException("Could not save the File: " + fileName, ioe);
         }
     }
+
     public String saveFileAngGetFileName(String uploadDir, String fileName,
-                         MultipartFile multipartFile) throws IOException {
+                                         MultipartFile multipartFile) throws IOException {
         Path uploadPath = Paths.get(uploadDir);
 
         if (!Files.exists(uploadPath)) {
@@ -252,7 +251,6 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
             throw new IOException("Could not save the File: " + fileName, ioe);
         }
     }
-
 
 
     public List<Path> getFilesStartingWithChar(String directoryPath, String startingChars) throws IOException {
@@ -275,7 +273,7 @@ public class AuditProgramFindingServiceImpl implements AuditProgramFindingServic
             Path filePath = Paths.get("findings/evidences", filename);
             byte[] fileBytes = Files.readAllBytes(filePath);
             ByteArrayResource resource = new ByteArrayResource(fileBytes);
-return resource;
+            return resource;
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -283,14 +281,12 @@ return resource;
 
 
     }
-
     @Override
     public void makeVisible(Long id) {
-       Finding finding=auditProgramFindingRepository.getById(id);
+        Finding finding = auditProgramFindingRepository.getById(id);
 
-       if(finding != null){
-           finding.setIsVisibleToAuditees(true);
-       }
+        if (finding != null) {
+            finding.setIsVisibleToAuditees(true);
+        }
     }
-
 }

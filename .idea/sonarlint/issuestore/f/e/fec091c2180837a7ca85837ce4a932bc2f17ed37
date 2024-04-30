@@ -1,0 +1,10 @@
+
+Œ	java:S117!"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²ø„J$3174b2c7-8d90-4747-8efa-3e73961c8954
+x
+java:S3655#"7Call "Optional#isPresent()" before accessing the value.(îÀÈÅÿÿÿÿÿJ$51246cc3-f3a2-4a6c-baf6-23b55ce74b3a
+~
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$fd93b2ec-0b33-44a9-8db8-dd8f83ce04f9
+~
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$50f02afd-5125-4013-ab4e-b9c0574544a4
+~
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$849e3081-1b0a-4f19-a9e4-ef78e83d899d

@@ -52,6 +52,7 @@ com\cbo\audit\dto\AuditableAreaDTO.class
 com\cbo\audit\enums\AuditReportStatus.class
 com\cbo\audit\persistence\repository\ResourceRepository.class
 com\cbo\audit\persistence\model\AuditUniverse.class
+com\cbo\audit\configuration\JwtAuthenticationEntryPoint.class
 com\cbo\audit\persistence\model\TeamMember.class
 com\cbo\audit\persistence\model\AuditableArea.class
 com\cbo\audit\service\ReportService.class
@@ -65,6 +66,7 @@ com\cbo\audit\service\AuditStaffService.class
 com\cbo\audit\dto\ReportDTO.class
 com\cbo\audit\mapper\WBSMapper.class
 com\cbo\audit\persistence\model\BudgetYear.class
+com\cbo\audit\utils\JwtUtils.class
 com\cbo\audit\persistence\repository\AuditableAreaRepository.class
 com\cbo\audit\dto\AmendedFindingDTO.class
 com\cbo\audit\dto\RiskItemDTO.class
@@ -129,6 +131,7 @@ com\cbo\audit\persistence\model\AuditeesOrgan.class
 com\cbo\audit\dto\AuditTaskDTO.class
 com\cbo\audit\persistence\model\ChecklistItem.class
 com\cbo\audit\controller\AuditProgramWBSController.class
+com\cbo\audit\configuration\WebSecurityConfiguration.class
 com\cbo\audit\mapper\EmployeeMapper.class
 com\cbo\audit\controller\AuditableAreaController.class
 com\cbo\audit\persistence\model\AuditProgramObjective.class
@@ -182,6 +185,7 @@ com\cbo\audit\dto\AuditUniverseDTO.class
 com\cbo\audit\controller\AuditObjectController.class
 com\cbo\audit\service\impl\AuditUniverseServiceImpl.class
 com\cbo\audit\service\impl\RiskServiceImpl.class
+com\cbo\audit\configuration\JwtRequestFilter.class
 com\cbo\audit\mapper\ChecklistItemMapperImpl.class
 com\cbo\audit\mapper\AuditTypeMapperImpl.class
 com\cbo\audit\service\TeamMemberService.class
@@ -190,6 +194,7 @@ com\cbo\audit\dto\BaseDTO.class
 com\cbo\audit\dto\EmployeeDTO.class
 com\cbo\audit\persistence\repository\AuditTypeRepository.class
 com\cbo\audit\mapper\ResourceMapperImpl.class
+com\cbo\audit\configuration\MvcConfig.class
 com\cbo\audit\mapper\ResourceMapper.class
 com\cbo\audit\service\AnnualPlanService.class
 com\cbo\audit\enums\TeamMemberStatus.class

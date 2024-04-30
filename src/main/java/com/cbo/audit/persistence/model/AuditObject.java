@@ -11,7 +11,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "ams_audit_object")
-public class AuditObject extends BaseEntity{
+public class AuditObject extends BaseEntity {
 
     @Column(name = "NAME")
     private String name;
@@ -22,6 +22,11 @@ public class AuditObject extends BaseEntity{
     @Column(name = "AUDIT_TYPE")
     private String auditType;
 
+    @Column(name = "STATUS")
+    private String status;
 
+    @ManyToOne
+    @JoinColumn(name = "AUDIT_UNIVERSE_ID")
+    private AuditUniverse auditUniverse;
 
 }

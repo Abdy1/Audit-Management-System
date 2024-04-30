@@ -11,6 +11,7 @@ import java.util.List;
 public interface AuditProgramRepository extends JpaRepository<AuditProgram, Long> {
     @Query(" SELECT AN FROM AuditProgram AN WHERE AN.engagementInfo.id = :engagementInfo_id")
     List<AuditProgram> getAllAuditProgramByEngagementId(@Param("engagementInfo_id") Long engagementInfo_id);
+
     @Query(" SELECT AN FROM AuditProgram AN WHERE AN.engagementInfo.id = :engagementInfo_id")
     AuditProgram getAuditProgramByEngagementId(@Param("engagementInfo_id") Long engagementInfo_id);
 

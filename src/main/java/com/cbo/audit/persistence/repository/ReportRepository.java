@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ReportRepository extends JpaRepository<Report,Long> {
+public interface ReportRepository extends JpaRepository<Report, Long> {
 
     @Query(" SELECT AN FROM Report AN WHERE AN.auditSchedule.id = :scheduleId")
     Report findReportByAuditScheduleId(@Param("scheduleId") Long scheduleId);

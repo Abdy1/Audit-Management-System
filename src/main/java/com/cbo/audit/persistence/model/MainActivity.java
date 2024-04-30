@@ -1,4 +1,4 @@
 package com.cbo.audit.persistence.model;
 
-public class MainActivity extends BaseEntity{
+public class MainActivity extends BaseEntity {
 }

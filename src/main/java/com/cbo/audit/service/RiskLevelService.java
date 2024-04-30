@@ -9,4 +9,6 @@ public interface RiskLevelService {
     ResultWrapper<RiskLevelDTO> registerRiskLevel(RiskLevelDTO riskLevelDTO);
 
     ResultWrapper<RiskLevelDTO> updateRiskLevel(RiskLevelDTO riskLevelDTO);
+
+    ResultWrapper<RiskLevelDTO> getRiskLevel();
 }

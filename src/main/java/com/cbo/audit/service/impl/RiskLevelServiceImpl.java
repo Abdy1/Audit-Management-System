@@ -1,6 +1,8 @@
 package com.cbo.audit.service.impl;
 
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.dto.RiskLevelDTO;
+import com.cbo.audit.mapper.RiskLevelMapper;
 import com.cbo.audit.persistence.model.RiskLevel;
 import com.cbo.audit.persistence.repository.RiskLevelRepository;
 import com.cbo.audit.service.RiskLevelService;
@@ -19,23 +21,25 @@ public class RiskLevelServiceImpl implements RiskLevelService {
     }
 
     @Override
-    public ResultWrapper<RiskLevel> registerRiskLevel(RiskLevel riskLevel) {
-        ResultWrapper<RiskLevel> resultWrapper = new ResultWrapper<>(riskLevel);
+    public ResultWrapper<RiskLevelDTO> registerRiskLevel(RiskLevelDTO riskLevelDTO) {
+        ResultWrapper<RiskLevelDTO> resultWrapper = new ResultWrapper<>(riskLevelDTO);
+        RiskLevel riskLevel = RiskLevelMapper.INSTANCE.toEntity(riskLevelDTO);
         riskLevelRepository.save(riskLevel);
         resultWrapper.setStatus(true);
         resultWrapper.setMessage("Registered successfully!");
-        resultWrapper.setResult(riskLevel);
+        resultWrapper.setResult(riskLevelDTO);
         return resultWrapper;
     }
 
     @Override
-    public ResultWrapper<RiskLevel> updateRiskLevel(RiskLevel riskLevel) {
-        ResultWrapper<RiskLevel> resultWrapper = new ResultWrapper<>(riskLevel);
+    public ResultWrapper<RiskLevelDTO> updateRiskLevel(RiskLevelDTO riskLevelDTO) {
+        ResultWrapper<RiskLevelDTO> resultWrapper = new ResultWrapper<>(riskLevelDTO);
+        RiskLevel riskLevel = RiskLevelMapper.INSTANCE.toEntity(riskLevelDTO);
         riskLevelRepository.save(riskLevel);
 
         resultWrapper.setStatus(true);
-        resultWrapper.setMessage("Registered successfully!");
-        resultWrapper.setResult(riskLevel);
+        resultWrapper.setMessage("Updated successfully!");
+        resultWrapper.setResult(riskLevelDTO);
         return resultWrapper;
     }
 }

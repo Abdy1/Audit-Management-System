@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85e49414-7673-45de-9849-af20fd3a1fe3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/RiskLevelService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/impl/RiskLevelServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/dto/RiskLevelDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/mapper/RiskLevelMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/7/678b93d53e9c484ac5ed91e85c220a3aa5f11c5b" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/7/678b93d53e9c484ac5ed91e85c220a3aa5f11c5b" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/constants/URIs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/constants/URIs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/controller/RiskLevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/controller/RiskLevelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/RiskLevelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/RiskLevelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/impl/RiskLevelServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/impl/RiskLevelServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +23,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>

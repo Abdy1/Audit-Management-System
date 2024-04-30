@@ -1,10 +1,14 @@
 
+j
+java:S1192‹"LUse already-defined constant 'UPDATE' instead of duplicating its value here.(·ÝÕÇ8–Ç±íò1
 ˆ
-java:S11927"GDefine a constant instead of duplicating this literal "delete" 4 times.(å×ñ…üÿÿÿÿJ$18e4a620-9565-45ac-8c10-459f8d5e86ca
+java:S11927"GDefine a constant instead of duplicating this literal "delete" 4 times.(å×ñ…üÿÿÿÿJ$256a6694-97ef-460e-a715-607bc98b3eb4
 Š
-java:S1192"IDefine a constant instead of duplicating this literal "findById" 7 times.(ó–æ°úÿÿÿÿJ$1e882608-7e27-45b1-a8d5-1ba20cb0a1cb
+java:S1192"IDefine a constant instead of duplicating this literal "findById" 7 times.(ó–æ°úÿÿÿÿJ$59d6a73e-35fd-412a-a9e1-554878bf19f6
 Š
-java:S1192C"NUse already-defined constant 'LIST_ALL' instead of duplicating its value here.(»Ÿê±J$cd9e0050-03af-4a8f-bf74-b0a5c06fec93
-”	java:S115l"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(äîÇJ$62d95f93-963f-4ec8-a7b1-5fed9cce3149
+java:S1192C"NUse already-defined constant 'LIST_ALL' instead of duplicating its value here.(»Ÿê±J$ab4c3acf-29cb-4023-80f4-5f29eed10384
+q
+java:S1192Š"NUse already-defined constant 'REGISTER' instead of duplicating its value here.(èŽ¦¶þÿÿÿÿ8–Ç±íò1
+”	java:S115l"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(äîÇJ$ce893c60-3a21-4372-9bfb-367a4bbab228
 {
-java:S1118":Add a private constructor to hide the implicit public one.(šø©«øÿÿÿÿJ$2bed88a5-dd07-48ac-9790-026190a032be
+java:S1118":Add a private constructor to hide the implicit public one.(šø©«øÿÿÿÿJ$24a93a8a-31f8-41ad-b0ba-5c0fa92bb47a

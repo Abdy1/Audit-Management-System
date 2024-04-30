@@ -182,3 +182,11 @@ i
 9src/main/java/com/cbo/audit/service/RiskLevelService.java,2\8\28763e88132f5b6c7da7254bee9e0fa80a0b563f
 r
 Bsrc/main/java/com/cbo/audit/service/impl/RiskLevelServiceImpl.java,8\7\87ff2b760af25c254b28857b7d4be554e65bfcaa
+a
+1src/main/java/com/cbo/audit/dto/RiskLevelDTO.java,8\8\88174988f13a97ee92c3be224d2620c065e311a9
+l
+<src/main/java/com/cbo/audit/persistence/model/RiskLevel.java,a\d\add8c0c976f36d8c3edd1e4046aa160919fb211b
+g
+7src/main/java/com/cbo/audit/mapper/RiskLevelMapper.java,d\9\d9bcb275413d9cc8a11eecd7bfb908311eed96af
+f
+6src/main/java/com/cbo/audit/mapper/RiskItemMapper.java,7\b\7b8ae3f37431f00af1b29d69cafb8902f8d1c615

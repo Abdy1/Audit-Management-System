@@ -69,6 +69,7 @@ public final class URIs {
     public static final String AUDIT_STAFF_LBY_AUDIT_TYPE = AUDIT_STAFF + "byAuditType";
     public static final String AUDIT_STAFF_REMOVE = AUDIT_STAFF + "remove";
     public static final String GENERATE_REPORT = APPLICATION_CONTEXT + REPORT + "generateByAuditSchedule";
+    public static final String CREATE_DOCUMENT = APPLICATION_CONTEXT + REPORT + "generate";
     private static final String REGISTER = "register";
     public static final String AUDIT_UNIVERSE_REGISTER = AUDIT_UNIVERSE + REGISTER;
     public static final String ANNUAL_PLAN_REGISTER = ANNUAL_PLAN + REGISTER;

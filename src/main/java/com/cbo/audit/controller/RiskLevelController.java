@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class RiskLevelController {
 
@@ -26,8 +28,8 @@ public class RiskLevelController {
     }
 
     @GetMapping(value = URIs.RISK_LEVEL_GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultWrapper<RiskLevelDTO>> getRiskLevel(){
-        ResultWrapper<RiskLevelDTO> resultWrapper = riskLevelService.getRiskLevel();
+    public ResponseEntity<ResultWrapper<List<RiskLevelDTO>>> getRiskLevel(){
+        ResultWrapper<List<RiskLevelDTO>> resultWrapper = riskLevelService.getRiskLevel();
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

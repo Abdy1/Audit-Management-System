@@ -8,13 +8,13 @@ java:S1199ó"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ8Ê‰ÿÅò1J$
 z
 java:S3655`"7Call "Optional#isPresent()" before accessing the value.(˜±‘8™†Æò1J$b7fad998-b2ab-4796-823f-ddf9c4b2c575
 {
-java:S3655Ú"7Call "Optional#isPresent()" before accessing the value.(˜±‘8ò‰ÿÅò1J$880f55ee-512a-4bce-9e44-be3ff7e407e1
+java:S3655ë"7Call "Optional#isPresent()" before accessing the value.(˜±‘8ò‰ÿÅò1J$60cfdc4b-8d9f-40fa-85ab-3d26eb2d2ae4
 {
 java:S3655‘"7Call "Optional#isPresent()" before accessing the value.(˜±‘8ò‰ÿÅò1J$9b960360-2b02-4e97-991b-3766b92477cc
 {
 java:S3655°"7Call "Optional#isPresent()" before accessing the value.(˜±‘8ò‰ÿÅò1J$1bba683a-c8d2-44f2-ab1b-39e14f494a8f
 {
-java:S3655ë"7Call "Optional#isPresent()" before accessing the value.(˜±‘8ò‰ÿÅò1J$60cfdc4b-8d9f-40fa-85ab-3d26eb2d2ae4
+java:S3655Ú"7Call "Optional#isPresent()" before accessing the value.(˜±‘8ò‰ÿÅò1J$880f55ee-512a-4bce-9e44-be3ff7e407e1
 …
 java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8ó‰ÿÅò1J$f62e6f95-0f63-4608-9301-1b28a09755b8
 …

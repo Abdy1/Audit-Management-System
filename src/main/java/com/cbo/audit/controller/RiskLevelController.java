@@ -34,7 +34,7 @@ public class RiskLevelController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
-    @PutMapping(value = URIs.RISK_LEVEL_UPDATED, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = URIs.RISK_LEVEL_UPDATED, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<RiskLevelDTO>> updateRiskLevel(@RequestBody RiskLevelDTO riskLevelDTO){
         ResultWrapper<RiskLevelDTO> resultWrapper = riskLevelService.updateRiskLevel(riskLevelDTO);
         return new ResponseEntity<>(resultWrapper, HttpStatus.CREATED);

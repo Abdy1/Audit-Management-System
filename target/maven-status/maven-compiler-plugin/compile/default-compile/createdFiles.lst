@@ -23,6 +23,7 @@ com\cbo\audit\dto\ChecklistItemDTO.class
 com\cbo\audit\mapper\RiskScoreMapperImpl.class
 com\cbo\audit\dto\AuditProgramObjectiveDTO.class
 com\cbo\audit\mapper\WBSMapperImpl.class
+com\cbo\audit\dto\RiskLevelDTO.class
 com\cbo\audit\mapper\FindingCommentMapper.class
 com\cbo\audit\service\impl\TeamMemberServiceImpl.class
 com\cbo\audit\service\impl\AnnualPlanServiceImpl.class
@@ -43,6 +44,7 @@ com\cbo\audit\service\AuditObjectService.class
 com\cbo\audit\persistence\model\User.class
 com\cbo\audit\enums\AuditStaffStatus.class
 com\cbo\audit\service\impl\FindingCommentServiceImpl.class
+com\cbo\audit\service\impl\WordServiceImpl.class
 com\cbo\audit\controller\TeamMemberController.class
 com\cbo\audit\persistence\model\RiskItem.class
 com\cbo\audit\mapper\AuditScheduleMapper.class
@@ -91,6 +93,7 @@ com\cbo\audit\mapper\TeamMemberMapper.class
 com\cbo\audit\persistence\repository\AuditStaffRepository.class
 com\cbo\audit\persistence\model\MainActivity.class
 com\cbo\audit\persistence\repository\UserRepository.class
+com\cbo\audit\service\WordService.class
 com\cbo\audit\service\impl\AuditObjectServiceImpl.class
 com\cbo\audit\persistence\model\BaseEntity.class
 com\cbo\audit\dto\BudgetYearDTO.class
@@ -103,6 +106,7 @@ com\cbo\audit\persistence\model\FindingComment.class
 com\cbo\audit\persistence\repository\AnnualPlanRepository.class
 com\cbo\audit\persistence\model\AuditObject.class
 com\cbo\audit\mapper\AuditProgramMapper.class
+com\cbo\audit\service\impl\RiskLevelServiceImpl.class
 com\cbo\audit\controller\AuditProgramObjectiveController.class
 com\cbo\audit\persistence\repository\AuditObjectRepository.class
 com\cbo\audit\mapper\UserMapper.class
@@ -113,6 +117,7 @@ com\cbo\audit\mapper\AuditTypeMapper.class
 com\cbo\audit\persistence\repository\FindingRepository.class
 com\cbo\audit\dto\AuditStaffDTO.class
 com\cbo\audit\service\AuditProgramService.class
+com\cbo\audit\mapper\RiskLevelMapper.class
 com\cbo\audit\controller\AuditProgramFindingController.class
 com\cbo\audit\enums\ResourceType.class
 com\cbo\audit\controller\ScheduleController.class
@@ -129,6 +134,7 @@ com\cbo\audit\enums\ReportStatus.class
 com\cbo\audit\CboAmsApplication$1.class
 com\cbo\audit\persistence\model\AuditeesOrgan.class
 com\cbo\audit\dto\AuditTaskDTO.class
+com\cbo\audit\mapper\RiskLevelMapperImpl.class
 com\cbo\audit\persistence\model\ChecklistItem.class
 com\cbo\audit\controller\AuditProgramWBSController.class
 com\cbo\audit\configuration\WebSecurityConfiguration.class
@@ -145,6 +151,7 @@ com\cbo\audit\persistence\model\Employee.class
 com\cbo\audit\service\impl\AuditTypeServiceImpl.class
 com\cbo\audit\service\RiskItemService.class
 com\cbo\audit\persistence\repository\AuditScheduleRepository.class
+com\cbo\audit\controller\WordDocumentController.class
 com\cbo\audit\persistence\model\ReportObjective.class
 com\cbo\audit\service\AuditableAreaService.class
 com\cbo\audit\persistence\repository\AuditProgramObjectiveRepository.class
@@ -189,10 +196,12 @@ com\cbo\audit\configuration\JwtRequestFilter.class
 com\cbo\audit\mapper\ChecklistItemMapperImpl.class
 com\cbo\audit\mapper\AuditTypeMapperImpl.class
 com\cbo\audit\service\TeamMemberService.class
+com\cbo\audit\controller\RiskLevelController.class
 com\cbo\audit\persistence\model\Report.class
 com\cbo\audit\dto\BaseDTO.class
 com\cbo\audit\dto\EmployeeDTO.class
 com\cbo\audit\persistence\repository\AuditTypeRepository.class
+com\cbo\audit\service\RiskLevelService.class
 com\cbo\audit\mapper\ResourceMapperImpl.class
 com\cbo\audit\configuration\MvcConfig.class
 com\cbo\audit\mapper\ResourceMapper.class

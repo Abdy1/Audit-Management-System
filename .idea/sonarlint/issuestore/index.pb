@@ -190,3 +190,7 @@ g
 7src/main/java/com/cbo/audit/mapper/RiskLevelMapper.java,d\9\d9bcb275413d9cc8a11eecd7bfb908311eed96af
 f
 6src/main/java/com/cbo/audit/mapper/RiskItemMapper.java,7\b\7b8ae3f37431f00af1b29d69cafb8902f8d1c615
+m
+=src/main/java/com/cbo/audit/service/impl/WordServiceImpl.java,d\2\d2951975b6ab030023c5dd733a950f67aec659b6
+`
+0src/main/java/com/cbo/audit/dto/RiskItemDTO.java,3\a\3a627be7b2df38e48be8d581685d246aa78cc3a3

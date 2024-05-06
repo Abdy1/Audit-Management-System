@@ -73,13 +73,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         }
 
         TeamMember teamMember = TeamMemberMapper.INSTANCE.toEntity(teamMemberDTO);
-        teamMember.setCreatedTimestamp(LocalDateTime.now());
-        teamMember.setStatus(TeamMemberStatus.Waiting);
-        teamMember.setAuditStatus(auditSchedule.getStatus());
-        teamMember.setAuditSchedule(auditSchedule);
-        teamMember.setAuditStaff(auditStaff.get());
 
-        TeamMember savedMember = teamMemberRepository.save(teamMember);
+        // save team
+        TeamMember savedMember = saveTeam(teamMember, auditSchedule, auditStaff.get());
 
         resultWrapper.setStatus(true);
         resultWrapper.setResult(TeamMemberMapper.INSTANCE.toDTO(savedMember));
@@ -163,11 +159,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Invalid team member id");
         }
-        TeamMember updatedTeam = oldTeamMember.get();
-        updatedTeam.setStatus(teamMemberDTO.getStatus());
-        updatedTeam.setModifiedTimestamp(LocalDateTime.now());
-        TeamMember saveMember = teamMemberRepository.save(updatedTeam);
-        resultWrapper.setResult(TeamMemberMapper.INSTANCE.toDTO(saveMember));
+        resultWrapper.setResult(TeamMemberMapper.INSTANCE.toDTO(updateRecord(oldTeamMember.get(), teamMemberDTO.getStatus())));
         resultWrapper.setStatus(true);
         return resultWrapper;
     }
@@ -217,4 +209,19 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         return teams;
     }
 
+    private TeamMember saveTeam(TeamMember teamMember, AuditSchedule auditSchedule, AuditStaff auditStaff){
+        teamMember.setCreatedTimestamp(LocalDateTime.now());
+        teamMember.setStatus(TeamMemberStatus.Waiting);
+        teamMember.setAuditStatus(auditSchedule.getStatus());
+        teamMember.setAuditSchedule(auditSchedule);
+        teamMember.setAuditStaff(auditStaff);
+
+        return teamMemberRepository.save(teamMember);
+    }
+
+    private TeamMember updateRecord(TeamMember oldTeam, TeamMemberStatus status){
+        oldTeam.setStatus(status);
+        oldTeam.setModifiedTimestamp(LocalDateTime.now());
+        return teamMemberRepository.save(oldTeam);
+    }
 }

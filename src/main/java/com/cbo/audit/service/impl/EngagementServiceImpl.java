@@ -14,10 +14,12 @@ import com.cbo.audit.persistence.repository.TeamMemberRepository;
 import com.cbo.audit.service.EngagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service("engagementService")
 public class EngagementServiceImpl implements EngagementService {
 
     @Autowired

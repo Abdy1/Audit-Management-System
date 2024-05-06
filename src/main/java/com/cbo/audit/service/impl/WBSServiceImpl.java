@@ -59,18 +59,8 @@ public class WBSServiceImpl implements WBSService {
             return resultWrapper;
         }
 
-        //AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO;
-        WBS wBS = WBSMapper.INSTANCE.toEntity(auditProgramWBSDTO);
-        wBS.setCreatedTimestamp(LocalDateTime.now());
-        wBS.setModifiedTimestamp(LocalDateTime.now());
-        wBS.setEndOn(null);
-        wBS.setStartOn(null);
-
-        wBS.setAuditProgram(auditProgramOpt.get());
-        WBS savedWBS = auditProgramWBSRepository.save(wBS);
-
         resultWrapper.setStatus(true);
-        resultWrapper.setResult(WBSMapper.INSTANCE.toDTO(savedWBS));
+        resultWrapper.setResult(WBSMapper.INSTANCE.toDTO(saveWBS(auditProgramWBSDTO, auditProgramOpt.get())));
 
         resultWrapper.setMessage("Audit Program WBS created successfully.");
         return resultWrapper;
@@ -95,14 +85,7 @@ public class WBSServiceImpl implements WBSService {
 
             } else {
 
-                WBS wbs = WBSMapper.INSTANCE.toEntity(auditProgramWBSDTO);
-
-                wbs.setCreatedTimestamp(oldWBS.getCreatedTimestamp());
-                wbs.setCreatedUser(oldWBS.getCreatedUser());
-                wbs.setAuditProgram(oldWBS.getAuditProgram());
-
-                WBS savedWBS = auditProgramWBSRepository.save(wbs);
-                resultWrapper.setResult(WBSMapper.INSTANCE.toDTO(savedWBS));
+                resultWrapper.setResult(WBSMapper.INSTANCE.toDTO(updateRecord(auditProgramWBSDTO, oldWBS)));
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("Audit Program WBS updated successfully.");
             }
@@ -112,6 +95,27 @@ public class WBSServiceImpl implements WBSService {
         }
         return resultWrapper;
 
+    }
+
+    private WBS saveWBS(AuditProgramWBSDTO auditProgramWBSDTO, AuditProgram auditProgram){
+        WBS wBS = WBSMapper.INSTANCE.toEntity(auditProgramWBSDTO);
+        wBS.setCreatedTimestamp(LocalDateTime.now());
+        wBS.setModifiedTimestamp(LocalDateTime.now());
+        wBS.setEndOn(null);
+        wBS.setStartOn(null);
+
+        wBS.setAuditProgram(auditProgram);
+        return auditProgramWBSRepository.save(wBS);
+    }
+
+    private WBS updateRecord(AuditProgramWBSDTO auditProgramWBSDTO, WBS oldWBS){
+        WBS wbs = WBSMapper.INSTANCE.toEntity(auditProgramWBSDTO);
+
+        wbs.setCreatedTimestamp(oldWBS.getCreatedTimestamp());
+        wbs.setCreatedUser(oldWBS.getCreatedUser());
+        wbs.setAuditProgram(oldWBS.getAuditProgram());
+
+        return auditProgramWBSRepository.save(wbs);
     }
 }
 

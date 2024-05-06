@@ -165,13 +165,19 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     }
 
     @Override
-    public ResultWrapper<List<TeamMemberDTO>> getTeamMemberByAuditStaffIdAndStatus(Long id) {
-        /*List<TeamMember> activeSchedule = teamMemberRepository.findTeamMemberByAuditStaffIdAndState(id, TeamMemberStatus.Active.name());
+    public ResultWrapper<List<TeamMemberDTO>> getTeamMemberByAuditStaffIdAndStatus(Long id, String status) {
+        ResultWrapper<List<TeamMemberDTO>> resultWrapper = new ResultWrapper<>();
+        List<TeamMember> teamMembers = teamMemberRepository.findTeamMemberByAuditStaffIdAndState(id, status);
 
-        if (!activeSchedule.isEmpty()){
-            return
-        }*/
-        return null;
+        if (!teamMembers.isEmpty()) {
+            List<TeamMemberDTO> teamMemberDTOS = TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
+            resultWrapper.setStatus(true);
+            resultWrapper.setResult(teamMemberDTOS);
+        } else {
+            resultWrapper.setStatus(true);
+            resultWrapper.setMessage("No teams found yet.");
+        }
+        return resultWrapper;
     }
 
     @Override

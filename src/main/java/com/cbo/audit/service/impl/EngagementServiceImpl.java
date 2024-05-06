@@ -43,7 +43,6 @@ public class EngagementServiceImpl implements EngagementService {
             engagementInfo.setAuditSchedule(null);
 
             EngagementDTO engagementDTO = EngagementMapper.INSTANCE.toDTO(engagementInfo);
-            //AuditScheduleDTO auditScheduleDTOs = AuditScheduleMapper.INSTANCE.toDTO(auditSchedule);
             engagementDTO.setAuditSchedule(auditScheduleDTO);
 
             resultWrapper.setResult(engagementDTO);
@@ -65,14 +64,7 @@ public class EngagementServiceImpl implements EngagementService {
 
         if (!engagementInfos.isEmpty()) {
             List<EngagementDTO> engagementDTOS = EngagementMapper.INSTANCE.engagementInfosToEngagementDTOs(engagementInfos);
-            engagementDTOS = engagementDTOS.stream().peek(engagementDTO -> {
-                AuditScheduleDTO auditScheduleDTO = engagementDTO.getAuditSchedule();
-                List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
-                List<TeamMemberDTO> teamMemberDTOS = TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
-                auditScheduleDTO.setTeamMembers(teamMemberDTOS);
-                engagementDTO.setAuditSchedule(auditScheduleDTO);
-            }).collect(Collectors.toList());
-            resultWrapper.setResult(engagementDTOS);
+            resultWrapper.setResult(doMapping(engagementDTOS));
             resultWrapper.setStatus(true);
         } else {
             resultWrapper.setStatus(false);
@@ -132,4 +124,15 @@ public class EngagementServiceImpl implements EngagementService {
         return resultWrapper;
     }
 
+    private List<EngagementDTO> doMapping(List<EngagementDTO> engagementDTOS){
+        engagementDTOS = engagementDTOS.stream().peek(engagementDTO -> {
+            AuditScheduleDTO auditScheduleDTO = engagementDTO.getAuditSchedule();
+            List<TeamMember> teamMembers = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleDTO.getId());
+            List<TeamMemberDTO> teamMemberDTOS = TeamMemberMapper.INSTANCE.teamMembersToTeamMemberDTOs(teamMembers);
+            auditScheduleDTO.setTeamMembers(teamMemberDTOS);
+            engagementDTO.setAuditSchedule(auditScheduleDTO);
+        }).collect(Collectors.toList());
+
+        return engagementDTOS;
+    }
 }

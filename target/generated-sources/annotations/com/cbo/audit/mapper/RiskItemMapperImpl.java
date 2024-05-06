@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-02T10:44:45+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
+    date = "2024-05-06T13:54:45+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
 public class RiskItemMapperImpl implements RiskItemMapper {
@@ -21,15 +21,6 @@ public class RiskItemMapperImpl implements RiskItemMapper {
 
         RiskItemDTO riskItemDTO = new RiskItemDTO();
 
-        riskItemDTO.setId( riskItem.getId() );
-        riskItemDTO.setCreatedUser( riskItem.getCreatedUser() );
-        riskItemDTO.setModifiedUser( riskItem.getModifiedUser() );
-        riskItemDTO.setCreatedTimestamp( riskItem.getCreatedTimestamp() );
-        riskItemDTO.setModifiedTimestamp( riskItem.getModifiedTimestamp() );
-        riskItemDTO.setName( riskItem.getName() );
-        riskItemDTO.setStrategicObjectiveLink( riskItem.getStrategicObjectiveLink() );
-        riskItemDTO.setRiskType( riskItem.getRiskType() );
-
         return riskItemDTO;
     }
 
@@ -38,15 +29,6 @@ public class RiskItemMapperImpl implements RiskItemMapper {
         if ( riskItem == null ) {
             return;
         }
-
-        riskItemDTO.setId( riskItem.getId() );
-        riskItemDTO.setCreatedUser( riskItem.getCreatedUser() );
-        riskItemDTO.setModifiedUser( riskItem.getModifiedUser() );
-        riskItemDTO.setCreatedTimestamp( riskItem.getCreatedTimestamp() );
-        riskItemDTO.setModifiedTimestamp( riskItem.getModifiedTimestamp() );
-        riskItemDTO.setName( riskItem.getName() );
-        riskItemDTO.setStrategicObjectiveLink( riskItem.getStrategicObjectiveLink() );
-        riskItemDTO.setRiskType( riskItem.getRiskType() );
     }
 
     @Override
@@ -56,15 +38,6 @@ public class RiskItemMapperImpl implements RiskItemMapper {
         }
 
         RiskItem riskItem = new RiskItem();
-
-        riskItem.setId( riskItemDTO.getId() );
-        riskItem.setCreatedUser( riskItemDTO.getCreatedUser() );
-        riskItem.setModifiedUser( riskItemDTO.getModifiedUser() );
-        riskItem.setCreatedTimestamp( riskItemDTO.getCreatedTimestamp() );
-        riskItem.setModifiedTimestamp( riskItemDTO.getModifiedTimestamp() );
-        riskItem.setName( riskItemDTO.getName() );
-        riskItem.setStrategicObjectiveLink( riskItemDTO.getStrategicObjectiveLink() );
-        riskItem.setRiskType( riskItemDTO.getRiskType() );
 
         return riskItem;
     }

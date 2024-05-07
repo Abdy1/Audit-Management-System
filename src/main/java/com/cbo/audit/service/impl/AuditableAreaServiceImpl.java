@@ -1,5 +1,6 @@
 package com.cbo.audit.service.impl;
 
+import com.cbo.audit.dto.AuditObjectDTO;
 import com.cbo.audit.dto.AuditableAreaDTO;
 import com.cbo.audit.dto.ChecklistItemDTO;
 import com.cbo.audit.dto.ResultWrapper;
@@ -136,7 +137,8 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
             } else {
 
 
-                resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(saveUpdateAuditableArea(auditableAreaDTO, oldAuditableArea)));
+
+                resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(updateAuditableAreaRecord(auditableAreaDTO, oldAuditableArea)));
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("Auditable Area updated successfully.");
             }
@@ -193,7 +195,7 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
         return auditableAreaRepository.save(auditableArea);
     }
 
-    private AuditableArea saveUpdateAuditableArea(AuditableAreaDTO auditableAreaDTO, AuditableArea oldAuditableArea){
+    private AuditableArea updateAuditableAreaRecord(AuditableAreaDTO auditableAreaDTO, AuditableArea oldAuditableArea){
         AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
         auditableArea.setCreatedTimestamp(oldAuditableArea.getCreatedTimestamp());
         auditableArea.setCreatedUser(oldAuditableArea.getCreatedUser());

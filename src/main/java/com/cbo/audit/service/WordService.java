@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface WordService {
 
-    public void createWordDocument() throws IOException;
+    void createWordDocument() throws IOException;
 }

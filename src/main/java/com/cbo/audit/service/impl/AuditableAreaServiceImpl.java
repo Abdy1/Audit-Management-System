@@ -135,13 +135,8 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
                 resultWrapper.setMessage("AuditableArea name cannot be null.");
             } else {
 
-                AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
-                auditableArea.setCreatedTimestamp(oldAuditableArea.getCreatedTimestamp());
-                auditableArea.setCreatedUser(oldAuditableArea.getCreatedUser());
-                auditableArea.setAuditObject(oldAuditableArea.getAuditObject());
 
-                AuditableArea savedAuditableArea = auditableAreaRepository.save(auditableArea);
-                resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedAuditableArea));
+                resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(saveUpdateAuditableArea(auditableAreaDTO, oldAuditableArea)));
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("Auditable Area updated successfully.");
             }
@@ -194,6 +189,15 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
         AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
         auditableArea.setCreatedTimestamp(LocalDateTime.now());
         auditableArea.setAuditObject(auditObject);
+
+        return auditableAreaRepository.save(auditableArea);
+    }
+
+    private AuditableArea saveUpdateAuditableArea(AuditableAreaDTO auditableAreaDTO, AuditableArea oldAuditableArea){
+        AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
+        auditableArea.setCreatedTimestamp(oldAuditableArea.getCreatedTimestamp());
+        auditableArea.setCreatedUser(oldAuditableArea.getCreatedUser());
+        auditableArea.setAuditObject(oldAuditableArea.getAuditObject());
 
         return auditableAreaRepository.save(auditableArea);
     }

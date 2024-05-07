@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-02T10:44:45+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
+    date = "2024-05-06T13:54:46+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
 public class AuditProgramObjectiveMapperImpl implements AuditProgramObjectiveMapper {
@@ -21,13 +21,6 @@ public class AuditProgramObjectiveMapperImpl implements AuditProgramObjectiveMap
 
         AuditProgramObjectiveDTO auditProgramObjectiveDTO = new AuditProgramObjectiveDTO();
 
-        auditProgramObjectiveDTO.setId( auditProgramObjective.getId() );
-        auditProgramObjectiveDTO.setCreatedUser( auditProgramObjective.getCreatedUser() );
-        auditProgramObjectiveDTO.setModifiedUser( auditProgramObjective.getModifiedUser() );
-        auditProgramObjectiveDTO.setCreatedTimestamp( auditProgramObjective.getCreatedTimestamp() );
-        auditProgramObjectiveDTO.setModifiedTimestamp( auditProgramObjective.getModifiedTimestamp() );
-        auditProgramObjectiveDTO.setDescription( auditProgramObjective.getDescription() );
-
         return auditProgramObjectiveDTO;
     }
 
@@ -36,13 +29,6 @@ public class AuditProgramObjectiveMapperImpl implements AuditProgramObjectiveMap
         if ( auditProgramObjective == null ) {
             return;
         }
-
-        auditProgramObjectiveDTO.setId( auditProgramObjective.getId() );
-        auditProgramObjectiveDTO.setCreatedUser( auditProgramObjective.getCreatedUser() );
-        auditProgramObjectiveDTO.setModifiedUser( auditProgramObjective.getModifiedUser() );
-        auditProgramObjectiveDTO.setCreatedTimestamp( auditProgramObjective.getCreatedTimestamp() );
-        auditProgramObjectiveDTO.setModifiedTimestamp( auditProgramObjective.getModifiedTimestamp() );
-        auditProgramObjectiveDTO.setDescription( auditProgramObjective.getDescription() );
     }
 
     @Override
@@ -52,13 +38,6 @@ public class AuditProgramObjectiveMapperImpl implements AuditProgramObjectiveMap
         }
 
         AuditProgramObjective auditProgramObjective = new AuditProgramObjective();
-
-        auditProgramObjective.setId( auditProgramObjectiveDTO.getId() );
-        auditProgramObjective.setCreatedUser( auditProgramObjectiveDTO.getCreatedUser() );
-        auditProgramObjective.setModifiedUser( auditProgramObjectiveDTO.getModifiedUser() );
-        auditProgramObjective.setCreatedTimestamp( auditProgramObjectiveDTO.getCreatedTimestamp() );
-        auditProgramObjective.setModifiedTimestamp( auditProgramObjectiveDTO.getModifiedTimestamp() );
-        auditProgramObjective.setDescription( auditProgramObjectiveDTO.getDescription() );
 
         return auditProgramObjective;
     }

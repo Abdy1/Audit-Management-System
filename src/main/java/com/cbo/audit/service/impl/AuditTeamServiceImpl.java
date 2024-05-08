@@ -5,7 +5,6 @@ import com.cbo.audit.dto.AuditTeamDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.dto.UserDTO;
 import com.cbo.audit.enums.AuditStaffStatus;
-import com.cbo.audit.mapper.AuditStaffMapper;
 import com.cbo.audit.mapper.AuditTeamMapper;
 import com.cbo.audit.persistence.model.AuditStaff;
 import com.cbo.audit.persistence.model.AuditTeam;
@@ -67,17 +66,29 @@ public class AuditTeamServiceImpl implements AuditTeamService {
 
     @Override
     public Optional<AuditTeam> findAuditTeamByEmployeeId(String employeeId) {
-        return Optional.empty();
+        return auditTeamRepository.findAuditTeamByEmployeeId(employeeId);
     }
 
     @Override
     public Optional<AuditTeam> findAuditTeamById(Long id) {
-        return Optional.empty();
+        return auditTeamRepository.findById(id);
     }
 
     @Override
     public ResultWrapper<AuditTeamDTO> removeAuditTeam(AuditTeamDTO auditTeamDTO) {
-        return null;
+
+        ResultWrapper<AuditTeamDTO> resultWrapper = new ResultWrapper<>();
+        Optional<AuditTeam> auditTeam = auditTeamRepository.findById(auditTeamDTO.getId());
+        if (auditTeam.isPresent()) {
+            auditTeamRepository.delete(auditTeam.get());
+            resultWrapper.setStatus(true);
+            resultWrapper.setMessage("Deleted successfully");
+        } else {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Incorrect team Id");
+        }
+
+        return resultWrapper;
     }
 
     @Override

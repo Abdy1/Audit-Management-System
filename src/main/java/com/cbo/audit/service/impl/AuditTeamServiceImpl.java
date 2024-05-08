@@ -5,6 +5,7 @@ import com.cbo.audit.dto.AuditTeamDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.dto.UserDTO;
 import com.cbo.audit.enums.AuditStaffStatus;
+import com.cbo.audit.mapper.AuditStaffMapper;
 import com.cbo.audit.mapper.AuditTeamMapper;
 import com.cbo.audit.persistence.model.AuditStaff;
 import com.cbo.audit.persistence.model.AuditTeam;
@@ -93,7 +94,23 @@ public class AuditTeamServiceImpl implements AuditTeamService {
 
     @Override
     public ResultWrapper<AuditTeamDTO> updateAuditTeam(AuditTeamDTO auditTeamDTO) {
-        return null;
+        ResultWrapper<AuditTeamDTO> resultWrapper = new ResultWrapper<>();
+
+        Optional<AuditTeam> oldAuditTeam = auditTeamRepository.findById(auditTeamDTO.getId());
+
+        if (!oldAuditTeam.isPresent()) {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Invalid team member id");
+        } else {
+            AuditTeam updatedTeam = oldAuditTeam.get();
+            updatedTeam.setStatus(auditTeamDTO.getStatus());
+            updatedTeam.setModifiedTimestamp(LocalDateTime.now());
+            AuditTeam saveMember = auditTeamRepository.save(updatedTeam);
+            resultWrapper.setResult(AuditTeamMapper.INSTANCE.toDTO(saveMember));
+            resultWrapper.setStatus(true);
+        }
+
+        return resultWrapper;
     }
 
     @Override

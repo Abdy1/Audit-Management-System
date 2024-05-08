@@ -12,11 +12,13 @@ import com.cbo.audit.persistence.model.AuditTeam;
 import com.cbo.audit.persistence.repository.AuditTeamRepository;
 import com.cbo.audit.service.AuditTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Service("auditTeamService")
 public class AuditTeamServiceImpl implements AuditTeamService {
 
     @Autowired
@@ -39,7 +41,6 @@ public class AuditTeamServiceImpl implements AuditTeamService {
         auditTeam.setEmployeeId(auditTeam.getEmployeeId());
         auditTeam.setFullName(auditTeam.getFullName());
 
-
         AuditTeam savedMember = auditTeamRepository.save(auditTeam);
 
         resultWrapper.setStatus(true);
@@ -51,7 +52,17 @@ public class AuditTeamServiceImpl implements AuditTeamService {
 
     @Override
     public ResultWrapper<AuditTeamDTO> getAuditTeamById(Long id) {
-        return null;
+        ResultWrapper<AuditTeamDTO> resultWrapper = new ResultWrapper<>();
+        Optional<AuditTeam> auditTeam = auditTeamRepository.findById(id);
+        if (auditTeam.isPresent()) {
+            AuditTeamDTO auditStaffDTO = AuditTeamMapper.INSTANCE.toDTO(auditTeam.get());
+            resultWrapper.setResult(auditStaffDTO);
+            resultWrapper.setStatus(true);
+        } else {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("No record found with the provided id.");
+        }
+        return resultWrapper;
     }
 
     @Override

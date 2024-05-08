@@ -52,7 +52,7 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
             resultWrapper.setMessage("Audit object cannot be null.");
         } else {
 
-            resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(savedAuditableArea(auditObject.get(), auditableAreaDTO)));
+            resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(saveAuditableArea(auditableAreaDTO, auditObject.get())));
             resultWrapper.setStatus(true);
             resultWrapper.setMessage("AuditableArea created successfully.");
         }
@@ -137,6 +137,7 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
             } else {
 
 
+
                 resultWrapper.setResult(AuditableAreaMapper.INSTANCE.toDTO(updateAuditableAreaRecord(auditableAreaDTO, oldAuditableArea)));
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("Auditable Area updated successfully.");
@@ -186,7 +187,7 @@ public class AuditableAreaServiceImpl implements AuditableAreaService {
         return resultWrapper;
     }
 
-    private AuditableArea savedAuditableArea(AuditObject auditObject, AuditableAreaDTO auditableAreaDTO){
+    private AuditableArea saveAuditableArea(AuditableAreaDTO auditableAreaDTO, AuditObject auditObject){
         AuditableArea auditableArea = AuditableAreaMapper.INSTANCE.toEntity(auditableAreaDTO);
         auditableArea.setCreatedTimestamp(LocalDateTime.now());
         auditableArea.setAuditObject(auditObject);

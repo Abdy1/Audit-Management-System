@@ -12,7 +12,7 @@ import javax.persistence.Enumerated;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuditTeam {
+public class AuditTeam extends BaseEntity{
 
     @Column(name = "USER_ID")
     private String userId;

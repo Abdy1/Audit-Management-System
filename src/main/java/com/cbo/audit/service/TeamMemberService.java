@@ -26,7 +26,7 @@ public interface TeamMemberService {
 
     ResultWrapper<TeamMemberDTO> updateTeamMember(TeamMemberDTO auditObjectDTO);
 
-    ResultWrapper<List<TeamMemberDTO>> getTeamMemberByAuditStaffIdAndStatus(Long id);
+    ResultWrapper<List<TeamMemberDTO>> getTeamMemberByAuditStaffIdAndStatus(Long id, String status);
 
     ResultWrapper<List<AuditScheduleDTO>> getAllScheduleByAuditStaffId(Long userId);
 

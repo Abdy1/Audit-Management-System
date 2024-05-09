@@ -9,6 +9,8 @@ import com.cbo.audit.service.RiskLevelService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("riskLevelService")
 @Transactional
@@ -41,5 +43,25 @@ public class RiskLevelServiceImpl implements RiskLevelService {
         resultWrapper.setMessage("Updated successfully!");
         resultWrapper.setResult(riskLevelDTO);
         return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<List<RiskLevelDTO>> getRiskLevel() {
+        ResultWrapper<List<RiskLevelDTO>> resultWrapper = new ResultWrapper<>();
+        List<RiskLevel> riskLevelList = riskLevelRepository.findAll();
+
+        if(riskLevelList.isEmpty()){
+            resultWrapper.setResult(new ArrayList<>());
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("No item");
+
+        }else{
+            resultWrapper.setResult(RiskLevelMapper.INSTANCE.riskLevelsToRiskLevelDTOs(riskLevelList));
+            resultWrapper.setStatus(true);
+
+        }
+
+        return resultWrapper;
+
     }
 }

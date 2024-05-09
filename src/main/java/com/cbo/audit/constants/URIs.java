@@ -136,8 +136,9 @@ public final class URIs {
     public static final String AUDIT_STAFF_UPDATE = AUDIT_STAFF + UPDATE;
 
     public static final String RISK_LEVEL = APPLICATION_CONTEXT + "/riskLevel/";
-    public static final String RISK_LEVEL_REGISTER = RISK_LEVEL + "register";
-    public static final String RISK_LEVEL_UPDATED = RISK_LEVEL + "update";
+    public static final String RISK_LEVEL_REGISTER = RISK_LEVEL + REGISTER;
+    public static final String RISK_LEVEL_GET = RISK_LEVEL + "get";
+    public static final String RISK_LEVEL_UPDATED = RISK_LEVEL + UPDATE;
 
 
 }

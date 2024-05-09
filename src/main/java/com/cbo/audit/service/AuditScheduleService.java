@@ -26,15 +26,5 @@ public interface AuditScheduleService {
 
     ResultWrapper<EngagementDTO> addAuditScheduleToEngagement(EngagementDTO engagementDTO);
 
-    ResultWrapper<EngagementDTO> getAuditEngagementBySchedule(AuditScheduleDTO auditScheduleDTO);
-
-    ResultWrapper<List<EngagementDTO>> getAuditEngagements();
-
-    ResultWrapper<List<EngagementDTO>> getAllAuditEngagementByQuarter(int quarter);
-
-    ResultWrapper<List<EngagementDTO>> getAllAuditEngagementByYear(String year);
-
-    ResultWrapper<List<EngagementDTO>> getAllAuditEngagementByStatus(String status);
-
     ResultWrapper<List<AuditScheduleDTO>> getAuditScheduleByAnnualPlanId(Long id);
 }

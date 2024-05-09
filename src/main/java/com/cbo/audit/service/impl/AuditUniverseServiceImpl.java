@@ -41,11 +41,7 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
             resultWrapper.setMessage("Audit Universe duplicate name is not allowed.");
         } else {
 
-            AuditUniverse auditUniverse = AuditUniverseMapper.INSTANCE.toEntity(auditUniverseDTO);
-            auditUniverse.setCreatedTimestamp(LocalDateTime.now());
-            auditUniverse.setStatus(AuditUniverseStatus.Approved.getType());
-            AuditUniverse savedUniverse = auditUniverseRepository.save(auditUniverse);
-            resultWrapper.setResult(AuditUniverseMapper.INSTANCE.toDTO(savedUniverse));
+            resultWrapper.setResult(AuditUniverseMapper.INSTANCE.toDTO(saveUniverse(auditUniverseDTO)));
             resultWrapper.setStatus(true);
             resultWrapper.setMessage("Audit Universe created successfully.");
         }
@@ -143,4 +139,13 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
         }
         return resultWrapper;
     }
+
+    private AuditUniverse saveUniverse(AuditUniverseDTO auditUniverseDTO){
+
+        AuditUniverse auditUniverse = AuditUniverseMapper.INSTANCE.toEntity(auditUniverseDTO);
+        auditUniverse.setCreatedTimestamp(LocalDateTime.now());
+        auditUniverse.setStatus(AuditUniverseStatus.Approved.getType());
+        return auditUniverseRepository.save(auditUniverse);
+    }
+
 }

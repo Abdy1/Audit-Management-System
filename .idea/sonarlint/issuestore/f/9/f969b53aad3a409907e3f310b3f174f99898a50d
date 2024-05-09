@@ -1,36 +1,22 @@
 
-v
-java:S1199Ñ"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ8Ê‰ÿÅò1J$b60a2e35-0f55-4399-aadf-ed7a8c0a1180
-v
-java:S1199â"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ8Ê‰ÿÅò1J$06e9b6a6-4f60-4f2d-af55-0d4e7b4163b0
-v
-java:S1199ó"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ8Ê‰ÿÅò1J$3ab5fc69-5508-43d7-8b1e-18a71d47d287
+{
+java:S3655‘"7Call "Optional#isPresent()" before accessing the value.(˜±‘8ò‰ÿÅò1J$399652d5-f77c-4222-973c-d094dad7d1ef
 z
-java:S3655`"7Call "Optional#isPresent()" before accessing the value.(˜±‘8™†Æò1J$b7fad998-b2ab-4796-823f-ddf9c4b2c575
-{
-java:S3655Ú"7Call "Optional#isPresent()" before accessing the value.(˜±‘8ò‰ÿÅò1J$880f55ee-512a-4bce-9e44-be3ff7e407e1
-{
-java:S3655‘"7Call "Optional#isPresent()" before accessing the value.(˜±‘8ò‰ÿÅò1J$9b960360-2b02-4e97-991b-3766b92477cc
-{
-java:S3655°"7Call "Optional#isPresent()" before accessing the value.(˜±‘8ò‰ÿÅò1J$1bba683a-c8d2-44f2-ab1b-39e14f494a8f
-{
-java:S3655ë"7Call "Optional#isPresent()" before accessing the value.(˜±‘8ò‰ÿÅò1J$60cfdc4b-8d9f-40fa-85ab-3d26eb2d2ae4
+java:S3655`"7Call "Optional#isPresent()" before accessing the value.(˜±‘8™†Æò1J$eb02efa6-05ad-4518-843b-ed9e4d3fd7f9
 …
-java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8ó‰ÿÅò1J$f62e6f95-0f63-4608-9301-1b28a09755b8
+java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8ó‰ÿÅò1J$8ab1d8d2-9598-4bb7-930a-7de78a6cd43b
 …
-java:S6813&"BRemove this field injection and use constructor injection instead.(êæÄŞ8ó‰ÿÅò1J$54ae5ab3-8cce-47b9-8b4e-e0803d6245f7
+java:S6813&"BRemove this field injection and use constructor injection instead.(êæÄŞ8ó‰ÿÅò1J$2f274540-8240-49d1-a40c-22e7487aaab3
 …
-java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄŞ8ó‰ÿÅò1J$59813e0a-6437-4e53-9df3-1f4f951fabeb
+java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄŞ8ó‰ÿÅò1J$f524ee51-3dc2-4c9c-9650-32576fd19d25
 …
-java:S6813+"BRemove this field injection and use constructor injection instead.(êæÄŞ8ó‰ÿÅò1J$735bbd9c-b301-4f1f-a48a-04c804a2892b
+java:S6813+"BRemove this field injection and use constructor injection instead.(êæÄŞ8ó‰ÿÅò1J$3ae45993-bd11-4504-b20e-066ef3b6005e
 …
-java:S6813."BRemove this field injection and use constructor injection instead.(êæÄŞ8ó‰ÿÅò1J$f3de496d-3ff1-493c-8685-ad305cbd57c3
-…
-java:S68131"BRemove this field injection and use constructor injection instead.(êæÄŞ8ó‰ÿÅò1J$c34c6111-d84f-4361-a9e5-9b7c30921393
-}	java:S125j"<This block of commented-out lines of code should be removed.(Î áD8ü‰ÿÅò1J$a0006d6b-a488-4702-bc74-4b5f2f0bee23
-~	java:S125~"<This block of commented-out lines of code should be removed.(½²öÉ8ş‰ÿÅò1J$d1ed8b7d-edef-4126-8994-2a7a6a948c1a
-	java:S125—"<This block of commented-out lines of code should be removed.(½²öÉ8ÿ‰ÿÅò1J$a8282941-b356-447c-a503-278de8aa72f2
-„	java:S125¡"<This block of commented-out lines of code should be removed.(óß‰üûÿÿÿÿ8ˆŠÿÅò1J$a42ac2d2-9771-4578-a672-b024dad6857c
-n	java:S106±"+Replace this use of System.out by a logger.(®®µ†8‰ŠÿÅò1J$8dd8775b-cdab-4ccc-915e-1db93bd26d89
-e
-java:S3864·"!Remove this use of "Stream.peek".(”êÊê8‹ŠÿÅò1J$653b17ff-9b11-4a65-a6e7-641b6c80e73a
+java:S6813."BRemove this field injection and use constructor injection instead.(êæÄŞ8ó‰ÿÅò1J$73c9b44a-bdd8-4ae2-850b-aa60a5e1307b
+_
+java:S68131"BRemove this field injection and use constructor injection instead.(êæÄŞ8‚ÿ øó1
+}	java:S125j"<This block of commented-out lines of code should be removed.(Î áD8ü‰ÿÅò1J$35b65ed5-452e-49a5-8804-19ebc238a364
+~	java:S125~"<This block of commented-out lines of code should be removed.(½²öÉ8ş‰ÿÅò1J$db62fa41-8341-45d9-98dc-0d518f1c0765
+	java:S125—"<This block of commented-out lines of code should be removed.(½²öÉ8ÿ‰ÿÅò1J$1fc639d6-2739-47bc-ab7b-9edbfba87f12
+I
+java:S10684",Remove this unused "notFound" private field.(»ÏÎú8•ÿ øó1

@@ -8,10 +8,9 @@ import com.cbo.audit.service.RiskLevelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class RiskLevelController {
@@ -28,7 +27,14 @@ public class RiskLevelController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = URIs.RISK_ITEM_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = URIs.RISK_LEVEL_GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<List<RiskLevelDTO>>> getRiskLevel(){
+        ResultWrapper<List<RiskLevelDTO>> resultWrapper = riskLevelService.getRiskLevel();
+
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @PostMapping(value = URIs.RISK_LEVEL_UPDATED, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<RiskLevelDTO>> updateRiskLevel(@RequestBody RiskLevelDTO riskLevelDTO){
         ResultWrapper<RiskLevelDTO> resultWrapper = riskLevelService.updateRiskLevel(riskLevelDTO);
         return new ResponseEntity<>(resultWrapper, HttpStatus.CREATED);

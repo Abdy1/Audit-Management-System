@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85e49414-7673-45de-9849-af20fd3a1fe3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/4/44771aa83d7db34294f76cd6bf9c84c9c3610075" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/4/44771aa83d7db34294f76cd6bf9c84c9c3610075" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/persistence/repository/AuditTeamRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/persistence/repository/AuditTeamRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/impl/AuditTeamServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/impl/AuditTeamServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

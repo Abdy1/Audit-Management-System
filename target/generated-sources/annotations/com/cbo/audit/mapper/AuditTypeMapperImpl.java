@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-06T13:54:46+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
+    date = "2024-05-09T09:41:01+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
 public class AuditTypeMapperImpl implements AuditTypeMapper {
@@ -21,6 +21,14 @@ public class AuditTypeMapperImpl implements AuditTypeMapper {
 
         AuditTypeDTO auditTypeDTO = new AuditTypeDTO();
 
+        auditTypeDTO.setId( auditType.getId() );
+        auditTypeDTO.setCreatedUser( auditType.getCreatedUser() );
+        auditTypeDTO.setModifiedUser( auditType.getModifiedUser() );
+        auditTypeDTO.setCreatedTimestamp( auditType.getCreatedTimestamp() );
+        auditTypeDTO.setModifiedTimestamp( auditType.getModifiedTimestamp() );
+        auditTypeDTO.setName( auditType.getName() );
+        auditTypeDTO.setDescription( auditType.getDescription() );
+
         return auditTypeDTO;
     }
 
@@ -29,6 +37,14 @@ public class AuditTypeMapperImpl implements AuditTypeMapper {
         if ( auditType == null ) {
             return;
         }
+
+        auditTypeDTO.setId( auditType.getId() );
+        auditTypeDTO.setCreatedUser( auditType.getCreatedUser() );
+        auditTypeDTO.setModifiedUser( auditType.getModifiedUser() );
+        auditTypeDTO.setCreatedTimestamp( auditType.getCreatedTimestamp() );
+        auditTypeDTO.setModifiedTimestamp( auditType.getModifiedTimestamp() );
+        auditTypeDTO.setName( auditType.getName() );
+        auditTypeDTO.setDescription( auditType.getDescription() );
     }
 
     @Override
@@ -38,6 +54,14 @@ public class AuditTypeMapperImpl implements AuditTypeMapper {
         }
 
         AuditType auditType = new AuditType();
+
+        auditType.setId( auditTypeDTO.getId() );
+        auditType.setCreatedUser( auditTypeDTO.getCreatedUser() );
+        auditType.setModifiedUser( auditTypeDTO.getModifiedUser() );
+        auditType.setCreatedTimestamp( auditTypeDTO.getCreatedTimestamp() );
+        auditType.setModifiedTimestamp( auditTypeDTO.getModifiedTimestamp() );
+        auditType.setName( auditTypeDTO.getName() );
+        auditType.setDescription( auditTypeDTO.getDescription() );
 
         return auditType;
     }

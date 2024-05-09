@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,8 @@ public class AuditTeamServiceImpl implements AuditTeamService {
 
     @Autowired
     private AuditTeamRepository auditTeamRepository;
+
+    private String noRecord = "No record found";
 
     @Override
     public ResultWrapper<AuditTeamDTO> registerAuditTeam(AuditTeamDTO auditTeamDTO) {
@@ -115,12 +118,26 @@ public class AuditTeamServiceImpl implements AuditTeamService {
 
     @Override
     public ResultWrapper<List<AuditTeamDTO>> getAllAuditTeams() {
-        return null;
+        ResultWrapper<List<AuditTeamDTO>> resultWrapper = new ResultWrapper<>();
+        resultWrapper.setResult(AuditTeamMapper.INSTANCE.AuditTeamsToAuditTeamDTOs(auditTeamRepository.findAll()));
+        resultWrapper.setStatus(true);
+        return resultWrapper;
     }
 
     @Override
     public ResultWrapper<List<AuditTeamDTO>> getAllActiveAuditTeams() {
-        return null;
+        ResultWrapper<List<AuditTeamDTO>> resultWrapper = new ResultWrapper<>();
+        List<AuditTeam> auditTeams = auditTeamRepository.findAuditTeamByState(AuditStaffStatus.Active);
+        if(auditTeams.isEmpty()){
+            resultWrapper.setStatus(true);
+            resultWrapper.setMessage(noRecord);
+            resultWrapper.setResult(new ArrayList<>());
+        }else{
+            resultWrapper.setResult(AuditTeamMapper.INSTANCE.AuditTeamsToAuditTeamDTOs(auditTeams));
+            resultWrapper.setStatus(true);
+        }
+
+        return resultWrapper;
     }
 
     @Override

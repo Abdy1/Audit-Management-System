@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-06T13:54:46+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
+    date = "2024-05-09T09:41:01+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
 public class EmployeeMapperImpl implements EmployeeMapper {
@@ -21,6 +21,19 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         EmployeeDTO employeeDTO = new EmployeeDTO();
 
+        employeeDTO.setId( user.getId() );
+        employeeDTO.setEmployeeId( user.getEmployeeId() );
+        employeeDTO.setFullName( user.getFullName() );
+        employeeDTO.setJobTitle( user.getJobTitle() );
+        employeeDTO.setPhoneNumber( user.getPhoneNumber() );
+        employeeDTO.setPersonalEmail( user.getPersonalEmail() );
+        employeeDTO.setCompanyEmail( user.getCompanyEmail() );
+        employeeDTO.setGender( user.getGender() );
+        employeeDTO.setBirthDate( user.getBirthDate() );
+        employeeDTO.setEmployeeImage( user.getEmployeeImage() );
+        employeeDTO.setSignatureImage( user.getSignatureImage() );
+        employeeDTO.setActive( user.getActive() );
+
         return employeeDTO;
     }
 
@@ -29,6 +42,19 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         if ( user == null ) {
             return;
         }
+
+        userDTO.setId( user.getId() );
+        userDTO.setEmployeeId( user.getEmployeeId() );
+        userDTO.setFullName( user.getFullName() );
+        userDTO.setJobTitle( user.getJobTitle() );
+        userDTO.setPhoneNumber( user.getPhoneNumber() );
+        userDTO.setPersonalEmail( user.getPersonalEmail() );
+        userDTO.setCompanyEmail( user.getCompanyEmail() );
+        userDTO.setGender( user.getGender() );
+        userDTO.setBirthDate( user.getBirthDate() );
+        userDTO.setEmployeeImage( user.getEmployeeImage() );
+        userDTO.setSignatureImage( user.getSignatureImage() );
+        userDTO.setActive( user.getActive() );
     }
 
     @Override
@@ -38,6 +64,19 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         }
 
         Employee employee = new Employee();
+
+        employee.setId( userDTO.getId() );
+        employee.setEmployeeId( userDTO.getEmployeeId() );
+        employee.setFullName( userDTO.getFullName() );
+        employee.setJobTitle( userDTO.getJobTitle() );
+        employee.setPhoneNumber( userDTO.getPhoneNumber() );
+        employee.setPersonalEmail( userDTO.getPersonalEmail() );
+        employee.setCompanyEmail( userDTO.getCompanyEmail() );
+        employee.setGender( userDTO.getGender() );
+        employee.setBirthDate( userDTO.getBirthDate() );
+        employee.setEmployeeImage( userDTO.getEmployeeImage() );
+        employee.setSignatureImage( userDTO.getSignatureImage() );
+        employee.setActive( userDTO.getActive() );
 
         return employee;
     }

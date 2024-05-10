@@ -47,8 +47,6 @@ public class FindingCommentController {
         if (!file.isEmpty()) {
             try{
             String originalFilename = Filenames.toSimpleFileName(file.getOriginalFilename());
-            // Process the file name (e.g., store it, validate it, etc.)
-            // ...
             FileUploadUtil.saveFile("sample/", "1" + originalFilename, file);
             } catch (IOException e) {
                 e.printStackTrace();

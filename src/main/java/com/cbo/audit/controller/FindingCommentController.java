@@ -42,20 +42,4 @@ public class FindingCommentController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.CREATED);
     }
 
-    @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("finding/files") MultipartFile file) throws IOException {
-        if (!file.isEmpty()) {
-            try{
-            String originalFilename = Filenames.toSimpleFileName(file.getOriginalFilename());
-            FileUploadUtil.saveFile("sample/", "1" + originalFilename, file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            return "No file uploaded.";
-        }
-
-        return "Not received";
-    }
-
 }

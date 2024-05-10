@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-06T13:54:46+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
+    date = "2024-05-09T09:41:00+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
 public class AuditObjectMapperImpl implements AuditObjectMapper {
@@ -21,6 +21,17 @@ public class AuditObjectMapperImpl implements AuditObjectMapper {
 
         AuditObjectDTO auditObjectDTO = new AuditObjectDTO();
 
+        auditObjectDTO.setId( auditObject.getId() );
+        auditObjectDTO.setCreatedUser( auditObject.getCreatedUser() );
+        auditObjectDTO.setModifiedUser( auditObject.getModifiedUser() );
+        auditObjectDTO.setCreatedTimestamp( auditObject.getCreatedTimestamp() );
+        auditObjectDTO.setModifiedTimestamp( auditObject.getModifiedTimestamp() );
+        auditObjectDTO.setName( auditObject.getName() );
+        auditObjectDTO.setDescription( auditObject.getDescription() );
+        auditObjectDTO.setAuditType( auditObject.getAuditType() );
+        auditObjectDTO.setStatus( auditObject.getStatus() );
+        auditObjectDTO.setAuditUniverse( auditObject.getAuditUniverse() );
+
         return auditObjectDTO;
     }
 
@@ -29,6 +40,17 @@ public class AuditObjectMapperImpl implements AuditObjectMapper {
         if ( auditObject == null ) {
             return;
         }
+
+        auditObjectDTO.setId( auditObject.getId() );
+        auditObjectDTO.setCreatedUser( auditObject.getCreatedUser() );
+        auditObjectDTO.setModifiedUser( auditObject.getModifiedUser() );
+        auditObjectDTO.setCreatedTimestamp( auditObject.getCreatedTimestamp() );
+        auditObjectDTO.setModifiedTimestamp( auditObject.getModifiedTimestamp() );
+        auditObjectDTO.setName( auditObject.getName() );
+        auditObjectDTO.setDescription( auditObject.getDescription() );
+        auditObjectDTO.setAuditType( auditObject.getAuditType() );
+        auditObjectDTO.setStatus( auditObject.getStatus() );
+        auditObjectDTO.setAuditUniverse( auditObject.getAuditUniverse() );
     }
 
     @Override
@@ -38,6 +60,17 @@ public class AuditObjectMapperImpl implements AuditObjectMapper {
         }
 
         AuditObject auditObject = new AuditObject();
+
+        auditObject.setId( auditObjectDTO.getId() );
+        auditObject.setCreatedUser( auditObjectDTO.getCreatedUser() );
+        auditObject.setModifiedUser( auditObjectDTO.getModifiedUser() );
+        auditObject.setCreatedTimestamp( auditObjectDTO.getCreatedTimestamp() );
+        auditObject.setModifiedTimestamp( auditObjectDTO.getModifiedTimestamp() );
+        auditObject.setName( auditObjectDTO.getName() );
+        auditObject.setDescription( auditObjectDTO.getDescription() );
+        auditObject.setAuditType( auditObjectDTO.getAuditType() );
+        auditObject.setStatus( auditObjectDTO.getStatus() );
+        auditObject.setAuditUniverse( auditObjectDTO.getAuditUniverse() );
 
         return auditObject;
     }

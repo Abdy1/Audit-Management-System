@@ -4,6 +4,7 @@ import com.cbo.audit.dto.FindingCommentDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.service.impl.FindingCommentServiceImpl;
 import com.cbo.audit.utils.FileUploadUtil;
+import io.github.pixee.security.Filenames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,7 +45,7 @@ public class FindingCommentController {
     @PostMapping("/upload")
     public String handleFileUpload(@RequestParam("finding/files") MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
-            String originalFilename = file.getOriginalFilename();
+            String originalFilename = Filenames.toSimpleFileName(file.getOriginalFilename());
             // Process the file name (e.g., store it, validate it, etc.)
             // ...
             FileUploadUtil.saveFile("sample/", "1" + file.getOriginalFilename(), file);

@@ -22,7 +22,7 @@ public class AuditTeamController {
     @GetMapping(value = "api/v1/audit-teams/{is}")
     public ResponseEntity<AuditTeamDTO> getApp(@RequestParam("id") String id){
         AuditTeam auditTeam = auditTeamRepository.findAuditTeamByTeamId(id);
-        return new ResponseEntity<>(AuditTeamMapper.INSTANCE.toDTO(auditTeam), HttpStatus.OK)
+        return new ResponseEntity<>(AuditTeamMapper.INSTANCE.toDTO(auditTeam), HttpStatus.OK);
     }
 }
 

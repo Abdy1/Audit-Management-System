@@ -15,6 +15,9 @@ public interface AuditTeamRepository extends JpaRepository<AuditTeam, Long> {
     @Query("SELECT AT FROM AuditTeam AT WHERE AT.employeeId = :id")
     AuditTeam findAuditTeamByUserId(@Param("id") String employeeId);
 
+    @Query("SELECT AT FROM AuditTeam AT WHERE AT.employeeId = :id")
+    AuditTeam findAuditTeamByTeamId(@Param("id") String id);
+
     @Query("SELECT AT FROM AuditStaff AT WHERE AT.employeeId = :id")
     Optional<AuditTeam> findAuditTeamByEmployeeId(@Param("id") String employeeId);
 

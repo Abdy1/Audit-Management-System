@@ -102,8 +102,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                // Remove the following line to allow unrestricted access to all endpoints
-                //.antMatchers("/auth/**", "/sasv/authority/employees/branch/**", "/sasv/authority/employees/district/**", "/sasv/authority/employees/process/vp/**").permitAll()
+                .antMatchers("/auth/**", "/sasv/authority/employees/branch/**", "/sasv/authority/employees/district/**", "/sasv/authority/employees/process/vp/**").permitAll()
                 .antMatchers(HttpHeaders.ALLOW).permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

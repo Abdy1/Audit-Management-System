@@ -134,6 +134,26 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    public ResultWrapper<Report> getReportById1(Long id) {
+        Report report = reportRepository.findById(id).orElse(null);
+        ResultWrapper<Report> resultWrapper = new ResultWrapper<>();
+
+        if (report == null) {
+            resultWrapper.setResult(null);
+            resultWrapper.setMessage("there is no report with the provided information");
+            resultWrapper.setStatus(false);
+            return resultWrapper;
+        }
+
+        resultWrapper.setStatus(true);
+        resultWrapper.setResult(report);
+        resultWrapper.setMessage("success");
+        return resultWrapper;
+
+
+    }
+
+    @Override
     public ResultWrapper<ReportDTO> getReportByScheduleId(Long id) {
         ResultWrapper<ReportDTO> resultWrapper = new ResultWrapper<>();
         Report report = reportRepository.findReportByAuditScheduleId(id);

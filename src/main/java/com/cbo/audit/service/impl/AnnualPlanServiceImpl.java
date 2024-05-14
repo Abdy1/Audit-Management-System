@@ -299,8 +299,11 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("No annual plan found with the provided Id.");
         }else{
+            annualPlan.setStatus(AnnualPlanStatus.Approved.name());
+            AnnualPlan saved = annualPlanRepository.save(annualPlan);
             resultWrapper.setStatus(true);
-            resultWrapper.setResult(AnnualPlanMapper.INSTANCE.toDTO(annualPlan));
+            resultWrapper.setResult(AnnualPlanMapper.INSTANCE.toDTO(saved));
+            resultWrapper.setMessage("Annual Plan Approved successfully.");
         }
 
         return resultWrapper;

@@ -33,4 +33,6 @@ public interface AnnualPlanService {
 
     ResultWrapper<List<AnnualPlanDTO>> autoGenerateAnnualPlans(String year);
 
+    ResultWrapper<AnnualPlanDTO> approveAnnualPlan(Long id);
+
 }

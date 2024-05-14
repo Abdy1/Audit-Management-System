@@ -17,6 +17,7 @@ public final class URIs {
     public static final String ANNUAL_PLAN_PLANED_LIST = ANNUAL_PLAN + "planedList";
 
     public static final String ANNUAL_PLAN_PLANED_LIST_YEAR = ANNUAL_PLAN + "planedList/{year}";
+    public static final String APPROVE_ANNUAL_PLAN_BY_ID = ANNUAL_PLAN + "approve/{id}";
     public static final String ANNUAL_PLAN_AUTO_GENERATE = ANNUAL_PLAN + "autoGenerate";
     public static final String AUDIT_TASK = APPLICATION_CONTEXT + "/auditTask/";
     public static final String AUDIT_PROGRAM = APPLICATION_CONTEXT + "/auditProgram/";

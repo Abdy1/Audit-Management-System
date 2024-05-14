@@ -95,4 +95,11 @@ public class AnnualPlanController {
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
+
+    @GetMapping(value = URIs.APPROVE_ANNUAL_PLAN_BY_ID, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AnnualPlanDTO>> approveAnnualPlan(@PathVariable("id") Long id) {
+
+        ResultWrapper<AnnualPlanDTO> resultWrapper = annualPlanService.approveAnnualPlan(id);
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
 }

@@ -290,6 +290,23 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     }
 
     @Override
+    public ResultWrapper<AnnualPlanDTO> approveAnnualPlan(Long id){
+        ResultWrapper<AnnualPlanDTO> resultWrapper = new ResultWrapper<>();
+
+        AnnualPlan annualPlan = annualPlanRepository.findById(id).orElse(null);
+
+        if(annualPlan == null){
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("No annual plan found with the provided Id.");
+        }else{
+            resultWrapper.setStatus(true);
+            resultWrapper.setResult(AnnualPlanMapper.INSTANCE.toDTO(annualPlan));
+        }
+
+        return resultWrapper;
+    }
+
+    @Override
     public ResultWrapper<List<AnnualPlanDTO>> autoGenerateAnnualPlans(String year) {
 
 

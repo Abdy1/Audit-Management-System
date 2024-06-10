@@ -13,11 +13,6 @@ import java.util.List;
 @Table(name = "ams_annual_plan")
 public class AnnualPlan extends BaseEntity {
 
-    @Column(name = "NAME")
-    private String name;
-
-    @Column(name = "DESCRIPTION")
-    private String description;
 
     @Column(name = "YEAR")
     private String year;
@@ -35,14 +30,10 @@ public class AnnualPlan extends BaseEntity {
     private double rectificationStatus;
 
     @ManyToOne
-    @JoinColumn(name = "AUDIT_UNIVERSE_ID")
-    private AuditUniverse auditUniverse;
-
-    @ManyToOne
     @JoinColumn(name = "AUDIT_OBJECT_ID")
     private AuditObject auditObject;
 
-/*    @OneToMany(mappedBy = "annualPlan", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<RiskScore> riskScores;*/
+    @OneToMany(mappedBy = "annualPlan", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<RiskScore> riskScores;
 
 }

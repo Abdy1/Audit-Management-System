@@ -76,7 +76,7 @@ public class WordServiceImpl implements WordService {
         //you get this data from  auditobject.audittype + Report On + Annual Plan Name
         XWPFParagraph fourthParagraph = document.createParagraph();
         XWPFRun fourthRun = fourthParagraph.createRun();
-        fourthRun.setText(report.getAuditSchedule().getAnnualPlan().getAuditObject().getAuditType() + " Report On " + report.getAuditSchedule().getAnnualPlan().getName());
+        fourthRun.setText(report.getAuditSchedule().getAnnualPlan().getAuditObject().getAuditType() + " Report On " + report.getAuditSchedule().getAnnualPlan().getAuditObject().getName());
         fourthRun.setColor("00AEEF"); // Blue color (hex code)
         fourthRun.setFontSize(18); // Text size 18
         fourthParagraph.setAlignment(ParagraphAlignment.CENTER);

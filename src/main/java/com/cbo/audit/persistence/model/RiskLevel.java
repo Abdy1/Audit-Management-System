@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Getter
@@ -21,4 +22,7 @@ public class RiskLevel extends BaseEntity {
 
     @Column(name = "LOW")
     private int low;
+
+    @OneToOne
+    private AuditType auditType;
 }

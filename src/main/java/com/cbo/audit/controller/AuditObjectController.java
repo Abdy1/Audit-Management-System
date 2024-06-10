@@ -1,6 +1,7 @@
 package com.cbo.audit.controller;
 
 import com.cbo.audit.constants.URIs;
+import com.cbo.audit.dto.AnnualPlanDTO;
 import com.cbo.audit.dto.AuditObjectDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.service.AuditObjectService;
@@ -56,6 +57,13 @@ public class AuditObjectController {
 
         ResultWrapper<AuditObjectDTO> resultWrapper = auditObjectService.updateAuditObject(auditObjectDTO);
 
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @PostMapping(value = URIs.APPROVE_AUDIT_OBJECT_BY_ID, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<AuditObjectDTO>> approveAnnualPlan(@PathVariable("id") Long id) {
+
+        ResultWrapper<AuditObjectDTO> resultWrapper = auditObjectService.approveAuditObject(id);
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 

@@ -57,4 +57,5 @@ public class RiskItemController {
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
+
 }

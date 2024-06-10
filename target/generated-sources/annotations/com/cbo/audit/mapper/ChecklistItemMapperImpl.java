@@ -1,9 +1,11 @@
 package com.cbo.audit.mapper;
 
 import com.cbo.audit.dto.AuditObjectDTO;
+import com.cbo.audit.dto.AuditTypeDTO;
 import com.cbo.audit.dto.AuditableAreaDTO;
 import com.cbo.audit.dto.ChecklistItemDTO;
 import com.cbo.audit.persistence.model.AuditObject;
+import com.cbo.audit.persistence.model.AuditType;
 import com.cbo.audit.persistence.model.AuditableArea;
 import com.cbo.audit.persistence.model.ChecklistItem;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-13T16:18:16+0300",
+    date = "2024-06-07T14:41:03+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
@@ -131,6 +133,24 @@ public class ChecklistItemMapperImpl implements ChecklistItemMapper {
         return checklistItem;
     }
 
+    protected AuditTypeDTO auditTypeToAuditTypeDTO(AuditType auditType) {
+        if ( auditType == null ) {
+            return null;
+        }
+
+        AuditTypeDTO auditTypeDTO = new AuditTypeDTO();
+
+        auditTypeDTO.setId( auditType.getId() );
+        auditTypeDTO.setCreatedUser( auditType.getCreatedUser() );
+        auditTypeDTO.setModifiedUser( auditType.getModifiedUser() );
+        auditTypeDTO.setCreatedTimestamp( auditType.getCreatedTimestamp() );
+        auditTypeDTO.setModifiedTimestamp( auditType.getModifiedTimestamp() );
+        auditTypeDTO.setName( auditType.getName() );
+        auditTypeDTO.setDescription( auditType.getDescription() );
+
+        return auditTypeDTO;
+    }
+
     protected AuditObjectDTO auditObjectToAuditObjectDTO(AuditObject auditObject) {
         if ( auditObject == null ) {
             return null;
@@ -145,7 +165,7 @@ public class ChecklistItemMapperImpl implements ChecklistItemMapper {
         auditObjectDTO.setModifiedTimestamp( auditObject.getModifiedTimestamp() );
         auditObjectDTO.setName( auditObject.getName() );
         auditObjectDTO.setDescription( auditObject.getDescription() );
-        auditObjectDTO.setAuditType( auditObject.getAuditType() );
+        auditObjectDTO.setAuditType( auditTypeToAuditTypeDTO( auditObject.getAuditType() ) );
         auditObjectDTO.setStatus( auditObject.getStatus() );
         auditObjectDTO.setAuditUniverse( auditObject.getAuditUniverse() );
 
@@ -171,6 +191,20 @@ public class ChecklistItemMapperImpl implements ChecklistItemMapper {
         return auditableAreaDTO;
     }
 
+    protected void auditTypeToAuditTypeDTO1(AuditType auditType, AuditTypeDTO mappingTarget) {
+        if ( auditType == null ) {
+            return;
+        }
+
+        mappingTarget.setId( auditType.getId() );
+        mappingTarget.setCreatedUser( auditType.getCreatedUser() );
+        mappingTarget.setModifiedUser( auditType.getModifiedUser() );
+        mappingTarget.setCreatedTimestamp( auditType.getCreatedTimestamp() );
+        mappingTarget.setModifiedTimestamp( auditType.getModifiedTimestamp() );
+        mappingTarget.setName( auditType.getName() );
+        mappingTarget.setDescription( auditType.getDescription() );
+    }
+
     protected void auditObjectToAuditObjectDTO1(AuditObject auditObject, AuditObjectDTO mappingTarget) {
         if ( auditObject == null ) {
             return;
@@ -183,7 +217,15 @@ public class ChecklistItemMapperImpl implements ChecklistItemMapper {
         mappingTarget.setModifiedTimestamp( auditObject.getModifiedTimestamp() );
         mappingTarget.setName( auditObject.getName() );
         mappingTarget.setDescription( auditObject.getDescription() );
-        mappingTarget.setAuditType( auditObject.getAuditType() );
+        if ( auditObject.getAuditType() != null ) {
+            if ( mappingTarget.getAuditType() == null ) {
+                mappingTarget.setAuditType( new AuditTypeDTO() );
+            }
+            auditTypeToAuditTypeDTO1( auditObject.getAuditType(), mappingTarget.getAuditType() );
+        }
+        else {
+            mappingTarget.setAuditType( null );
+        }
         mappingTarget.setStatus( auditObject.getStatus() );
         mappingTarget.setAuditUniverse( auditObject.getAuditUniverse() );
     }
@@ -211,6 +253,24 @@ public class ChecklistItemMapperImpl implements ChecklistItemMapper {
         }
     }
 
+    protected AuditType auditTypeDTOToAuditType(AuditTypeDTO auditTypeDTO) {
+        if ( auditTypeDTO == null ) {
+            return null;
+        }
+
+        AuditType auditType = new AuditType();
+
+        auditType.setId( auditTypeDTO.getId() );
+        auditType.setCreatedUser( auditTypeDTO.getCreatedUser() );
+        auditType.setModifiedUser( auditTypeDTO.getModifiedUser() );
+        auditType.setCreatedTimestamp( auditTypeDTO.getCreatedTimestamp() );
+        auditType.setModifiedTimestamp( auditTypeDTO.getModifiedTimestamp() );
+        auditType.setName( auditTypeDTO.getName() );
+        auditType.setDescription( auditTypeDTO.getDescription() );
+
+        return auditType;
+    }
+
     protected AuditObject auditObjectDTOToAuditObject(AuditObjectDTO auditObjectDTO) {
         if ( auditObjectDTO == null ) {
             return null;
@@ -225,9 +285,9 @@ public class ChecklistItemMapperImpl implements ChecklistItemMapper {
         auditObject.setModifiedTimestamp( auditObjectDTO.getModifiedTimestamp() );
         auditObject.setName( auditObjectDTO.getName() );
         auditObject.setDescription( auditObjectDTO.getDescription() );
-        auditObject.setAuditType( auditObjectDTO.getAuditType() );
         auditObject.setStatus( auditObjectDTO.getStatus() );
         auditObject.setAuditUniverse( auditObjectDTO.getAuditUniverse() );
+        auditObject.setAuditType( auditTypeDTOToAuditType( auditObjectDTO.getAuditType() ) );
 
         return auditObject;
     }

@@ -2,7 +2,7 @@ package com.cbo.audit.service.impl;
 
 import com.cbo.audit.dto.AuditUniverseDTO;
 import com.cbo.audit.dto.ResultWrapper;
-import com.cbo.audit.enums.AuditUniverseStatus;
+import com.cbo.audit.enums.AuditObjectStatus;
 import com.cbo.audit.mapper.AuditUniverseMapper;
 import com.cbo.audit.persistence.model.AuditUniverse;
 import com.cbo.audit.persistence.repository.AuditUniverseRepository;
@@ -32,7 +32,7 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
     public ResultWrapper<AuditUniverseDTO> registerAuditUniverse(AuditUniverseDTO auditUniverseDTO) {
         ResultWrapper<AuditUniverseDTO> resultWrapper = new ResultWrapper<>(auditUniverseDTO);
 
-        List<AuditUniverse> auditUniverseName = auditUniverseRepository.findAuditUniverseByStateAndName(AuditUniverseStatus.Approved.name(), auditUniverseDTO.getName());
+        List<AuditUniverse> auditUniverseName = auditUniverseRepository.findAuditUniverseByStateAndName(AuditObjectStatus.Approved.name(), auditUniverseDTO.getName());
         if (auditUniverseDTO.getName() == null) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Universe name cannot be null.");
@@ -40,6 +40,8 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Universe duplicate name is not allowed.");
         } else {
+            AuditUniverse auditUniverse = AuditUniverseMapper.INSTANCE.toEntity(auditUniverseDTO);
+            auditUniverseRepository.save(auditUniverse);
 
             resultWrapper.setResult(AuditUniverseMapper.INSTANCE.toDTO(saveUniverse(auditUniverseDTO)));
             resultWrapper.setStatus(true);
@@ -127,7 +129,7 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
 
         AuditUniverse oldUniverse = auditUniverseRepository.findById(auditUniverseDTO.getId()).orElse(null);
         if (oldUniverse != null) {
-            oldUniverse.setStatus(AuditUniverseStatus.Approved.name());
+            oldUniverse.setStatus(AuditObjectStatus.Approved.name());
             oldUniverse.setApprovedAt(LocalDateTime.now());
             auditUniverseDTO = AuditUniverseMapper.INSTANCE.toDTO(auditUniverseRepository.save(oldUniverse));
             resultWrapper.setResult(auditUniverseDTO);
@@ -144,7 +146,7 @@ public class AuditUniverseServiceImpl implements AuditUniverseService {
 
         AuditUniverse auditUniverse = AuditUniverseMapper.INSTANCE.toEntity(auditUniverseDTO);
         auditUniverse.setCreatedTimestamp(LocalDateTime.now());
-        auditUniverse.setStatus(AuditUniverseStatus.Approved.getType());
+        auditUniverse.setStatus(AuditObjectStatus.Approved.getType());
         return auditUniverseRepository.save(auditUniverse);
     }
 

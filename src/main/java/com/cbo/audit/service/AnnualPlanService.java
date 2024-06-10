@@ -20,7 +20,6 @@ public interface AnnualPlanService {
 
     ResultWrapper<AnnualPlanDTO> updateAnnualPlan(AnnualPlanDTO auditUniverseDTO);
 
-    ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByAuditUniverseId(Long id);
 
     ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByAuditObjectId(Long id);
 
@@ -32,5 +31,7 @@ public interface AnnualPlanService {
     ResultWrapper<List<AnnualPlanDTO>> getPlannedAnnualPlansByYear(String date);
 
     ResultWrapper<List<AnnualPlanDTO>> autoGenerateAnnualPlans(String year);
+
+    ResultWrapper<AnnualPlanDTO> approveAnnualPlan(Long id);
 
 }

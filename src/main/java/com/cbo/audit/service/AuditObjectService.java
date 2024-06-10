@@ -23,4 +23,6 @@ public interface AuditObjectService {
     ResultWrapper<List<AuditType>> getAllAuditType();
 
     ResultWrapper<List<AuditObjectDTO>> getAuditObjectByAuditType(String auditType);
+
+    public ResultWrapper<AuditObjectDTO> approveAuditObject(Long id);
 }

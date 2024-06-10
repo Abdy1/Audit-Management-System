@@ -19,8 +19,6 @@ public class AuditObject extends BaseEntity {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "AUDIT_TYPE")
-    private String auditType;
 
     @Column(name = "STATUS")
     private String status;
@@ -28,5 +26,10 @@ public class AuditObject extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "AUDIT_UNIVERSE_ID")
     private AuditUniverse auditUniverse;
+
+    @ManyToOne
+    @JoinColumn(name = "AUDIT_TYPE")
+    private AuditType auditType;
+
 
 }

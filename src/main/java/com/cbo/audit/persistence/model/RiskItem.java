@@ -4,9 +4,7 @@ package com.cbo.audit.persistence.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -20,6 +18,7 @@ public class RiskItem extends BaseEntity {
     @Column(name = "OBJECTIVE_LINK")
     private int strategicObjectiveLink;
 
-    @Column(name = "RISK_TYPE")
-    private String riskType;
+    @ManyToOne
+    @JoinColumn(name = "AUDIT_TYPE_ID")
+    private AuditType auditType;
 }

@@ -12,9 +12,6 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AnnualPlanDTO extends BaseDTO {
 
-    private String name;
-
-    private String description;
 
     private String year;
 

@@ -7,11 +7,12 @@ import com.cbo.audit.dto.AuditProgramObjectiveDTO;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.dto.AuditStaffDTO;
 import com.cbo.audit.dto.AuditTypeDTO;
-import com.cbo.audit.dto.AuditUniverseDTO;
 import com.cbo.audit.dto.AuditableAreaDTO;
 import com.cbo.audit.dto.EngagementDTO;
 import com.cbo.audit.dto.FindingCommentDTO;
 import com.cbo.audit.dto.FindingDTO;
+import com.cbo.audit.dto.RiskItemDTO;
+import com.cbo.audit.dto.RiskScoreDTO;
 import com.cbo.audit.dto.TeamMemberDTO;
 import com.cbo.audit.persistence.model.AnnualPlan;
 import com.cbo.audit.persistence.model.AuditObject;
@@ -20,11 +21,12 @@ import com.cbo.audit.persistence.model.AuditProgramObjective;
 import com.cbo.audit.persistence.model.AuditSchedule;
 import com.cbo.audit.persistence.model.AuditStaff;
 import com.cbo.audit.persistence.model.AuditType;
-import com.cbo.audit.persistence.model.AuditUniverse;
 import com.cbo.audit.persistence.model.AuditableArea;
 import com.cbo.audit.persistence.model.EngagementInfo;
 import com.cbo.audit.persistence.model.Finding;
 import com.cbo.audit.persistence.model.FindingComment;
+import com.cbo.audit.persistence.model.RiskItem;
+import com.cbo.audit.persistence.model.RiskScore;
 import com.cbo.audit.persistence.model.TeamMember;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-13T16:18:15+0300",
+    date = "2024-06-07T14:41:03+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
@@ -172,24 +174,22 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         return list1;
     }
 
-    protected AuditUniverseDTO auditUniverseToAuditUniverseDTO(AuditUniverse auditUniverse) {
-        if ( auditUniverse == null ) {
+    protected AuditTypeDTO auditTypeToAuditTypeDTO(AuditType auditType) {
+        if ( auditType == null ) {
             return null;
         }
 
-        AuditUniverseDTO auditUniverseDTO = new AuditUniverseDTO();
+        AuditTypeDTO auditTypeDTO = new AuditTypeDTO();
 
-        auditUniverseDTO.setId( auditUniverse.getId() );
-        auditUniverseDTO.setCreatedUser( auditUniverse.getCreatedUser() );
-        auditUniverseDTO.setModifiedUser( auditUniverse.getModifiedUser() );
-        auditUniverseDTO.setCreatedTimestamp( auditUniverse.getCreatedTimestamp() );
-        auditUniverseDTO.setModifiedTimestamp( auditUniverse.getModifiedTimestamp() );
-        auditUniverseDTO.setName( auditUniverse.getName() );
-        auditUniverseDTO.setStatus( auditUniverse.getStatus() );
-        auditUniverseDTO.setApprovedBy( auditUniverse.getApprovedBy() );
-        auditUniverseDTO.setApprovedAt( auditUniverse.getApprovedAt() );
+        auditTypeDTO.setId( auditType.getId() );
+        auditTypeDTO.setCreatedUser( auditType.getCreatedUser() );
+        auditTypeDTO.setModifiedUser( auditType.getModifiedUser() );
+        auditTypeDTO.setCreatedTimestamp( auditType.getCreatedTimestamp() );
+        auditTypeDTO.setModifiedTimestamp( auditType.getModifiedTimestamp() );
+        auditTypeDTO.setName( auditType.getName() );
+        auditTypeDTO.setDescription( auditType.getDescription() );
 
-        return auditUniverseDTO;
+        return auditTypeDTO;
     }
 
     protected AuditObjectDTO auditObjectToAuditObjectDTO(AuditObject auditObject) {
@@ -206,11 +206,65 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         auditObjectDTO.setModifiedTimestamp( auditObject.getModifiedTimestamp() );
         auditObjectDTO.setName( auditObject.getName() );
         auditObjectDTO.setDescription( auditObject.getDescription() );
-        auditObjectDTO.setAuditType( auditObject.getAuditType() );
+        auditObjectDTO.setAuditType( auditTypeToAuditTypeDTO( auditObject.getAuditType() ) );
         auditObjectDTO.setStatus( auditObject.getStatus() );
         auditObjectDTO.setAuditUniverse( auditObject.getAuditUniverse() );
 
         return auditObjectDTO;
+    }
+
+    protected RiskItemDTO riskItemToRiskItemDTO(RiskItem riskItem) {
+        if ( riskItem == null ) {
+            return null;
+        }
+
+        RiskItemDTO riskItemDTO = new RiskItemDTO();
+
+        riskItemDTO.setId( riskItem.getId() );
+        riskItemDTO.setCreatedUser( riskItem.getCreatedUser() );
+        riskItemDTO.setModifiedUser( riskItem.getModifiedUser() );
+        riskItemDTO.setCreatedTimestamp( riskItem.getCreatedTimestamp() );
+        riskItemDTO.setModifiedTimestamp( riskItem.getModifiedTimestamp() );
+        riskItemDTO.setName( riskItem.getName() );
+        riskItemDTO.setStrategicObjectiveLink( riskItem.getStrategicObjectiveLink() );
+        riskItemDTO.setAuditType( riskItem.getAuditType() );
+
+        return riskItemDTO;
+    }
+
+    protected RiskScoreDTO riskScoreToRiskScoreDTO(RiskScore riskScore) {
+        if ( riskScore == null ) {
+            return null;
+        }
+
+        RiskScoreDTO riskScoreDTO = new RiskScoreDTO();
+
+        riskScoreDTO.setId( riskScore.getId() );
+        riskScoreDTO.setCreatedUser( riskScore.getCreatedUser() );
+        riskScoreDTO.setModifiedUser( riskScore.getModifiedUser() );
+        riskScoreDTO.setCreatedTimestamp( riskScore.getCreatedTimestamp() );
+        riskScoreDTO.setModifiedTimestamp( riskScore.getModifiedTimestamp() );
+        riskScoreDTO.setRiskItem( riskItemToRiskItemDTO( riskScore.getRiskItem() ) );
+        riskScoreDTO.setLikelihood( riskScore.getLikelihood() );
+        riskScoreDTO.setImpact( riskScore.getImpact() );
+        riskScoreDTO.setTotal( riskScore.getTotal() );
+        riskScoreDTO.setPercentage( riskScore.getPercentage() );
+        riskScoreDTO.setWaited( riskScore.isWaited() );
+
+        return riskScoreDTO;
+    }
+
+    protected List<RiskScoreDTO> riskScoreListToRiskScoreDTOList(List<RiskScore> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<RiskScoreDTO> list1 = new ArrayList<RiskScoreDTO>( list.size() );
+        for ( RiskScore riskScore : list ) {
+            list1.add( riskScoreToRiskScoreDTO( riskScore ) );
+        }
+
+        return list1;
     }
 
     protected AnnualPlanDTO annualPlanToAnnualPlanDTO(AnnualPlan annualPlan) {
@@ -225,15 +279,13 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         annualPlanDTO.setModifiedUser( annualPlan.getModifiedUser() );
         annualPlanDTO.setCreatedTimestamp( annualPlan.getCreatedTimestamp() );
         annualPlanDTO.setModifiedTimestamp( annualPlan.getModifiedTimestamp() );
-        annualPlanDTO.setName( annualPlan.getName() );
-        annualPlanDTO.setDescription( annualPlan.getDescription() );
         annualPlanDTO.setYear( annualPlan.getYear() );
         annualPlanDTO.setRiskLevel( annualPlan.getRiskLevel() );
         annualPlanDTO.setRiskScore( annualPlan.getRiskScore() );
         annualPlanDTO.setStatus( annualPlan.getStatus() );
         annualPlanDTO.setRectificationStatus( annualPlan.getRectificationStatus() );
-        annualPlanDTO.setAuditUniverse( auditUniverseToAuditUniverseDTO( annualPlan.getAuditUniverse() ) );
         annualPlanDTO.setAuditObject( auditObjectToAuditObjectDTO( annualPlan.getAuditObject() ) );
+        annualPlanDTO.setRiskScores( riskScoreListToRiskScoreDTOList( annualPlan.getRiskScores() ) );
 
         return annualPlanDTO;
     }
@@ -329,24 +381,6 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         return auditableAreaDTO;
     }
 
-    protected AuditTypeDTO auditTypeToAuditTypeDTO(AuditType auditType) {
-        if ( auditType == null ) {
-            return null;
-        }
-
-        AuditTypeDTO auditTypeDTO = new AuditTypeDTO();
-
-        auditTypeDTO.setId( auditType.getId() );
-        auditTypeDTO.setCreatedUser( auditType.getCreatedUser() );
-        auditTypeDTO.setModifiedUser( auditType.getModifiedUser() );
-        auditTypeDTO.setCreatedTimestamp( auditType.getCreatedTimestamp() );
-        auditTypeDTO.setModifiedTimestamp( auditType.getModifiedTimestamp() );
-        auditTypeDTO.setName( auditType.getName() );
-        auditTypeDTO.setDescription( auditType.getDescription() );
-
-        return auditTypeDTO;
-    }
-
     protected AuditStaffDTO auditStaffToAuditStaffDTO(AuditStaff auditStaff) {
         if ( auditStaff == null ) {
             return null;
@@ -404,20 +438,18 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         return findingDTO;
     }
 
-    protected void auditUniverseToAuditUniverseDTO1(AuditUniverse auditUniverse, AuditUniverseDTO mappingTarget) {
-        if ( auditUniverse == null ) {
+    protected void auditTypeToAuditTypeDTO1(AuditType auditType, AuditTypeDTO mappingTarget) {
+        if ( auditType == null ) {
             return;
         }
 
-        mappingTarget.setId( auditUniverse.getId() );
-        mappingTarget.setCreatedUser( auditUniverse.getCreatedUser() );
-        mappingTarget.setModifiedUser( auditUniverse.getModifiedUser() );
-        mappingTarget.setCreatedTimestamp( auditUniverse.getCreatedTimestamp() );
-        mappingTarget.setModifiedTimestamp( auditUniverse.getModifiedTimestamp() );
-        mappingTarget.setName( auditUniverse.getName() );
-        mappingTarget.setStatus( auditUniverse.getStatus() );
-        mappingTarget.setApprovedBy( auditUniverse.getApprovedBy() );
-        mappingTarget.setApprovedAt( auditUniverse.getApprovedAt() );
+        mappingTarget.setId( auditType.getId() );
+        mappingTarget.setCreatedUser( auditType.getCreatedUser() );
+        mappingTarget.setModifiedUser( auditType.getModifiedUser() );
+        mappingTarget.setCreatedTimestamp( auditType.getCreatedTimestamp() );
+        mappingTarget.setModifiedTimestamp( auditType.getModifiedTimestamp() );
+        mappingTarget.setName( auditType.getName() );
+        mappingTarget.setDescription( auditType.getDescription() );
     }
 
     protected void auditObjectToAuditObjectDTO1(AuditObject auditObject, AuditObjectDTO mappingTarget) {
@@ -432,7 +464,15 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         mappingTarget.setModifiedTimestamp( auditObject.getModifiedTimestamp() );
         mappingTarget.setName( auditObject.getName() );
         mappingTarget.setDescription( auditObject.getDescription() );
-        mappingTarget.setAuditType( auditObject.getAuditType() );
+        if ( auditObject.getAuditType() != null ) {
+            if ( mappingTarget.getAuditType() == null ) {
+                mappingTarget.setAuditType( new AuditTypeDTO() );
+            }
+            auditTypeToAuditTypeDTO1( auditObject.getAuditType(), mappingTarget.getAuditType() );
+        }
+        else {
+            mappingTarget.setAuditType( null );
+        }
         mappingTarget.setStatus( auditObject.getStatus() );
         mappingTarget.setAuditUniverse( auditObject.getAuditUniverse() );
     }
@@ -447,22 +487,11 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         mappingTarget.setModifiedUser( annualPlan.getModifiedUser() );
         mappingTarget.setCreatedTimestamp( annualPlan.getCreatedTimestamp() );
         mappingTarget.setModifiedTimestamp( annualPlan.getModifiedTimestamp() );
-        mappingTarget.setName( annualPlan.getName() );
-        mappingTarget.setDescription( annualPlan.getDescription() );
         mappingTarget.setYear( annualPlan.getYear() );
         mappingTarget.setRiskLevel( annualPlan.getRiskLevel() );
         mappingTarget.setRiskScore( annualPlan.getRiskScore() );
         mappingTarget.setStatus( annualPlan.getStatus() );
         mappingTarget.setRectificationStatus( annualPlan.getRectificationStatus() );
-        if ( annualPlan.getAuditUniverse() != null ) {
-            if ( mappingTarget.getAuditUniverse() == null ) {
-                mappingTarget.setAuditUniverse( new AuditUniverseDTO() );
-            }
-            auditUniverseToAuditUniverseDTO1( annualPlan.getAuditUniverse(), mappingTarget.getAuditUniverse() );
-        }
-        else {
-            mappingTarget.setAuditUniverse( null );
-        }
         if ( annualPlan.getAuditObject() != null ) {
             if ( mappingTarget.getAuditObject() == null ) {
                 mappingTarget.setAuditObject( new AuditObjectDTO() );
@@ -471,6 +500,22 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         }
         else {
             mappingTarget.setAuditObject( null );
+        }
+        if ( mappingTarget.getRiskScores() != null ) {
+            List<RiskScoreDTO> list = riskScoreListToRiskScoreDTOList( annualPlan.getRiskScores() );
+            if ( list != null ) {
+                mappingTarget.getRiskScores().clear();
+                mappingTarget.getRiskScores().addAll( list );
+            }
+            else {
+                mappingTarget.setRiskScores( null );
+            }
+        }
+        else {
+            List<RiskScoreDTO> list = riskScoreListToRiskScoreDTOList( annualPlan.getRiskScores() );
+            if ( list != null ) {
+                mappingTarget.setRiskScores( list );
+            }
         }
     }
 
@@ -609,20 +654,6 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         else {
             mappingTarget.setAuditObject( null );
         }
-    }
-
-    protected void auditTypeToAuditTypeDTO1(AuditType auditType, AuditTypeDTO mappingTarget) {
-        if ( auditType == null ) {
-            return;
-        }
-
-        mappingTarget.setId( auditType.getId() );
-        mappingTarget.setCreatedUser( auditType.getCreatedUser() );
-        mappingTarget.setModifiedUser( auditType.getModifiedUser() );
-        mappingTarget.setCreatedTimestamp( auditType.getCreatedTimestamp() );
-        mappingTarget.setModifiedTimestamp( auditType.getModifiedTimestamp() );
-        mappingTarget.setName( auditType.getName() );
-        mappingTarget.setDescription( auditType.getDescription() );
     }
 
     protected void auditStaffToAuditStaffDTO1(AuditStaff auditStaff, AuditStaffDTO mappingTarget) {
@@ -777,24 +808,22 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         return list1;
     }
 
-    protected AuditUniverse auditUniverseDTOToAuditUniverse(AuditUniverseDTO auditUniverseDTO) {
-        if ( auditUniverseDTO == null ) {
+    protected AuditType auditTypeDTOToAuditType(AuditTypeDTO auditTypeDTO) {
+        if ( auditTypeDTO == null ) {
             return null;
         }
 
-        AuditUniverse auditUniverse = new AuditUniverse();
+        AuditType auditType = new AuditType();
 
-        auditUniverse.setId( auditUniverseDTO.getId() );
-        auditUniverse.setCreatedUser( auditUniverseDTO.getCreatedUser() );
-        auditUniverse.setModifiedUser( auditUniverseDTO.getModifiedUser() );
-        auditUniverse.setCreatedTimestamp( auditUniverseDTO.getCreatedTimestamp() );
-        auditUniverse.setModifiedTimestamp( auditUniverseDTO.getModifiedTimestamp() );
-        auditUniverse.setName( auditUniverseDTO.getName() );
-        auditUniverse.setStatus( auditUniverseDTO.getStatus() );
-        auditUniverse.setApprovedBy( auditUniverseDTO.getApprovedBy() );
-        auditUniverse.setApprovedAt( auditUniverseDTO.getApprovedAt() );
+        auditType.setId( auditTypeDTO.getId() );
+        auditType.setCreatedUser( auditTypeDTO.getCreatedUser() );
+        auditType.setModifiedUser( auditTypeDTO.getModifiedUser() );
+        auditType.setCreatedTimestamp( auditTypeDTO.getCreatedTimestamp() );
+        auditType.setModifiedTimestamp( auditTypeDTO.getModifiedTimestamp() );
+        auditType.setName( auditTypeDTO.getName() );
+        auditType.setDescription( auditTypeDTO.getDescription() );
 
-        return auditUniverse;
+        return auditType;
     }
 
     protected AuditObject auditObjectDTOToAuditObject(AuditObjectDTO auditObjectDTO) {
@@ -811,11 +840,65 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         auditObject.setModifiedTimestamp( auditObjectDTO.getModifiedTimestamp() );
         auditObject.setName( auditObjectDTO.getName() );
         auditObject.setDescription( auditObjectDTO.getDescription() );
-        auditObject.setAuditType( auditObjectDTO.getAuditType() );
         auditObject.setStatus( auditObjectDTO.getStatus() );
         auditObject.setAuditUniverse( auditObjectDTO.getAuditUniverse() );
+        auditObject.setAuditType( auditTypeDTOToAuditType( auditObjectDTO.getAuditType() ) );
 
         return auditObject;
+    }
+
+    protected RiskItem riskItemDTOToRiskItem(RiskItemDTO riskItemDTO) {
+        if ( riskItemDTO == null ) {
+            return null;
+        }
+
+        RiskItem riskItem = new RiskItem();
+
+        riskItem.setId( riskItemDTO.getId() );
+        riskItem.setCreatedUser( riskItemDTO.getCreatedUser() );
+        riskItem.setModifiedUser( riskItemDTO.getModifiedUser() );
+        riskItem.setCreatedTimestamp( riskItemDTO.getCreatedTimestamp() );
+        riskItem.setModifiedTimestamp( riskItemDTO.getModifiedTimestamp() );
+        riskItem.setName( riskItemDTO.getName() );
+        riskItem.setStrategicObjectiveLink( riskItemDTO.getStrategicObjectiveLink() );
+        riskItem.setAuditType( riskItemDTO.getAuditType() );
+
+        return riskItem;
+    }
+
+    protected RiskScore riskScoreDTOToRiskScore(RiskScoreDTO riskScoreDTO) {
+        if ( riskScoreDTO == null ) {
+            return null;
+        }
+
+        RiskScore riskScore = new RiskScore();
+
+        riskScore.setId( riskScoreDTO.getId() );
+        riskScore.setCreatedUser( riskScoreDTO.getCreatedUser() );
+        riskScore.setModifiedUser( riskScoreDTO.getModifiedUser() );
+        riskScore.setCreatedTimestamp( riskScoreDTO.getCreatedTimestamp() );
+        riskScore.setModifiedTimestamp( riskScoreDTO.getModifiedTimestamp() );
+        riskScore.setRiskItem( riskItemDTOToRiskItem( riskScoreDTO.getRiskItem() ) );
+        riskScore.setLikelihood( riskScoreDTO.getLikelihood() );
+        riskScore.setImpact( riskScoreDTO.getImpact() );
+        riskScore.setPercentage( riskScoreDTO.getPercentage() );
+        riskScore.setWaited( riskScoreDTO.isWaited() );
+        riskScore.setTotal( riskScoreDTO.getTotal() );
+
+        return riskScore;
+    }
+
+    protected List<RiskScore> riskScoreDTOListToRiskScoreList(List<RiskScoreDTO> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<RiskScore> list1 = new ArrayList<RiskScore>( list.size() );
+        for ( RiskScoreDTO riskScoreDTO : list ) {
+            list1.add( riskScoreDTOToRiskScore( riskScoreDTO ) );
+        }
+
+        return list1;
     }
 
     protected AnnualPlan annualPlanDTOToAnnualPlan(AnnualPlanDTO annualPlanDTO) {
@@ -830,15 +913,13 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         annualPlan.setModifiedUser( annualPlanDTO.getModifiedUser() );
         annualPlan.setCreatedTimestamp( annualPlanDTO.getCreatedTimestamp() );
         annualPlan.setModifiedTimestamp( annualPlanDTO.getModifiedTimestamp() );
-        annualPlan.setName( annualPlanDTO.getName() );
-        annualPlan.setDescription( annualPlanDTO.getDescription() );
         annualPlan.setYear( annualPlanDTO.getYear() );
         annualPlan.setRiskLevel( annualPlanDTO.getRiskLevel() );
         annualPlan.setRiskScore( annualPlanDTO.getRiskScore() );
         annualPlan.setStatus( annualPlanDTO.getStatus() );
         annualPlan.setRectificationStatus( annualPlanDTO.getRectificationStatus() );
-        annualPlan.setAuditUniverse( auditUniverseDTOToAuditUniverse( annualPlanDTO.getAuditUniverse() ) );
         annualPlan.setAuditObject( auditObjectDTOToAuditObject( annualPlanDTO.getAuditObject() ) );
+        annualPlan.setRiskScores( riskScoreDTOListToRiskScoreList( annualPlanDTO.getRiskScores() ) );
 
         return annualPlan;
     }
@@ -932,24 +1013,6 @@ public class FindingCommentMapperImpl implements FindingCommentMapper {
         auditableArea.setAuditObject( auditObjectDTOToAuditObject( auditableAreaDTO.getAuditObject() ) );
 
         return auditableArea;
-    }
-
-    protected AuditType auditTypeDTOToAuditType(AuditTypeDTO auditTypeDTO) {
-        if ( auditTypeDTO == null ) {
-            return null;
-        }
-
-        AuditType auditType = new AuditType();
-
-        auditType.setId( auditTypeDTO.getId() );
-        auditType.setCreatedUser( auditTypeDTO.getCreatedUser() );
-        auditType.setModifiedUser( auditTypeDTO.getModifiedUser() );
-        auditType.setCreatedTimestamp( auditTypeDTO.getCreatedTimestamp() );
-        auditType.setModifiedTimestamp( auditTypeDTO.getModifiedTimestamp() );
-        auditType.setName( auditTypeDTO.getName() );
-        auditType.setDescription( auditTypeDTO.getDescription() );
-
-        return auditType;
     }
 
     protected AuditStaff auditStaffDTOToAuditStaff(AuditStaffDTO auditStaffDTO) {

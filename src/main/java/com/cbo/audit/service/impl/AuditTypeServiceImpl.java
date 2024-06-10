@@ -2,10 +2,13 @@ package com.cbo.audit.service.impl;
 
 import com.cbo.audit.dto.AuditTypeDTO;
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.dto.RiskLevelDTO;
 import com.cbo.audit.mapper.AuditTypeMapper;
 import com.cbo.audit.persistence.model.AuditType;
+import com.cbo.audit.persistence.model.RiskLevel;
 import com.cbo.audit.persistence.repository.AuditTypeRepository;
 import com.cbo.audit.service.AuditTypeService;
+import com.cbo.audit.service.RiskLevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +22,26 @@ public class AuditTypeServiceImpl implements AuditTypeService {
     @Autowired
     private AuditTypeRepository auditTypeRepository;
 
+    @Autowired
+    private RiskLevelService riskLevelService;
+
     @Override
     public ResultWrapper<AuditTypeDTO> registerAuditType(AuditTypeDTO auditTypeDTO) {
         ResultWrapper<AuditTypeDTO> resultWrapper = new ResultWrapper<>();
 
         AuditType auditType = AuditTypeMapper.INSTANCE.toEntity(auditTypeDTO);
         auditType.setCreatedTimestamp(LocalDateTime.now());
+        RiskLevelDTO riskLevel = new RiskLevelDTO();
+
         AuditType savedPlan = auditTypeRepository.save(auditType);
+        System.out.println(savedPlan.getId());
+        riskLevel.setAuditType(savedPlan);
+        riskLevel.setLow(30);
+        riskLevel.setMedium(45);
+        riskLevel.setHigh(50);
+        riskLevelService.registerRiskLevel(riskLevel);
+
+
 
         resultWrapper.setStatus(true);
         resultWrapper.setResult(AuditTypeMapper.INSTANCE.toDTO(savedPlan));

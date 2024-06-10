@@ -1,6 +1,7 @@
 package com.cbo.audit.dto;
 
 
+import com.cbo.audit.persistence.model.AuditType;
 import com.cbo.audit.persistence.model.AuditUniverse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -15,7 +16,7 @@ public class AuditObjectDTO extends BaseDTO {
 
     private String description;
 
-    private String auditType;//it,ifb,invstri,heado
+    private AuditTypeDTO auditType;//it,ifb,invstri,heado
 
     private String status;
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-13T16:18:16+0300",
+    date = "2024-06-07T14:41:03+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
@@ -28,7 +28,7 @@ public class RiskItemMapperImpl implements RiskItemMapper {
         riskItemDTO.setModifiedTimestamp( riskItem.getModifiedTimestamp() );
         riskItemDTO.setName( riskItem.getName() );
         riskItemDTO.setStrategicObjectiveLink( riskItem.getStrategicObjectiveLink() );
-        riskItemDTO.setRiskType( riskItem.getRiskType() );
+        riskItemDTO.setAuditType( riskItem.getAuditType() );
 
         return riskItemDTO;
     }
@@ -46,7 +46,7 @@ public class RiskItemMapperImpl implements RiskItemMapper {
         riskItemDTO.setModifiedTimestamp( riskItem.getModifiedTimestamp() );
         riskItemDTO.setName( riskItem.getName() );
         riskItemDTO.setStrategicObjectiveLink( riskItem.getStrategicObjectiveLink() );
-        riskItemDTO.setRiskType( riskItem.getRiskType() );
+        riskItemDTO.setAuditType( riskItem.getAuditType() );
     }
 
     @Override
@@ -64,7 +64,7 @@ public class RiskItemMapperImpl implements RiskItemMapper {
         riskItem.setModifiedTimestamp( riskItemDTO.getModifiedTimestamp() );
         riskItem.setName( riskItemDTO.getName() );
         riskItem.setStrategicObjectiveLink( riskItemDTO.getStrategicObjectiveLink() );
-        riskItem.setRiskType( riskItemDTO.getRiskType() );
+        riskItem.setAuditType( riskItemDTO.getAuditType() );
 
         return riskItem;
     }

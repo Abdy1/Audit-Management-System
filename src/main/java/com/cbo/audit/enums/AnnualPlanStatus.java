@@ -8,6 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum AnnualPlanStatus {
 
+    Approved("Approved"),
     Pending("Pending"),
     Scheduled("Scheduled"),
     Engagement("Engagement"),

@@ -1,6 +1,7 @@
 package com.cbo.audit.dto;
 
 
+import com.cbo.audit.persistence.model.AuditType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,4 +16,6 @@ public class RiskLevelDTO extends BaseDTO{
     private int medium;
 
     private int low;
+
+    private AuditType auditType;
 }

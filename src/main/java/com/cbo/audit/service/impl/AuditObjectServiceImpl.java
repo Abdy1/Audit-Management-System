@@ -1,15 +1,21 @@
 package com.cbo.audit.service.impl;
 
+import com.cbo.audit.dto.AnnualPlanDTO;
 import com.cbo.audit.dto.AuditObjectDTO;
 import com.cbo.audit.dto.ResultWrapper;
-import com.cbo.audit.enums.AuditUniverseStatus;
+import com.cbo.audit.enums.AnnualPlanStatus;
+import com.cbo.audit.enums.AuditObjectStatus;
+import com.cbo.audit.mapper.AnnualPlanMapper;
 import com.cbo.audit.mapper.AuditObjectMapper;
+import com.cbo.audit.persistence.model.AnnualPlan;
 import com.cbo.audit.persistence.model.AuditObject;
 import com.cbo.audit.persistence.model.AuditType;
-import com.cbo.audit.persistence.model.AuditUniverse;
 import com.cbo.audit.persistence.repository.AuditObjectRepository;
 import com.cbo.audit.persistence.repository.AuditTypeRepository;
+import com.cbo.audit.persistence.repository.AuditUniverseRepository;
 import com.cbo.audit.service.AuditObjectService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +27,7 @@ import java.util.Optional;
 @Service("auditObjectService")
 @Transactional
 public class AuditObjectServiceImpl implements AuditObjectService {
+    private static final Logger logger = LoggerFactory.getLogger(AuditObjectServiceImpl.class);
 
 
     @Autowired
@@ -28,6 +35,13 @@ public class AuditObjectServiceImpl implements AuditObjectService {
 
     @Autowired
     private AuditTypeRepository auditTypeRepository;
+
+    @Autowired
+    private AuditUniverseRepository auditUniverseRepository;
+
+    public AuditObjectServiceImpl() {
+    }
+
 
     @Override
     public ResultWrapper<AuditObjectDTO> registerAuditObject(AuditObjectDTO auditObjectDTO) {
@@ -42,9 +56,11 @@ public class AuditObjectServiceImpl implements AuditObjectService {
             resultWrapper.setMessage("Audit Object type cannot be null.");
         }
 
+
+
         AuditObject auditObject = AuditObjectMapper.INSTANCE.toEntity(auditObjectDTO);
         auditObject.setCreatedTimestamp(LocalDateTime.now());
-        auditObject.setStatus(AuditUniverseStatus.PendingApproval.name());
+        auditObject.setStatus(AuditObjectStatus.PendingApproval.name());
         AuditObject savedPlan = auditObjectRepository.save(auditObject);
 
         resultWrapper.setStatus(true);
@@ -113,6 +129,7 @@ public class AuditObjectServiceImpl implements AuditObjectService {
 
     @Override
     public ResultWrapper<AuditObjectDTO> updateAuditObject(AuditObjectDTO auditObjectDTO) {
+
         ResultWrapper<AuditObjectDTO> resultWrapper = new ResultWrapper<>(auditObjectDTO);
 
         AuditObject oldUniverse = auditObjectRepository.findById(auditObjectDTO.getId()).orElse(null);
@@ -127,9 +144,12 @@ public class AuditObjectServiceImpl implements AuditObjectService {
             } else {
 
                 AuditObject auditObject = AuditObjectMapper.INSTANCE.toEntity(auditObjectDTO);
+                logger.info("prev status: {}",oldUniverse.getStatus());
+
 
                 auditObject.setCreatedTimestamp(oldUniverse.getCreatedTimestamp());
                 auditObject.setCreatedUser(oldUniverse.getCreatedUser());
+                auditObject.setStatus(oldUniverse.getStatus());
 
                 AuditObject savedUniverse = auditObjectRepository.save(auditObject);
                 resultWrapper.setResult(AuditObjectMapper.INSTANCE.toDTO(savedUniverse));
@@ -144,4 +164,25 @@ public class AuditObjectServiceImpl implements AuditObjectService {
         return resultWrapper;
     }
 
+    @Override
+    public ResultWrapper<AuditObjectDTO> approveAuditObject(Long id){
+        ResultWrapper<AuditObjectDTO> resultWrapper = new ResultWrapper<>();
+
+        AuditObject auditObject = auditObjectRepository.findById(id).orElse(null);
+
+        if(auditObject == null){
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("No Audit Object found with the provided Id.");
+        }else{
+            auditObject.setStatus(AuditObjectStatus.Approved.name());
+            AuditObject saved = auditObjectRepository.save(auditObject);
+            resultWrapper.setStatus(true);
+            resultWrapper.setResult(AuditObjectMapper.INSTANCE.toDTO(saved));
+            resultWrapper.setMessage("Annual Plan Approved successfully.");
+        }
+
+        return resultWrapper;
+    }
+
 }
+

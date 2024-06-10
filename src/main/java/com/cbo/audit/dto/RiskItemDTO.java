@@ -1,6 +1,8 @@
 package com.cbo.audit.dto;
 
 
+import com.cbo.audit.persistence.model.AuditType;
+import com.cbo.audit.service.AuditUniverseService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,5 +16,5 @@ public class RiskItemDTO extends BaseDTO {
 
     private int strategicObjectiveLink;
 
-    private String riskType;
+    private AuditType auditType;
 }

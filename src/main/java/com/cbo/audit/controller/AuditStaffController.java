@@ -38,10 +38,9 @@ public class AuditStaffController {
     }
 
     @GetMapping(value = URIs.AUDIT_STAFF_BY_USER_ID, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> getAuditStaffById(@PathVariable String employeeId) {
+    public ResponseEntity<AuditStaff> getAuditStaffById(@PathVariable String employeeId) {
         Optional<AuditStaff> theAuditStaff = auditStaffService.findAuditStaffByEmployeeId(employeeId);
-        System.out.println(theAuditStaff);
-        Long resultWrapper = theAuditStaff.get().getId();
+        AuditStaff resultWrapper = theAuditStaff.get();
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

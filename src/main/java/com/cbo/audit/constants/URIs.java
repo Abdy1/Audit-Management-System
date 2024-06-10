@@ -17,6 +17,8 @@ public final class URIs {
     public static final String ANNUAL_PLAN_PLANED_LIST = ANNUAL_PLAN + "planedList";
 
     public static final String ANNUAL_PLAN_PLANED_LIST_YEAR = ANNUAL_PLAN + "planedList/{year}";
+    public static final String APPROVE_ANNUAL_PLAN_BY_ID = ANNUAL_PLAN + "approve/{id}";
+
     public static final String ANNUAL_PLAN_AUTO_GENERATE = ANNUAL_PLAN + "autoGenerate";
     public static final String AUDIT_TASK = APPLICATION_CONTEXT + "/auditTask/";
     public static final String AUDIT_PROGRAM = APPLICATION_CONTEXT + "/auditProgram/";
@@ -38,6 +40,8 @@ public final class URIs {
     public static final String AUDIT_OBJECT = APPLICATION_CONTEXT + "/auditObject/";
     public static final String AUDIT_OBJECT_BY_ID = AUDIT_OBJECT + "findById";
     public static final String AUDIT_OBJECT_BY_AUDIT_TYPE = AUDIT_OBJECT + "byAuditType";
+
+    public static final String APPROVE_AUDIT_OBJECT_BY_ID = AUDIT_OBJECT + "approve/{id}";
     public static final String TEAM_MEMBER = APPLICATION_CONTEXT + "/teamMember/";
     public static final String TEAM_MEMBER_LIST_BY_SCHEDULE = TEAM_MEMBER + "bySchedule";
     public static final String TEAM_MEMBER_LIST_BY_STAFF_ID = TEAM_MEMBER + "byStaffId";

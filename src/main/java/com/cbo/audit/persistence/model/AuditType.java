@@ -19,4 +19,6 @@ public class AuditType extends BaseEntity {
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+
 }

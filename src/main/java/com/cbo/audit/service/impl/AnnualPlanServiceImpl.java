@@ -53,7 +53,6 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
     @Override
     public ResultWrapper<AnnualPlanDTO> registerAnnualPlan(AnnualPlanDTO annualPlanDTO) {
-        loger.info("this :{}",annualPlanDTO);
         ResultWrapper<AnnualPlanDTO> resultWrapper = new ResultWrapper<>();
         Optional<AuditObject> auditObjectOpt = auditObjectRepository.findById(annualPlanDTO.getAuditObject().getId());
 
@@ -82,7 +81,6 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         annualPlan.setAuditObject(auditObjectOpt.get());
         annualPlan.setYear(year);
         AnnualPlan savedPlan = annualPlanRepository.save(annualPlan);
-        loger.info("saved this :{}",savedPlan);
 
 
 
@@ -144,9 +142,6 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     public AnnualPlan findAnnualPlanById(Long id) {
         return annualPlanRepository.findById(id).orElse(null);
     }
-
-
-
 
     @Override
     public ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByAuditObjectId(Long id) {
@@ -236,16 +231,17 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     @Override
     public ResultWrapper<AnnualPlanDTO> updateAnnualPlan(AnnualPlanDTO annualPlanDTO) {
         ResultWrapper<AnnualPlanDTO> resultWrapper = new ResultWrapper<>();
+        loger.info(annualPlanDTO.getId() + "this annual plan");
 
         AnnualPlan oldAnnualPlan = annualPlanRepository.findById(annualPlanDTO.getId()).orElse(null);
         if (oldAnnualPlan != null) {
-if (annualPlanDTO.getYear() == null) {
+        if (annualPlanDTO.getYear() == null) {
                 resultWrapper.setStatus(false);
                 resultWrapper.setMessage("Annual Plan year cannot be null.");
             } else {
 
                 AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO);
-                annualPlan.setCreatedTimestamp(LocalDateTime.now());
+                annualPlan.setModifiedTimestamp(LocalDateTime.now());
                 annualPlan.setCreatedTimestamp(oldAnnualPlan.getCreatedTimestamp());
                 annualPlan.setCreatedUser(oldAnnualPlan.getCreatedUser());
                 annualPlan.setAuditObject(oldAnnualPlan.getAuditObject());
@@ -335,6 +331,11 @@ if (annualPlanDTO.getYear() == null) {
         resultWrapper.setResult(annualPlanDTOS);
 
         return resultWrapper;
+    }
+
+    @Override
+    public void recalculateRisks(){
+
     }
 
     private List<RiskScoreDTO> getRiskScoresOfAuditType(AuditType auditType) {

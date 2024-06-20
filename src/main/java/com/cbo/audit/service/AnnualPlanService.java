@@ -31,6 +31,7 @@ public interface AnnualPlanService {
     ResultWrapper<List<AnnualPlanDTO>> getPlannedAnnualPlansByYear(String date);
 
     ResultWrapper<List<AnnualPlanDTO>> autoGenerateAnnualPlans(String year);
+    public void recalculateRisks();
 
     ResultWrapper<AnnualPlanDTO> approveAnnualPlan(Long id);
 

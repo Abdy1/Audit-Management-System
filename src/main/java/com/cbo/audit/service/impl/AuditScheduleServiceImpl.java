@@ -63,9 +63,9 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Annual Plan with the provided information is not available.");
             return resultWrapper;
-        } else if (!annualPlan.getStatus().equals(AnnualPlanStatus.Pending.name())) {
+        } else if (annualPlan.getStatus().equals(AnnualPlanStatus.Pending.name())) {
             resultWrapper.setStatus(false);
-            resultWrapper.setMessage("Annual Plan must be in pending status before scheduled.");
+            resultWrapper.setMessage("Annual Plan must be in Approved status before scheduled.");
             return resultWrapper;
         } else if (auditScheduleDTO.getStartOn() == null) {
             resultWrapper.setStatus(false);

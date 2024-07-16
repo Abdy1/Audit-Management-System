@@ -5,6 +5,7 @@ import com.cbo.audit.dto.RiskLevelDTO;
 import com.cbo.audit.mapper.RiskLevelMapper;
 import com.cbo.audit.persistence.model.RiskLevel;
 import com.cbo.audit.persistence.repository.RiskLevelRepository;
+import com.cbo.audit.service.AnnualPlanService;
 import com.cbo.audit.service.RiskLevelService;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,11 @@ import java.util.List;
 public class RiskLevelServiceImpl implements RiskLevelService {
 
     private final RiskLevelRepository riskLevelRepository;
+    private final AnnualPlanService annualPlanService;
 
-    public RiskLevelServiceImpl(RiskLevelRepository riskLevelRepository) {
+    public RiskLevelServiceImpl(RiskLevelRepository riskLevelRepository, AnnualPlanService annualPlanService) {
         this.riskLevelRepository = riskLevelRepository;
+        this.annualPlanService = annualPlanService;
     }
 
     @Override
@@ -38,6 +41,7 @@ public class RiskLevelServiceImpl implements RiskLevelService {
         ResultWrapper<RiskLevelDTO> resultWrapper = new ResultWrapper<>(riskLevelDTO);
         RiskLevel riskLevel = RiskLevelMapper.INSTANCE.toEntity(riskLevelDTO);
         riskLevelRepository.save(riskLevel);
+        annualPlanService.updateLevel(riskLevelDTO.getAuditType());
 
         resultWrapper.setStatus(true);
         resultWrapper.setMessage("Updated successfully!");

@@ -45,9 +45,11 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
         checklistItem.setName(checklistItemDTO.getName());
         checklistItem.setCreatedTimestamp(LocalDateTime.now());
         checklistItem.setAuditableArea(auditableArea);
+        checklistItem.setDescription(checklistItemDTO.getDescription());
+        checklistItem.setCreatedUser(checklistItemDTO.getCreatedUser());
 
         ChecklistItem savedChecklistItem = checklistItemRepository.save(checklistItem);
-        checklistItemDTO.setId(savedChecklistItem.getId()); // Assuming the DTO has an id field
+        checklistItemDTO.setId(savedChecklistItem.getId());
 
         return new ResultWrapper<>(checklistItemDTO, true, "Checklist Item created successfully.");
     }
@@ -131,8 +133,9 @@ public class ChecklistItemServiceImpl implements ChecklistItemService {
                 ChecklistItem checklistItem = ChecklistItemMapper.INSTANCE.toEntity(checklistItemDTO);
 
                 checklistItem.setCreatedTimestamp(oldChecklist.getCreatedTimestamp());
-                checklistItem.setCreatedUser(oldChecklist.getCreatedUser());
+                checklistItem.setModifiedUser(oldChecklist.getModifiedUser());
                 checklistItem.setAuditableArea(oldChecklist.getAuditableArea());
+
 
                 ChecklistItem savedUniverse = checklistItemRepository.save(checklistItem);
                 resultWrapper.setResult(ChecklistItemMapper.INSTANCE.toDTO(savedUniverse));

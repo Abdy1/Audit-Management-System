@@ -1,6 +1,7 @@
 package com.cbo.audit.service.impl;
 
 import com.cbo.audit.dto.AnnualPlanDTO;
+import com.cbo.audit.dto.AuditTypeDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.dto.RiskScoreDTO;
 import com.cbo.audit.enums.AnnualPlanStatus;
@@ -24,7 +25,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service("annualPlanService")
@@ -288,6 +291,9 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     @Override
     public ResultWrapper<List<AnnualPlanDTO>> autoGenerateAnnualPlans(String year) {
 
+        List<AuditObject> auditObjects = auditObjectRepository.findAll();
+        boolean hasApproved = auditObjects.stream()
+                .anyMatch(auditObject -> "Approved".equals(auditObject.getStatus()));
 
         ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
         List<AnnualPlanDTO> annualPlanDTOS = new ArrayList<>();
@@ -298,11 +304,11 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage(String.format("Budget year %s already applied.", year));
             return resultWrapper;
-        } else {
+        } else if (hasApproved) {
             budgetYearRepository.save(budgetYear);
         }
 
-        List<AuditObject> auditObjects = auditObjectRepository.findAll();
+
 
 
 
@@ -334,8 +340,52 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     }
 
     @Override
-    public void recalculateRisks(){
+    public void recalculateRisks(RiskItem riskItem){
+        List<AnnualPlan> annualPlans = annualPlanRepository.findAll();
+        if(!annualPlans.isEmpty()){
+            loger.info("loaded annual plans");
+            for (AnnualPlan annualPlan:annualPlans) {
+                 if (Objects.equals(annualPlan.getAuditObject().getAuditType().getId(), riskItem.getAuditType().getId())){
+                     loger.info("same type");
+                     RiskScore riskScore = new RiskScore();
+                     riskScore.setRiskItem(riskItem);
+                     riskScore.setLikelihood(2);
+                     riskScore.setImpact(2);
+                     riskScore.setAnnualPlan(annualPlan);
+                     annualPlan.getRiskScores().add(riskScore);
+                     riskScoreRepository.save(riskScore);
+                List<RiskScoreDTO> riskScores = annualPlan.getRiskScores()
+                        .stream()
+                        .map(RiskScoreMapper.INSTANCE::toDTO)
+                        .collect(Collectors.toList());
+                if (!riskScores.isEmpty()) {
+                    int riskScoreVal = saveRiskScore(riskScores, annualPlan);
+                    annualPlan.setRiskScore(riskScoreVal);
+                    annualPlan.setRiskLevel(getRiskLevel(annualPlan.getAuditObject().getAuditType().getId(),riskScoreVal));
+                    annualPlanRepository.save(annualPlan);
+                }
 
+
+                 }
+            }
+        }
+    }
+
+    @Override
+    public void updateLevel(AuditType auditType){
+        List<AnnualPlan> annualPlans = annualPlanRepository.findAll();
+        if(!annualPlans.isEmpty()){
+            loger.info("loaded annual plans");
+            for (AnnualPlan annualPlan:annualPlans) {
+                if (Objects.equals(annualPlan.getAuditObject().getAuditType().getId(), auditType.getId())){
+                    loger.info("same type");
+                    annualPlan.setRiskLevel(getRiskLevel(annualPlan.getAuditObject().getAuditType().getId(),annualPlan.getRiskScore()));
+                    annualPlanRepository.save(annualPlan);
+
+
+                }
+            }
+        }
     }
 
     private List<RiskScoreDTO> getRiskScoresOfAuditType(AuditType auditType) {
@@ -354,6 +404,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     }
 
     public int  saveRiskScore(List<RiskScoreDTO> riskScoreDTOS, AnnualPlan annualPlan) {
+        loger.info("using these dtos :{}",riskScoreDTOS);
         int totalScore = 0;
         if (!riskScoreDTOS.isEmpty()) {
 

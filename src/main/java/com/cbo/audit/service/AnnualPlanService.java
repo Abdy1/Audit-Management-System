@@ -1,8 +1,12 @@
 package com.cbo.audit.service;
 
 import com.cbo.audit.dto.AnnualPlanDTO;
+import com.cbo.audit.dto.AuditTypeDTO;
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.dto.RiskItemDTO;
 import com.cbo.audit.persistence.model.AnnualPlan;
+import com.cbo.audit.persistence.model.AuditType;
+import com.cbo.audit.persistence.model.RiskItem;
 
 import java.util.List;
 
@@ -31,7 +35,9 @@ public interface AnnualPlanService {
     ResultWrapper<List<AnnualPlanDTO>> getPlannedAnnualPlansByYear(String date);
 
     ResultWrapper<List<AnnualPlanDTO>> autoGenerateAnnualPlans(String year);
-    public void recalculateRisks();
+    public void recalculateRisks(RiskItem riskItem);
+    void updateLevel(AuditType auditType);
+
 
     ResultWrapper<AnnualPlanDTO> approveAnnualPlan(Long id);
 

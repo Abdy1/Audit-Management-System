@@ -5,14 +5,17 @@ import com.cbo.audit.dto.RiskItemDTO;
 import com.cbo.audit.mapper.RiskItemMapper;
 import com.cbo.audit.persistence.model.RiskItem;
 import com.cbo.audit.persistence.repository.RiskItemRepository;
+import com.cbo.audit.service.AnnualPlanService;
 import com.cbo.audit.service.RiskItemService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 @Service("riskItemService")
 @Transactional
@@ -21,7 +24,12 @@ public class RiskItemServiceImpl implements RiskItemService {
     @Autowired
     private RiskItemRepository riskItemRepository;
 
+    @Autowired
+    private AnnualPlanService annualPlanService;
+
+
     private static final String noRiskItem = "Risk Item with the provided id does not exist.";
+    private static final Logger loger = LoggerFactory.getLogger(RiskItemServiceImpl.class);
 
 
     @Override
@@ -33,9 +41,11 @@ public class RiskItemServiceImpl implements RiskItemService {
 
         RiskItem savedPlan = riskItemRepository.save(riskItem);
 
+        annualPlanService.recalculateRisks(riskItem);
         resultWrapper.setStatus(true);
         resultWrapper.setResult(RiskItemMapper.INSTANCE.toDTO(savedPlan));
         resultWrapper.setMessage("Risk Item created successfully.");
+        loger.info("created new risk item : {}",riskItem);
         return resultWrapper;
     }
 

@@ -1,5 +1,6 @@
 package com.cbo.audit.service;
 
+import com.cbo.audit.dto.AuditTypeDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.dto.RiskLevelDTO;
 import com.cbo.audit.persistence.model.RiskLevel;
@@ -13,4 +14,5 @@ public interface RiskLevelService {
     ResultWrapper<RiskLevelDTO> updateRiskLevel(RiskLevelDTO riskLevelDTO);
 
     ResultWrapper<List<RiskLevelDTO>> getRiskLevel();
+
 }

@@ -270,6 +270,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         annualPlanRepository.save(annualPlan);
         EngagementInfo saved = engagementInfoRepository.save(EngagementMapper.INSTANCE.toEntity(engagementDTO));
         saved.setRefNum("EL-" + saved.getId());
+        saved.setDate(String.valueOf(LocalDateTime.now()));
         engagementInfoRepository.save(saved);
 
         resultWrapper.setStatus(true);

@@ -23,6 +23,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -270,7 +271,10 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         annualPlanRepository.save(annualPlan);
         EngagementInfo saved = engagementInfoRepository.save(EngagementMapper.INSTANCE.toEntity(engagementDTO));
         saved.setRefNum("EL-" + saved.getId());
-        saved.setDate(String.valueOf(LocalDateTime.now()));
+        LocalDate now = LocalDate.from(LocalDateTime.now());
+        saved.setDate(String.valueOf(now));
+
+
         engagementInfoRepository.save(saved);
 
         resultWrapper.setStatus(true);

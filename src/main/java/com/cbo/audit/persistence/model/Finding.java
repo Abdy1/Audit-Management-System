@@ -32,13 +32,12 @@ public class Finding extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String recommendations;
 
-    private String auditees; //Unit being Audited?
+
     @Column(columnDefinition = "TEXT")
     private String auditeesResponse; //after finding approved and set visible
     @Column(columnDefinition = "TEXT")
     private String justifications;
     private Boolean isVisibleToAuditees;
-    //Auditees references the auditees users what does it mean?
     @ManyToOne
     private AuditStaff registeredBy;
     @ManyToOne

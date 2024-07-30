@@ -25,7 +25,7 @@ public class FindingDTO extends BaseDTO {
 
     private String recommendations;
 
-    private String auditees;
+//    private String auditees;
 
 
     private String auditeesResponse;

@@ -144,5 +144,9 @@ public final class URIs {
     public static final String RISK_LEVEL_GET = RISK_LEVEL + "get";
     public static final String RISK_LEVEL_UPDATED = RISK_LEVEL + UPDATE;
 
-
+    public static final String CUT_OFF = APPLICATION_CONTEXT + "/cutOff/";
+    public static final String CUT_OFF_REGISTER = CUT_OFF + REGISTER;
+    public static final String CUT_OFF_UPDATE = CUT_OFF + UPDATE;
+    public static final String CUT_OFF_GET_ALL = CUT_OFF + "get";
+    public static final String CUT_OFF_GET_ID = CUT_OFF + "get/{id}";
 }

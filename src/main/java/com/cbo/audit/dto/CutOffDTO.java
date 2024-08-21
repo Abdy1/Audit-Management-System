@@ -12,7 +12,6 @@ public class CutOffDTO {
     private String createdBy;
     private String modifiedBy;
 
-    // Optionally, add timestamps if needed
     private String createdTimestamp;
     private String modifiedTimestamp;
 }

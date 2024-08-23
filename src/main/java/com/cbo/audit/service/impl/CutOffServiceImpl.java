@@ -24,27 +24,59 @@ public class CutOffServiceImpl implements CutOffService {
 
     private String noRecord = "No record found";
 
+//    @Override
+//    public ResultWrapper<CutOffDTO> registerCutOff(CutOffDTO cutOffDTO) {
+//        ResultWrapper<CutOffDTO> resultWrapper = new ResultWrapper<>();
+//
+//        if (cutOffDTO.getId() != null) {
+//            Optional<CutOff> existAlready = cutOffRepository.findById(cutOffDTO.getId());
+//            if (existAlready.isPresent()) {
+//                resultWrapper.setStatus(false);
+//                resultWrapper.setMessage("CutOff record already exists.");
+//                return resultWrapper;
+//            }
+//        }
+//
+//        CutOff cutOff = CutOffMapper.INSTANCE.toEntity(cutOffDTO);
+//        cutOff.setCreatedTimestamp(LocalDateTime.now());
+//
+//        CutOff savedCutOff = cutOffRepository.save(cutOff);
+//
+//        resultWrapper.setStatus(true);
+//        resultWrapper.setResult(CutOffMapper.INSTANCE.toDTO(savedCutOff));
+//        resultWrapper.setMessage("CutOff successfully registered.");
+//        return resultWrapper;
+//    }
+
     @Override
     public ResultWrapper<CutOffDTO> registerCutOff(CutOffDTO cutOffDTO) {
         ResultWrapper<CutOffDTO> resultWrapper = new ResultWrapper<>();
 
-        Optional<CutOff> existAlready = cutOffRepository.findById(cutOffDTO.getId());
-        if (existAlready.isPresent()) {
-            resultWrapper.setStatus(false);
-            resultWrapper.setMessage("CutOff record already exists.");
-            return resultWrapper;
-        }
+        // Attempt to retrieve the existing CutOff record
+        Optional<CutOff> existingCutOff = cutOffRepository.findAll().stream().findFirst();
 
-        CutOff cutOff = CutOffMapper.INSTANCE.toEntity(cutOffDTO);
-        cutOff.setCreatedTimestamp(LocalDateTime.now());
+        CutOff cutOff;
+        if (existingCutOff.isPresent()) {
+            // Update the existing record
+            cutOff = existingCutOff.get();
+            CutOffMapper.INSTANCE.updateEntityFromDTO(cutOffDTO, cutOff);
+            cutOff.setModifiedTimestamp(LocalDateTime.now());
+        } else {
+            // Create a new record
+            cutOff = CutOffMapper.INSTANCE.toEntity(cutOffDTO);
+            cutOff.setCreatedTimestamp(LocalDateTime.now());
+        }
 
         CutOff savedCutOff = cutOffRepository.save(cutOff);
 
         resultWrapper.setStatus(true);
         resultWrapper.setResult(CutOffMapper.INSTANCE.toDTO(savedCutOff));
-        resultWrapper.setMessage("CutOff successfully registered.");
+        resultWrapper.setMessage(existingCutOff.isPresent() ? "CutOff successfully updated." : "CutOff successfully registered.");
+
         return resultWrapper;
     }
+
+
 
     @Override
     public ResultWrapper<CutOffDTO> getCutOffById(Long id) {

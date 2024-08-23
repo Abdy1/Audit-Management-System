@@ -3,8 +3,11 @@ package com.cbo.audit.controller;
 import com.cbo.audit.constants.URIs;
 import com.cbo.audit.dto.CutOffDTO;
 import com.cbo.audit.dto.ResultWrapper;
+import com.cbo.audit.mapper.CutOffMapper;
+import com.cbo.audit.persistence.model.CutOff;
 import com.cbo.audit.service.CutOffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +30,7 @@ public class CutOffController {
             return ResponseEntity.badRequest().body(result);
         }
     }
+
 
     @GetMapping(value = URIs.CUT_OFF_GET_ID, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<CutOffDTO>> getCutOffById(@PathVariable Long id) {

@@ -8,6 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/controller/CutOffController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/controller/CutOffController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/dto/CutOffDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/dto/CutOffDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/mapper/CutOffMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/mapper/CutOffMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/impl/CutOffServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/impl/CutOffServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,19 +46,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.CboAmsApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.audit [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.audit [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/AMS_BACKEND/ams&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CboAmsApplication.executor": "Run",
+    "Maven.audit [install].executor": "Run",
+    "Maven.audit [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "development",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/AMS_BACKEND/ams"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\abdellahk\Documents\cbo-projects\ams\src\main\java\com\cbo\audit\configuration" />

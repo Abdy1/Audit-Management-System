@@ -5,14 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CutOffDTO {
+public class CutOffDTO extends BaseDTO{
 
-    private Long id;
     private int cutOff;
-    private String createdBy;
-    private String modifiedBy;
 
-    private String createdTimestamp;
-    private String modifiedTimestamp;
 }
 

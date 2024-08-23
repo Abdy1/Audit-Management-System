@@ -20,6 +20,7 @@ public interface CutOffMapper {
     List<CutOffDTO> cutOffsToCutOffDTOs(List<CutOff> cutOffs);
 
     @Mapping(target = "id", ignore = true) // If ID is not updated
+    @Mapping(target = "createdTimestamp", ignore = true)
     void updateEntityFromDTO(CutOffDTO cutOffDTO, @MappingTarget CutOff cutOff);
 }
 

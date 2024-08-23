@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="85e49414-7673-45de-9849-af20fd3a1fe3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/mapper/CutOffMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/mapper/CutOffMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/impl/CutOffServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cbo/audit/service/impl/CutOffServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

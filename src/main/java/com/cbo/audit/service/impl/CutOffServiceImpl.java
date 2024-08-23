@@ -30,7 +30,6 @@ public class CutOffServiceImpl implements CutOffService {
 
         // Attempt to retrieve the existing CutOff record
         Optional<CutOff> existingCutOff = cutOffRepository.findAll().stream().findFirst();
-        System.out.println("Existing CutOff = " + existingCutOff.isPresent());
         CutOff cutOff;
         if (existingCutOff.isPresent()) {
             // Update the existing record

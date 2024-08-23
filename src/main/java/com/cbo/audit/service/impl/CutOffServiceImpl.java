@@ -24,30 +24,6 @@ public class CutOffServiceImpl implements CutOffService {
 
     private String noRecord = "No record found";
 
-//    @Override
-//    public ResultWrapper<CutOffDTO> registerCutOff(CutOffDTO cutOffDTO) {
-//        ResultWrapper<CutOffDTO> resultWrapper = new ResultWrapper<>();
-//
-//        if (cutOffDTO.getId() != null) {
-//            Optional<CutOff> existAlready = cutOffRepository.findById(cutOffDTO.getId());
-//            if (existAlready.isPresent()) {
-//                resultWrapper.setStatus(false);
-//                resultWrapper.setMessage("CutOff record already exists.");
-//                return resultWrapper;
-//            }
-//        }
-//
-//        CutOff cutOff = CutOffMapper.INSTANCE.toEntity(cutOffDTO);
-//        cutOff.setCreatedTimestamp(LocalDateTime.now());
-//
-//        CutOff savedCutOff = cutOffRepository.save(cutOff);
-//
-//        resultWrapper.setStatus(true);
-//        resultWrapper.setResult(CutOffMapper.INSTANCE.toDTO(savedCutOff));
-//        resultWrapper.setMessage("CutOff successfully registered.");
-//        return resultWrapper;
-//    }
-
     @Override
     public ResultWrapper<CutOffDTO> registerCutOff(CutOffDTO cutOffDTO) {
         ResultWrapper<CutOffDTO> resultWrapper = new ResultWrapper<>();

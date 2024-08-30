@@ -23,4 +23,5 @@ public class BudgetYear extends BaseEntity {
 
     @Column(name = "IS_CURRENT")
     private boolean isCurrent;
+
 }

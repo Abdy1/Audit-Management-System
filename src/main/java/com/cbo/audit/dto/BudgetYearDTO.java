@@ -16,4 +16,5 @@ public class BudgetYearDTO extends BaseDTO {
     private LocalDate endDate;
 
     private boolean isCurrent;
+
 }

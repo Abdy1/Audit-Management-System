@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+
     <list default="true" id="85e49414-7673-45de-9849-af20fd3a1fe3" name="Changes" comment="" />
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,6 +27,13 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectColorInfo">{
     &quot;associatedIndex&quot;: 8
     }</component>
@@ -43,7 +52,11 @@
     "git-widget-placeholder": "development",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+<<<<<<< HEAD
     "last_opened_file_path": "F:/SpringBoot/cao_backend"
+=======
+    "last_opened_file_path": "F:/AMS_BACKEND/ams"
+>>>>>>> 9e57ec57449fa5178f9f22bd2dd3db5fbd36a976
   }
 }]]></component>
   <component name="RecentsManager">
@@ -59,21 +72,6 @@
       <recent name="com.cbo.audit.utils" />
       <recent name="com.cbo.audit.configuration" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="ams" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="ams" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

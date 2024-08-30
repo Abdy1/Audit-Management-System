@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85e49414-7673-45de-9849-af20fd3a1fe3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/findings/evidences/1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/findings/evidences/1.pdf" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-    </list>
+    <list default="true" id="85e49414-7673-45de-9849-af20fd3a1fe3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +33,6 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.CboAmsApplication.executor": "Run",
@@ -51,8 +44,6 @@
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "F:/SpringBoot/cao_backend"
-
-
   }
 }]]></component>
   <component name="RecentsManager">

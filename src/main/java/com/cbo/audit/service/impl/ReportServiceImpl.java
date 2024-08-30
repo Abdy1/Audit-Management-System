@@ -12,6 +12,7 @@ import com.cbo.audit.persistence.repository.*;
 import com.cbo.audit.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.cbo.audit.enums.AnnualPlanStatus;
 
 import java.util.List;
 
@@ -49,7 +50,6 @@ public class ReportServiceImpl implements ReportService {
             return resultWrapper;
 
         }
-
         AuditProgram auditProgram = auditProgramRepository.getAuditProgramByEngagementId(engagementInfo.getId());
         if (auditProgram == null) {
             resultWrapper.setResult(null);
@@ -98,6 +98,7 @@ public class ReportServiceImpl implements ReportService {
         if (savedReport != null) {
             reportRepository.delete(savedReport);
             Report savedResult = reportRepository.save(report);
+            savedResult.getAuditSchedule().getAnnualPlan().setStatus(AnnualPlanStatus.Closed.name());
             resultWrapper.setMessage("success");
             resultWrapper.setStatus(true);
             resultWrapper.setResult(ReportMapper.INSTANCE.toDTO(savedResult));

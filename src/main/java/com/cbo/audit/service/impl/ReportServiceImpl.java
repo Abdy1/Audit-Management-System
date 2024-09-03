@@ -1,13 +1,11 @@
 package com.cbo.audit.service.impl;
 
+import com.cbo.audit.dto.AnnualPlanDTO;
 import com.cbo.audit.dto.AuditScheduleDTO;
 import com.cbo.audit.dto.ReportDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.mapper.*;
-import com.cbo.audit.persistence.model.AuditProgram;
-import com.cbo.audit.persistence.model.EngagementInfo;
-import com.cbo.audit.persistence.model.Finding;
-import com.cbo.audit.persistence.model.Report;
+import com.cbo.audit.persistence.model.*;
 import com.cbo.audit.persistence.repository.*;
 import com.cbo.audit.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +27,10 @@ public class ReportServiceImpl implements ReportService {
     private FindingRepository auditProgramFindingRepository;
     @Autowired
     private AuditProgramObjectiveRepository auditProgramObjectiveRepository;
+
+    @Autowired
+    private AnnualPlanRepository annualPlanRepository;
+
 
     @Override
     public ResultWrapper<ReportDTO> generateDefaultReport(AuditScheduleDTO auditScheduleDTO) {
@@ -98,7 +100,11 @@ public class ReportServiceImpl implements ReportService {
         if (savedReport != null) {
             reportRepository.delete(savedReport);
             Report savedResult = reportRepository.save(report);
-            savedResult.getAuditSchedule().getAnnualPlan().setStatus(AnnualPlanStatus.Closed.name());
+
+            AnnualPlan annualPlan = savedReport.getAuditSchedule().getAnnualPlan();
+            annualPlan.setStatus(AnnualPlanStatus.Closed.name());
+            annualPlanRepository.save(annualPlan);
+            System.out.println("updating"+annualPlan.getAuditObject().getName());
             resultWrapper.setMessage("success");
             resultWrapper.setStatus(true);
             resultWrapper.setResult(ReportMapper.INSTANCE.toDTO(savedResult));
@@ -107,6 +113,11 @@ public class ReportServiceImpl implements ReportService {
         } else {
             Report savedResult = reportRepository.save(report);
             resultWrapper.setMessage("success");
+            savedResult.getAuditSchedule().getAnnualPlan().setStatus(AnnualPlanStatus.Closed.name());
+            AnnualPlan annualPlan = savedResult.getAuditSchedule().getAnnualPlan();
+            annualPlan.setStatus(AnnualPlanStatus.Closed.name());
+            annualPlanRepository.save(annualPlan);
+            System.out.println("tryna close the annual plan" + savedResult.getAuditSchedule().getAnnualPlan().getAuditObject().getName());
             resultWrapper.setStatus(true);
             resultWrapper.setResult(ReportMapper.INSTANCE.toDTO(savedResult));
             return resultWrapper;

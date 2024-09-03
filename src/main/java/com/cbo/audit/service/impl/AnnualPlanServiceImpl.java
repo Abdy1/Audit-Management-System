@@ -18,6 +18,8 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,6 +30,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.http.ResponseEntity;
 
 
 @Service("annualPlanService")
@@ -55,7 +58,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     private RiskItemRepository riskItemRepository;
 
     @Override
-    public ResultWrapper<AnnualPlanDTO> registerAnnualPlan(AnnualPlanDTO annualPlanDTO) {
+    public ResponseEntity<ResultWrapper<AnnualPlanDTO>> registerAnnualPlan(AnnualPlanDTO annualPlanDTO) {
         ResultWrapper<AnnualPlanDTO> resultWrapper = new ResultWrapper<>();
         Optional<AuditObject> auditObjectOpt = auditObjectRepository.findById(annualPlanDTO.getAuditObject().getId());
 
@@ -63,14 +66,14 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         if (!auditObjectOpt.isPresent()) {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage("Audit Object with the provided information is not available.");
-            return resultWrapper;
+            return new ResponseEntity<>(resultWrapper, HttpStatus.BAD_REQUEST);
         }
 
         List<BudgetYear> budgetYears = budgetYearRepository.findAll(Sort.by(Sort.Direction.DESC, "year"));
 
         if(budgetYears.isEmpty()){
             resultWrapper.setMessage("No Budget year found!");
-            return resultWrapper;
+            return new ResponseEntity<>(resultWrapper,HttpStatus.BAD_REQUEST);
         }
 
             Optional<BudgetYear> budgetYear = budgetYears.stream().findFirst();
@@ -94,7 +97,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         resultWrapper.setStatus(true);
         resultWrapper.setResult(AnnualPlanMapper.INSTANCE.toDTO(savedPlan));
         resultWrapper.setMessage("Annual Plan created successfully.");
-        return resultWrapper;
+        return new ResponseEntity<>(resultWrapper,HttpStatus.CREATED);
     }
 
     @Override

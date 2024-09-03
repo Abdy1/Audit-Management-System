@@ -25,8 +25,7 @@ public class FindingDTO extends BaseDTO {
 
     private String recommendations;
 
-//    private String auditees;
-
+    private String status;
 
     private String auditeesResponse;
 
@@ -42,10 +41,10 @@ public class FindingDTO extends BaseDTO {
 
     private Boolean rectificationStatus;
     private String rectificationProgress;
-    private String rectificationEvidenceAttachmentPath; //is it file path
+    private String rectificationEvidenceAttachmentPath;
     private LocalDateTime rectificationTime;
     private Boolean isRectificationApproved;
-    private String findingEvidenceFileUploadedToSupplementTheFindingsPath; // file path
+    private String findingEvidenceFileUploadedToSupplementTheFindingsPath;
 
 
 }

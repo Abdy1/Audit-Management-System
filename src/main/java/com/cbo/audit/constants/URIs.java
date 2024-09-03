@@ -3,6 +3,7 @@ package com.cbo.audit.constants;
 public final class URIs {
     //Audit Program Finding and comment
     public static final String AUDIT_PROGRAM_FINDING = "finding/";
+
     public static final String AUDIT_PROGRAM_FINDING_COMMENT = "comment/";
     public static final String REPORT = "/report/";
     private static final String APPLICATION_CONTEXT = "ams";
@@ -74,6 +75,7 @@ public final class URIs {
     public static final String AUDIT_STAFF_REMOVE = AUDIT_STAFF + "remove";
     public static final String GENERATE_REPORT = APPLICATION_CONTEXT + REPORT + "generateByAuditSchedule";
     public static final String CREATE_DOCUMENT = APPLICATION_CONTEXT + REPORT + "generate";
+    public static final String GET_REPORT_TEMPLATE = APPLICATION_CONTEXT + REPORT + "getTemplates";
     private static final String REGISTER = "register";
     public static final String AUDIT_UNIVERSE_REGISTER = AUDIT_UNIVERSE + REGISTER;
     public static final String ANNUAL_PLAN_REGISTER = ANNUAL_PLAN + REGISTER;

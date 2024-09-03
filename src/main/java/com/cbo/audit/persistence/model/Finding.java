@@ -42,18 +42,21 @@ public class Finding extends BaseEntity {
     private AuditStaff registeredBy;
     @ManyToOne
     private AuditStaff approvedBY;
-    // private Registered Time baseentity
+
     private LocalDateTime responseTime;
-//19.Responsible units[list] further clarification
+
 
     private Boolean rectificationStatus;
-    private String rectificationProgress; //how to set rectificationprogrss meaning is it string or number
-    private String rectificationEvidenceAttachmentPath; //is it file path
+    private String rectificationProgress;
+    private String rectificationEvidenceAttachmentPath;
     private LocalDateTime rectificationTime;
-    private Boolean isRectificationApproved; //who can approve ?
-//private Comments[list] separate class or table more than one comment for per findings?
+    private Boolean isRectificationApproved;
+
 
     private String findingEvidenceFileUploadedToSupplementTheFindingsPath; // file path
+
+    @Column(name = "STATUS")
+    private String status;
 
 
 }

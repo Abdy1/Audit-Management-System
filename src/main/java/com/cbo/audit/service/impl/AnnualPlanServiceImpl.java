@@ -103,6 +103,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
 
         List<BudgetYear> budgetYears = budgetYearRepository.findAll(Sort.by(Sort.Direction.DESC, "year"));
 
+
         if(budgetYears.isEmpty()){
             resultWrapper.setMessage("No Budget year found!");
             resultWrapper.setStatus(false);

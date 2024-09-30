@@ -273,7 +273,7 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         saved.setRefNum("EL-" + saved.getId());
         LocalDate now = LocalDate.from(LocalDateTime.now());
         saved.setDate(String.valueOf(now));
-
+        saved.setStatus(AuditScheduleStatus.Engagement.name());
 
         engagementInfoRepository.save(saved);
 

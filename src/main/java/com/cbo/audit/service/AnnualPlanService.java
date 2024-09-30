@@ -7,12 +7,13 @@ import com.cbo.audit.dto.RiskItemDTO;
 import com.cbo.audit.persistence.model.AnnualPlan;
 import com.cbo.audit.persistence.model.AuditType;
 import com.cbo.audit.persistence.model.RiskItem;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface AnnualPlanService {
 
-    ResultWrapper<AnnualPlanDTO> registerAnnualPlan(AnnualPlanDTO auditUniverseDTO);
+    ResponseEntity<ResultWrapper<AnnualPlanDTO>> registerAnnualPlan(AnnualPlanDTO auditUniverseDTO);
 
     ResultWrapper<List<AnnualPlanDTO>> getAllAnnualPlan();
 

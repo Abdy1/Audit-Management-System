@@ -29,6 +29,7 @@ public class AnnualPlan extends BaseEntity {
     @Column(name = "RECTIFICATION_STATUS")
     private double rectificationStatus;
 
+
     @ManyToOne
     @JoinColumn(name = "AUDIT_OBJECT_ID")
     private AuditObject auditObject;

@@ -3,13 +3,8 @@ package com.cbo.audit.persistence.model;
 import lombok.Data;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-@Data
+import javax.persistence.*;
+import java.util.List;@Data
 @Entity
 @Table(name = "ams_engagement_info")
 public class EngagementInfo extends BaseEntity {
@@ -28,4 +23,9 @@ public class EngagementInfo extends BaseEntity {
 
     @Column(name = "DATE")
     private String date;
+
+    // This will persist a foreign key reference in the "ams_auditee_list" table
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "AUDIT_ENGAGEMENT_ID")  // Foreign key in Auditees
+    private List<Auditees> auditees;
 }

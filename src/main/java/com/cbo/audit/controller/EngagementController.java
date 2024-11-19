@@ -2,6 +2,7 @@ package com.cbo.audit.controller;
 
 import com.cbo.audit.constants.URIs;
 import com.cbo.audit.dto.AuditScheduleDTO;
+import com.cbo.audit.dto.AuditeesDTO;
 import com.cbo.audit.dto.EngagementDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.service.EngagementService;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -56,6 +58,16 @@ public class EngagementController {
     public ResponseEntity<ResultWrapper<List<EngagementDTO>>> getAllAuditEngagementByStatus(@PathVariable(name = "status") String status) {
 
         ResultWrapper<List<EngagementDTO>> resultWrapper = engagementService.getAllAuditEngagementByStatus(status);
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
+
+    @PostMapping(value = URIs.AUDIT_ENGAGEMENT_UPDATE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<EngagementDTO>> updateAuditEngagement(@RequestBody List<AuditeesDTO> auditees, @PathVariable Long engagementId) {
+
+        ResultWrapper<EngagementDTO> resultWrapper = engagementService.addAuditee(auditees, engagementId);
+        if (resultWrapper == null || resultWrapper.getResult() == null ){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 }

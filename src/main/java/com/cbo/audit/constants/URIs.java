@@ -32,6 +32,7 @@ public final class URIs {
     public static final String ADD_AUDIT_SCHEDULE_TO_ENGAGEMENT = AUDIT_SCHEDULE + "addToEngagement";
     public static final String GET_AUDIT_ENGAGEMENT_BY_SCHEDULE = AUDIT_SCHEDULE + "getEngagementBySchedule";
     public static final String AUDIT_ENGAGEMENT_LIST_ALL = AUDIT_SCHEDULE + "listAllEngagement";
+    public static final String AUDIT_ENGAGEMENT_UPDATE = AUDIT_SCHEDULE + "update/{engagementId}";
     public static final String GET_AUDIT_ENGAGEMENT_BY_YEAR = AUDIT_SCHEDULE + "getEngagementByYear";
     public static final String GET_AUDIT_ENGAGEMENT_BY_STATUS = AUDIT_SCHEDULE + "getByStatus/{status}";
     public static final String GET_AUDIT_ENGAGEMENT_BY_QUARTER = AUDIT_SCHEDULE + "getByQuarter/{quarter}";
@@ -121,6 +122,8 @@ public final class URIs {
     public static final String CHECKLIST_ITEM_BY_ID = CHECKLIST_ITEM + FIND_BY_ID;
     public static final String AUDIT_TYPE_BY_ID = AUDIT_TYPE + FIND_BY_ID;
     public static final String RISK_ITEM_BY_ID = RISK_ITEM + FIND_BY_ID;
+
+
     private static final String UPDATE = "update";
     public static final String AUDIT_UNIVERSE_UPDATE = AUDIT_UNIVERSE + UPDATE;
     public static final String ANNUAL_PLAN_UPDATE = ANNUAL_PLAN + UPDATE;

@@ -1,6 +1,7 @@
 package com.cbo.audit.service;
 
 import com.cbo.audit.dto.AuditScheduleDTO;
+import com.cbo.audit.dto.AuditeesDTO;
 import com.cbo.audit.dto.EngagementDTO;
 import com.cbo.audit.dto.ResultWrapper;
 
@@ -17,5 +18,7 @@ public interface EngagementService {
     ResultWrapper<List<EngagementDTO>> getAllAuditEngagementByYear(String year);
 
     ResultWrapper<List<EngagementDTO>> getAllAuditEngagementByStatus(String status);
+
+    ResultWrapper<EngagementDTO> addAuditee(List<AuditeesDTO> auditees,Long EngagementId);
 
 }

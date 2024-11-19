@@ -1,26 +1,29 @@
 package com.cbo.audit.service.impl;
 
-import com.cbo.audit.dto.AuditScheduleDTO;
-import com.cbo.audit.dto.EngagementDTO;
-import com.cbo.audit.dto.ResultWrapper;
-import com.cbo.audit.dto.TeamMemberDTO;
+import com.cbo.audit.dto.*;
+import com.cbo.audit.mapper.AuditeesMapper;
 import com.cbo.audit.mapper.EngagementMapper;
 import com.cbo.audit.mapper.TeamMemberMapper;
+import com.cbo.audit.persistence.model.Auditees;
 import com.cbo.audit.persistence.model.EngagementInfo;
 import com.cbo.audit.persistence.model.TeamMember;
 import com.cbo.audit.persistence.repository.BudgetYearRepository;
 import com.cbo.audit.persistence.repository.EngagementInfoRepository;
 import com.cbo.audit.persistence.repository.TeamMemberRepository;
 import com.cbo.audit.service.EngagementService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service("engagementService")
 public class EngagementServiceImpl implements EngagementService {
+    Logger logger = LoggerFactory.getLogger(EngagementServiceImpl.class);
 
     @Autowired
     private EngagementInfoRepository engagementInfoRepository;
@@ -121,6 +124,36 @@ public class EngagementServiceImpl implements EngagementService {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage(notFound);
         }
+        return resultWrapper;
+    }
+
+    @Override
+    public ResultWrapper<EngagementDTO> addAuditee(List<AuditeesDTO> auditees, Long engagementId) {
+        ResultWrapper<EngagementDTO> resultWrapper = new ResultWrapper<>();
+        logger.info("initiated new :{}", resultWrapper);
+
+        // Fetch the EngagementInfo object
+        EngagementInfo engagementToBeModified = engagementInfoRepository.findById(engagementId)
+                .orElseThrow(() -> new EntityNotFoundException("Engagement not found"));
+        logger.info("identify the updatee:{}", engagementToBeModified);
+
+        // Map the AuditeesDTO list to Auditees entities
+        List<Auditees> auditeesList = AuditeesMapper.INSTANCE.toEntities(auditees);
+        logger.info("prepare updateor : {}", auditeesList);
+
+        // Set the Auditees to the EngagementInfo
+        engagementToBeModified.setAuditees(auditeesList);
+
+        // Save the EngagementInfo (this will cascade to Auditees)
+        engagementInfoRepository.save(engagementToBeModified);
+        logger.info("after saved :{}", engagementToBeModified);
+
+        // Map the EngagementInfo to DTO for the response
+        EngagementDTO engagementDTO = EngagementMapper.INSTANCE.toDTO(engagementToBeModified);
+        logger.info("make it DTO before returning :{}", engagementDTO);
+        resultWrapper.setResult(engagementDTO);
+        resultWrapper.setStatus(true);
+
         return resultWrapper;
     }
 

@@ -21,4 +21,5 @@ public class AuditType extends BaseEntity {
     private String description;
 
 
+
 }

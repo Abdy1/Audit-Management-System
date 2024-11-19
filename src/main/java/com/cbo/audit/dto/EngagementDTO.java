@@ -3,6 +3,8 @@ package com.cbo.audit.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EngagementDTO extends BaseDTO {
@@ -14,4 +16,5 @@ public class EngagementDTO extends BaseDTO {
     private String refNum;
 
     private String date;
+    private List<AuditeesDTO> auditeesDTOList;
 }

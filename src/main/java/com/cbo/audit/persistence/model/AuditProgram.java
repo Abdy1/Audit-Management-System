@@ -25,6 +25,8 @@ public class AuditProgram extends BaseEntity {
     private String methodology;
     @Column(columnDefinition = "text")
     private String previousDescription;
+    @Column(columnDefinition = "text")
+    private String comment;
     @Column
     @OneToMany
     private List<AuditProgramObjective> objectives;

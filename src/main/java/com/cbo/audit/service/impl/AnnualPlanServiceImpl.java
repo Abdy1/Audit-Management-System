@@ -1,11 +1,9 @@
 package com.cbo.audit.service.impl;
 
 import com.cbo.audit.dto.AnnualPlanDTO;
-import com.cbo.audit.dto.AuditTypeDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.dto.RiskScoreDTO;
 import com.cbo.audit.enums.AnnualPlanStatus;
-import com.cbo.audit.enums.AuditObjectStatus;
 import com.cbo.audit.mapper.AnnualPlanMapper;
 import com.cbo.audit.mapper.RiskItemMapper;
 import com.cbo.audit.mapper.RiskScoreMapper;
@@ -30,7 +28,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.springframework.http.ResponseEntity;
 
 
 @Service("annualPlanService")
@@ -86,14 +83,16 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         annualPlan.setStatus(AnnualPlanStatus.Pending.getType());
         annualPlan.setAuditObject(auditObjectOpt.get());
         annualPlan.setYear(year);
+        annualPlan.setRiskScore(0);
+        annualPlan.setRiskLevel(null);
         AnnualPlan savedPlan = annualPlanRepository.save(annualPlan);
 
 
 
-        int score = saveRiskScore(getRiskScoresOfAuditType(savedPlan.getAuditObject().getAuditType()), savedPlan);
-        savedPlan.setRiskScore(score);
-        savedPlan.setRiskLevel(getRiskLevel(savedPlan.getAuditObject().getAuditType().getId(),score));
-        annualPlanRepository.save(savedPlan);
+//        int score = saveRiskScore(getRiskScoresOfAuditType(savedPlan.getAuditObject().getAuditType()), savedPlan);
+//        savedPlan.setRiskScore(score);
+//        savedPlan.setRiskLevel(getRiskLevel(savedPlan.getAuditObject().getAuditType().getId(),score));
+//        annualPlanRepository.save(savedPlan);
         resultWrapper.setStatus(true);
         resultWrapper.setResult(AnnualPlanMapper.INSTANCE.toDTO(savedPlan));
         resultWrapper.setMessage("Annual Plan created successfully.");
@@ -101,32 +100,25 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     }
 
     @Override
-    public ResultWrapper<List<AnnualPlanDTO>> getAllAnnualPlan() {
-        ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
+    public ResultWrapper<List<AnnualPlan>> getAllAnnualPlan() {
+        ResultWrapper<List<AnnualPlan>> resultWrapper = new ResultWrapper<>();
 
         List<BudgetYear> budgetYears = budgetYearRepository.findAll(Sort.by(Sort.Direction.DESC, "year"));
 
-
-        if(budgetYears.isEmpty()){
+        if (budgetYears.isEmpty()) {
             resultWrapper.setMessage("No Budget year found!");
             resultWrapper.setStatus(false);
-        }else {
+        } else {
             Optional<BudgetYear> budgetYear = budgetYears.stream().findFirst();
-            String year = "";
-            year = budgetYear.get().getYear();
+            String year = budgetYear.get().getYear();
             List<AnnualPlan> annualPlans = annualPlanRepository.findAnnualPlanByYear(year);
-            List<AnnualPlanDTO> annualPlansWithScore = new ArrayList<>();
-            if (!annualPlans.isEmpty()) {
-                List<AnnualPlanDTO> annualPlanDTOS = AnnualPlanMapper.INSTANCE.annualPlansToAnnualPlanDTOs(annualPlans);
-                annualPlanDTOS.stream().forEach(annualPlanDTO -> {
 
-                    annualPlanDTO.setRiskScores(RiskScoreMapper.INSTANCE.riskScoresToRiskScoreDTOs(riskScoreRepository.findRiskScoreByAnnualPlanId(annualPlanDTO.getId())));
-                    annualPlansWithScore.add(annualPlanDTO);
-                });
-                resultWrapper.setResult(annualPlansWithScore);
+            if (!annualPlans.isEmpty()) {
+                resultWrapper.setResult(annualPlans);  // Returning entities directly
                 resultWrapper.setStatus(true);
             }
         }
+
         return resultWrapper;
     }
 
@@ -236,9 +228,8 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     }
 
     @Override
-    public ResultWrapper<AnnualPlanDTO> updateAnnualPlan(AnnualPlanDTO annualPlanDTO) {
-        ResultWrapper<AnnualPlanDTO> resultWrapper = new ResultWrapper<>();
-        loger.info(annualPlanDTO.getId() + "this annual plan");
+    public ResultWrapper<AnnualPlan> updateAnnualPlan(AnnualPlanDTO annualPlanDTO) {
+        ResultWrapper<AnnualPlan> resultWrapper = new ResultWrapper<>();
 
         AnnualPlan oldAnnualPlan = annualPlanRepository.findById(annualPlanDTO.getId()).orElse(null);
         if (oldAnnualPlan != null) {
@@ -248,20 +239,25 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
             } else {
 
                 AnnualPlan annualPlan = AnnualPlanMapper.INSTANCE.toEntity(annualPlanDTO);
+            System.out.println("Trying oto update"+annualPlan.getAuditObject().getName());
                 annualPlan.setModifiedTimestamp(LocalDateTime.now());
-                annualPlan.setCreatedTimestamp(oldAnnualPlan.getCreatedTimestamp());
-                annualPlan.setCreatedUser(oldAnnualPlan.getCreatedUser());
-                annualPlan.setAuditObject(oldAnnualPlan.getAuditObject());
+//                annualPlan.setAuditObject(oldAnnualPlan.getAuditObject());
                 AnnualPlan savedPlan = annualPlanRepository.save(annualPlan);
+            System.out.println("Just modified modified timestamp and saved");
 
                 List<RiskScoreDTO> riskScores = annualPlanDTO.getRiskScores();
-                if (!riskScores.isEmpty()) {
-                    int riskScoreVal = saveRiskScore(riskScores, savedPlan);
-                    savedPlan.setRiskScore(riskScoreVal);
-                    savedPlan.setRiskLevel(getRiskLevel(savedPlan.getAuditObject().getAuditType().getId(),riskScoreVal));
-                    annualPlanRepository.save(savedPlan);
-                }
-                resultWrapper.setResult(AnnualPlanMapper.INSTANCE.toDTO(savedPlan));
+            if (!riskScores.isEmpty()) {
+                System.out.println("got  risk scores");
+                double riskScoreVal = saveRiskScore(riskScores, savedPlan);
+                System.out.println("evaluated this score"+riskScoreVal);
+                savedPlan.setRiskScore(riskScoreVal);
+                System.out.println("give that value to annual plan");
+                savedPlan.setRiskLevel(getRiskLevel(savedPlan.getAuditObject().getAuditType().getId(), (int) riskScoreVal));
+                System.out.println("sset risk level");
+                annualPlanRepository.save(savedPlan);
+                System.out.println("saved it");
+            }
+                resultWrapper.setResult(null);
                 resultWrapper.setStatus(true);
                 resultWrapper.setMessage("Annual Plan updated successfully.");
             }
@@ -296,8 +292,7 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
     public ResultWrapper<List<AnnualPlanDTO>> autoGenerateAnnualPlans(String year) {
 
         List<AuditObject> auditObjects = auditObjectRepository.findAll();
-        boolean hasApproved = auditObjects.stream()
-                .anyMatch(auditObject -> "Approved".equals(auditObject.getStatus()));
+        boolean hasApproved = true;
 
         ResultWrapper<List<AnnualPlanDTO>> resultWrapper = new ResultWrapper<>();
         List<AnnualPlanDTO> annualPlanDTOS = new ArrayList<>();
@@ -322,19 +317,21 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
             return resultWrapper;
         }
         for (AuditObject auditObject : auditObjects) {
-            if (auditObject.getStatus().equals(AuditObjectStatus.Approved.name())) {
+
                 AnnualPlan annualPlan = new AnnualPlan();
                 annualPlan.setYear(year);
                 annualPlan.setStatus(AnnualPlanStatus.Pending.name());
                 annualPlan.setCreatedTimestamp(LocalDateTime.now());
                 annualPlan.setAuditObject(auditObject);
+                annualPlan.setRiskScore(0);
+                annualPlan.setRiskLevel(null);
                 AnnualPlan savedAnnualPlan = annualPlanRepository.save(annualPlan);
-                int score = saveRiskScore(getRiskScoresOfAuditType(auditObject.getAuditType()), savedAnnualPlan);
-                savedAnnualPlan.setRiskScore(score);
-                savedAnnualPlan.setRiskLevel(getRiskLevel(auditObject.getAuditType().getId(),score));
-                annualPlanRepository.save(savedAnnualPlan);
+//                int score = saveRiskScore(getRiskScoresOfAuditType(auditObject.getAuditType()), savedAnnualPlan);
+//                savedAnnualPlan.setRiskScore(0);
+//                savedAnnualPlan.setRiskLevel(null);
+//                annualPlanRepository.save(savedAnnualPlan);
                 annualPlanDTOS.add(AnnualPlanMapper.INSTANCE.toDTO(savedAnnualPlan));
-            }
+
         }
         resultWrapper.setStatus(true);
         resultWrapper.setMessage("Annual Plan generated successfully.");
@@ -353,8 +350,6 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
                      loger.info("same type");
                      RiskScore riskScore = new RiskScore();
                      riskScore.setRiskItem(riskItem);
-                     riskScore.setLikelihood(2);
-                     riskScore.setImpact(2);
                      riskScore.setAnnualPlan(annualPlan);
                      annualPlan.getRiskScores().add(riskScore);
                      riskScoreRepository.save(riskScore);
@@ -362,12 +357,12 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
                         .stream()
                         .map(RiskScoreMapper.INSTANCE::toDTO)
                         .collect(Collectors.toList());
-                if (!riskScores.isEmpty()) {
-                    int riskScoreVal = saveRiskScore(riskScores, annualPlan);
-                    annualPlan.setRiskScore(riskScoreVal);
-                    annualPlan.setRiskLevel(getRiskLevel(annualPlan.getAuditObject().getAuditType().getId(),riskScoreVal));
-                    annualPlanRepository.save(annualPlan);
-                }
+//                if (!riskScores.isEmpty()) {
+//                    int riskScoreVal = saveRiskScore(riskScores, annualPlan);
+//                    annualPlan.setRiskScore(riskScoreVal);
+//                    annualPlan.setRiskLevel(getRiskLevel(annualPlan.getAuditObject().getAuditType().getId(),riskScoreVal));
+//                    annualPlanRepository.save(annualPlan);
+//                }
 
 
                  }
@@ -383,7 +378,11 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
             for (AnnualPlan annualPlan:annualPlans) {
                 if (Objects.equals(annualPlan.getAuditObject().getAuditType().getId(), auditType.getId())){
                     loger.info("same type");
-                    annualPlan.setRiskLevel(getRiskLevel(annualPlan.getAuditObject().getAuditType().getId(),annualPlan.getRiskScore()));
+                    try {
+                        annualPlan.setRiskLevel(getRiskLevel(annualPlan.getAuditObject().getAuditType().getId(), (int) annualPlan.getRiskScore()));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                     annualPlanRepository.save(annualPlan);
 
 
@@ -399,33 +398,115 @@ public class AnnualPlanServiceImpl implements AnnualPlanService {
         riskItems.forEach(riskItem -> {
             RiskScoreDTO riskScoreDTO = new RiskScoreDTO();
             riskScoreDTO.setRiskItem(RiskItemMapper.INSTANCE.toDTO(riskItem));
-            riskScoreDTO.setLikelihood(2);
-            riskScoreDTO.setImpact(2);
             riskScores.add(riskScoreDTO);
         });
 
         return riskScores;
     }
 
-    public int  saveRiskScore(List<RiskScoreDTO> riskScoreDTOS, AnnualPlan annualPlan) {
-        loger.info("using these dtos :{}",riskScoreDTOS);
-        int totalScore = 0;
-        if (!riskScoreDTOS.isEmpty()) {
+//    public int  saveRiskScore(List<RiskScoreDTO> riskScoreDTOS, AnnualPlan annualPlan) {
+//        loger.info("using these dtos :{}",riskScoreDTOS);
+//        int totalScore = 0;
+//        if (!riskScoreDTOS.isEmpty()) {
+//
+//            for (RiskScoreDTO riskScoreDTO : riskScoreDTOS) {
+//                int score = riskScoreDTO.getImpact();
+//                totalScore += score;
+//                riskScoreDTO.setTotal(score);
+//                RiskScore riskScore = RiskScoreMapper.INSTANCE.toEntity(riskScoreDTO);
+//                riskScore.setAnnualPlan(annualPlan);
+//                riskScoreRepository.save(riskScore);
+//            }
+//        }
+//
+//        return totalScore;
+//    }
 
+
+
+    // Set the total score in the DTO (store as double to avoid rounding issues)
+
+    // Map RiskScoreDTO to RiskScore entity and save it
+//            RiskScore riskScore = RiskScoreMapper.INSTANCE.toEntity(riskScoreDTO);
+//            riskScore.setAnnualPlan(annualPlan);
+//            System.out.println("save specific risk score");
+//            riskScoreRepository.save(riskScore);
+//public double saveRiskScore(List<RiskScoreDTO> riskScoreDTOS, AnnualPlan annualPlan) {
+//    loger.info("using these dtos :{}", riskScoreDTOS);
+//    double totalScore = 0.0;  // Use double for total score to keep precision
+//
+//    // Make sure the list is not empty
+//    if (!riskScoreDTOS.isEmpty()) {
+//        for (RiskScoreDTO riskScoreDTO : riskScoreDTOS) {
+//            System.out.println("for " + riskScoreDTO.getRiskItem().getName());
+//            // Get the weight of the RiskItem (assuming it is stored in the RiskItem object)
+//            double weight = riskScoreDTO.getRiskItem().getWeight();  // Assuming 'getWeight' method exists
+//            System.out.println("its weight " + weight);
+//            int impact = riskScoreDTO.getImpact();
+//            System.out.println("its impact " + impact);
+//
+//            // Multiply impact by weight (weight is a percentage, so divide by 100 to get a multiplier)
+//            double weightedImpact = impact * (weight / 100.0);  // Multiply impact by weight as percentage
+//            System.out.println("its weighted impact " + weightedImpact);
+//
+//            // Add the weighted impact to totalScore
+//            totalScore += weightedImpact;
+//
+//
+//        }
+//    }
+//
+//    return totalScore;  // Return the total score as a double
+//}
+
+    public double saveRiskScore(List<RiskScoreDTO> riskScoreDTOS, AnnualPlan annualPlan) {
+        loger.info("Using these DTOs: {}", riskScoreDTOS);
+        double totalScore = 0.0;  // Use double for total score to keep precision
+
+        // Make sure the list is not empty
+        if (!riskScoreDTOS.isEmpty()) {
             for (RiskScoreDTO riskScoreDTO : riskScoreDTOS) {
-                int score = riskScoreDTO.getImpact() * riskScoreDTO.getLikelihood();
-                totalScore += score;
-                riskScoreDTO.setTotal(score);
-                RiskScore riskScore = RiskScoreMapper.INSTANCE.toEntity(riskScoreDTO);
-                riskScore.setAnnualPlan(annualPlan);
+                System.out.println("For RiskItem: " + riskScoreDTO.getRiskItem().getName());
+
+                // Get the weight of the RiskItem (assuming it is stored in the RiskItem object)
+                double weight = riskScoreDTO.getRiskItem().getWeight();  // Assuming 'getWeight' method exists
+                System.out.println("Its weight: " + weight);
+
+                int impact = riskScoreDTO.getImpact();
+                System.out.println("Its impact: " + impact);
+
+                // Multiply impact by weight (weight is a percentage, so divide by 100 to get a multiplier)
+                double weightedImpact = impact * (weight / 100.0);  // Multiply impact by weight as percentage
+                System.out.println("Its weighted impact: " + weightedImpact);
+
+                // Add the weighted impact to the totalScore
+                totalScore += weightedImpact;
+
+                // Persist the RiskScore entity
+                RiskScore riskScore;
+
+                // If the RiskScore has an ID (it exists in the database), update it; otherwise, create a new one
+                if (riskScoreDTO.getId() != null) {
+                    // Fetch existing RiskScore from the database
+                    riskScore = riskScoreRepository.findById(riskScoreDTO.getId()).orElse(new RiskScore());
+                } else {
+                    // Create a new RiskScore if no ID is provided
+                    riskScore = new RiskScore();
+                }
+
+                // Set values for the RiskScore entity
+                riskScore.setImpact(impact);
+
+                // Save the RiskScore entity (either update or create)
                 riskScoreRepository.save(riskScore);
             }
         }
 
-        return totalScore;
+        return totalScore;  // Return the total score as a double
     }
 
-    public String getRiskLevel(Long auditType, int riskScore) {
+    @Override
+public String getRiskLevel(Long auditType, int riskScore) {
         RiskLevel riskLevels = riskLevelRepository.findByAuditTypeId(auditType);
         if (riskScore >= riskLevels.getHigh()) {
             return "H";

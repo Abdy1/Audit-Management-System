@@ -28,7 +28,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service("auditScheduleService")
 @Transactional
@@ -281,4 +280,33 @@ public class AuditScheduleServiceImpl implements AuditScheduleService {
         resultWrapper.setMessage("Audit Schedule added to engagement successfully.");
         return resultWrapper;
     }
+    @Override
+    public ResultWrapper<String> deleteAuditScheduleById(Long auditScheduleId) {
+        ResultWrapper<String> resultWrapper = new ResultWrapper<>();
+
+        // Fetch the audit schedule by ID
+        Optional<AuditSchedule> auditScheduleOptional = auditScheduleRepository.findById(auditScheduleId);
+
+        if (!auditScheduleOptional.isPresent()) {
+            resultWrapper.setStatus(false);
+            resultWrapper.setMessage("Audit schedule not found.");
+            return resultWrapper;
+        }
+
+        AuditSchedule auditSchedule = auditScheduleOptional.get();
+
+        // Remove associated team members
+        List<TeamMember> teams = teamMemberRepository.findAllTeamsOfSchedule(auditScheduleId);
+        for (TeamMember team : teams) {
+            teamMemberRepository.delete(team);
+        }
+
+        // Delete the audit schedule
+        auditScheduleRepository.delete(auditSchedule);
+
+        resultWrapper.setStatus(true);
+        resultWrapper.setMessage("Audit schedule deleted successfully.");
+        return resultWrapper;
+    }
+
 }

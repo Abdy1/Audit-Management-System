@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class ScheduleController {
     @Autowired
     AuditScheduleService auditScheduleService;
@@ -74,5 +75,10 @@ public class ScheduleController {
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
 
+    @DeleteMapping(value = "ams/audit-schedules/delete/{auditScheduleId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultWrapper<String>> deleteAuditSchedule(@PathVariable Long auditScheduleId) {
+        ResultWrapper<String> resultWrapper = auditScheduleService.deleteAuditScheduleById(auditScheduleId);
+        return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
+    }
 
 }

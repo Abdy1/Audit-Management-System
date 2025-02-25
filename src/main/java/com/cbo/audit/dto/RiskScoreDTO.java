@@ -11,13 +11,11 @@ public class RiskScoreDTO extends BaseDTO {
 
     private RiskItemDTO riskItem;
 
-    private int likelihood;
+    private AnnualPlanDTO annualPlan;
+
 
     private int impact;
 
     private int total;
 
-    private double percentage;
-
-    private boolean isWaited;
 }

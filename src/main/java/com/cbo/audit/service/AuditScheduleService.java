@@ -27,4 +27,6 @@ public interface AuditScheduleService {
     ResultWrapper<EngagementDTO> addAuditScheduleToEngagement(EngagementDTO engagementDTO);
 
     ResultWrapper<List<AuditScheduleDTO>> getAuditScheduleByAnnualPlanId(Long id);
+
+    ResultWrapper<String> deleteAuditScheduleById(Long auditScheduleId);
 }

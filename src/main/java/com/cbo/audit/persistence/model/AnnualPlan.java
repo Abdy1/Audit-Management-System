@@ -1,5 +1,6 @@
 package com.cbo.audit.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +22,7 @@ public class AnnualPlan extends BaseEntity {
     private String riskLevel;
 
     @Column(name = "RISK_SCORE")
-    private int riskScore;
+    private double riskScore;
 
     @Column(name = "STATUS")
     private String status;
@@ -34,6 +35,7 @@ public class AnnualPlan extends BaseEntity {
     @JoinColumn(name = "AUDIT_OBJECT_ID")
     private AuditObject auditObject;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "annualPlan", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<RiskScore> riskScores;
 

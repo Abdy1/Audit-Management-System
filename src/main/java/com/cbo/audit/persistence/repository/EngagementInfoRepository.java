@@ -8,13 +8,20 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface EngagementInfoRepository extends JpaRepository<EngagementInfo, Long> {
+public interface  EngagementInfoRepository extends JpaRepository<EngagementInfo, Long> {
 
     @Query(" SELECT AUDIT FROM EngagementInfo AUDIT JOIN FETCH AUDIT.auditSchedule WHERE AUDIT.auditSchedule.id = :scheduleId ")
     EngagementInfo findAuditEngagementBySchedule(@Param("scheduleId") Long scheduleId);
 
     @Query(" SELECT AUDIT FROM EngagementInfo AUDIT WHERE AUDIT.auditSchedule.year = :year")
     List<EngagementInfo> findEngagementByYear(@Param("year") String year);
+
+    @Query(value = "SELECT e, al FROM ams_engagement_info e " +
+            "LEFT JOIN ams_auditee_list al ON e.id = al.audit_engagement_id " +  // Join with ams_auditees_list
+            "LEFT JOIN ams_audit_schedule s ON e.audit_schedule_id = s.id " +    // Join with ams_audit_schedule for the year
+            "WHERE s.year = :year", nativeQuery = true)
+    List<Object[]> findEngagementsWithAuditees(@Param("year") String year);
+
 
     @Query(" SELECT AUDIT FROM EngagementInfo AUDIT WHERE AUDIT.auditSchedule.year = :year" +
             " AND AUDIT.auditSchedule.quarter = :quarter")

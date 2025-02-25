@@ -13,6 +13,8 @@ public interface EngagementService {
 
     ResultWrapper<List<EngagementDTO>> getAuditEngagements();
 
+    ResultWrapper<List<EngagementDTO>>  getAuditEngagementsWithAuditees();
+
     ResultWrapper<List<EngagementDTO>> getAllAuditEngagementByQuarter(int quarter);
 
     ResultWrapper<List<EngagementDTO>> getAllAuditEngagementByYear(String year);

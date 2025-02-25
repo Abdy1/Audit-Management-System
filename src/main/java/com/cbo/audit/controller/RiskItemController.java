@@ -44,7 +44,6 @@ public class RiskItemController {
 
     @PostMapping(value = URIs.RISK_ITEM_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<RiskItemDTO>> updateRiskItem(@RequestBody RiskItemDTO riskItemDTO) {
-
         ResultWrapper<RiskItemDTO> resultWrapper = riskItemService.updateRiskItem(riskItemDTO);
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);

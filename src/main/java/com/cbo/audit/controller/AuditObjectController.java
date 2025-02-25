@@ -10,8 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -66,5 +70,24 @@ public class AuditObjectController {
         ResultWrapper<AuditObjectDTO> resultWrapper = auditObjectService.approveAuditObject(id);
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }
+
+    @PostMapping("/ams/upload")
+    public ResponseEntity<Map<String, String>> uploadExcelFile(@RequestParam("file") MultipartFile file, @RequestParam("auditType") Long auditTypeId) {
+        try {
+            auditObjectService.uploadAuditObjectsFromExcel(file,auditTypeId);
+            // Return a structured JSON response
+            Map<String, String> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("message", "File uploaded successfully!");
+            return ResponseEntity.ok(response);
+        } catch (IOException e) {
+            // Return error response
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("status", "error");
+            errorResponse.put("message", "Error uploading file: " + e.getMessage());
+            return ResponseEntity.status(500).body(errorResponse);
+        }
+    }
+
 
 }

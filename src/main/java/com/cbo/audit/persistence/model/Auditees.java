@@ -16,6 +16,10 @@ public class Auditees extends BaseEntity {
     @Column(name = "USER_ID")
     private String userId;
 
+    @ManyToOne
+    @JoinColumn(name = "AUDIT_ENGAGEMENT_ID", referencedColumnName = "id")
+    private EngagementInfo engagementInfo; // This links back to EngagementInfo
+
 
 
 }

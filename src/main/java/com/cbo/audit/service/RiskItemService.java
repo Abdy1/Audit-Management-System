@@ -20,5 +20,5 @@ public interface RiskItemService {
 
     ResultWrapper<RiskItemDTO> deleteRiskItem(RiskItemDTO riskItemDTO);
 
-
+    Integer weightOfRest(Long riskItemId, Long auditTypeId);
 }

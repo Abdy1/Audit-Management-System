@@ -15,7 +15,7 @@ public interface AnnualPlanService {
 
     ResponseEntity<ResultWrapper<AnnualPlanDTO>> registerAnnualPlan(AnnualPlanDTO auditUniverseDTO);
 
-    ResultWrapper<List<AnnualPlanDTO>> getAllAnnualPlan();
+    ResultWrapper<List<AnnualPlan>> getAllAnnualPlan();
 
     ResultWrapper<AnnualPlanDTO> getAnnualPlanById(Long id);
 
@@ -23,7 +23,7 @@ public interface AnnualPlanService {
 
     ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByYear(String year);
 
-    ResultWrapper<AnnualPlanDTO> updateAnnualPlan(AnnualPlanDTO auditUniverseDTO);
+    ResultWrapper<AnnualPlan> updateAnnualPlan(AnnualPlanDTO auditUniverseDTO);
 
 
     ResultWrapper<List<AnnualPlanDTO>> getAnnualPlanByAuditObjectId(Long id);
@@ -42,4 +42,5 @@ public interface AnnualPlanService {
 
     ResultWrapper<AnnualPlanDTO> approveAnnualPlan(Long id);
 
+    String getRiskLevel(Long auditType, int riskScore);
 }

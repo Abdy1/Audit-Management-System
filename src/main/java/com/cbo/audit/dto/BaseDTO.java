@@ -20,7 +20,6 @@ public abstract class BaseDTO implements Serializable {
 
     private String modifiedUser;
 
-    @JsonIgnore
     private LocalDateTime createdTimestamp;
 
     private LocalDateTime modifiedTimestamp;

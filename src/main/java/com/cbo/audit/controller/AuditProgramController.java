@@ -36,7 +36,7 @@ public class AuditProgramController {
     @PostMapping(value = URIs.AUDIT_PROGRAM_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 
     public ResponseEntity<ResultWrapper<AuditProgramDTO>> updateAuditProgram(@RequestBody AuditProgramDTO auditProgramDTO) {
-
+        System.out.println("updating");
         ResultWrapper<AuditProgramDTO> resultWrapper = auditProgramService.updateAuditProgram(auditProgramDTO);
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);

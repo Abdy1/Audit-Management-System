@@ -16,5 +16,8 @@ public class RiskItemDTO extends BaseDTO {
 
     private int strategicObjectiveLink;
 
+    private int weight;
+
     private AuditType auditType;
+
 }

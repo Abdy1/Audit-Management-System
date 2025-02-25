@@ -4,7 +4,9 @@ import com.cbo.audit.dto.AuditObjectDTO;
 import com.cbo.audit.dto.ResultWrapper;
 import com.cbo.audit.persistence.model.AuditObject;
 import com.cbo.audit.persistence.model.AuditType;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,4 +27,6 @@ public interface AuditObjectService {
     ResultWrapper<List<AuditObjectDTO>> getAuditObjectByAuditType(String auditType);
 
     public ResultWrapper<AuditObjectDTO> approveAuditObject(Long id);
+
+    public void uploadAuditObjectsFromExcel(MultipartFile file, Long auditTypeId) throws IOException;
 }

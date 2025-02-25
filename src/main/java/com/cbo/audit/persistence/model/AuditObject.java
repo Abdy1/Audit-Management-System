@@ -19,7 +19,6 @@ public class AuditObject extends BaseEntity {
     @Column(name = "DESCRIPTION")
     private String description;
 
-
     @Column(name = "STATUS")
     private String status;
 
@@ -30,6 +29,4 @@ public class AuditObject extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "AUDIT_TYPE")
     private AuditType auditType;
-
-
 }

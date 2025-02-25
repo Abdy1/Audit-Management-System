@@ -22,7 +22,6 @@ public class AuditeesDTO extends BaseDTO {
     private String userId;
 
 
-    private EngagementInfo engagementInfo;
 
 
 }

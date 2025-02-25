@@ -84,25 +84,33 @@ public class RiskItemServiceImpl implements RiskItemService {
     public ResultWrapper<RiskItemDTO> updateRiskItem(RiskItemDTO riskItemDTO) {
         ResultWrapper<RiskItemDTO> resultWrapper = new ResultWrapper<>(riskItemDTO);
 
-        RiskItem oldChecklist = riskItemRepository.findById(riskItemDTO.getId()).orElse(null);
+        RiskItem oldRiskItem = riskItemRepository.findById(riskItemDTO.getId()).orElse(null);
 
-        if (oldChecklist != null) {
+        if (oldRiskItem != null) {
             if (riskItemDTO.getName() == null) {
                 resultWrapper.setStatus(false);
-                resultWrapper.setMessage("Risk Item name cannot be null.");
+                resultWrapper.setMessage("Please provide name.");
             }
-            {
+
 
                 RiskItem riskItem = RiskItemMapper.INSTANCE.toEntity(riskItemDTO);
 
-                riskItem.setCreatedTimestamp(oldChecklist.getCreatedTimestamp());
-                riskItem.setCreatedUser(oldChecklist.getCreatedUser());
+                if(weightOfRest(riskItem.getId(),riskItem.getAuditType().getId()) + riskItem.getWeight() > 100){
+                    resultWrapper.setStatus(false);
+                    resultWrapper.setMessage("Weights of risk item should not pass 100%");
+                }else {
+                    riskItem.setModifiedTimestamp(LocalDateTime.now());
 
-                RiskItem savedUniverse = riskItemRepository.save(riskItem);
-                resultWrapper.setResult(RiskItemMapper.INSTANCE.toDTO(savedUniverse));
-                resultWrapper.setStatus(true);
-                resultWrapper.setMessage("Risk Item updated successfully.");
-            }
+                    RiskItem savedRepository = riskItemRepository.save(riskItem);
+                    resultWrapper.setResult(RiskItemMapper.INSTANCE.toDTO(savedRepository));
+                    resultWrapper.setStatus(true);
+                    resultWrapper.setMessage("Risk Item updated successfully.");
+
+                }
+
+
+
+
         } else {
             resultWrapper.setStatus(false);
             resultWrapper.setMessage(noRiskItem);
@@ -128,4 +136,16 @@ public class RiskItemServiceImpl implements RiskItemService {
 
         return resultWrapper;
     }
+    @Override
+    public Integer weightOfRest(Long riskItemId, Long auditTypeId) {
+        Long weight = riskItemRepository.weightOfRest(riskItemId,auditTypeId);
+        System.out.println("rest value is"+ weight);
+        if (weight != null) {
+            return weight.intValue(); // Converts Long to int (which is the primitive type)
+        } else {
+            return 0; // Or whatever default value you want to return when there's no result
+        }
+    }
+
+
 }

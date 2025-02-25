@@ -71,15 +71,16 @@ public class WBSServiceImpl implements WBSService {
         ResultWrapper<AuditProgramWBSDTO> resultWrapper = new ResultWrapper<>(auditProgramWBSDTO);
         WBS oldWBS = auditProgramWBSRepository.findById(auditProgramWBSDTO.getId()).orElse(null);
         if (oldWBS != null) {
-            if (auditProgramWBSDTO.getStartOn() == null) {
-                resultWrapper.setStatus(false);
-                resultWrapper.setMessage("Audit WBS Starting Date  cannot be null.");
-
-            } else if (auditProgramWBSDTO.getEndOn() == null) {
-                resultWrapper.setStatus(false);
-                resultWrapper.setMessage("Audit WBS Ending Date  cannot be null.");
-
-            } else if (auditProgramWBSDTO.getName() == null) {
+//            if (auditProgramWBSDTO.getStartOn() == null) {
+//                resultWrapper.setStatus(false);
+//                resultWrapper.setMessage("Audit WBS Starting Date  cannot be null.");
+//
+//            } else if (auditProgramWBSDTO.getEndOn() == null) {
+//                resultWrapper.setStatus(false);
+//                resultWrapper.setMessage("Audit WBS Ending Date  cannot be null.");
+//
+//            } else
+                if (auditProgramWBSDTO.getName() == null) {
                 resultWrapper.setStatus(false);
                 resultWrapper.setMessage("Audit WBS name cannot be null.");
 

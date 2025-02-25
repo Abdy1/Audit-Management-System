@@ -135,6 +135,7 @@ public class AuditProgramServiceImpl implements AuditProgramService {
 
     @Override
     public ResultWrapper<AuditProgramDTO> updateAuditProgram(AuditProgramDTO auditProgramDTO) {
+        System.out.println("please wait");
         ResultWrapper<AuditProgramDTO> resultWrapper = new ResultWrapper<>(auditProgramDTO);
 
         AuditProgram oldAuditProgramDTO = auditProgramRepository.findById(auditProgramDTO.getId()).orElse(null);
@@ -152,7 +153,7 @@ public class AuditProgramServiceImpl implements AuditProgramService {
 
                 auditProgram.setCreatedTimestamp(oldAuditProgramDTO.getCreatedTimestamp());
                 auditProgram.setCreatedUser(oldAuditProgramDTO.getCreatedUser());
-
+                System.out.println(auditProgram.getComment());
                 AuditProgram savedAuditProgram = auditProgramRepository.save(auditProgram);
                 resultWrapper.setResult(AuditProgramMapper.INSTANCE.toDTO(savedAuditProgram));
                 resultWrapper.setStatus(true);

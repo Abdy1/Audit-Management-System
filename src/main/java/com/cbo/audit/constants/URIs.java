@@ -7,7 +7,14 @@ public final class URIs {
     public static final String AUDIT_PROGRAM_FINDING_COMMENT = "comment/";
     public static final String REPORT = "/report/";
     private static final String APPLICATION_CONTEXT = "ams";
+
+
     public static final String BUDGET_YEAR = APPLICATION_CONTEXT + "/year/change";
+    public static final String BUDGET_YEAR_CURRENT = APPLICATION_CONTEXT + "/year/current";
+
+
+
+
     public static final String AUDIT_UNIVERSE = APPLICATION_CONTEXT + "/auditUniverse/";
     public static final String AUDIT_UNIVERSE_BY_ID = AUDIT_UNIVERSE + "findById";
     public static final String AUDIT_UNIVERSE_APPROVE = AUDIT_UNIVERSE + "approve";
@@ -88,6 +95,7 @@ public final class URIs {
     public static final String AUDIT_PROGRAM_FINDING_REGISTER = AUDIT_PROGRAM + AUDIT_PROGRAM_FINDING + REGISTER;
     public static final String AUDIT_PROGRAM_FINDING_COMMENT_REGISTER = AUDIT_PROGRAM + AUDIT_PROGRAM_FINDING + AUDIT_PROGRAM_FINDING_COMMENT + REGISTER;
     public static final String AUDIT_SCHEDULE_REGISTER = AUDIT_SCHEDULE + REGISTER;
+
     public static final String AUDIT_OBJECT_REGISTER = AUDIT_OBJECT + REGISTER;
     public static final String TEAM_MEMBER_REGISTER = TEAM_MEMBER + REGISTER;
     public static final String RESOURCE_REGISTER = RESOURCE + REGISTER;

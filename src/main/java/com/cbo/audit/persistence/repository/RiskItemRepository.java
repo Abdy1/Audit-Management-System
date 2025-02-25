@@ -11,4 +11,9 @@ public interface RiskItemRepository extends JpaRepository<RiskItem, Long> {
 
     @Query("SELECT RI FROM RiskItem RI WHERE RI.auditType.id = :auditTypeId")
     List<RiskItem> findByRiskType(@Param("auditTypeId") Long auditTypeId);
+
+    @Query("SELECT SUM(WOR.weight) FROM RiskItem WOR WHERE WOR.auditType.id = :auditTypeId AND WOR.id != :riskItemId")
+    Long weightOfRest(@Param("riskItemId") Long riskItemId, @Param("auditTypeId") Long auditTypeId);
+
+
 }

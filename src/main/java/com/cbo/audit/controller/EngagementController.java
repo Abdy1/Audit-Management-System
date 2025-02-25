@@ -33,7 +33,7 @@ public class EngagementController {
     @GetMapping(value = URIs.AUDIT_ENGAGEMENT_LIST_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultWrapper<List<EngagementDTO>>> getAuditEngagements() {
 
-        ResultWrapper<List<EngagementDTO>> resultWrapper = engagementService.getAuditEngagements();
+        ResultWrapper<List<EngagementDTO>> resultWrapper = engagementService.getAuditEngagementsWithAuditees();
 
         return new ResponseEntity<>(resultWrapper, HttpStatus.OK);
     }

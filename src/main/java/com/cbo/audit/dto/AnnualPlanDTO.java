@@ -17,7 +17,7 @@ public class AnnualPlanDTO extends BaseDTO {
 
     private String riskLevel;
 
-    private int riskScore;
+    private double riskScore;
 
     private String status;
 
